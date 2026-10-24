@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* Máy nằm ngang: chiều cao là trục hiếm, không phải chiều rộng. Dùng `short:` */
+@custom-variant short (@media (max-height: 32rem));
+
+/* ============================================================
+   GLOW BASE — cầu nối giữa content/theme.ts và Tailwind.
+   ------------------------------------------------------------
+   KHÔNG viết giá trị màu / size / khoảng cách trong file này.
+   Mọi con số nằm ở content/theme.ts; ở đây chỉ đặt tên utility
+   cho chúng (`@theme inline`) và ghép thành class dùng chung.
+   ============================================================ */
+
+@theme inline {
+  /* ---- màu ------------------------------------------------- */
+  --color-cream: var(--t-color-cream);
+  --color-cream-deep: var(--t-color-cream-deep);
+  --color-forest: var(--t-color-forest);
+  --color-forest-deep: var(--t-color-forest-deep);
+  --color-forest-soft: var(--t-color-forest-soft);
+  --color-ink: var(--t-color-ink);
+  --color-ink-soft: var(--t-color-ink-soft);
+  --color-gold: var(--t-color-gold);
+  --color-gold-soft: var(--t-color-gold-soft);
+  --color-surface: var(--t-color-surface);
+  --color-line: var(--t-color-line);
+
+  /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
+  --color-tone-bg: var(--t-section-bg);
+  --color-tone-fg: var(--t-section-fg);
+  --color-tone-muted: var(--t-section-muted);
+  --color-tone-accent: var(--t-section-accent);
+  --color-tone-line: var(--t-section-line);
+  --color-tone-contrast: var(--t-section-contrast);
+
+  /* ---- chữ ------------------------------------------------- */
+  --font-display: var(--t-font-display);
+  --font-body: var(--t-font-body);
+  --font-script: var(--t-font-script);
+
+  --text-display: var(--t-text-display);
+  --text-display--line-height: var(--t-leading-display);
+  --text-display--letter-spacing: var(--t-tracking-display);
+  --text-h1: var(--t-text-h1);
+  --text-h1--line-height: var(--t-leading-h1);
+  --text-h1--letter-spacing: var(--t-tracking-h1);
+  --text-h2: var(--t-text-h2);
+  --text-h2--line-height: var(--t-leading-h2);
+  --text-h2--letter-spacing: var(--t-tracking-h2);
+  --text-h3: var(--t-text-h3);
+  --text-h3--line-height: var(--t-leading-h3);
+  --text-h4: var(--t-text-h4);
+  --text-h4--line-height: var(--t-leading-h4);
+  --text-lead: var(--t-text-lead);
+  --text-lead--line-height: var(--t-leading-lead);
+  --text-base: var(--t-text-body);
+  --text-base--line-height: var(--t-leading-body);
+  --text-small: var(--t-text-small);
+  --text-small--line-height: var(--t-leading-small);
+  --text-eyebrow: var(--t-text-eyebrow);
+  --text-eyebrow--line-height: var(--t-leading-eyebrow);
+  --text-eyebrow--letter-spacing: var(--t-tracking-eyebrow);
+
+  /* ---- khoảng cách ---------------------------------------- */
+  --spacing-gutter: var(--t-space-gutter);
+  --spacing-section: var(--t-space-section);
+  --spacing-block: var(--t-space-block);
+  --spacing-stack: var(--t-space-stack);
+  --spacing-tight: var(--t-space-tight);
+  --spacing-tap: var(--t-size-tap);
+
+  --container-site: var(--t-size-container-site);
+  --container-prose: var(--t-size-container-prose);
+
+  /* ---- hình khối, chuyển động ------------------------------ */
+  --radius-paper: var(--t-radius-paper);
+  --radius-card: var(--t-radius-card);
+  --radius-btn: var(--t-radius-btn);
+  --shadow-paper: var(--t-shadow-paper);
+  --shadow-lift: var(--t-shadow-lift);
+  --ease-glow: var(--t-ease);
+
+  --animate-sway: glow-sway 7s ease-in-out infinite;
+  --animate-nudge: glow-nudge 1.6s ease-in-out infinite;
+
+  @keyframes glow-sway {
+    0%,
+    100% {
+      transform: rotate(-2.5deg);
+    }
+    50% {
+      transform: rotate(2.5deg);
+    }
+  }
+  @keyframes glow-nudge {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+}
+
+/* ---------------------------------------------------------- BASE */
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--t-color-cream);
+  /* iOS: không phóng chữ khi quay ngang, không nảy quá mép trang */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+}
+
+body {
+  background-color: var(--t-color-cream);
+  color: var(--t-color-ink);
+  font-family: var(--t-font-body);
+  font-size: var(--t-text-body);
+  line-height: var(--t-leading-body);
+  font-weight: var(--t-weight-body);
+  -webkit-font-smoothing: antialiased;
+  /* Không loé xám khi chạm — cả trang điều khiển bằng ngón tay */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+  Khoá cuộn khi thiệp chưa mở. `overflow: hidden` một mình vẫn rò quán tính
+  cuộn trên iOS, nên chặn cả touch.
+*/
+body[data-locked="true"] {
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--t-font-display);
+  font-weight: var(--t-weight-display);
+  text-wrap: balance;
+}
+
+::selection {
+  background-color: var(--t-color-gold-soft);
+  color: var(--t-color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--t-section-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------- COMPONENTS */
+
+@layer components {
+  /*
+    Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
+
+    Ẩn sẵn bằng CSS để không nháy một nhịp trước khi GSAP kịp chạy. JS tắt thì
+    thẻ <noscript> trong layout.tsx trả lại opacity, nên khách vẫn đọc đủ thiệp.
+  */
+  [data-reveal] {
+    opacity: 0;
+  }
+
+  .container-site {
+    width: 100%;
+    max-width: var(--t-size-container-site);
+    margin-inline: auto;
+    /* max() để chừa chỗ cho tai thỏ khi máy nằm ngang */
+    padding-left: max(var(--t-space-gutter), env(safe-area-inset-left));
+    padding-right: max(var(--t-space-gutter), env(safe-area-inset-right));
+  }
+
+  .container-prose {
+    width: 100%;
+    max-width: var(--t-size-container-prose);
+    margin-inline: auto;
+    padding-left: max(var(--t-space-gutter), env(safe-area-inset-left));
+    padding-right: max(var(--t-space-gutter), env(safe-area-inset-right));
+  }
+
+  /* Băng ảnh kéo ngang — dùng cho Love Story và Gallery. Cuộn gốc của
+     trình duyệt: vuốt được trên máy, không cần thư viện carousel nào. */
+  .reel {
+    display: flex;
+    gap: var(--t-space-stack);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Tràn hết bề ngang trên điện thoại để thẻ kế tiếp hé vào từ mép */
+    margin-inline: calc(var(--t-space-gutter) * -1);
+    padding-inline: var(--t-space-gutter);
+    padding-block: var(--t-space-tight);
+    overscroll-behavior-x: contain;
+  }
+
+  .reel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .reel > * {
+    scroll-snap-align: center;
+    flex: none;
+  }
+
+  /* Ô nhập của form RSVP. Giữ font-size >= 16px, nếu nhỏ hơn iOS Safari
+     sẽ tự phóng cả trang khi người dùng chạm vào ô. */
+  .field-input {
+    width: 100%;
+    min-height: var(--t-size-tap);
+    padding: 0.65rem 0.25rem;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--t-section-line);
+    border-radius: 0;
+    appearance: none;
+    color: inherit;
+    font-family: var(--t-font-body);
+    font-size: var(--t-text-body);
+    transition: border-color var(--t-duration-fast) var(--t-ease);
+  }
+
+  .field-input::placeholder {
+    color: currentColor;
+    opacity: 0.4;
+  }
+
+  .field-input:focus {
+    outline: none;
+    border-bottom-color: var(--t-section-accent);
+  }
+
+  textarea.field-input {
+    min-height: 7rem;
+    line-height: var(--t-leading-body);
+    resize: vertical;
+  }
+}
