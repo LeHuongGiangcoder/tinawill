@@ -1,66 +1,55 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { useExperience } from "@/components/experience/ExperienceProvider";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
-import { Eyebrow, Heading } from "@/components/ui/Heading";
-import { couple, design, intro } from "@/content/client";
-import { background as resolveBackground } from "@/lib/assets";
+import { design, intro } from "@/content/client";
 
 /**
- * Màn mở thiệp. Nằm phủ kín màn hình, giữ trang khoá cuộn cho tới khi khách
- * bấm "Mở thiệp" — chính cú chạm đó bật nhạc (xem ExperienceProvider).
+ * Màn mở thiệp: một tấm giấy giữa khu vườn.
  *
- * Mở xong thì component tự bỏ khỏi cây DOM, nên không có gì chặn cuộn nữa.
+ * Nền của màn này KHÔNG nằm ở đây — nó là <GardenStage> của hero, lúc này
+ * đang ở trạng thái lá che kín giữa khung. Nhờ vậy khi khách bấm "Open
+ * invitation", lá rút ra hai bên trong cùng một cảnh thay vì đổi sang một ảnh
+ * khác; tấm giấy chỉ việc mờ đi để lộ mặt nước.
+ *
+ * Trang vẫn khoá cuộn cho tới khi thiệp mở (xem ExperienceProvider). Bấm xong
+ * thì tấm giấy mờ dần rồi component tự bỏ khỏi cây DOM.
  */
 export function Intro() {
   const { opened, open } = useExperience();
+  const [gone, setGone] = useState(false);
 
-  if (opened) return null;
+  // Chờ tấm giấy mờ hết rồi mới tháo khỏi DOM, không giật một nhịp.
+  useEffect(() => {
+    if (!opened) return;
+    const timer = window.setTimeout(() => setGone(true), 900);
+    return () => window.clearTimeout(timer);
+  }, [opened]);
 
-  /* Màn mở thiệp không dùng SectionWrapper (nó phủ kín màn hình, nằm ngoài
-     luồng cuộn), nên nó tự đọc phần mặt nhìn của mình từ `design`. */
-  const spec = design.intro;
-  const background = resolveBackground(spec.background);
+  if (gone) return null;
 
   return (
     <div
-      data-tone={spec.tone}
+      data-tone={design.intro.tone}
       role="dialog"
       aria-modal="true"
-      aria-label={intro.eyebrow}
-      className="fixed inset-0 z-40 flex items-center justify-center bg-tone-bg text-tone-fg"
+      aria-label={intro.label}
+      className={[
+        "fixed inset-0 z-40 flex items-center justify-center transition-opacity duration-700 ease-glow",
+        opened ? "pointer-events-none opacity-0" : "opacity-100",
+      ].join(" ")}
     >
-      {background ? (
-        <>
-          <Image src={background.src} alt="" fill sizes="100vw" priority className="object-cover" />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-tone-bg"
-            style={{ opacity: spec.overlay ?? 0.55 }}
-          />
-        </>
-      ) : null}
+      <div className="container-prose flex justify-center">
+        <div className="card flex w-full max-w-[22rem] flex-col items-center gap-stack text-center">
+          <p className="font-script text-h3">{intro.note}</p>
 
-      <div className="container-prose relative flex flex-col items-center gap-stack text-center">
-        <Eyebrow>{intro.eyebrow}</Eyebrow>
+          <Divider diamond />
 
-        <Heading level="h1" className="flex flex-col items-center short:text-h2">
-          {/* Tina & Will — thiệp gọi tên cô dâu trước */}
-          <span>{couple.bride}</span>
-          <span className="font-script text-h2 text-tone-accent">&amp;</span>
-          <span>{couple.groom}</span>
-        </Heading>
-
-        <Divider diamond />
-
-        <p className="font-script text-h3">{intro.note}</p>
-
-        <Button onClick={open} className="mt-stack">
-          {intro.cta}
-        </Button>
+          <Button onClick={open}>{intro.cta}</Button>
+        </div>
       </div>
     </div>
   );

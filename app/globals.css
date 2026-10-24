@@ -82,6 +82,7 @@
 
   --animate-sway: glow-sway 7s ease-in-out infinite;
   --animate-nudge: glow-nudge 1.6s ease-in-out infinite;
+  --animate-ripple: glow-ripple 6s ease-out infinite;
 
   @keyframes glow-sway {
     0%,
@@ -99,6 +100,21 @@
     }
     50% {
       transform: translateX(5px);
+    }
+  }
+  /* Vòng gợn trên mặt nước: lan ra rồi tan. Đây là chuyển động của nước,
+     không phải hoạ tiết bị làm mờ cho chìm xuống nền. */
+  @keyframes glow-ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0.55);
+      opacity: 0;
+    }
+    18% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.45);
+      opacity: 0;
     }
   }
 }
@@ -231,6 +247,53 @@ h4 {
   .reel > * {
     scroll-snap-align: center;
     flex: none;
+  }
+
+  /*
+    Khung tranh dọc 9/16 phủ kín khung cha kiểu "cover": luôn chạm cả hai
+    chiều, phần thừa bị cắt. Dùng cho cảnh ghép nhiều lớp mà toạ độ từng lớp
+    tính theo phần trăm của một khung có tỉ lệ cố định — co giãn khung chứ
+    không tính lại toạ độ cho từng bề rộng màn hình.
+  */
+  .cover-9x16 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max(100%, calc(100svh * 9 / 16));
+    height: max(100%, calc(100vw * 16 / 9));
+  }
+
+  /* Một vòng nước lan ra từ tâm của khối cha. */
+  .ripple {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: 150%;
+    aspect-ratio: 1;
+    border: 1px solid var(--t-section-fg);
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+    animation: var(--animate-ripple);
+    pointer-events: none;
+  }
+
+  .ripple-late {
+    animation-delay: 2.5s;
+  }
+
+  /*
+    Quầng nền mềm sau một khối chữ nằm trên ảnh. Không phải lớp làm mờ hoạ
+    tiết — nó chỉ giữ cho chữ đọc được trên nền ảnh nhiều chi tiết, giống vai
+    trò của `overlay` trong SectionWrapper.
+  */
+  .scrim {
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--t-section-bg) 72%, transparent) 0%,
+      color-mix(in srgb, var(--t-section-bg) 44%, transparent) 45%,
+      transparent 75%
+    );
   }
 
   /* Ô nhập của form RSVP. Giữ font-size >= 16px, nếu nhỏ hơn iOS Safari

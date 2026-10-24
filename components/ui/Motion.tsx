@@ -83,7 +83,9 @@ export function Motion() {
           duration: 1.2,
           ease: "power3.out",
           stagger: motion.revealStagger,
-          delay: 0.15,
+          /* Chờ màn lá của GardenStage rút ra hai mép rồi chữ mới hiện —
+             "chữ hero xuất hiện khi vùng giữa đã thoáng". */
+          delay: 1.2,
           overwrite: "auto",
         },
       );

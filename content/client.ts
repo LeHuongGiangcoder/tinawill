@@ -104,8 +104,11 @@ export type SectionDesign = {
  * không nằm liền nhau cùng một màu nền.
  */
 export const design: Record<SectionId, SectionDesign> = {
-  intro: { anchor: "intro", tone: "dark", background: "/images/intro.jpg", overlay: 0.55 },
-  hero: { anchor: "hero", tone: "light", background: "/images/hero.jpg", overlay: 0.7 },
+  /* Intro và hero dùng chung một nền: khu vườn nhiều lớp trong
+     components/ui/GardenStage.tsx, chứ không phải ảnh nền của SectionWrapper.
+     Vì thế cả hai đều để `background` trống. */
+  intro: { anchor: "intro", tone: "light" },
+  hero: { anchor: "hero", tone: "dark" },
   weddingInfo: { anchor: "wedding", tone: "dark" },
   loveStory: { anchor: "love-story", tone: "paper" },
   travel: { anchor: "travel", tone: "light" },
@@ -165,17 +168,19 @@ export const venue = {
 /* ------------------------------------------------------------------ INTRO */
 
 export const intro = {
-  eyebrow: "Save the date",
+  /** Nhãn cho trình đọc màn hình — tấm giấy không in dòng này ra. */
+  label: "Wedding invitation of Tina and Will",
+  /** Dòng duy nhất trên tấm giấy giữa khu vườn. */
+  note: "We are pleased to have you",
   /** Nút mở thiệp. Chính cú chạm này bật nhạc — xem ExperienceProvider. */
   cta: "Open invitation",
-  note: "are getting married",
 };
 
 /* ------------------------------------------------------------------- HERO */
 
 export const hero = {
-  eyebrow: "Together with our families",
-  headline: "we invite you to Hoi An to celebrate with us",
+  /** Lời mời nổi trên mặt nước, ngay trên tên hai người. */
+  invitation: "With all our heart, we invite you to our wedding",
   scrollHint: "Scroll",
 };
 

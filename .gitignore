@@ -28,3 +28,6 @@ yarn-debug.log*
 yarn-error.log*
 .eslintcache
 *.tsbuildinfo
+
+# tranh gốc của khách (33MB) — bản WebP dùng thật nằm ở public/garden
+/assets-source
