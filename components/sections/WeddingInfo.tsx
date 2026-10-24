@@ -23,30 +23,34 @@ export function WeddingInfo() {
         intro={weddingInfo.intro}
       />
 
-      {/* --- Gia đình hai bên ------------------------------------- */}
-      <Reveal className="flex flex-col items-center gap-block md:flex-row md:items-start md:justify-center">
-        {families.map((family) => (
-          <div key={family.side} className="flex flex-col items-center gap-tight text-center">
-            <Eyebrow>{family.side}</Eyebrow>
-            <ul className="flex flex-col gap-tight">
-              {family.people.map((person) => (
-                <li key={person.name} className="font-display text-h4">
-                  <span className="text-tone-muted">{person.role} </span>
-                  {person.name}
-                </li>
-              ))}
-            </ul>
-            <Caption>{family.home}</Caption>
-          </div>
-        ))}
-      </Reveal>
+      {/* --- Gia đình hai bên: ẩn hẳn khi khách không in tên gia đình --- */}
+      {families.length > 0 ? (
+        <>
+          <Reveal className="flex flex-col items-center gap-block md:flex-row md:items-start md:justify-center">
+            {families.map((family) => (
+              <div key={family.side} className="flex flex-col items-center gap-tight text-center">
+                <Eyebrow>{family.side}</Eyebrow>
+                <ul className="flex flex-col gap-tight">
+                  {family.people.map((person) => (
+                    <li key={person.name} className="font-display text-h4">
+                      <span className="text-tone-muted">{person.role} </span>
+                      {person.name}
+                    </li>
+                  ))}
+                </ul>
+                {family.home ? <Caption>{family.home}</Caption> : null}
+              </div>
+            ))}
+          </Reveal>
 
-      <Reveal className="mt-block flex justify-center">
-        <Divider diamond />
-      </Reveal>
+          <Reveal className="mt-block flex justify-center">
+            <Divider diamond />
+          </Reveal>
+        </>
+      ) : null}
 
       {/* --- Ngày giờ + địa điểm + ảnh ---------------------------- */}
-      <div className="mt-block flex flex-col items-center gap-block md:flex-row md:items-center md:justify-center">
+      <div className="flex flex-col items-center gap-block md:flex-row md:items-center md:justify-center">
         <Reveal className="w-full max-w-[20rem]">
           <ImageFrame
             src={weddingInfo.photo}
@@ -63,7 +67,7 @@ export function WeddingInfo() {
             <Caption>
               {ceremony.weekday} · {ceremony.timeLabel}
             </Caption>
-            <Caption>{ceremony.lunar}</Caption>
+            {ceremony.lunar ? <Caption>{ceremony.lunar}</Caption> : null}
           </div>
 
           <Divider />

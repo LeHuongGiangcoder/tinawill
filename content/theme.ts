@@ -18,23 +18,31 @@
 
 /* ---------------------------------------------------------------- PALETTE */
 
+/*
+  Bảng màu "Jungle Glam" của Tina & Will: xanh rừng, cam cháy, đỏ vang.
+  Tên token giữ nguyên theo khung nền (cream / forest / gold) để globals.css
+  và component không phải đổi — chỉ giá trị đổi.
+
+  Mọi cặp màu chữ/nền ở đây đều đạt WCAG AA: cam cháy trên kem 5.37:1, cam
+  nhạt trên xanh rừng 6.84:1, chữ nhạt trên kem đậm 4.73:1.
+*/
 export const palette = {
   /** Nền chính của trang và của các section sáng */
-  cream: "#fbf7f0",
-  creamDeep: "#f1e7d6",
-  /** Nền của các section tối */
-  forest: "#1d3a2b",
-  forestDeep: "#132619",
-  forestSoft: "#3c6049",
+  cream: "#fbf6ee",
+  creamDeep: "#f3e6d5",
+  /** Nền của các section tối — xanh rừng */
+  forest: "#273a2c",
+  forestDeep: "#18261c",
+  forestSoft: "#4a6b4f",
   /** Chữ trên nền sáng */
-  ink: "#33302a",
-  inkSoft: "#6b6559",
-  /** Nhấn: dùng cho eyebrow, gạch chân, viền nút */
-  gold: "#b99a5b",
-  goldSoft: "#e2d2ae",
+  ink: "#332e28",
+  inkSoft: "#6d6457",
+  /** Nhấn: cam cháy cho nền sáng, cam nhạt cho nền tối */
+  gold: "#a8491f",
+  goldSoft: "#eab98d",
   /** Nền thẻ, khung ảnh */
   surface: "#ffffff",
-  line: "#d9cfbd",
+  line: "#ddcdb8",
 } as const;
 
 /**

@@ -21,35 +21,38 @@ type Status = "idle" | "sending" | "sent" | "error";
  *     dính CORS preflight (nó không trả lời được preflight).
  *   • Body là MỘT object phẳng: `client` + đúng các field của form.
  *   • Không gửi key rỗng và không gửi state của giao diện (status, step…).
- *   • Hub tự đổi "yes"/"no" thành Có/Không, nên gửi nguyên chuỗi đó.
  *
  * Thêm hay đổi tên field ở đây thì phải chạy lại:
  *   ~/glow-tools/glow-rsvp.sh fields <client> --fields "key=Nhãn;…"
  *
- * `rsvp.endpoint` còn trống (khung nền chưa nối Sheet) thì form vẫn chạy đủ
- * và báo thành công, chỉ không gửi đi đâu cả.
+ * Khách bấm "Regretfully declines" thì mấy câu hỏi phòng ốc, ngày ở thêm và ăn
+ * uống tự ẩn — hỏi tiếp người không đến là vô nghĩa.
  */
 export function Rsvp() {
   const { guest } = useGuest();
   const [status, setStatus] = useState<Status>("idle");
   const [attending, setAttending] = useState<"yes" | "no">("yes");
-  const [guests, setGuests] = useState(0);
+  const [companion, setCompanion] = useState(rsvp.fields.companion.options[0]);
+  const [hasDietary, setHasDietary] = useState(false);
 
   const personalized = rsvp.mode === "personalized";
   const fields = rsvp.fields;
+  const going = attending === "yes";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const going = attending === "yes";
 
     // Thứ tự các key ở đây chính là thứ tự cột trong Sheet của khách.
-    const values: Record<string, string | number> = {
+    const values: Record<string, string> = {
       name: guest?.name ?? String(data.get("name") ?? "").trim(),
       attending,
-      guests: going ? guests : 0,
-      side: String(data.get("side") ?? ""),
-      message: String(data.get("message") ?? "").trim(),
+      companion: going ? companion : "",
+      roomSharing: going ? String(data.get("roomSharing") ?? "").trim() : "",
+      extendStay: going ? String(data.get("extendStay") ?? "").trim() : "",
+      dietary: going ? (hasDietary ? fields.dietary.yes : fields.dietary.none) : "",
+      dietaryDetails:
+        going && hasDietary ? String(data.get("dietaryDetails") ?? "").trim() : "",
     };
 
     // Khách vào bằng link mời riêng: gửi kèm slug để hub ghi đúng dòng của họ.
@@ -86,9 +89,7 @@ export function Rsvp() {
     <SectionWrapper section="rsvp" width="prose" labelledBy="rsvp-title">
       <SectionHead
         eyebrow={rsvp.eyebrow}
-        title={
-          personalized && guest ? `${rsvp.greeting} ${guest.name}` : rsvp.title
-        }
+        title={personalized && guest ? `${rsvp.greeting} ${guest.name}` : rsvp.title}
         titleId="rsvp-title"
         intro={rsvp.note}
       />
@@ -99,7 +100,7 @@ export function Rsvp() {
             <Heading level="h3">{rsvp.successTitle}</Heading>
             <Script>{rsvp.successNote}</Script>
             <Button variant="outline" onClick={() => setStatus("idle")}>
-              Sửa lại câu trả lời
+              Change my answer
             </Button>
           </div>
         ) : (
@@ -124,7 +125,7 @@ export function Rsvp() {
               <Choice
                 name="attending"
                 value="yes"
-                checked={attending === "yes"}
+                checked={going}
                 onChange={() => setAttending("yes")}
               >
                 {fields.attending.yes}
@@ -132,58 +133,82 @@ export function Rsvp() {
               <Choice
                 name="attending"
                 value="no"
-                checked={attending === "no"}
+                checked={!going}
                 onChange={() => setAttending("no")}
               >
                 {fields.attending.no}
               </Choice>
             </fieldset>
 
-            {attending === "yes" ? (
-              <fieldset className="flex flex-col gap-tight">
-                <FieldLabel as="legend">{fields.guests.label}</FieldLabel>
-                <Choice
-                  name="guests"
-                  value="0"
-                  checked={guests === 0}
-                  onChange={() => setGuests(0)}
-                >
-                  {fields.guests.none}
-                </Choice>
-                {Array.from({ length: fields.guests.max }, (_, i) => i + 1).map((n) => (
+            {going ? (
+              <>
+                <fieldset className="flex flex-col gap-tight">
+                  <FieldLabel as="legend">{fields.companion.label}</FieldLabel>
+                  {fields.companion.options.map((option) => (
+                    <Choice
+                      key={option}
+                      name="companion"
+                      value={option}
+                      checked={companion === option}
+                      onChange={() => setCompanion(option)}
+                    >
+                      {option}
+                    </Choice>
+                  ))}
+                </fieldset>
+
+                <Field label={fields.roomSharing.label} htmlFor="rsvp-room">
+                  <input
+                    id="rsvp-room"
+                    name="roomSharing"
+                    maxLength={200}
+                    placeholder={fields.roomSharing.placeholder}
+                    className="field-input"
+                  />
+                </Field>
+
+                <Field label={fields.extendStay.label} htmlFor="rsvp-stay">
+                  <input
+                    id="rsvp-stay"
+                    name="extendStay"
+                    maxLength={200}
+                    placeholder={fields.extendStay.placeholder}
+                    className="field-input"
+                  />
+                </Field>
+
+                <fieldset className="flex flex-col gap-tight">
+                  <FieldLabel as="legend">{fields.dietary.label}</FieldLabel>
                   <Choice
-                    key={n}
-                    name="guests"
-                    value={String(n)}
-                    checked={guests === n}
-                    onChange={() => setGuests(n)}
+                    name="dietary"
+                    value="none"
+                    checked={!hasDietary}
+                    onChange={() => setHasDietary(false)}
                   >
-                    {n} người
+                    {fields.dietary.none}
                   </Choice>
-                ))}
-              </fieldset>
-            ) : null}
-
-            <Field label={fields.side.label} htmlFor="rsvp-side">
-              <select id="rsvp-side" name="side" defaultValue="" className="field-input">
-                <option value="">—</option>
-                {fields.side.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </Field>
-
-            <Field label={fields.message.label} htmlFor="rsvp-message">
-              <textarea
-                id="rsvp-message"
-                name="message"
-                maxLength={600}
-                placeholder={fields.message.placeholder}
-                className="field-input"
-              />
-            </Field>
+                  <Choice
+                    name="dietary"
+                    value="yes"
+                    checked={hasDietary}
+                    onChange={() => setHasDietary(true)}
+                  >
+                    {fields.dietary.yes}
+                  </Choice>
+                  {hasDietary ? (
+                    <textarea
+                      name="dietaryDetails"
+                      aria-label={fields.dietary.yes}
+                      maxLength={400}
+                      placeholder={fields.dietary.placeholder}
+                      className="field-input mt-tight"
+                    />
+                  ) : null}
+                </fieldset>
+              </>
+            ) : (
+              <Script className="text-center">{rsvp.declineNote}</Script>
+            )}
 
             <div className="flex flex-col items-center gap-stack">
               <Button type="submit" disabled={status === "sending"}>

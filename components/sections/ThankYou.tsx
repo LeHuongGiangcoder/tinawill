@@ -37,7 +37,7 @@ export function ThankYou() {
 
       <Reveal delay={150} className="mt-block flex flex-col items-center gap-tight text-center">
         <Script>{thankYou.signature}</Script>
-        <Eyebrow>{couple.hashtag}</Eyebrow>
+        {couple.hashtag ? <Eyebrow>{couple.hashtag}</Eyebrow> : null}
       </Reveal>
     </SectionWrapper>
   );

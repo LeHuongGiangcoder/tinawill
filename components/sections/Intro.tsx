@@ -48,9 +48,10 @@ export function Intro() {
         <Eyebrow>{intro.eyebrow}</Eyebrow>
 
         <Heading level="h1" className="flex flex-col items-center short:text-h2">
-          <span>{couple.groom}</span>
-          <span className="font-script text-h2 text-tone-accent">&amp;</span>
+          {/* Tina & Will — thiệp gọi tên cô dâu trước */}
           <span>{couple.bride}</span>
+          <span className="font-script text-h2 text-tone-accent">&amp;</span>
+          <span>{couple.groom}</span>
         </Heading>
 
         <Divider diamond />

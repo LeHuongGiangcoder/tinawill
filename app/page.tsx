@@ -3,11 +3,13 @@ import { GuestProvider } from "@/components/experience/GuestProvider";
 import { Agenda } from "@/components/sections/Agenda";
 import { Dresscode } from "@/components/sections/Dresscode";
 import { Gallery } from "@/components/sections/Gallery";
+import { Gifts } from "@/components/sections/Gifts";
 import { Hero } from "@/components/sections/Hero";
 import { Intro } from "@/components/sections/Intro";
 import { LoveStory } from "@/components/sections/LoveStory";
 import { Rsvp } from "@/components/sections/Rsvp";
 import { ThankYou } from "@/components/sections/ThankYou";
+import { Travel } from "@/components/sections/Travel";
 import { WeddingInfo } from "@/components/sections/WeddingInfo";
 import { Motion } from "@/components/ui/Motion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
@@ -23,9 +25,11 @@ const SECTIONS: Record<SectionId, () => React.ReactNode> = {
   loveStory: LoveStory,
   gallery: Gallery,
   weddingInfo: WeddingInfo,
+  travel: Travel,
   agenda: Agenda,
   dresscode: Dresscode,
   rsvp: Rsvp,
+  gifts: Gifts,
   thankYou: ThankYou,
 };
 

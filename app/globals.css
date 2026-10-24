@@ -198,6 +198,16 @@ h4 {
     padding-right: max(var(--t-space-gutter), env(safe-area-inset-right));
   }
 
+  /* Thẻ giấy dùng chung: một khối nội dung nhấc lên khỏi nền section. Màu và
+     viền đi theo tông nên thẻ dùng được trên cả nền sáng và nền tối. */
+  .card {
+    border: 1px solid var(--t-section-line);
+    border-radius: var(--t-radius-card);
+    background-color: var(--t-section-bg);
+    padding: var(--t-space-stack);
+    box-shadow: var(--t-shadow-paper);
+  }
+
   /* Băng ảnh kéo ngang — dùng cho Love Story và Gallery. Cuộn gốc của
      trình duyệt: vuốt được trên máy, không cần thư viện carousel nào. */
   .reel {

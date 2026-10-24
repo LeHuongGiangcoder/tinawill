@@ -24,9 +24,10 @@ export function Hero() {
           data-hero
           className="flex flex-col items-center short:text-h1"
         >
-          <span>{couple.groom}</span>
-          <span className="font-script text-h2 text-tone-accent">&amp;</span>
+          {/* Tina & Will — thiệp gọi tên cô dâu trước */}
           <span>{couple.bride}</span>
+          <span className="font-script text-h2 text-tone-accent">&amp;</span>
+          <span>{couple.groom}</span>
         </Heading>
 
         <div data-reveal data-hero className="flex flex-col items-center gap-tight">
