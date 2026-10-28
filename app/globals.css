@@ -24,6 +24,7 @@
   --color-gold-soft: var(--t-color-gold-soft);
   --color-surface: var(--t-color-surface);
   --color-line: var(--t-color-line);
+  --color-olive: var(--t-color-olive);
 
   /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
   --color-tone-bg: var(--t-section-bg);
@@ -60,6 +61,19 @@
   --text-eyebrow: var(--t-text-eyebrow);
   --text-eyebrow--line-height: var(--t-leading-eyebrow);
   --text-eyebrow--letter-spacing: var(--t-tracking-eyebrow);
+
+  /* Bậc chữ bên trong một cảnh dựng sẵn — đo theo bề rộng khung, không phải
+     bề rộng màn hình. Chỉ dùng trong .stage-9x16, xem stageScale ở theme.ts */
+  --text-stage-title: var(--t-text-stage-title);
+  --text-stage-title--line-height: var(--t-leading-stage-title);
+  --text-stage-heading: var(--t-text-stage-heading);
+  --text-stage-heading--line-height: var(--t-leading-stage-heading);
+  --text-stage-lead: var(--t-text-stage-lead);
+  --text-stage-lead--line-height: var(--t-leading-stage-lead);
+  --text-stage-caption: var(--t-text-stage-caption);
+  --text-stage-caption--line-height: var(--t-leading-stage-caption);
+  --text-stage-action: var(--t-text-stage-action);
+  --text-stage-action--line-height: var(--t-leading-stage-action);
 
   /* ---- khoảng cách ---------------------------------------- */
   --spacing-gutter: var(--t-space-gutter);
@@ -152,14 +166,64 @@ body[data-locked="true"] {
   overscroll-behavior: none;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--t-font-display);
-  font-weight: var(--t-weight-display);
-  text-wrap: balance;
+/* ------------------------------------------------------------------ CHỮ
+
+   Ba luật cho hai bộ chữ khách gửi (IM Fell English, Leckerli One). Cả hai
+   đều là chữ vẽ tay dựng lại từ bản in cũ, và cả hai đều chỉ có MỘT nét —
+   không có bản đậm, Leckerli One cũng không có bản nghiêng.
+*/
+
+html {
+  /*
+    1. Không cho trình duyệt bịa nét.
+
+    Thiếu bản đậm thì engine tự kéo giãn nét ra, thiếu bản nghiêng thì nó xiên
+    cả chữ đi — hai thứ đó làm nét khắc của IM Fell nhoè thành vệt, và làm
+    dấu tiếng Việt (nếu có chữ nào rơi sang font đỡ) lệch khỏi nguyên âm.
+    Tắt hẳn: font nào không có nét ấy thì rơi sang font sau trong stack.
+
+    IM Fell CÓ file italic thật (xem app/layout.tsx), nên chữ nghiêng trong
+    section Venue vẫn là nghiêng thật.
+  */
+  font-synthesis: none;
+
+  /*
+    2. Bật kerning cũ.
+
+    IM Fell chỉ có bảng `kern` đời cũ, không có `GPOS` — vài engine bỏ qua
+    bảng này trừ khi được bảo rõ. Không có kerning thì "Wedding" hở một khoảng
+    giữa W và e đủ để nhìn ra.
+  */
+  font-kerning: normal;
 }
+
+/*
+  Mặc định của thẻ tiêu đề phải nằm trong @layer base, KHÔNG để trần.
+
+  CSS không xếp lớp luôn thắng mọi CSS có lớp, bất kể specificity — để trần
+  thì selector `h2` này đè cả `.font-script` của Tailwind (nằm ở @layer
+  utilities), và một tiêu đề viết tay sẽ âm thầm hiện ra bằng font tiêu đề.
+  Vào @layer base thì utility lại thắng, đúng như mong đợi.
+*/
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--t-font-display);
+    font-weight: var(--t-weight-display);
+    text-wrap: balance;
+  }
+}
+
+/*
+  3. Nhịp dòng của tiêu đề đã nới ở content/theme.ts, không phải ở đây.
+
+  Hộp dòng của IM Fell cao 1.27em và của Leckerli One 1.35em, trong khi
+  Cormorant (bộ chữ cũ) chỉ 1.15em — giữ nguyên line-height 0.92 thì dòng dưới
+  trèo lên dòng trên. Đó là số của thang chữ, nên nó nằm trong `typeScale`:
+  sửa một chỗ, cả site theo.
+*/
 
 ::selection {
   background-color: var(--t-color-gold-soft);
@@ -262,6 +326,51 @@ h4 {
     transform: translate(-50%, -50%);
     width: max(100%, calc(100svh * 9 / 16));
     height: max(100%, calc(100vw * 16 / 9));
+  }
+
+  /*
+    Khung 9/16 kiểu "contain": luôn thấy trọn cảnh, co theo chiều hẹp hơn của
+    màn hình. Ngược với .cover-9x16 ở trên (phủ kín khung cha, cắt phần thừa).
+
+    Dùng cho một cảnh đã dựng sẵn ở tỉ lệ dọc — tranh vẽ theo khung 1080×1920
+    thì trên màn ngang mà cắt kiểu "cover" sẽ chỉ còn một dải giữa, mất cả bàn
+    lẫn hoạ tiết hai mép. Contain thì trên điện thoại cảnh phủ gần kín màn,
+    trên desktop nó thành một tấm áp phích dọc đứng giữa.
+
+    `container-type: inline-size` là phần quan trọng thứ hai: nó cho chữ bên
+    trong đo theo bề rộng KHUNG (đơn vị cqw, xem `stageScale` trong theme.ts)
+    thay vì bề rộng màn hình, nên chữ và tranh giữ đúng tỉ lệ Canva ở mọi khổ
+    màn. Một phần trăm trong khung vì thế luôn rơi đúng chỗ.
+  */
+  .stage-9x16 {
+    position: relative;
+    container-type: inline-size;
+    width: 100%;
+    /*
+      Hai cái chặn bề rộng:
+        • 9/16 của chiều cao màn — để cảnh vừa trọn một màn, không phải cuộn;
+        • 30rem — để trên màn lớn nó vẫn là một tấm thiệp dọc chứ không phình
+          thành tấm áp phích rạp phim.
+    */
+    max-width: min(calc(100svh * 9 / 16), 30rem);
+    aspect-ratio: 9 / 16;
+    margin-inline: auto;
+  }
+
+  /*
+    Máy nằm ngang: chiều cao chỉ còn khoảng 390px, nên cái chặn 9/16-của-chiều
+    cao ở trên bóp khung xuống ~220px. Chữ thì không co theo được — thang
+    `stage-*` có sàn tính bằng rem để còn đọc được trên máy hẹp — nên tiêu đề
+    tràn ra ngoài và chồng lên tên nơi tổ chức.
+
+    Ở đây bỏ cái chặn đó và nhận là cảnh cao hơn màn: khách cuộn thêm một nhịp
+    để xem hết, đổi lại chữ vẫn đúng cỡ và bố cục không vỡ. Chiều ngang là tư
+    thế hiếm của thiệp cưới, cuộn thêm một nhịp rẻ hơn là chữ đè lên nhau.
+  */
+  @media (max-height: 32rem) {
+    .stage-9x16 {
+      max-width: 22rem;
+    }
   }
 
   /* Một vòng nước lan ra từ tâm của khối cha. */

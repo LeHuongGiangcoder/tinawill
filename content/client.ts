@@ -23,6 +23,7 @@ export type SectionId =
   | "loveStory"
   | "gallery"
   | "weddingInfo"
+  | "venue"
   | "travel"
   | "agenda"
   | "dresscode"
@@ -41,6 +42,7 @@ export const sections: SectionId[] = [
   "intro",
   "hero",
   "weddingInfo",
+  "venue",
   "loveStory",
   "travel",
   "agenda",
@@ -110,6 +112,12 @@ export const design: Record<SectionId, SectionDesign> = {
   intro: { anchor: "intro", tone: "light" },
   hero: { anchor: "hero", tone: "dark" },
   weddingInfo: { anchor: "wedding", tone: "dark" },
+  /* Venue là một cảnh ghép nhiều lớp như intro/hero, không phải section chữ.
+     Nền giấy xanh ô liu đi qua `background` để nó phủ kín mọi khổ màn; bốn lớp
+     tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
+     Venue.tsx). `overlay: 0` vì nền này đã là màu phẳng, không cần lớp phủ cho
+     chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
+  venue: { anchor: "venue", tone: "olive", background: "/venue/backdrop.webp", overlay: 0 },
   loveStory: { anchor: "love-story", tone: "paper" },
   travel: { anchor: "travel", tone: "light" },
   agenda: { anchor: "agenda", tone: "paper" },
@@ -259,6 +267,24 @@ export const weddingInfo = {
   calendarLabel: "Add to calendar",
   photo: "/images/couple-05.jpg",
   photoAlt: "Tina and Will",
+};
+
+/* ------------------------------------------------------------------ VENUE */
+
+/**
+ * Trang "Our wedding venue" — bản Canva khách vẽ, dựng lại bằng năm lớp tranh
+ * (public/venue) chồng lên nhau, chữ là chữ thật nằm trên bàn.
+ *
+ * Chỉ khai ở đây những chữ riêng của cảnh này; tên nơi tổ chức, tên khu và
+ * link Maps vẫn lấy từ `venue` ở trên để hai chỗ không bao giờ lệch nhau.
+ */
+export const venueScene = {
+  title: "Our wedding venue",
+  /** Dòng thành phố trên tấm bàn — ngắn hơn `venue.address` cho vừa bố cục. */
+  cityLine: "Da Nang City, Vietnam",
+  mapLabel: "Check map",
+  /** Nhãn cho trình đọc màn hình: tranh là trang trí, aria-hidden hết. */
+  sceneLabel: "Two glasses raised over a table set for the wedding",
 };
 
 /* ----------------------------------------------------------------- TRAVEL */

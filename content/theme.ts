@@ -43,6 +43,8 @@ export const palette = {
   /** Nền thẻ, khung ảnh */
   surface: "#ffffff",
   line: "#ddcdb8",
+  /** Giấy ô liu — màu nền của cảnh Venue, lấy từ chính file tranh khách gửi */
+  olive: "#516403",
 } as const;
 
 /**
@@ -75,6 +77,26 @@ export const tones = {
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
   },
+  /**
+   * Tông của cảnh vẽ trên giấy ô liu (section Venue).
+   *
+   * Lý do nó tồn tại chứ không dùng chung `dark`: nền section phải trùng ĐÚNG
+   * màu giấy trong file tranh. Lớp tranh tải trễ (ảnh giữa trang, lazy-load),
+   * nên trong khoảnh khắc chưa tải xong khách nhìn thấy màu nền trần — trùng
+   * màu thì không ai nhận ra, lệch màu thì section loé một mảng xanh đậm rồi
+   * mới đổi sang ô liu.
+   *
+   * Cam nhạt (goldSoft) chỉ đạt 3.7:1 trên nền ô liu nên không dùng làm chữ
+   * nhấn ở đây; cả `muted` lẫn `accent` đều lấy sắc kem — thấp nhất 5.3:1.
+   */
+  olive: {
+    bg: palette.olive,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.creamDeep,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
 } as const;
 
 export type Tone = keyof typeof tones;
@@ -85,23 +107,41 @@ export type Tone = keyof typeof tones;
  * Ba họ chữ. Giá trị là CSS variable do next/font sinh ra trong layout.tsx
  * (--ff-display / --ff-body / --ff-script) — đổi font thì sửa cả hai nơi.
  *
- * Lưu ý tiếng Việt: chỉ chọn font có subset "vietnamese" trên Google Fonts.
- * Font script mua ngoài thường thiếu dấu (ơ, ư, đ, dấu chồng) nên không dùng
- * làm font mặc định cho chữ có dấu.
+ * Tina & Will dùng hai font khách gửi: IM Fell English cho tiêu đề, Leckerli
+ * One cho chữ viết tay. Cả hai KHÔNG có dấu tiếng Việt.
+ *
+ * Vì thế mỗi stack có thêm một font đỡ ngay phía sau: --ff-display-vn
+ * (Cormorant Garamond) và --ff-script-vn (Pinyon Script), đều có subset
+ * "vietnamese". Trình duyệt chỉ rơi sang chúng ở đúng những ký tự font trước
+ * không có, nên site tiếng Anh vẫn đọc nguyên nét Canva, còn một chữ "Cảm ơn"
+ * lọt vào thì ra dấu đúng thay vì vỡ thành ô vuông.
+ *
+ * Quy tắc cũ vẫn giữ: font không có subset "vietnamese" thì không bao giờ
+ * đứng một mình trong stack.
  */
 export const fonts = {
-  display: 'var(--ff-display), Georgia, "Times New Roman", serif',
+  display: 'var(--ff-display), var(--ff-display-vn), Georgia, "Times New Roman", serif',
   body: "var(--ff-body), ui-sans-serif, system-ui, sans-serif",
-  script: 'var(--ff-script), "Apple Chancery", cursive',
+  script: 'var(--ff-script), var(--ff-script-vn), "Apple Chancery", cursive',
 } as const;
 
-/** Thang chữ. Không được dùng size nào ngoài danh sách này. */
+/**
+ * Thang chữ. Không được dùng size nào ngoài danh sách này.
+ *
+ * Nhịp dòng của bốn bậc tiêu đề đo theo hộp dòng của font tiêu đề. IM Fell
+ * English cao 1.27em (ascender 0.91em + descender 0.36em) — rộng hơn Cormorant
+ * ở bản trước (1.15em), nên line-height phải nới theo: dưới 1.02 thì chữ `g`
+ * của dòng trên chạm đầu chữ hoa của dòng dưới.
+ *
+ * Đổi font tiêu đề thì đo lại hộp dòng rồi chỉnh bốn số này — đừng vá bằng
+ * line-height rời trong từng section.
+ */
 export const typeScale = {
-  display: { size: "clamp(3rem, 12vw, 7rem)", line: "0.92", tracking: "-0.015em" },
-  h1: { size: "clamp(2.5rem, 8vw, 4.75rem)", line: "0.98", tracking: "-0.01em" },
-  h2: { size: "clamp(1.875rem, 5.2vw, 3rem)", line: "1.08", tracking: "-0.005em" },
-  h3: { size: "clamp(1.375rem, 3.2vw, 2rem)", line: "1.18", tracking: "0em" },
-  h4: { size: "clamp(1.125rem, 2.2vw, 1.375rem)", line: "1.3", tracking: "0em" },
+  display: { size: "clamp(3rem, 12vw, 7rem)", line: "1.02", tracking: "-0.015em" },
+  h1: { size: "clamp(2.5rem, 8vw, 4.75rem)", line: "1.05", tracking: "-0.01em" },
+  h2: { size: "clamp(1.875rem, 5.2vw, 3rem)", line: "1.14", tracking: "-0.005em" },
+  h3: { size: "clamp(1.375rem, 3.2vw, 2rem)", line: "1.22", tracking: "0em" },
+  h4: { size: "clamp(1.125rem, 2.2vw, 1.375rem)", line: "1.32", tracking: "0em" },
   lead: { size: "clamp(1.0625rem, 1.5vw, 1.1875rem)", line: "1.65", tracking: "0em" },
   body: { size: "1rem", line: "1.7", tracking: "0em" },
   small: { size: "0.875rem", line: "1.6", tracking: "0em" },
@@ -114,6 +154,28 @@ export const weights = {
   bodyMedium: "500",
   bodyBold: "600",
   display: "400",
+} as const;
+
+/**
+ * Thang chữ thứ hai, chỉ dùng bên trong một cảnh dựng sẵn ở tỉ lệ dọc
+ * (`.stage-9x16` trong app/globals.css).
+ *
+ * Vì sao cần bậc riêng: thang ở trên đo theo `vw` — bề rộng màn hình. Trong
+ * một cảnh 9/16 thì khung hẹp hơn màn hình trên desktop, nên chữ đo theo `vw`
+ * sẽ phình to hơn tranh. Đơn vị `cqw` đo theo bề rộng của chính khung cảnh,
+ * nên chữ và tranh giữ đúng tỉ lệ với nhau ở mọi bề rộng màn hình.
+ *
+ * Con số cqw lấy thẳng từ bản Canva (khung gốc 1080px): tiêu đề 119.5px =
+ * 11.07% bề rộng khung, tên nơi tổ chức 69.8px = 6.46%, và cứ thế. Hai đầu
+ * clamp là sàn và trần: dưới sàn thì chữ không còn đọc được trên máy hẹp,
+ * trên trần thì cảnh trông như áp phích phóng to.
+ */
+export const stageScale = {
+  title: { size: "clamp(2.25rem, 11.07cqw, 4.5rem)", line: "1.25" },
+  heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
+  lead: { size: "clamp(1rem, 3.7cqw, 1.5rem)", line: "1.2" },
+  caption: { size: "clamp(0.875rem, 3.09cqw, 1.25rem)", line: "1.3" },
+  action: { size: "clamp(0.8125rem, 3.39cqw, 1.125rem)", line: "1.2" },
 } as const;
 
 /* ---------------------------------------------------------------- SPACING */
@@ -190,6 +252,11 @@ export function themeCssVars(): string {
     push(`text-${kebab(key)}`, step.size);
     push(`leading-${kebab(key)}`, step.line);
     push(`tracking-${kebab(key)}`, step.tracking);
+  }
+
+  for (const [key, step] of Object.entries(stageScale)) {
+    push(`text-stage-${kebab(key)}`, step.size);
+    push(`leading-stage-${kebab(key)}`, step.line);
   }
 
   for (const [key, value] of Object.entries(weights)) {
