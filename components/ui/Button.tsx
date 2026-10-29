@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "outline" | "contrast" | "icon";
+type Variant = "primary" | "outline" | "contrast" | "sun" | "icon";
 
 /*
   `uppercase` KHÔNG nằm ở đây mà ở từng biến thể. Lý do là cascade: hai class
@@ -27,6 +27,11 @@ const VARIANT: Record<Variant, string> = {
      bề rộng (thường là `w-full` trong một khối đã đúng cỡ). */
   contrast:
     "min-h-tap px-block py-stack bg-tone-contrast text-tone-bg border border-tone-contrast shadow-paper hover:[@media(hover:hover)]:-translate-y-px",
+  /* Viên thuốc vàng nghệ vẽ sẵn trong một cảnh ghép: màu đứng ngoài hệ tông
+     vì nó là một mảng đặc của bản vẽ, không phải màu của nền hay chữ (xem
+     `sun` trong content/theme.ts). Như `contrast`, nó không tự đặt bề rộng —
+     chỗ gọi cho nó rộng đúng bằng nét vẽ bên dưới. */
+  sun: "min-h-tap px-block py-stack bg-sun text-ink border border-sun shadow-paper hover:[@media(hover:hover)]:-translate-y-px",
   icon: "uppercase size-tap min-w-tap border border-tone-line text-tone-fg bg-tone-bg/80 backdrop-blur-sm",
 };
 

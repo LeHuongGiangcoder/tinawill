@@ -9,6 +9,7 @@ import { Intro } from "@/components/sections/Intro";
 import { LoveStory } from "@/components/sections/LoveStory";
 import { Rsvp } from "@/components/sections/Rsvp";
 import { ThankYou } from "@/components/sections/ThankYou";
+import { Time } from "@/components/sections/Time";
 import { Travel } from "@/components/sections/Travel";
 import { Venue } from "@/components/sections/Venue";
 import { WeddingInfo } from "@/components/sections/WeddingInfo";
@@ -23,6 +24,7 @@ import { sections, type SectionId } from "@/content/client";
 const SECTIONS: Record<SectionId, () => React.ReactNode> = {
   intro: Intro,
   hero: Hero,
+  time: Time,
   loveStory: LoveStory,
   gallery: Gallery,
   weddingInfo: WeddingInfo,

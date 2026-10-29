@@ -20,6 +20,7 @@ import type { Tone } from "@/content/theme";
 export type SectionId =
   | "intro"
   | "hero"
+  | "time"
   | "loveStory"
   | "gallery"
   | "weddingInfo"
@@ -37,14 +38,18 @@ export type SectionId =
  *
  * `gallery` tạm để ngoài: chưa có ảnh cưới của Tina & Will, thêm lại một dòng
  * là album hiện ngay.
+ *
+ * `weddingInfo` cũng để ngoài: ngày giờ đã nằm trên trang Save the date, địa
+ * điểm nằm trên trang Venue, nên nó chỉ nhắc lại cả hai. Thêm lại một dòng là
+ * nó hiện ngay cùng khối tên gia đình hai bên.
  */
 export const sections: SectionId[] = [
   "intro",
   "hero",
+  "time",
   "venue",
-  "weddingInfo",
-  "loveStory",
   "travel",
+  "loveStory",
   "agenda",
   "dresscode",
   "rsvp",
@@ -120,11 +125,15 @@ export const design: Record<SectionId, SectionDesign> = {
      tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
      Venue.tsx). `overlay: 0` vì nền này đã là màu phẳng, không cần lớp phủ cho
      chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
+  /* Save the date là cảnh ghép hai lớp như Venue: giấy rượu vang phủ kín
+     section, còn lá cây và hai ghế tắm nắng nằm trong khung 9/16 của chính
+     section (components/sections/Time.tsx). */
+  time: { anchor: "time", tone: "wine", background: "paper-wine", overlay: 0 },
   venue: { anchor: "venue", tone: "olive", background: "/venue/backdrop.webp", overlay: 0 },
   /* Trang "Our story" là một tờ giấy phủ kín section — nền section tô đúng
      màu lá của khung, xem tông `leaf` trong content/theme.ts. */
   loveStory: { anchor: "love-story", tone: "leaf" },
-  travel: { anchor: "travel", tone: "olive", background: "paper-olive", overlay: 0 },
+  travel: { anchor: "travel", tone: "mango", background: "paper-mango", overlay: 0 },
   agenda: { anchor: "agenda", tone: "wine", background: "paper-wine", overlay: 0 },
   dresscode: { anchor: "dresscode", tone: "mango", background: "paper-mango", overlay: 0 },
   gallery: { anchor: "gallery", tone: "light" },
@@ -249,6 +258,24 @@ export const weddingInfo = {
   photoAlt: "Tina and Will",
 };
 
+/* -------------------------------------------------------------- SAVE DATE */
+
+/**
+ * Trang "Save the date" — bản Canva khách vẽ, dựng lại thành cảnh ghép hai
+ * lớp tranh (public/time) với chữ thật nằm giữa.
+ *
+ * Ngày, giờ và link lịch KHÔNG khai ở đây: chúng lấy từ `ceremony` phía trên
+ * để trang này và thiệp mời không bao giờ lệch nhau.
+ */
+export const timeScene = {
+  title: "Save the Date",
+  intro:
+    "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014 at a place whose name means \u201chome\u201d and \u201cpeace.\u201d We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
+  calendarLabel: "Add calendar",
+  /** Nhãn cho trình đọc màn hình: tranh là trang trí, aria-hidden hết. */
+  sceneLabel: "Two cats napping on sun loungers in a tropical garden",
+};
+
 /* ------------------------------------------------------------------ VENUE */
 
 /**
@@ -289,80 +316,134 @@ export type TravelGroup = {
   actions?: { label: string; href: string }[];
 };
 
-export const travel = {
-  eyebrow: "Getting here",
-  title: "Visa & Travel Guide",
+/**
+ * Một thẻ của trang hướng dẫn: nhãn trên nút, và mấy khối hướng dẫn bên dưới.
+ */
+export type GuideTab = {
+  /** Khoá ổn định, dùng dựng id cho cặp nút ↔ nội dung. */
+  id: string;
+  label: string;
+  groups: TravelGroup[];
+};
+
+/**
+ * Hướng dẫn visa — thủ tục giấy tờ và đường bay, hai việc khách phải lo
+ * TRƯỚC khi lên đường.
+ *
+ * Tách khỏi `travel` vì hai nhóm này trả lời hai câu hỏi khác hẳn nhau: đây
+ * là "làm sao tới được", còn `travel` là "tới rồi thì ở đâu, mặc gì". Gộp một
+ * chỗ thì section dài gấp đôi và khách phải cuộn qua phần không liên quan.
+ */
+export const visa = {
+  eyebrow: "Before you fly",
+  title: "Visa Guide",
   intro:
-    "Everything you need to get from your front door to the river in Hoi An. Whichever visa option applies to you, your passport must be valid for at least 6 months after you arrive.",
-  groups: [
+    "Whichever visa option applies to you, your passport must be valid for at least 6 months after you arrive.",
+  /** Nhãn hàng nút cho trình đọc màn hình. */
+  tabsLabel: "Choose a topic",
+  tabs: [
     {
-      title: "Do I need a visa?",
-      kind: "bullets",
-      lead: "Find your passport below.",
-      items: [
-        "🇪🇺 Europe — mostly visa-free, up to 45 days",
-        "🌏 Southeast Asia — visa-free, up to 30 days",
-        "🇭🇰 Hong Kong — e-visa required. If you hold both an HKSAR and a BN(O) passport, apply and travel on your HKSAR passport.",
-        "🇮🇳 India · 🇲🇻 Maldives · 🇺🇸 USA — e-visa required",
+      id: "visa",
+      label: "Visa",
+      groups: [
+        {
+          title: "Do I need a visa?",
+          kind: "bullets",
+          lead: "Find your passport below.",
+          items: [
+            "🇪🇺 Europe — mostly visa-free, up to 45 days",
+            "🌏 Southeast Asia — visa-free, up to 30 days",
+            "🇭🇰 Hong Kong — e-visa required. If you hold both an HKSAR and a BN(O) passport, apply and travel on your HKSAR passport.",
+            "🇮🇳 India · 🇲🇻 Maldives · 🇺🇸 USA — e-visa required",
+          ],
+        },
+        {
+          title: "How to get your e-visa",
+          kind: "steps",
+          items: [
+            "Apply only on the official site: evisa.gov.vn — look-alike sites charge extra fees.",
+            "The fee is USD 25 for single entry, paid by card.",
+            "Apply at least 3–4 weeks before your flight.",
+            "Check every detail carefully — the fee is non-refundable if there's a mistake.",
+            "Choose Da Nang International Airport as your entry point.",
+            "Print your approved e-visa and bring it with you.",
+          ],
+          actions: [{ label: "Open evisa.gov.vn", href: "https://evisa.gov.vn" }],
+        },
       ],
     },
     {
-      title: "How to get your e-visa",
-      kind: "steps",
-      items: [
-        "Apply only on the official site: evisa.gov.vn — look-alike sites charge extra fees.",
-        "The fee is USD 25 for single entry, paid by card.",
-        "Apply at least 3–4 weeks before your flight.",
-        "Check every detail carefully — the fee is non-refundable if there's a mistake.",
-        "Choose Da Nang International Airport as your entry point.",
-        "Print your approved e-visa and bring it with you.",
+      id: "flight",
+      label: "Flights",
+      groups: [
+        {
+          title: "Flying in",
+          kind: "bullets",
+          lead: "Fly into Da Nang International Airport (DAD).",
+          items: [
+            "From Southeast Asia & Hong Kong: direct flights from most major hubs (Singapore, Bangkok, Kuala Lumpur, Hong Kong), around 2–3 hours.",
+            "From Europe: connect via Singapore, Bangkok, Doha, Dubai or Istanbul — or fly into Ho Chi Minh City / Hanoi and take a short domestic flight (about 1h20) to Da Nang.",
+            "From India & the Maldives: connect via Ho Chi Minh City, Hanoi, Singapore, Kuala Lumpur or Bangkok.",
+            "From the USA: connect via Seoul, Tokyo, Taipei, Hong Kong or Singapore.",
+          ],
+        },
+        {
+          title: "From the airport",
+          kind: "text",
+          items: [
+            "The resort is about 40–45 minutes by car. Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
+          ],
+        },
       ],
-      actions: [{ label: "Open evisa.gov.vn", href: "https://evisa.gov.vn" }],
+    },
+  ] satisfies GuideTab[],
+};
+
+/** Hướng dẫn tại chỗ — ở đâu, thời tiết thế nào, quanh đó có gì. */
+export const travel = {
+  eyebrow: "Once you're here",
+  title: "Travel Guide",
+  intro: "Everything you need from the moment you land to the river in Hoi An.",
+  tabsLabel: "Choose a topic",
+  tabs: [
+    {
+      id: "stay",
+      label: "Where to stay",
+      groups: [
+        {
+          title: "Where to stay",
+          kind: "text",
+          highlight: true,
+          lead: "The wedding night is on us. 🏝",
+          items: [
+            "We're covering one night at NHAAN Resort & Spa Hoi An on Saturday, March 27, 2027 for all our guests — so you can celebrate late and simply walk back to your room.",
+            "Staying longer? We'd love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, contact our wedding planner and the team will take care of everything for you.",
+          ],
+          actions: [
+            { label: "WhatsApp the planner", href: "https://wa.me/84363059436" },
+            { label: "Email the planner", href: "mailto:teamhandsheart.planner@gmail.com" },
+          ],
+        },
+      ],
     },
     {
-      title: "Flying in",
-      kind: "bullets",
-      lead: "Fly into Da Nang International Airport (DAD).",
-      items: [
-        "From Southeast Asia & Hong Kong: direct flights from most major hubs (Singapore, Bangkok, Kuala Lumpur, Hong Kong), around 2–3 hours.",
-        "From Europe: connect via Singapore, Bangkok, Doha, Dubai or Istanbul — or fly into Ho Chi Minh City / Hanoi and take a short domestic flight (about 1h20) to Da Nang.",
-        "From India & the Maldives: connect via Ho Chi Minh City, Hanoi, Singapore, Kuala Lumpur or Bangkok.",
-        "From the USA: connect via Seoul, Tokyo, Taipei, Hong Kong or Singapore.",
+      id: "weather",
+      label: "Weather & tips",
+      groups: [
+        {
+          title: "Weather & good to know",
+          kind: "bullets",
+          items: [
+            "Late March is warm and mostly dry — around 24–29°C. Bring sunscreen, sunglasses and a light layer for the evening.",
+            "Currency: Vietnamese Dong (VND). Cards work at the resort; carry some cash for markets and cafés.",
+            "Grab is the go-to app for rides and food.",
+            "Make a holiday of it: Hoi An Ancient Town is just 5 km away, with the best tailor shops, leather shoes and bag stores, and custom silver — enough to bring a whole wardrobe home. The town is beautiful, with lanterns everywhere, amazing food and history.",
+            "An Bang Beach, the Marble Mountains and Da Nang City are all nearby to explore.",
+          ],
+        },
       ],
     },
-    {
-      title: "From the airport",
-      kind: "text",
-      items: [
-        "The resort is about 40–45 minutes by car. Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
-      ],
-    },
-    {
-      title: "Where to stay",
-      kind: "text",
-      highlight: true,
-      lead: "The wedding night is on us. 🏝",
-      items: [
-        "We're covering one night at NHAAN Resort & Spa Hoi An on Saturday, March 27, 2027 for all our guests — so you can celebrate late and simply walk back to your room.",
-        "Staying longer? We'd love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, contact our wedding planner and the team will take care of everything for you.",
-      ],
-      actions: [
-        { label: "WhatsApp the planner", href: "https://wa.me/84363059436" },
-        { label: "Email the planner", href: "mailto:teamhandsheart.planner@gmail.com" },
-      ],
-    },
-    {
-      title: "Weather & good to know",
-      kind: "bullets",
-      items: [
-        "Late March is warm and mostly dry — around 24–29°C. Bring sunscreen, sunglasses and a light layer for the evening.",
-        "Currency: Vietnamese Dong (VND). Cards work at the resort; carry some cash for markets and cafés.",
-        "Grab is the go-to app for rides and food.",
-        "Make a holiday of it: Hoi An Ancient Town is just 5 km away, with the best tailor shops, leather shoes and bag stores, and custom silver — enough to bring a whole wardrobe home. The town is beautiful, with lanterns everywhere, amazing food and history.",
-        "An Bang Beach, the Marble Mountains and Da Nang City are all nearby to explore.",
-      ],
-    },
-  ] as TravelGroup[],
+  ] satisfies GuideTab[],
 };
 
 /* ----------------------------------------------------------------- AGENDA */
@@ -371,13 +452,23 @@ export const travel = {
  * Chương trình ba ngày. Mỗi ngày một khối, trong khối là trục thời gian.
  * Mục không có giờ (ví dụ "Daytime") vẫn hiện, chỉ là nhãn thay cho giờ.
  */
+/**
+ * Con tem đại diện cho một ngày — tên file trong public/agenda (bỏ đuôi), cắt
+ * từ bản khách gửi bằng `node scripts/agenda-assets.mjs`. Gõ sai tên là build
+ * đỏ chứ không âm thầm mất ảnh.
+ */
+export type AgendaStamp = "cocktail" | "sun" | "monstera";
+
 export const agenda = {
   eyebrow: "The weekend",
   title: "Agenda",
   intro: "Exact times will be confirmed closer to the date.",
+  /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
+  daysLabel: "Choose a day",
   days: [
     {
       label: "Friday, March 26",
+      stamp: "cocktail",
       title: "Welcome Evening",
       items: [
         { time: "Daytime", title: "Arrive & settle in", note: "Explore Hoi An at your own pace" },
@@ -390,6 +481,7 @@ export const agenda = {
     },
     {
       label: "Saturday, March 27",
+      stamp: "sun",
       title: "Wedding Day",
       items: [
         { time: "14:00", title: "Check in", note: "Your room at NHAAN is ready" },
@@ -402,20 +494,21 @@ export const agenda = {
     },
     {
       label: "Sunday, March 28",
+      stamp: "monstera",
       title: "Farewell Brunch",
       items: [
         { time: "10:00", title: "Farewell brunch", note: "A slow, sunny goodbye (and recovery)" },
         { time: "12:00", title: "Check-out", note: "" },
       ],
     },
-  ],
+  ] satisfies { label: string; stamp: AgendaStamp; title: string; items: { time: string; title: string; note: string }[] }[],
 };
 
 /* -------------------------------------------------------------- DRESSCODE */
 
 export const dresscode = {
   eyebrow: "What to wear",
-  title: "Dress Code",
+  title: "Dresscode",
   headline: "Jungle Glam 🌿",
   note: "Our celebration is set among coconut groves and riverside greenery — so we're bringing the jungle to the dance floor. Think lush, bold and warm, but still elegant. Mix the colours, match them, or go all in on one. Tropical prints, leafy patterns and earthy textures are very welcome.",
   /** Để mảng rỗng thì phần bảng màu tự ẩn. */

@@ -62,6 +62,15 @@ export const palette = {
   /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
   beige: "#f4e4b1",
   /**
+   * Vàng nghệ của viên thuốc "Add calendar" trong cảnh Save the date — đo
+   * thẳng từ file tranh khách gửi (assets-source/time/reference.png).
+   *
+   * Nó đứng ngoài hệ tông vì nó không phải màu của một nền hay một dòng chữ:
+   * nó là một mảng đặc khách vẽ sẵn, và nút web phải trùng đúng mảng đó. Chữ
+   * mực trên nền này đạt 7.2:1.
+   */
+  sun: "#e5ba05",
+  /**
    * Nền lá của khung "Our story" — màu trung bình của dải xanh ngoài cùng
    * trong chính file khung. Section tô đúng màu này để trang giấy đứng trên
    * một nền liền mạch: trên điện thoại khung chạm hai mép màn, trên desktop

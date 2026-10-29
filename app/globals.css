@@ -26,6 +26,7 @@
   --color-line: var(--t-color-line);
   --color-olive: var(--t-color-olive);
   --color-beige: var(--t-color-beige);
+  --color-sun: var(--t-color-sun);
 
   /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
   --color-tone-bg: var(--t-section-bg);
@@ -287,6 +288,147 @@ html {
     background-color: var(--t-section-bg);
     padding: var(--t-space-stack);
     box-shadow: var(--t-shadow-paper);
+  }
+
+  /*
+    Một nút trong bộ thẻ (components/ui/TabSet.tsx). Trạng thái chọn móc vào
+    `aria-selected` nên nút không cần class điều kiện, và cái mà trình đọc màn
+    hình nghe thấy với cái mắt nhìn thấy luôn là một.
+
+    Nút KHÔNG chọn không bị hạ opacity — xem "Ba luật thiết kế" trong
+    CLAUDE.md. Nó lùi lại bằng màu chữ phụ và bằng bóng nhẹ hơn, còn con tem
+    giữ nguyên màu nguyên bản.
+  */
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--t-space-tight);
+    min-height: var(--t-size-tap);
+    padding: var(--t-space-tight);
+    border-radius: var(--t-radius-card);
+    color: var(--t-section-muted);
+    cursor: pointer;
+    transition: color 200ms var(--t-ease);
+  }
+
+  .tab[aria-selected="true"] {
+    color: var(--t-section-fg);
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--t-section-accent);
+    outline-offset: 4px;
+  }
+
+  /* Con tem nhấc lên khi được chọn. Cỡ gạch dưới đo bằng `em` nên nó lớn nhỏ
+     theo chính dòng chữ bên trên. */
+  .tab-stamp {
+    box-shadow: var(--t-shadow-paper);
+    transition:
+      box-shadow 200ms var(--t-ease),
+      transform 200ms var(--t-ease);
+  }
+
+  .tab[aria-selected="true"] .tab-stamp {
+    box-shadow: var(--t-shadow-lift);
+    transform: scale(1.04);
+  }
+
+  .tab-mark {
+    width: 2em;
+    height: 1px;
+    background-color: transparent;
+  }
+
+  .tab[aria-selected="true"] .tab-mark {
+    background-color: var(--t-section-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab,
+    .tab-stamp {
+      transition: none;
+    }
+
+    .tab[aria-selected="true"] .tab-stamp {
+      transform: none;
+    }
+  }
+
+  /*
+    Khối gập dùng chung (components/ui/Disclosure.tsx): một hàng nhãn bấm
+    được, mở ra phần chữ bên dưới. Đặt tên chung chứ không theo section để
+    section sau dùng lại được.
+
+    Màu và khoảng cách đều lấy từ tông đang bọc nó, nên khối gập đặt trên nền
+    cam hay nền kem đều đúng màu mà không phải truyền prop.
+  */
+  .disclosure {
+    border-bottom: 1px solid var(--t-section-line);
+  }
+
+  .disclosure-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--t-space-stack);
+    /* Vùng chạm >= 2.75rem để ngón tay bấm không trượt */
+    min-height: var(--t-size-tap);
+    padding-block: var(--t-space-stack);
+    color: var(--t-section-fg);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Safari vẽ sẵn một tam giác trước <summary> — bỏ đi, đã có dấu cộng. */
+  .disclosure-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .disclosure-summary:focus-visible {
+    outline: 2px solid var(--t-section-accent);
+    outline-offset: 4px;
+  }
+
+  /* Dấu cộng vẽ bằng hai gạch; gạch dọc xoay về ngang khi mở thành dấu trừ.
+     Cỡ đo bằng `em` nên nó lớn nhỏ theo chính dòng nhãn. */
+  .disclosure-mark {
+    position: relative;
+    flex: none;
+    width: 0.8em;
+    height: 0.8em;
+  }
+
+  .disclosure-mark::before,
+  .disclosure-mark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transition: transform 200ms var(--t-ease);
+  }
+
+  .disclosure-mark::after {
+    transform: rotate(90deg);
+  }
+
+  .disclosure[open] .disclosure-mark::after {
+    transform: rotate(0deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .disclosure-mark::before,
+    .disclosure-mark::after {
+      transition: none;
+    }
+  }
+
+  .disclosure-body {
+    padding-bottom: var(--t-space-stack);
   }
 
   /* Băng ảnh kéo ngang — dùng cho Love Story và Gallery. Cuộn gốc của
