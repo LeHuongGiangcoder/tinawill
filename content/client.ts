@@ -198,38 +198,21 @@ export const hero = {
 /* -------------------------------------------------------------- LOVE STORY */
 
 export const loveStory = {
-  eyebrow: "How we met",
-  title: "Our Love Story",
-  intro: "Two people, two cultures, one building — and now, one life together.",
-  /** Mỗi chương là một trang giấy trong tập kéo ngang. */
-  chapters: [
-    {
-      year: "Chapter one",
-      title: "The conversation that didn't end",
-      body: "The first time we talked was at an event. The event ended, everyone went home — and we still hadn't finished our conversation. So we took it to a little Chinese restaurant nearby and kept talking till 3am.",
-    },
-    {
-      year: "Chapter two",
-      title: "The same building",
-      body: "When it was time to go home, Tina asked Will where he lived. Then we realised we were living in the exact same building. We shared a Grab home that night.",
-    },
-    {
-      year: "Chapter three",
-      title: "Seven days in a row",
-      body: "Then the universe got involved. Every single day for the next week we kept running into each other — in the gym, at a cafe, at a different hour each day, without ever planning it. By day seven, it was hard to call it a coincidence.",
-    },
-    {
-      year: "Chapter four",
-      title: "Germany meets America",
-      body: "Will's way of seeing the world is shaped by German culture — direct, structured, a bit dry they say. Tina's is shaped by American culture — expressive, spontaneous, always up to do more. Every difference we worked through taught us something new about each other.",
-    },
+  /** Tiêu đề viết tay trên đầu trang giấy. */
+  title: "Our story",
+  /**
+   * Chuyện tình kể liền một mạch trên MỘT trang giấy — mỗi phần tử là một
+   * đoạn. Thêm hay bớt một đoạn thì trang tự cao lên hoặc thấp xuống, khung
+   * giấy co theo (xem `.page-frame` trong app/globals.css).
+   */
+  paragraphs: [
+    "The first time we talked was at an event. The event ended, everyone went home — and we still hadn't finished our conversation. So we took it to a little Chinese restaurant nearby and kept talking till 3am. When it was time to go home, Tina asked Will where he lived. Then we realized that we were living in the exact same building. We shared a Grab home that night.",
+    "Then the universe got involved. Every single day for the next week, we kept running into each other — in the gym, at a cafe, at a different hour each day, without ever planning it. By day seven, it was hard to call it a coincidence.",
+    "And the rest, as they say, is history.",
+    "It wasn't always easy. Will's way of seeing the world is shaped by German culture — direct, structured, a bit dry they say. Tina's is shaped by American culture — expressive, spontaneous, always up to do more. We've had our share of cultural clashes (and a few very long talks about them). But every difference we worked through taught us something new about each other, and brought us closer.",
   ],
-  /** Nhịp kết, đứng riêng dưới băng ảnh. Để null thì không hiện. */
-  finale: {
-    year: "March 2027",
-    title: "And the rest, as they say, is history",
-    body: "We can't wait to celebrate with you in Hoi An.",
-  },
+  /** Câu kết in nghiêng, đứng tách dưới cùng trang. Để trống thì không hiện. */
+  closing: "Two people, two cultures, one building — and now, one life together.",
 };
 
 /* ---------------------------------------------------------------- GALLERY */

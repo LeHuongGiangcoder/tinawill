@@ -1,166 +1,106 @@
-"use client";
-
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Divider } from "@/components/ui/Divider";
-import { Caption, Eyebrow, Heading, Lead, SectionHead } from "@/components/ui/Heading";
-import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { loveStory } from "@/content/client";
 
 /**
- * Chuyện tình, kể bằng một tập trang giấy kéo ngang.
+ * "Our story" — một trang giấy duy nhất trong khung vẽ tay của khách.
  *
- * Mỗi chương là một trang trong khung giấy khách vẽ (public/love-story), tỉ
- * lệ 9/16 đúng như file gốc. Chữ là chữ thật nằm trong vùng giấy trống giữa
- * trang — khuôn `.page-frame` trong app/globals.css giữ bốn lề đó, nên không
- * section nào phải tự tính toạ độ.
+ * Khung gốc là một file 9/16, nhưng chuyện tình dài hơn một khung 9/16 trên
+ * điện thoại, nên nó được cắt làm ba: hai nắp (ảnh nguyên vẹn, giữ nguyên hoa
+ * bốn góc và hai bụi cỏ dưới chân trang) và một nhịp sóng của mép bên để lặp
+ * lại giữa hai nắp. Khuôn `.page-frame` trong app/globals.css lo phần ghép;
+ * section này chỉ nói ba file ảnh là file nào và đổ chữ vào.
  *
- * Dùng scroll-snap gốc của trình duyệt: trên điện thoại vuốt là xong, trên
- * máy tính có hai mũi tên và hàng chấm. Không cần thư viện carousel nào, và
- * cũng không có listener nào chạy khi khách không chạm tới.
+ * Đổi lời là sửa `loveStory` trong content/client.ts — thêm một đoạn thì
+ * trang tự cao lên, khung co theo, không phải tính lại toạ độ gì.
  */
-/** Khung giấy khách vẽ — một file dùng cho cả bốn trang. */
-const FRAME = "/love-story/frame.webp";
+
+const FRAME = "/love-story";
+
+/** Bề rộng ảnh khung gốc — dùng cho `sizes` của next/image. */
+const CAP = { width: 860, top: 299, bottom: 326 };
 
 export function LoveStory() {
-  const trackRef = useRef<HTMLUListElement>(null);
-  const [index, setIndex] = useState(0);
-  const [hintDone, setHintDone] = useState(false);
-
-  const { chapters, finale } = loveStory;
-
-  /*
-    Vị trí thẻ đang xem được suy ra từ scrollLeft, không giữ state riêng — nhờ
-    vậy vuốt tay và bấm mũi tên không bao giờ nói hai điều khác nhau.
-  */
-  const syncIndex = useCallback(() => {
-    const track = trackRef.current;
-    const slide = track?.firstElementChild as HTMLElement | null;
-    if (!track || !slide) return;
-    const step = slide.offsetWidth + parseFloat(getComputedStyle(track).gap || "0");
-    setIndex(Math.round(track.scrollLeft / step));
-    if (track.scrollLeft > 8) setHintDone(true);
-  }, []);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.addEventListener("scroll", syncIndex, { passive: true });
-    return () => track.removeEventListener("scroll", syncIndex);
-  }, [syncIndex]);
-
-  // Chữ "vuốt sang" chỉ nhắc một lần rồi tự tắt, không ngồi nhấp nháy mãi.
-  useEffect(() => {
-    if (hintDone) return;
-    const timer = setTimeout(() => setHintDone(true), 6000);
-    return () => clearTimeout(timer);
-  }, [hintDone]);
-
-  const goTo = useCallback((next: number) => {
-    setHintDone(true);
-    const track = trackRef.current;
-    const slide = track?.children[next] as HTMLElement | undefined;
-    if (!track || !slide) return;
-    track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: "smooth" });
-  }, []);
+  const { title, paragraphs, closing } = loveStory;
 
   return (
-    <SectionWrapper section="loveStory" labelledBy="love-story-title">
-      <SectionHead
-        eyebrow={loveStory.eyebrow}
-        title={loveStory.title}
-        titleId="love-story-title"
-        intro={loveStory.intro}
-      />
+    <SectionWrapper section="loveStory" width="prose" labelledBy="love-story-title">
+      {/*
+        `data-tone="light"` cho cả trang: mặt giấy trong khung sáng hơn nền
+        section, nên chữ, gạch và chữ phụ bên trong lấy bảng màu của nền sáng
+        mà không phải viết màu cứng ở đây.
+      */}
+      <div data-tone="light" className="page-frame shadow-paper">
+        <Image
+          src={`${FRAME}/frame-top.webp`}
+          alt=""
+          aria-hidden
+          width={CAP.width}
+          height={CAP.top}
+          sizes="(max-width: 48rem) 100vw, 40rem"
+          unoptimized
+          className="page-frame-cap"
+        />
 
-      <Reveal className="relative">
-        {!hintDone ? (
-          <p
-            aria-hidden
-            className="pointer-events-none absolute right-0 top-1/3 z-10 flex items-center gap-tight rounded-btn border border-tone-line bg-tone-bg/90 px-stack py-tight text-eyebrow uppercase text-tone-fg shadow-paper"
-          >
-            {/* Nhắc nhẹ, công cụ thật là mũi tên và hàng chấm bên dưới */}
-            Vuốt
-            <span className="animate-nudge">→</span>
-          </p>
-        ) : null}
-
-        <ul className="reel" ref={trackRef} onPointerDown={() => setHintDone(true)}>
-          {chapters.map((chapter, i) => (
-            <li key={chapter.title} className="w-[86%] sm:w-[22rem]">
-              <article
-                className="page-frame"
-                style={{ transform: `rotate(${i % 2 === 0 ? -1.2 : 1.2}deg)` }}
-                aria-label={`${chapter.year} — ${chapter.title}`}
-              >
-                {/* Khung đã đúng cỡ hiển thị và đúng tỉ lệ 9/16 của thẻ: để
-                    Next nén lại chỉ thêm một vòng encode mà không bớt byte. */}
-                <Image
-                  src={FRAME}
-                  alt=""
-                  aria-hidden
-                  fill
-                  sizes="(max-width: 48rem) 86vw, 22rem"
-                  unoptimized
-                  className="pointer-events-none select-none object-cover"
-                />
-
-                <div className="page-frame-body text-center">
-                  <Eyebrow>{chapter.year}</Eyebrow>
-                  <Heading level="h4">{chapter.title}</Heading>
-                  <Caption>{chapter.body}</Caption>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
-
-      <div className="mt-stack flex items-center justify-center gap-stack">
-        <button
-          type="button"
-          onClick={() => goTo(index - 1)}
-          disabled={index <= 0}
-          aria-label="Chương trước"
-          className="flex size-tap items-center justify-center rounded-btn border border-tone-line text-tone-fg disabled:opacity-35"
+        {/* Nhịp sóng của hai mép bên đi qua `style` chứ không nằm trong
+            globals.css: file ảnh là tài sản của khách, khuôn thì dùng chung. */}
+        <div
+          className="page-frame-body flex flex-col gap-stack text-tone-fg"
+          style={{ borderImageSource: `url(${FRAME}/frame-side.webp)` }}
         >
-          <span aria-hidden>←</span>
-        </button>
+          {/*
+            <h2> trần chứ không dùng <Heading>: Heading luôn kèm sẵn
+            `font-display`, mà tiêu đề này là chữ viết tay — hai class cùng
+            thuộc tính chồng nhau thì thắng thua phụ thuộc thứ tự sinh CSS.
+          */}
+          <h2
+            id="love-story-title"
+            data-reveal
+            className="text-center font-script text-h2 text-tone-fg"
+          >
+            {title}
+          </h2>
 
-        <div className="flex items-center gap-tight">
-          {chapters.map((chapter, i) => (
-            <button
-              key={chapter.title}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-current={i === index}
-              aria-label={`Xem ${chapter.year}`}
-              className="size-2 rounded-btn bg-tone-fg transition-opacity duration-200 aria-[current=true]:opacity-100 opacity-30"
-            />
+          {paragraphs.map((text, i) => (
+            <p
+              key={text.slice(0, 24)}
+              data-reveal
+              data-reveal-delay={(i + 1) * 60}
+              /* Chữ in hai bên như bản vẽ của khách; `hyphens-auto` để cột
+                 chữ hẹp trên điện thoại không hở những khoảng trắng dài.
+
+                 Bậc chữ nhỏ trên điện thoại: khung ăn mất gần một phần ba bề
+                 rộng, nên cột chữ chỉ còn ~250px — ở `text-base` mỗi dòng chỉ
+                 vừa 28 chữ cái và chữ in hai bên bắt đầu giãn thành vệt. */
+              className="font-display text-small hyphens-auto text-justify sm:text-base"
+            >
+              {text}
+            </p>
           ))}
+
+          {closing ? (
+            <p
+              data-reveal
+              data-reveal-delay={(paragraphs.length + 1) * 60}
+              className="font-display text-small italic text-tone-muted sm:text-base"
+            >
+              {closing}
+            </p>
+          ) : null}
         </div>
 
-        <button
-          type="button"
-          onClick={() => goTo(index + 1)}
-          disabled={index >= chapters.length - 1}
-          aria-label="Chương sau"
-          className="flex size-tap items-center justify-center rounded-btn border border-tone-line text-tone-fg disabled:opacity-35"
-        >
-          <span aria-hidden>→</span>
-        </button>
+        <Image
+          src={`${FRAME}/frame-bottom.webp`}
+          alt=""
+          aria-hidden
+          width={CAP.width}
+          height={CAP.bottom}
+          sizes="(max-width: 48rem) 100vw, 40rem"
+          unoptimized
+          className="page-frame-cap"
+        />
       </div>
-
-      {finale ? (
-        <Reveal delay={90} className="mt-block flex flex-col items-center gap-tight text-center">
-          <Divider diamond />
-          <Eyebrow>{finale.year}</Eyebrow>
-          <Heading level="h3">{finale.title}</Heading>
-          <Lead>{finale.body}</Lead>
-        </Reveal>
-      ) : null}
     </SectionWrapper>
   );
 }

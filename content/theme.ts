@@ -61,6 +61,12 @@ export const palette = {
   mango: "#a03d01",
   /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
   beige: "#f4e4b1",
+  /**
+   * Giấy bên trong khung "Our story" — trung bình mặt giấy đo từ chính file
+   * khung (public/love-story). Thân trang tô bằng màu này để nối liền với hai
+   * nắp khung phía trên và dưới, vốn là ảnh thật có vân giấy.
+   */
+  parchment: "#fbedc2",
 } as const;
 
 /**

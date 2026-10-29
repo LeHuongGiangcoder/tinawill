@@ -315,26 +315,46 @@ html {
   }
 
   /*
-    Một trang giấy có khung vẽ sẵn của khách: ảnh khung phủ kín trang, chữ
-    nằm trong vùng giấy trống ở giữa. Tỉ lệ và bốn lề đo từ chính file khung
-    (mép trong của hoa góc), nên chữ không bao giờ đè lên hoạ tiết.
+    Một trang giấy có khung vẽ tay, cao bao nhiêu cũng được.
 
-    Tên đặt chung chứ không theo section: section sau có khung giấy khác chỉ
-    cần đổi ảnh nền, không phải chép lại khuôn này.
+    Khung được cắt làm ba file (xem components/sections/LoveStory.tsx): nắp
+    trên, nắp dưới, và MỘT nhịp sóng của hai mép bên. Hai nắp là ảnh nguyên
+    vẹn nên hoa ở bốn góc không bao giờ bị kéo méo; thân trang lấy nhịp sóng
+    làm `border-image` với `round`, và trình duyệt tự co nhịp cho vừa đúng
+    một số nguyên lần — không có sóng nào bị cắt dở, dù chữ dài tới đâu.
+
+    Mọi bề rộng trong khung đo bằng `cqw` — phần trăm bề rộng của chính trang
+    giấy, không phải của màn hình — nên mép, hoa góc và lề chữ co giãn cùng
+    nhau. Ba con số cqw dưới đây đọc thẳng từ file khung (mép khung chiếm
+    68/860 bề rộng ảnh), giống cách cảnh Venue đọc toạ độ từ bản Canva.
+
+    Tên đặt chung chứ không theo section: trang nào có khung giấy khác chỉ
+    cần đổi ba file ảnh, không phải chép lại khuôn này.
   */
   .page-frame {
-    position: relative;
-    aspect-ratio: 9 / 16;
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .page-frame-cap {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .page-frame-body {
-    position: absolute;
-    inset: 15% 12% 17%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--t-space-tight);
-    overflow: hidden;
+    /* Nửa pixel chồng lên hai nắp: trình duyệt làm tròn chiều cao ảnh xuống,
+       không khép lại thì hiện một vạch nền mỏng giữa nắp và thân. */
+    margin-block: -1px;
+    border-block-width: 0;
+    border-inline-width: 7.91cqw;
+    border-style: solid;
+    border-color: transparent;
+    border-image-slice: 0 68 0 68;
+    border-image-repeat: stretch round;
+    background-color: var(--t-color-parchment);
+    /* Lề chữ bên trong mặt giấy, đo từ bản vẽ của khách */
+    padding-inline: 6cqw;
   }
 
   /*
