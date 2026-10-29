@@ -38,7 +38,8 @@ content/
 components/
   ui/            hệ component dùng chung, tất cả đọc token từ theme.ts
     SectionWrapper  vỏ section: nhịp dọc, lề ngang, bảng màu theo tông
-    Heading         Heading / Eyebrow / Lead / Caption / Script / SectionHead
+    Heading         Heading / SectionTitle / Subhead / Eyebrow / Lead /
+                    Caption / Script / SectionHead
     Button          Button + ButtonLink
     Divider         gạch ngang, có biến thể viên thoi
     ImageFrame      khung ảnh chung
@@ -90,6 +91,34 @@ Màu thì dùng nhóm `tone`: `bg-tone-bg`, `text-tone-fg`, `text-tone-muted`,
 `text-tone-accent`, `border-tone-line`. `SectionWrapper` nhận prop `tone`
 (`light` | `paper` | `dark`) và đặt `data-tone`, nên nút, gạch, input bên trong
 tự đổi màu theo section mà không cần truyền prop.
+
+## Bậc chữ của một section
+
+Mọi section đi qua `SectionHead`, và đầu section luôn có đúng bốn bậc, đúng
+thứ tự này:
+
+| Bậc | Component | Trông thế nào |
+|---|---|---|
+| `eyebrow` | `Eyebrow` | chữ nhỏ in hoa, màu nhấn — section này là gì |
+| `title` | `SectionTitle` | **tiêu đề viết tay**, `text-section-title`, màu chữ của tông |
+| `subtitle` | `Subhead` | font tiêu đề in nghiêng, màu nhấn — một câu nói rõ tiêu đề |
+| `intro` | `Lead` | đoạn dẫn, màu chữ phụ — nội dung |
+
+Tiêu đề section dùng **font viết tay**, cùng một kiểu với hai cảnh dựng sẵn
+"Save the Date" và "Our wedding venue". Khác nhau giữa các section chỉ là
+**màu**, và màu đó đến từ `tone` của section chứ không phải từ class viết tay:
+`SectionTitle` lấy `text-tone-fg`, `Subhead` lấy `text-tone-accent`.
+
+Vì vậy:
+
+- Không viết `<Heading level="h2">` làm tiêu đề section nữa — `Heading` là
+  của tiêu đề **bên trong** section (h3 cho một khối, h4 cho một thẻ).
+- Không dựng tay cụm eyebrow + tiêu đề + câu dẫn trong file section. Nếu bố
+  cục không cho gọi `SectionHead` (ví dụ "Our story" nằm trong trang giấy),
+  thì vẫn dựng đúng ba component đó, đúng thứ tự đó.
+- Ba dòng `eyebrow` / `subtitle` / `intro` đều tuỳ chọn, nhưng khi có thì
+  không được đổi chỗ: nửa trang là chữ dẫn rồi mới tới nội dung.
+- Chữ của cả bốn bậc nằm ở `content/client.ts`, không nằm trong component.
 
 ## Ba luật thiết kế — không được phá
 

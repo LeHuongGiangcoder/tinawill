@@ -17,6 +17,7 @@ export function Gifts() {
         eyebrow={gifts.eyebrow}
         title={gifts.title}
         titleId="gifts-title"
+        subtitle={gifts.subtitle}
         intro={gifts.intro}
       />
 

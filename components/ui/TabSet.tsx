@@ -31,14 +31,37 @@ export function TabSet({
   label,
   items,
   className = "",
+  listClassName = "grid grid-flow-col auto-cols-fr gap-stack",
+  presentation = "swap",
+  panelsClassName = "",
+  overlay,
 }: {
   /** Nhãn của hàng nút cho trình đọc màn hình. */
   label: string;
   items: TabItem[];
   className?: string;
+  /**
+   * Cách xếp hàng nút. Mặc định là một hàng ngang, các nút chia đều bề ngang.
+   * Nhiều nút quá thì một hàng không đủ chỗ trên điện thoại — chỗ gọi truyền
+   * lưới riêng vào, ví dụ `"grid grid-cols-3 sm:grid-cols-6 gap-stack"`.
+   */
+  listClassName?: string;
+  /**
+   * Cách đổi thẻ.
+   *
+   *   swap   thẻ không chọn bị `hidden` — khối cao đúng bằng thẻ đang mở.
+   *   slide  cả bộ nằm trên một dải ngang, đổi thẻ là dải trượt sang. Khối
+   *          cao bằng thẻ DÀI NHẤT vì thẻ nào cũng nằm trong bố cục.
+   */
+  presentation?: "swap" | "slide";
+  /** Lớp cho vùng chứa panel — chỗ gọi dùng để dựng khung bao quanh. */
+  panelsClassName?: string;
+  /** Phủ lên vùng panel, ví dụ hai cánh cửa sổ của trang Travel. */
+  overlay?: ReactNode;
 }) {
   const base = useId();
   const [active, setActive] = useState(0);
+  const sliding = presentation === "slide";
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -66,7 +89,7 @@ export function TabSet({
 
   return (
     <div className={className}>
-      <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className="flex gap-stack">
+      <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className={listClassName}>
         {items.map((item, i) => (
           <button
             key={item.id}
@@ -80,26 +103,54 @@ export function TabSet({
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
             onClick={() => setActive(i)}
-            /* basis-0 + flex-1: các nút chia đều bề ngang dù tem rộng hẹp khác nhau */
-            className="tab flex-1 basis-0"
+            className="tab"
           >
             {item.tab}
           </button>
         ))}
       </div>
 
-      {items.map((item, i) => (
+      <div className={`relative mt-block ${panelsClassName}`}>
+        {/*
+          Kiểu `slide`: cả bộ panel nằm cạnh nhau trên một dải rộng gấp N lần,
+          đổi thẻ là dải trượt ngang. Dải rộng N×100% và mỗi panel rộng
+          100/N% của dải — tức đúng 100% khung nhìn — nên dịch dải đi một
+          phần N là sang gọn một panel.
+
+          `inert` là bắt buộc chứ không phải tô điểm: panel không chọn vẫn
+          nằm trong bố cục (chỉ bị cắt khuất), nên không có nó thì khách bấm
+          Tab sẽ lạc vào cái link nằm ngoài màn hình và trình đọc màn hình
+          đọc cả phần đang không xem.
+        */}
         <div
-          key={item.id}
-          role="tabpanel"
-          id={`${base}-panel-${item.id}`}
-          aria-labelledby={`${base}-tab-${item.id}`}
-          hidden={active !== i}
-          className="mt-block"
+          className={sliding ? "tab-track" : undefined}
+          style={
+            sliding
+              ? {
+                  width: `${items.length * 100}%`,
+                  transform: `translateX(-${(active * 100) / items.length}%)`,
+                }
+              : undefined
+          }
         >
-          {item.panel}
+          {items.map((item, i) => (
+            <div
+              key={item.id}
+              role="tabpanel"
+              id={`${base}-panel-${item.id}`}
+              aria-labelledby={`${base}-tab-${item.id}`}
+              hidden={sliding ? undefined : active !== i}
+              inert={sliding && active !== i}
+              style={sliding ? { width: `${100 / items.length}%` } : undefined}
+              className={sliding ? "shrink-0" : undefined}
+            >
+              {item.panel}
+            </div>
+          ))}
         </div>
-      ))}
+
+        {overlay}
+      </div>
     </div>
   );
 }

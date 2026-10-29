@@ -1,5 +1,5 @@
 import { Divider } from "@/components/ui/Divider";
-import { Eyebrow, Heading, Lead, Script } from "@/components/ui/Heading";
+import { Eyebrow, Lead, Script, SectionHead } from "@/components/ui/Heading";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -9,18 +9,19 @@ import { couple, thankYou } from "@/content/client";
 export function ThankYou() {
   return (
     <SectionWrapper section="thankYou" width="prose" labelledBy="thank-you-title">
-      <Reveal className="flex flex-col items-center gap-stack text-center">
-        <Eyebrow>{thankYou.eyebrow}</Eyebrow>
-        <Heading level="h2" id="thank-you-title">
-          {thankYou.title}
-        </Heading>
-        <Divider diamond />
-        <div className="flex flex-col gap-tight">
+      <SectionHead
+        eyebrow={thankYou.eyebrow}
+        title={thankYou.title}
+        titleId="thank-you-title"
+        subtitle={thankYou.subtitle}
+      >
+        <div className="mt-tight flex flex-col items-center gap-tight">
           {thankYou.lines.map((line) => (
             <Lead key={line}>{line}</Lead>
           ))}
+          <Divider diamond />
         </div>
-      </Reveal>
+      </SectionHead>
 
       {thankYou.image ? (
         <Reveal delay={90} className="mt-block flex justify-center">

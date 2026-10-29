@@ -51,6 +51,7 @@ export function Gallery() {
           eyebrow={gallery.eyebrow}
           title={gallery.title}
           titleId="gallery-title"
+          subtitle={gallery.subtitle}
           intro={gallery.note}
         />
       </div>

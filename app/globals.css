@@ -63,6 +63,10 @@
   --text-eyebrow: var(--t-text-eyebrow);
   --text-eyebrow--line-height: var(--t-leading-eyebrow);
   --text-eyebrow--letter-spacing: var(--t-tracking-eyebrow);
+  --text-section-title: var(--t-text-section-title);
+  --text-section-title--line-height: var(--t-leading-section-title);
+  --text-subhead: var(--t-text-subhead);
+  --text-subhead--line-height: var(--t-leading-subhead);
 
   /* Bậc chữ bên trong một cảnh dựng sẵn — đo theo bề rộng khung, không phải
      bề rộng màn hình. Chỉ dùng trong .stage-9x16, xem stageScale ở theme.ts */
@@ -288,6 +292,260 @@ html {
     background-color: var(--t-section-bg);
     padding: var(--t-space-stack);
     box-shadow: var(--t-shadow-paper);
+  }
+
+  /*
+    Tờ giấy đặt lên nền section: một tấm nền riêng, có tông màu riêng, cho
+    section mà nền phía dưới quá rộn để đọc chữ thẳng lên đó.
+
+    Chỗ gọi đặt `data-tone` lên chính nó, nên `--t-section-bg` ở đây là màu
+    giấy chứ không phải màu section — và mọi thứ bên trong (nút, gạch, chữ
+    phụ) tự lấy bảng màu của giấy. Màu nền này là màu đỡ cho lúc ảnh vân giấy
+    chưa tải xong; ảnh thật do chỗ gọi đặt vào.
+
+    Tên đặt chung chứ không theo section, để section sau dùng lại được.
+  */
+  .sheet {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--t-space-block);
+    border-radius: var(--t-radius-card);
+    background-color: var(--t-section-bg);
+    color: var(--t-section-fg);
+    box-shadow: var(--t-shadow-lift);
+  }
+
+  /*
+    Ô màu trong bảng dresscode: một vệt sơn có nét cọ, tô bằng mã màu của
+    khách (components/sections/Dresscode.tsx đặt `background-color` từ
+    content/client.ts — đây là chỗ duy nhất trong site được nhận mã màu từ
+    nội dung).
+
+    Chỉ MỘT file ảnh cho cả sáu ô. Vệt sơn vào đây hai lần, mỗi lần một vai:
+      • `mask` cắt khối màu theo đúng hình vệt;
+      • lớp `::after` chồng bản xám lên ở `soft-light`, trả lại nét cọ và vệt
+        sáng tối của sơn mà không đụng tới sắc màu bên dưới.
+
+    Vì thế đổi một mã màu trong content/client.ts là ô đổi theo ngay, không
+    phải xuất lại sáu file ảnh — và thêm một màu thứ bảy cũng vậy.
+
+    `isolation` giữ phép trộn nằm trong chính ô màu; không có nó thì
+    `soft-light` ăn cả xuống nền giấy cam phía sau.
+  */
+  .swatch {
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 1;
+    mask-image: url("/dresscode/swatch-shape.webp");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url("/dresscode/swatch-shape.webp");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+  }
+
+  .swatch::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/dresscode/swatch-shape.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    mix-blend-mode: soft-light;
+  }
+
+  /*
+    Khung sóng: một đường lượn chạy vòng quanh mép trong của `.sheet`.
+
+    Vẽ bằng mask chứ không phải background, đúng cách dải ngăn (Divider) làm:
+    hình dáng lấy từ SVG, còn MÀU lấy từ token — đổi màu khung là sửa
+    content/theme.ts, không phải sửa file SVG.
+
+    Bốn cạnh là bốn lớp mask của cùng hai ô lặp (một ngang, một dọc). `round`
+    là mấu chốt: trình duyệt co ô lặp cho vừa đúng một số nguyên lần, nên
+    không cạnh nào có nửa nhịp sóng bị cắt dở, dù tấm giấy cao thấp ra sao.
+    Cùng một cách nghĩ với `border-image: round` của khung giấy Our story.
+
+    Hai ô lặp nằm thẳng trong CSS dưới dạng data URI: mỗi cái chưa tới 200
+    byte, để thành file rời thì tốn hai lượt tải cho hai đường kẻ.
+  */
+  .frame-wave {
+    /*
+      Hai số đo của khung sóng, khai một chỗ để mặt giấy và đường sóng không
+      bao giờ lệch nhau:
+        --wave-inset  đường sóng thụt vào bao nhiêu so với mép khối;
+        --wave-band   dải chứa đường sóng dày bao nhiêu (bằng chiều cao ô lặp
+                      bên dưới) — TIM đường sóng nằm ở giữa dải này.
+    */
+    --wave-inset: var(--t-space-stack);
+    --wave-band: 15px;
+
+    /* Chừa chỗ cho đường sóng, cộng một nhịp nữa để chữ không chạm vào nó. */
+    padding: calc(var(--t-space-block) + var(--t-space-stack));
+    /*
+      Mặt giấy KHÔNG tràn ra ngoài đường sóng: nền của `.sheet` tắt ở đây, và
+      chỗ gọi đặt mặt giấy vào một lớp con thụt vào đúng bằng đường sóng
+      (`inset-stack`). Không làm vậy thì quanh đường sóng còn một vành giấy
+      thừa, nhìn như tờ giấy bị cắt hụt so với khung.
+
+      Bóng đổ cũng chuyển xuống lớp con ấy, và `overflow` mở ra để bóng không
+      bị chính tấm giấy cắt mất.
+    */
+    overflow: visible;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /*
+    Mặt giấy bên trong khung sóng. Cắt tới đúng TIM đường sóng, nên nửa ngoài
+    nét sóng nằm trên nền section còn nửa trong nằm trên giấy — đường sóng
+    thành chính cái mép của tờ giấy.
+
+    Thụt vào `--wave-inset` thôi là chưa đủ: chỗ đó mới là mép ngoài của dải
+    sóng, còn thừa nửa dải giấy nằm ngoài nét vẽ.
+  */
+  .frame-wave-fill {
+    position: absolute;
+    inset: calc(var(--wave-inset) + var(--wave-band) / 2);
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--t-section-bg);
+    box-shadow: var(--t-shadow-paper);
+  }
+
+  .frame-wave::before {
+    content: "";
+    position: absolute;
+    inset: var(--wave-inset);
+    pointer-events: none;
+    background-color: var(--t-color-mango);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 12'%3E%3Cpath d='M0 6 Q 7 -1 14 6 T 28 6' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 12'%3E%3Cpath d='M0 6 Q 7 -1 14 6 T 28 6' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 28'%3E%3Cpath d='M6 0 Q -1 7 6 14 T 6 28' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 28'%3E%3Cpath d='M6 0 Q -1 7 6 14 T 6 28' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+    mask-position: top left, bottom left, top left, top right;
+    mask-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+    mask-size:
+      32px 15px,
+      32px 15px,
+      15px 32px,
+      15px 32px;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 12'%3E%3Cpath d='M0 6 Q 7 -1 14 6 T 28 6' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 12'%3E%3Cpath d='M0 6 Q 7 -1 14 6 T 28 6' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 28'%3E%3Cpath d='M6 0 Q -1 7 6 14 T 6 28' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 28'%3E%3Cpath d='M6 0 Q -1 7 6 14 T 6 28' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+    -webkit-mask-position: top left, bottom left, top left, top right;
+    -webkit-mask-repeat: round no-repeat, round no-repeat, no-repeat round, no-repeat round;
+    -webkit-mask-size:
+      32px 15px,
+      32px 15px,
+      15px 32px,
+      15px 32px;
+  }
+
+  /*
+    Dải panel trượt ngang của TabSet ở kiểu `slide`. Bề rộng và độ dịch do
+    component tính (phụ thuộc số thẻ), ở đây chỉ có nhịp chuyển động.
+  */
+  .tab-track {
+    display: flex;
+    transition: transform var(--t-duration-slow) var(--t-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab-track {
+      transition: none;
+    }
+  }
+
+  /*
+    Khung cửa sổ: hai cánh đứng yên hai bên, nội dung trượt ngang phía sau —
+    như đứng một chỗ nhìn qua cửa sổ rồi đưa mắt sang bên kia.
+
+    `--leaf` là bề rộng một cánh, khai ở đây để ba chỗ cùng đọc một số: hai
+    cánh, và lề trong của panel (`.window-pane`) để chữ không chui xuống dưới
+    cánh cửa. Trên điện thoại cánh mỏng đi nhiều — màn 375px mà mỗi bên ăn
+    80px thì cột chữ không còn gì.
+
+    `overflow: hidden` ở đây là thứ giữ luật "không cuộn ngang" của CLAUDE.md:
+    dải bên trong rộng gấp đôi, nhưng chính khối này vẫn đúng bề ngang section.
+  */
+  .window {
+    /*
+      `--leaf` là bề rộng cánh TRÁI. Cánh phải hẹp hơn vì trong bản vẽ nó mở
+      xiên hơn — tỉ lệ 415/545 đo từ chính tấm tranh; ép hai cánh bằng nhau
+      là hỏng phối cảnh.
+    */
+    --leaf: clamp(1.75rem, 8vw, 5rem);
+    --leaf-end: calc(var(--leaf) * 0.761);
+    /* Chậu hoa: bề ngang, và khoảng trống phải chừa dưới chân chữ cho nó. */
+    --plant-width: clamp(4.5rem, 22vw, 10rem);
+    --plant-clear: calc(var(--plant-width) * 0.802);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  /*
+    Lề trong của một panel: chừa chỗ hai cánh cửa đang đứng, CỘNG một nhịp
+    nữa. Chỉ chừa đúng bề rộng cánh thì chữ dán sát vào khung cửa — không đè
+    lên nhau, nhưng đọc thì nghẹt.
+
+    Hai bên chừa bằng nhau theo cánh rộng hơn, dù cánh phải hẹp hơn: cột chữ
+    lệch tâm trông như lỗi chứ không như dụng ý.
+
+    Lề dưới chừa cho chậu hoa đứng trên bệ cửa.
+  */
+  .window-pane {
+    padding-inline: calc(var(--leaf) + var(--t-space-stack));
+    padding-bottom: var(--plant-clear);
+  }
+
+  .window-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    /* Không bắt chuột: dưới cánh cửa có link và ô nhập. */
+    pointer-events: none;
+  }
+
+  /*
+    Một cánh cửa, xếp dọc ba mảnh: nắp trên — ô kính — nắp dưới. Hai nắp giữ
+    nguyên tỉ lệ (`shrink-0` + `h-auto` ở chỗ gọi), chỉ ô kính giữa nở ra cho
+    đủ chiều cao. Vì sao phải cắt ba: xem scripts/window-assets.mjs.
+  */
+  .window-leaf {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .window-leaf-start {
+    left: 0;
+    width: var(--leaf);
+  }
+
+  .window-leaf-end {
+    right: 0;
+    width: var(--leaf-end);
+  }
+
+  /* Ô kính giữa: giãn dọc cho vừa khoảng trống còn lại. Giãn được vì mảnh
+     này không có thanh ngang nào, chỉ hai thanh dọc gần như thẳng. */
+  .window-leaf-pane {
+    flex: 1;
+    min-height: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  /* Chậu hoa đứng trên bệ cửa, nép vào cánh phải. */
+  .window-plant {
+    position: absolute;
+    bottom: 0;
+    right: var(--leaf-end);
+    width: var(--plant-width);
   }
 
   /*

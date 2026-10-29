@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Disclosure } from "@/components/ui/Disclosure";
-import { Caption, Heading, Lead, SectionHead } from "@/components/ui/Heading";
+import { Caption, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { dresscode } from "@/content/client";
@@ -11,8 +11,11 @@ import { dresscode } from "@/content/client";
  *
  * Ô màu đọc hex thẳng từ client.ts — đây là chỗ duy nhất trong site được phép
  * nhận mã màu từ nội dung, vì bảng màu là nội dung của khách chứ không phải
- * theme của site. Dưới mỗi ô in luôn mã hex để khách cầm đi may áo dài hay
- * đưa cho thợ. Bảng màu xếp ba cột trên điện thoại, sáu cột từ sm trở lên.
+ * theme của site. Mỗi ô là một vệt sơn có nét cọ: CHỈ một file ảnh cho cả sáu
+ * ô, màu do CSS tô lên (xem `.swatch` trong app/globals.css), nên đổi một mã
+ * màu là ô đổi theo chứ không phải xuất lại ảnh. Dưới mỗi ô in luôn mã hex để
+ * khách cầm đi may áo dài hay đưa cho thợ. Bảng màu xếp ba cột trên điện
+ * thoại, sáu cột từ sm trở lên.
  *
  * Sáu khối gợi ý là khối gập (components/ui/Disclosure.tsx): mở hết ra thì
  * section dài hơn hai màn điện thoại và khách phải cuộn qua một bức tường
@@ -33,21 +36,20 @@ export function Dresscode() {
           eyebrow={dresscode.eyebrow}
           title={dresscode.title}
           titleId="dresscode-title"
+          subtitle={dresscode.subtitle}
+          intro={dresscode.note}
         />
-
-        <Reveal className="flex flex-col items-center gap-stack text-center">
-          <Heading level="h3">{dresscode.headline}</Heading>
-          <Lead className="max-w-prose">{dresscode.note}</Lead>
-        </Reveal>
 
         {dresscode.swatches.length > 0 ? (
           <Reveal delay={90} className="mt-block flex flex-col items-center gap-stack">
             <ul className="grid w-full max-w-[22rem] grid-cols-3 gap-stack sm:max-w-none sm:grid-cols-6">
               {dresscode.swatches.map((swatch) => (
                 <li key={swatch.hex} className="flex flex-col items-center gap-tight text-center">
+                  {/* Vệt sơn khách gửi, tô bằng mã màu của chính ô — hình
+                      dáng và nét cọ nằm ở `.swatch` trong app/globals.css. */}
                   <span
                     aria-hidden
-                    className="aspect-square w-full rounded-full border border-tone-line shadow-paper"
+                    className="swatch w-full"
                     style={{ backgroundColor: swatch.hex }}
                   />
                   <span className="text-small">{swatch.name}</span>

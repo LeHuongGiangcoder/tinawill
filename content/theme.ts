@@ -62,6 +62,19 @@ export const palette = {
   /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
   beige: "#f4e4b1",
   /**
+   * Đỏ của dải sọc nền trang Visa — màu của chính vạch đỏ, đo từ
+   * brand/backgrounds/stripe-vermilion.webp.
+   *
+   * Nền section tô đúng màu này chứ không lấy màu trung bình của cả tấm sọc:
+   * trung bình là một sắc cam nhạt không có thật trên tranh, lúc ảnh chưa tải
+   * xong khách sẽ thấy loé một mảng cam rồi mới đổi sang sọc. Vạch kem của
+   * tấm sọc là #f8e8b8, gần như trùng `parchment` — đó là lý do tờ giấy beige
+   * đặt lên trên hoà được vào nền.
+   */
+  stripe: "#b82808",
+  /** Xanh ô liu của dải sọc trang RSVP — đo từ chính vạch xanh, cùng cách. */
+  stripeOlive: "#627902",
+  /**
    * Vàng nghệ của viên thuốc "Add calendar" trong cảnh Save the date — đo
    * thẳng từ file tranh khách gửi (assets-source/time/reference.png).
    *
@@ -172,6 +185,48 @@ export const tones = {
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
   },
+  /**
+   * Nền sọc đỏ–kem của trang Visa. Dựng như `olive`: `bg` trùng đúng vạch đỏ
+   * của tấm sọc nên lúc ảnh chưa về, section không loé một màu khác.
+   *
+   * Chữ kem trên đỏ đạt 5.7:1. Thực tế gần như không có chữ nào nằm thẳng
+   * trên nền này — chữ ở trên tờ giấy beige, tông `beige` ngay dưới đây.
+   */
+  stripe: {
+    bg: palette.stripe,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.beige,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  /** Dải sọc xanh ô liu–kem của trang RSVP. Dựng y như `stripe` ở trên. */
+  stripeOlive: {
+    bg: palette.stripeOlive,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.beige,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  /**
+   * Tờ giấy beige đặt lên một nền rộn (hiện là nền sọc của trang Visa).
+   *
+   * `bg` trùng đúng màu trung bình của brand/backgrounds/paper-beige.webp, vì
+   * tờ giấy là ảnh có vân tải trễ — trùng màu thì không ai nhận ra khoảnh
+   * khắc ảnh chưa về.
+   *
+   * Mực trên beige đạt 12:1, cam cháy 5.0:1 — cả hai đều đạt AA cho chữ
+   * thường, nên tờ giấy dùng được cả cho tiêu đề lẫn chữ nhỏ.
+   */
+  beige: {
+    bg: palette.parchment,
+    fg: palette.ink,
+    muted: palette.inkSoft,
+    accent: palette.gold,
+    line: palette.line,
+    contrast: palette.forest,
+  },
   vermilion: {
     bg: palette.vermilion,
     fg: palette.cream,
@@ -238,6 +293,23 @@ export const typeScale = {
   small: { size: "0.875rem", line: "1.6", tracking: "0em" },
   /** Dòng chữ nhỏ in hoa trên tiêu đề section */
   eyebrow: { size: "0.75rem", line: "1.2", tracking: "0.26em" },
+  /**
+   * Tiêu đề viết tay của một section — bậc chữ của `SectionTitle`.
+   *
+   * Đây là bậc duy nhất dành cho font viết tay ngoài cảnh dựng sẵn, nên nó đo
+   * theo `vw` chứ không phải `cqw` như `stageScale.title`: section thường trải
+   * hết bề rộng trang, không nằm trong khung 9/16 nào.
+   *
+   * Hai đầu clamp đặt thấp hơn `stageScale.title` một nhịp (2.25rem→4rem thay
+   * vì 4.5rem) vì chữ ở đây đứng trong một cột chữ có eyebrow và dòng dẫn kèm
+   * bên dưới, không phải một dòng đơn độc giữa tranh.
+   *
+   * Nhịp dòng 1.25 đo theo hộp dòng của Leckerli One (1.35em) — dưới 1.2 thì
+   * đuôi chữ `g` của dòng trên chạm đầu dòng dưới khi tiêu đề xuống hai dòng.
+   */
+  sectionTitle: { size: "clamp(2.25rem, 7.5vw, 4rem)", line: "1.25", tracking: "0em" },
+  /** Dòng dẫn bằng font tiêu đề, đứng ngay dưới `SectionTitle`. */
+  subhead: { size: "clamp(1.125rem, 2.6vw, 1.5rem)", line: "1.4", tracking: "0em" },
 } as const;
 
 export const weights = {

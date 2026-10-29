@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Heading } from "@/components/ui/Heading";
+import { Eyebrow, SectionTitle, Subhead } from "@/components/ui/Heading";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { loveStory } from "@/content/client";
 
@@ -23,7 +23,7 @@ const FRAME = "/love-story";
 const CAP = { width: 860, top: 299, bottom: 326 };
 
 export function LoveStory() {
-  const { title, paragraphs, closing } = loveStory;
+  const { eyebrow, title, subtitle, paragraphs, closing } = loveStory;
 
   return (
     /*
@@ -57,13 +57,20 @@ export function LoveStory() {
           style={{ borderImageSource: `url(${FRAME}/frame-side.webp)` }}
         >
           {/*
-            Tiêu đề đi qua <Heading level="h2"> y như mọi section khác — cùng
-            font tiêu đề, cùng bậc chữ, và `gap-block` dưới nó là đúng khoảng
-            cách SectionHead để lại giữa đầu section và khối đầu tiên.
+            Đúng ba bậc của SectionHead — eyebrow, tiêu đề viết tay, dòng dẫn
+            in nghiêng — nhưng dựng tay chứ không gọi SectionHead: khối ở đây
+            nằm trong trang giấy, và `gap-block` của khung giấy đã là đúng
+            khoảng cách giữa đầu trang và đoạn đầu tiên.
           */}
-          <Heading level="h2" id="love-story-title" data-reveal className="text-center">
-            {title}
-          </Heading>
+          <div className="flex flex-col items-center gap-tight text-center">
+            <Eyebrow data-reveal>{eyebrow}</Eyebrow>
+            <SectionTitle id="love-story-title" data-reveal data-reveal-delay="90">
+              {title}
+            </SectionTitle>
+            <Subhead data-reveal data-reveal-delay="150" className="max-w-prose">
+              {subtitle}
+            </Subhead>
+          </div>
 
           <div className="flex flex-col gap-stack">
             {paragraphs.map((text, i) => (

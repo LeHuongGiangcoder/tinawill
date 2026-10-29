@@ -69,12 +69,18 @@ export function SectionWrapper({
       {texture ? (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-20 bg-repeat"
+          className="pointer-events-none absolute inset-0 -z-20"
           style={{
             backgroundImage: `url(${texture.src})`,
-            // Ô lặp cố định theo px: vân giấy phải giữ nguyên kích thước hạt
-            // ở mọi bề rộng màn hình, nếu co giãn theo màn thì hết ra giấy.
-            backgroundSize: "340px",
+            // Dải dọc (`textureWidth`): ô lặp rộng đúng bấy nhiêu, cao hết
+            // section — vạch giữ nguyên bề rộng và không có đường nối ngang.
+            // `round` co ô cho vừa chẵn số lần, nên hai mép section lúc nào
+            // cũng cùng một chỗ trong nhịp vạch thay vì cắt ngẫu nhiên.
+            // Không đặt thì đây là vân giấy: ô lặp cố định theo px, vì vân
+            // phải giữ nguyên kích thước hạt ở mọi bề rộng màn hình; co giãn
+            // theo màn thì hết ra giấy.
+            backgroundSize: spec.textureWidth ? `${spec.textureWidth} 100%` : "340px",
+            backgroundRepeat: spec.textureWidth ? "round no-repeat" : "repeat",
           }}
         />
       ) : null}

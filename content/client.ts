@@ -1,4 +1,9 @@
-import type { BackgroundName, DividerName, ElementName, TextureName } from "@/content/assets";
+import type {
+  BackgroundName,
+  DividerName,
+  ElementName,
+  TextureName,
+} from "@/content/assets";
 import type { Tone } from "@/content/theme";
 
 /**
@@ -100,6 +105,16 @@ export type SectionDesign = {
   overlay?: number;
   /** Vân giấy lặp kín nền. */
   texture?: TextureName | null;
+  /**
+   * Đổi `texture` từ vân giấy sang dải dọc: ô lặp rộng đúng bấy nhiêu, cao
+   * hết section, và chỉ lặp theo chiều ngang.
+   *
+   * Vân giấy thì lặp cả hai chiều ở một cỡ hạt cố định; một dải sọc dọc thì
+   * không — nó phải giữ đúng bề rộng vạch và kéo dài hết chiều cao, nếu không
+   * sẽ thấy đường nối ngang ở mỗi lần lặp. Nhận bất kỳ giá trị CSS nào, nên
+   * dùng clamp() để vạch co theo máy hẹp.
+   */
+  textureWidth?: string;
   /** Dải ngăn cưỡi lên đường nối với section phía trên. */
   divider?: DividerName | null;
   decor?: DecorPlacement[];
@@ -121,7 +136,12 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
      được — xem ghi chú ở `palette.wine` trong content/theme.ts. */
-  weddingInfo: { anchor: "wedding", tone: "wine", background: "paper-wine", overlay: 0 },
+  weddingInfo: {
+    anchor: "wedding",
+    tone: "wine",
+    background: "paper-wine",
+    overlay: 0,
+  },
   /* Venue là một cảnh ghép nhiều lớp như intro/hero, không phải section chữ.
      Nền giấy xanh ô liu đi qua `background` để nó phủ kín mọi khổ màn; bốn lớp
      tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
@@ -131,21 +151,74 @@ export const design: Record<SectionId, SectionDesign> = {
      section, còn lá cây và hai ghế tắm nắng nằm trong khung 9/16 của chính
      section (components/sections/Time.tsx). */
   time: { anchor: "time", tone: "wine", background: "paper-wine", overlay: 0 },
-  venue: { anchor: "venue", tone: "olive", background: "/venue/backdrop.webp", overlay: 0 },
+  venue: {
+    anchor: "venue",
+    tone: "olive",
+    background: "/venue/backdrop.webp",
+    overlay: 0,
+  },
   /* Trang "Our story" là một tờ giấy phủ kín section — nền section tô đúng
      màu lá của khung, xem tông `leaf` trong content/theme.ts. */
   loveStory: { anchor: "love-story", tone: "leaf" },
   /* Hai trang hướng dẫn đứng liền nhau nên phải khác giấy, nếu không mắt đọc
      ra một section dài thay vì hai. Đỏ son rồi tới cam: cùng họ ấm với giấy
      ô liu của Venue phía trên, nhưng mỗi trang một sắc riêng. */
-  visa: { anchor: "visa", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
-  travel: { anchor: "travel", tone: "mango", background: "paper-mango", overlay: 0 },
-  agenda: { anchor: "agenda", tone: "wine", background: "paper-wine", overlay: 0 },
-  dresscode: { anchor: "dresscode", tone: "mango", background: "paper-mango", overlay: 0 },
+  /* Dải sọc đỏ–kem khách gửi, lặp theo chiều ngang. Chữ không nằm thẳng lên
+     đó mà nằm trên một tờ giấy beige (xem components/sections/Visa.tsx).
+     Mỗi ô lặp là MỘT cặp vạch, nên ô 3.75rem cho ra vạch khoảng 30px — đúng
+     nhịp vạch ban đầu của bản khách gửi.
+
+     Số cố định chứ không phải clamp theo màn, cùng lý do với vân giấy trong
+     SectionWrapper: vạch sọc phải giữ nguyên bề rộng ở mọi khổ màn, co giãn
+     theo màn thì trên desktop nó phình thành mái hiên rạp xiếc. `round` vẫn
+     co ô chút đỉnh cho vừa chẵn số lần, nên hai mép màn luôn là nửa vạch
+     màu. Vì sao ô chỉ một nhịp: xem scripts/visa-assets.mjs. */
+  visa: {
+    anchor: "visa",
+    tone: "stripe",
+    texture: "stripe-vermilion",
+    textureWidth: "3.75rem",
+  },
+  travel: {
+    anchor: "travel",
+    tone: "mango",
+    background: "paper-mango",
+    overlay: 0,
+  },
+  agenda: {
+    anchor: "agenda",
+    tone: "wine",
+    background: "paper-wine",
+    overlay: 0,
+  },
+  dresscode: {
+    anchor: "dresscode",
+    tone: "mango",
+    background: "paper-mango",
+    overlay: 0,
+  },
   gallery: { anchor: "gallery", tone: "light" },
-  rsvp: { anchor: "rsvp", tone: "olive", background: "paper-olive", overlay: 0 },
-  gifts: { anchor: "gifts", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
-  thankYou: { anchor: "thank-you", tone: "wine", background: "paper-wine", overlay: 0 },
+  /* Dải sọc xanh ô liu–kem, cùng bộ với tấm sọc đỏ của trang Visa nhưng khác
+     màu nên hai trang không lẫn vào nhau. Chữ nằm trên tờ giấy beige, viền
+     quanh là đường sóng cam. */
+  rsvp: {
+    anchor: "rsvp",
+    tone: "stripeOlive",
+    texture: "stripe-olive",
+    textureWidth: "3.75rem",
+  },
+  gifts: {
+    anchor: "gifts",
+    tone: "vermilion",
+    background: "paper-vermilion",
+    overlay: 0,
+  },
+  thankYou: {
+    anchor: "thank-you",
+    tone: "wine",
+    background: "paper-wine",
+    overlay: 0,
+  },
 };
 
 /* ------------------------------------------------------------------ COUPLE */
@@ -188,7 +261,8 @@ export const venue = {
   hall: "Tapestry Collection by Hilton",
   address: "Vong Nhi Village, Hoi An Dong Ward, Da Nang City, Vietnam",
   /** TODO: thay bằng link Maps ghim sẵn khi khách gửi. */
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=NHAAN+Resort+%26+Spa+Hoi+An",
+  mapUrl:
+    "https://www.google.com/maps/search/?api=1&query=NHAAN+Resort+%26+Spa+Hoi+An",
   mapLabel: "View on map",
   note: "A place whose name means home and peace.",
 };
@@ -215,8 +289,12 @@ export const hero = {
 /* -------------------------------------------------------------- LOVE STORY */
 
 export const loveStory = {
+  /** Dòng nhỏ in hoa trên tiêu đề. */
+  eyebrow: "How it started",
   /** Tiêu đề viết tay trên đầu trang giấy. */
   title: "Our story",
+  /** Dòng dẫn in nghiêng ngay dưới tiêu đề. */
+  subtitle: "An event, a conversation that ran till 3am, and one building.",
   /**
    * Chuyện tình kể liền một mạch trên MỘT trang giấy — mỗi phần tử là một
    * đoạn. Thêm hay bớt một đoạn thì trang tự cao lên hoặc thấp xuống, khung
@@ -229,15 +307,17 @@ export const loveStory = {
     "It wasn't always easy. Will's way of seeing the world is shaped by German culture — direct, structured, a bit dry they say. Tina's is shaped by American culture — expressive, spontaneous, always up to do more. We've had our share of cultural clashes (and a few very long talks about them). But every difference we worked through taught us something new about each other, and brought us closer.",
   ],
   /** Câu kết in nghiêng, đứng tách dưới cùng trang. Để trống thì không hiện. */
-  closing: "Two people, two cultures, one building — and now, one life together.",
+  closing:
+    "Two people, two cultures, one building — and now, one life together.",
 };
 
 /* ---------------------------------------------------------------- GALLERY */
 
 export const gallery = {
   eyebrow: "Album",
-  title: "Our favourite moments",
-  note: "A few of the photos we love most.",
+  title: "Our moments",
+  subtitle: "A few of the photos we love most.",
+  note: "Everything from the first trips together to the day we said yes.",
   /** Chữ gợi ý cho người xem biết dải ảnh kéo ngang được. */
   hint: "Swipe to see more",
   shots: [
@@ -253,8 +333,9 @@ export const gallery = {
 /* ------------------------------------------------------------ WEDDING INFO */
 
 export const weddingInfo = {
-  eyebrow: "The wedding",
-  title: "A weekend by the river in Hoi An",
+  eyebrow: "You're invited",
+  title: "The Wedding",
+  subtitle: "A weekend by the river in Hoi An",
   intro:
     "Join us for a weekend of love, food and celebration by the river in Hoi An. We can't think of a better way to begin our life together than surrounded by the people we love most.",
   saveTheDateLabel: "Save the date",
@@ -332,84 +413,170 @@ export type GuideTab = {
   groups: TravelGroup[];
 };
 
+/* -------------------------------------------------------------------- VISA */
+
 /**
- * Hướng dẫn visa — thủ tục giấy tờ và đường bay, hai việc khách phải lo
- * TRƯỚC khi lên đường.
+ * Một tuyến bay. Nhiều hộ chiếu dùng chung một tuyến — Ấn Độ và Maldives bay
+ * y hệt nhau — nên tuyến khai riêng ở `flightRoutes` rồi hộ chiếu trỏ vào,
+ * thay vì chép đôi và có ngày sửa một chỗ quên chỗ kia.
+ */
+export type FlightRoute = { lead: string; items: string[] };
+
+const flightRoutes = {
+  /** Bay thẳng tới Đà Nẵng: Đông Nam Á và Hồng Kông. */
+  direct: {
+    lead: "Direct to Da Nang (DAD) — around 2–3 hours.",
+    items: [
+      "Direct flights from most major hubs: Singapore, Bangkok, Kuala Lumpur and Hong Kong.",
+    ],
+  },
+  /** Nối chuyến trong khu vực: Ấn Độ và Maldives. */
+  asiaHub: {
+    lead: "One stop, then straight on to Da Nang (DAD).",
+    items: [
+      "Connect via Ho Chi Minh City, Hanoi, Singapore, Kuala Lumpur or Bangkok.",
+    ],
+  },
+  /** Nối chuyến từ Châu Âu, qua vùng Vịnh hoặc Đông Nam Á. */
+  europe: {
+    lead: "One stop, then straight on to Da Nang (DAD).",
+    items: [
+      "Connect via Singapore, Bangkok, Doha, Dubai or Istanbul.",
+      "Or fly into Ho Chi Minh City / Hanoi and take a short domestic flight — about 1h20 — on to Da Nang.",
+    ],
+  },
+  /** Nối chuyến vượt Thái Bình Dương: Mỹ. */
+  pacific: {
+    lead: "One stop, then straight on to Da Nang (DAD).",
+    items: ["Connect via Seoul, Tokyo, Taipei, Hong Kong or Singapore."],
+  },
+} satisfies Record<string, FlightRoute>;
+
+export type FlightRouteName = keyof typeof flightRoutes;
+
+/** Một nhóm hộ chiếu: lá cờ trên nút, và phần hướng dẫn riêng của nhóm. */
+export type VisaRegion = {
+  id: string;
+  /** Tên file trong brand/elements, bỏ đuôi — gõ sai là build đỏ. */
+  flag: ElementName;
+  label: string;
+  /** Câu trả lời cho "tôi có cần visa không", in ngay dưới lá cờ. */
+  verdict: string;
+  /** Bật thì khối sáu bước xin e-visa hiện ra cho nhóm này. */
+  needsEvisa: boolean;
+  /** Thêm một câu chỉ đúng nhóm này mới cần đọc. */
+  note?: string;
+  route: FlightRouteName;
+};
+
+/**
+ * Hướng dẫn visa và đường bay, xếp theo hộ chiếu.
  *
- * Tách khỏi `travel` vì hai nhóm này trả lời hai câu hỏi khác hẳn nhau: đây
- * là "làm sao tới được", còn `travel` là "tới rồi thì ở đâu, mặc gì". Gộp một
- * chỗ thì section dài gấp đôi và khách phải cuộn qua phần không liên quan.
+ * Trước đây đây là hai thẻ "Visa" và "Flights", mỗi thẻ liệt kê cả sáu quốc
+ * tịch — ai cũng phải đọc lướt qua năm phần không liên quan tới mình để tìm
+ * phần của mình, hai lần. Giờ khách chọn hộ chiếu một lần và chỉ thấy đúng
+ * phần của họ: cần visa hay không, nếu cần thì sáu bước xin e-visa, và bay
+ * đường nào.
+ *
+ * Phần nào ai cũng phải đọc thì nằm ngoài khối chọn: hạn hộ chiếu 6 tháng ở
+ * câu dẫn, đường từ sân bay về resort ở `airport`.
  */
 export const visa = {
   eyebrow: "Before you fly",
   title: "Visa Guide",
+  subtitle: "Pick your passport — we'll show only the part that applies to you.",
   intro:
-    "Whichever visa option applies to you, your passport must be valid for at least 6 months after you arrive.",
-  /** Nhãn hàng nút cho trình đọc màn hình. */
-  tabsLabel: "Choose a topic",
-  tabs: [
+    "Whichever one it is, your passport must be valid for at least 6 months after you arrive.",
+  /** Nhãn hàng cờ cho trình đọc màn hình. */
+  regionsLabel: "Choose your passport",
+  visaHeading: "Your visa",
+  flightHeading: "Flying in",
+
+  routes: flightRoutes,
+
+  /**
+   * Sáu bước xin e-visa — khai MỘT lần, bốn nhóm hộ chiếu cần e-visa cùng
+   * dùng, nên bốn chỗ không bao giờ lệch nhau.
+   */
+  evisa: {
+    title: "How to get your e-visa",
+    items: [
+      "Apply only on the official site: evisa.gov.vn — look-alike sites charge extra fees.",
+      "The fee is USD 25 for single entry, paid by card.",
+      "Apply at least 3–4 weeks before your flight.",
+      "Check every detail carefully — the fee is non-refundable if there's a mistake.",
+      "Choose Da Nang International Airport as your entry point.",
+      "Print your approved e-visa and bring it with you.",
+    ],
+    action: { label: "Open evisa.gov.vn", href: "https://evisa.gov.vn" },
+  },
+
+  /** Ai cũng đọc phần này, nên nó đứng ngoài khối chọn hộ chiếu. */
+  airport: {
+    title: "From the airport",
+    body: "The resort is about 40–45 minutes by car. Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
+  },
+
+  regions: [
     {
-      id: "visa",
-      label: "Visa",
-      groups: [
-        {
-          title: "Do I need a visa?",
-          kind: "bullets",
-          lead: "Find your passport below.",
-          items: [
-            "🇪🇺 Europe — mostly visa-free, up to 45 days",
-            "🌏 Southeast Asia — visa-free, up to 30 days",
-            "🇭🇰 Hong Kong — e-visa required. If you hold both an HKSAR and a BN(O) passport, apply and travel on your HKSAR passport.",
-            "🇮🇳 India · 🇲🇻 Maldives · 🇺🇸 USA — e-visa required",
-          ],
-        },
-        {
-          title: "How to get your e-visa",
-          kind: "steps",
-          items: [
-            "Apply only on the official site: evisa.gov.vn — look-alike sites charge extra fees.",
-            "The fee is USD 25 for single entry, paid by card.",
-            "Apply at least 3–4 weeks before your flight.",
-            "Check every detail carefully — the fee is non-refundable if there's a mistake.",
-            "Choose Da Nang International Airport as your entry point.",
-            "Print your approved e-visa and bring it with you.",
-          ],
-          actions: [{ label: "Open evisa.gov.vn", href: "https://evisa.gov.vn" }],
-        },
-      ],
+      id: "europe",
+      flag: "flag-eu",
+      label: "Europe",
+      verdict: "Visa-free, up to 45 days.",
+      needsEvisa: false,
+      route: "europe",
     },
     {
-      id: "flight",
-      label: "Flights",
-      groups: [
-        {
-          title: "Flying in",
-          kind: "bullets",
-          lead: "Fly into Da Nang International Airport (DAD).",
-          items: [
-            "From Southeast Asia & Hong Kong: direct flights from most major hubs (Singapore, Bangkok, Kuala Lumpur, Hong Kong), around 2–3 hours.",
-            "From Europe: connect via Singapore, Bangkok, Doha, Dubai or Istanbul — or fly into Ho Chi Minh City / Hanoi and take a short domestic flight (about 1h20) to Da Nang.",
-            "From India & the Maldives: connect via Ho Chi Minh City, Hanoi, Singapore, Kuala Lumpur or Bangkok.",
-            "From the USA: connect via Seoul, Tokyo, Taipei, Hong Kong or Singapore.",
-          ],
-        },
-        {
-          title: "From the airport",
-          kind: "text",
-          items: [
-            "The resort is about 40–45 minutes by car. Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
-          ],
-        },
-      ],
+      id: "southeast-asia",
+      flag: "flag-asean",
+      label: "Southeast Asia",
+      verdict: "Visa-free, up to 30 days.",
+      needsEvisa: false,
+      route: "direct",
     },
-  ] satisfies GuideTab[],
+    {
+      id: "hong-kong",
+      flag: "flag-hongkong",
+      label: "Hong Kong",
+      verdict: "E-visa required.",
+      note: "If you hold both an HKSAR and a BN(O) passport, apply and travel on your HKSAR passport.",
+      needsEvisa: true,
+      route: "direct",
+    },
+    {
+      id: "india",
+      flag: "flag-india",
+      label: "India",
+      verdict: "E-visa required.",
+      needsEvisa: true,
+      route: "asiaHub",
+    },
+    {
+      id: "maldives",
+      flag: "flag-maldives",
+      label: "Maldives",
+      verdict: "E-visa required.",
+      needsEvisa: true,
+      route: "asiaHub",
+    },
+    {
+      id: "usa",
+      flag: "flag-usa",
+      label: "USA",
+      verdict: "E-visa required.",
+      needsEvisa: true,
+      route: "pacific",
+    },
+  ] satisfies VisaRegion[],
 };
 
 /** Hướng dẫn tại chỗ — ở đâu, thời tiết thế nào, quanh đó có gì. */
 export const travel = {
   eyebrow: "Once you're here",
   title: "Travel Guide",
-  intro: "Everything you need from the moment you land to the river in Hoi An.",
+  subtitle: "From the moment you land to the river in Hoi An.",
+  intro:
+    "Where to stay, what the weather is like, and the small things worth knowing before you pack.",
   tabsLabel: "Choose a topic",
   tabs: [
     {
@@ -426,8 +593,14 @@ export const travel = {
             "Staying longer? We'd love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, contact our wedding planner and the team will take care of everything for you.",
           ],
           actions: [
-            { label: "WhatsApp the planner", href: "https://wa.me/84363059436" },
-            { label: "Email the planner", href: "mailto:teamhandsheart.planner@gmail.com" },
+            {
+              label: "WhatsApp the planner",
+              href: "https://wa.me/84363059436",
+            },
+            {
+              label: "Email the planner",
+              href: "mailto:teamhandsheart.planner@gmail.com",
+            },
           ],
         },
       ],
@@ -468,6 +641,7 @@ export type AgendaStamp = "cocktail" | "sun" | "monstera";
 export const agenda = {
   eyebrow: "The weekend",
   title: "Agenda",
+  subtitle: "Three days, one celebration.",
   intro: "Exact times will be confirmed closer to the date.",
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
@@ -477,7 +651,11 @@ export const agenda = {
       stamp: "cocktail",
       title: "Welcome Evening",
       items: [
-        { time: "Daytime", title: "Arrive & settle in", note: "Explore Hoi An at your own pace" },
+        {
+          time: "Daytime",
+          title: "Arrive & settle in",
+          note: "Explore Hoi An at your own pace",
+        },
         {
           time: "18:30",
           title: "Welcome Dinner",
@@ -490,12 +668,28 @@ export const agenda = {
       stamp: "sun",
       title: "Wedding Day",
       items: [
-        { time: "14:00", title: "Check in", note: "Your room at NHAAN is ready" },
+        {
+          time: "14:00",
+          title: "Check in",
+          note: "Your room at NHAAN is ready",
+        },
         { time: "15:30", title: "Guests gather", note: "" },
         { time: "16:00", title: "Ceremony by the river", note: "" },
-        { time: "16:45", title: "Cocktail hour", note: "Photos at golden hour" },
-        { time: "18:30", title: "Reception dinner", note: "Speeches & first dance" },
-        { time: "21:30", title: "After party", note: "Bring your dancing shoes 💃" },
+        {
+          time: "16:45",
+          title: "Cocktail hour",
+          note: "Photos at golden hour",
+        },
+        {
+          time: "18:30",
+          title: "Reception dinner",
+          note: "Speeches & first dance",
+        },
+        {
+          time: "21:30",
+          title: "After party",
+          note: "Bring your dancing shoes 💃",
+        },
       ],
     },
     {
@@ -503,11 +697,20 @@ export const agenda = {
       stamp: "monstera",
       title: "Farewell Brunch",
       items: [
-        { time: "10:00", title: "Farewell brunch", note: "A slow, sunny goodbye (and recovery)" },
+        {
+          time: "10:00",
+          title: "Farewell brunch",
+          note: "A slow, sunny goodbye (and recovery)",
+        },
         { time: "12:00", title: "Check-out", note: "" },
       ],
     },
-  ] satisfies { label: string; stamp: AgendaStamp; title: string; items: { time: string; title: string; note: string }[] }[],
+  ] satisfies {
+    label: string;
+    stamp: AgendaStamp;
+    title: string;
+    items: { time: string; title: string; note: string }[];
+  }[],
 };
 
 /* -------------------------------------------------------------- DRESSCODE */
@@ -515,7 +718,8 @@ export const agenda = {
 export const dresscode = {
   eyebrow: "What to wear",
   title: "Dresscode",
-  headline: "Jungle Glam 🌿",
+  /** Dòng dẫn in nghiêng dưới tiêu đề — tên của bảng màu. */
+  subtitle: "Jungle Glam 🌿",
   note: "Our celebration is set among coconut groves and riverside greenery — so we're bringing the jungle to the dance floor. Think lush, bold and warm, but still elegant. Mix the colours, match them, or go all in on one. Tropical prints, leafy patterns and earthy textures are very welcome.",
   /** Để mảng rỗng thì phần bảng màu tự ẩn. */
   swatches: [
@@ -568,12 +772,14 @@ export const dresscode = {
 export const rsvp = {
   mode: "general" as "general" | "personalized",
   /** URL của Glow RSVP Hub — skill glow-rsvp điền vào. */
-  endpoint: "https://script.google.com/macros/s/AKfycbxB9Oc65toi-UmEfTB_J6d3l8LQoNQvhpyY1IaIIKR2h8I59K1NxvCGTZckTqLaT5y_/exec",
+  endpoint:
+    "https://script.google.com/macros/s/AKfycbxB9Oc65toi-UmEfTB_J6d3l8LQoNQvhpyY1IaIIKR2h8I59K1NxvCGTZckTqLaT5y_/exec",
   /** Slug của khách, trùng subdomain: tinawill.gloweb.site → "tinawill" */
   client: "tinawill",
 
   eyebrow: "R.S.V.P",
   title: "Will you join us?",
+  subtitle: "We'd love to have you by the river with us.",
   note: "Please let us know so we can plan rooms, transport and catering.",
   deadline: "Kindly reply by November 30, 2026",
 
@@ -620,7 +826,8 @@ export const rsvp = {
 
 export const gifts = {
   eyebrow: "Gifts",
-  title: "Gifts & Honeymoon Fund",
+  title: "Honeymoon Fund",
+  subtitle: "Your presence is already the greatest gift.",
   intro:
     "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, here are a few options — whatever feels right for you.",
   options: [
@@ -651,6 +858,7 @@ export const gifts = {
 export const thankYou = {
   eyebrow: "Thank you",
   title: "See you by the river",
+  subtitle: "March 27, 2027 — Hoi An",
   lines: [
     "Thank you for travelling all this way",
     "to celebrate the start of our life together.",

@@ -20,6 +20,7 @@ export function WeddingInfo() {
         eyebrow={weddingInfo.eyebrow}
         title={weddingInfo.title}
         titleId="wedding-info-title"
+        subtitle={weddingInfo.subtitle}
         intro={weddingInfo.intro}
       />
 

@@ -40,6 +40,7 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
+        subtitle={agenda.subtitle}
         intro={agenda.intro}
       />
 
