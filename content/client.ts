@@ -50,8 +50,9 @@ export type SectionId =
  * nó hiện ngay cùng khối tên gia đình hai bên.
  */
 export const sections: SectionId[] = [
-  "intro",
-  "hero",
+  // TẠM TẮT để gửi client — mở lại: bỏ `//` hai dòng dưới
+  // "intro",
+  // "hero",
   "time",
   "venue",
   "visa",
