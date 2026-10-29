@@ -86,7 +86,12 @@ export function WeddingInfo() {
             <ButtonLink href={venue.mapUrl} target="_blank" rel="noreferrer noopener">
               {venue.mapLabel}
             </ButtonLink>
-            <ButtonLink href={googleCalendarUrl()} target="_blank" rel="noreferrer noopener">
+            <ButtonLink
+              variant="ghost"
+              href={googleCalendarUrl()}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               {weddingInfo.calendarLabel}
             </ButtonLink>
           </div>

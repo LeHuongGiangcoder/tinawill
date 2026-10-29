@@ -102,24 +102,26 @@ export function Venue() {
           </p>
 
           {/*
+            Nút này là mẫu gốc của cả hệ nút (`.btn` trong globals.css): chữ
+            thường, không giãn chữ — bản Canva viết "Check map" thường vì chữ
+            hoa giãn cách làm nhãn dài thêm một phần ba và nút phình tới vành
+            ly vẽ sẵn. Màu xanh rừng chữ kem đến từ tông `light` của khăn trải
+            bàn bao quanh, không phải từ chỗ gọi.
+
             Bề rộng để nút tự ôm lấy chữ: viên thuốc vẽ sẵn rộng 38.7% khung,
             nhưng nhãn dài ngắn tuỳ chữ nên ép theo % sẽ có ngày tràn.
 
-            `normal-case tracking-normal` là chỗ duy nhất trong site bỏ chữ hoa
-            của hệ nút, và có lý do hình học: chữ hoa kèm giãn cách 0.26em làm
-            nhãn dài thêm khoảng một phần ba, nút phình ra tới chỗ vành ly rượu
-            vẽ sẵn và bị ly che mất chữ đầu. Bản Canva viết "Check map" thường
-            chính vì vậy — giữ đúng chữ thường thì nút vừa khít khoảng trống
-            giữa hai ly.
+            Chỉ cỡ chữ đi theo cảnh (`text-stage-action`, co theo bề rộng
+            tranh) thay vì bậc `action` chung: ở 15px nút rộng thêm ~10px và
+            ly bên trái che mất chữ đầu trên điện thoại.
           */}
           <ButtonLink
             data-reveal
             data-reveal-delay="270"
-            variant="contrast"
             href={venue.mapUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="mt-stack text-stage-action tracking-normal"
+            className="mt-stack text-stage-action"
           >
             {venueScene.mapLabel}
           </ButtonLink>

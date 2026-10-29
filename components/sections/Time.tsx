@@ -102,13 +102,13 @@ export function Time() {
               {ceremony.weekday} {ceremony.timeLabel}
             </p>
 
-            {/* Viên thuốc vàng nghệ vẽ sẵn trong bản Canva — biến thể `sun` tô
-                đúng mảng màu đó. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
+            {/* Viên thuốc vàng nghệ chữ rượu vang — cặp màu nút của tông
+                `wine`, nên trùng mảng vàng vẽ sẵn trong bản Canva mà không cần
+                biến thể riêng. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
                 tuỳ chữ nên ép theo % sẽ có ngày tràn. */}
             <ButtonLink
               data-reveal
               data-reveal-delay="300"
-              variant="sun"
               href={googleCalendarUrl()}
               target="_blank"
               rel="noreferrer noopener"

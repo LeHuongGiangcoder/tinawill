@@ -120,6 +120,26 @@ Vì vậy:
   không được đổi chỗ: nửa trang là chữ dẫn rồi mới tới nội dung.
 - Chữ của cả bốn bậc nằm ở `content/client.ts`, không nằm trong component.
 
+## Hệ nút
+
+Chỉ có **một** hình dáng nút: `.btn` trong `app/globals.css`, lấy từ nút
+"Check map" của cảnh Venue — viên thuốc, chữ thường đậm vừa (`text-action`),
+không giãn chữ, bóng `shadow-paper`. `Button` / `ButtonLink` chỉ còn hai biến
+thể: `primary` (mặc định) và `ghost` (cùng hình, không nền, cho thao tác phụ).
+
+**Màu nút không chọn ở chỗ gọi.** Mỗi tông trong `content/theme.ts` khai
+`button` + `buttonText`, ghép từ chính màu nền của moodboard: section nền đậm
+thì nút là giấy beige chữ mang màu nền section; section nền sáng thì nút đậm
+chữ kem. Tờ giấy `beige` không có màu nút riêng — nó lấy `brand` của section
+bọc ngoài, nên nút trên giấy Visa đỏ sọc, trên giấy RSVP ô liu.
+
+Muốn đổi màu nút một section → đổi `button` / `buttonText` của tông đó. Không
+thêm biến thể màu vào `Button.tsx`, không viết `bg-*` lên nút.
+
+Ngoại lệ duy nhất: nút trong cảnh dựng sẵn (`.stage-9x16`) thêm
+`text-stage-action` để cỡ chữ co theo tranh — ở cỡ chung, ly rượu vẽ sẵn của
+Venue che mất chữ đầu trên điện thoại.
+
 ## Ba luật thiết kế — không được phá
 
 Ba cái này hay bị phạm nhất, và lần nào cũng làm site xấu đi theo cùng một kiểu.

@@ -103,6 +103,7 @@ export function Visa() {
                         ))}
                       </ol>
                       <ButtonLink
+                        className="self-start"
                         href={visa.evisa.action.href}
                         target="_blank"
                         rel="noreferrer noopener"

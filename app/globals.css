@@ -67,6 +67,8 @@
   --text-section-title--line-height: var(--t-leading-section-title);
   --text-subhead: var(--t-text-subhead);
   --text-subhead--line-height: var(--t-leading-subhead);
+  --text-action: var(--t-text-action);
+  --text-action--line-height: var(--t-leading-action);
 
   /* Bậc chữ bên trong một cảnh dựng sẵn — đo theo bề rộng khung, không phải
      bề rộng màn hình. Chỉ dùng trong .stage-9x16, xem stageScale ở theme.ts */
@@ -257,6 +259,67 @@ html {
 /* ---------------------------------------------------- COMPONENTS */
 
 @layer components {
+  /*
+    Hệ nút — MỘT hình dáng cho cả site, lấy từ nút "Check map" của cảnh Venue:
+    viên thuốc, chữ thường đậm vừa, không giãn chữ, bóng giấy mềm.
+
+    Màu không nằm ở đây mà ở tông của section (`button` / `buttonText` trong
+    content/theme.ts). Nút đặt trong section nào thì tự mang cặp màu của
+    section đó, nên không có biến thể màu nào phải chọn ở chỗ gọi.
+
+    Bề rộng ôm lấy chữ. Chỗ nào cần nút rộng hết cột (nút gửi form trên điện
+    thoại) thì chỗ gọi tự thêm `w-full` — hình dáng vẫn là một.
+
+    Nằm trong @layer components nên utility vẫn thắng: cảnh dựng sẵn ghi đè
+    cỡ chữ bằng `text-stage-action` mà không phải chống lại khuôn này.
+  */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--t-space-tight);
+    min-height: var(--t-size-tap);
+    padding: var(--t-space-stack) var(--t-space-block);
+    border: 1px solid var(--t-section-button);
+    border-radius: var(--t-radius-btn);
+    background-color: var(--t-section-button);
+    color: var(--t-section-button-text);
+    font-family: var(--t-font-body);
+    font-size: var(--t-text-action);
+    font-weight: var(--t-weight-body-bold);
+    line-height: var(--t-leading-action);
+    letter-spacing: var(--t-tracking-action);
+    text-transform: none;
+    text-align: center;
+    box-shadow: var(--t-shadow-paper);
+    transition:
+      transform var(--t-duration-fast) var(--t-ease),
+      box-shadow var(--t-duration-fast) var(--t-ease);
+  }
+
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--t-shadow-lift);
+    }
+  }
+
+  .btn:disabled {
+    cursor: progress;
+    box-shadow: none;
+  }
+
+  /*
+    Nút phụ — cùng hình dáng, không nền. Dùng khi đứng cạnh một nút chính hoặc
+    cho thao tác lùi lại ("Change my answer"): viền và chữ đều lấy màu nút của
+    tông, nên nó vẫn thuộc cùng một cặp màu với nút chính bên cạnh.
+  */
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--t-section-fg);
+    box-shadow: none;
+  }
+
   /*
     Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
 

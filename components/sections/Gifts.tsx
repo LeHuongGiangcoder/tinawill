@@ -29,7 +29,7 @@ export function Gifts() {
             {option.note ? <Caption>{option.note}</Caption> : null}
 
             {option.actions.length ? (
-              <div className="mt-tight flex flex-col gap-stack sm:flex-row sm:flex-wrap">
+              <div className="mt-tight flex flex-col items-start gap-stack sm:flex-row sm:flex-wrap">
                 {option.actions.map((action) => (
                   <ButtonLink
                     key={action.href}

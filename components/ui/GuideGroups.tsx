@@ -52,7 +52,7 @@ export function GuideGroups({ groups }: { groups: TravelGroup[] }) {
           {group.note ? <Caption>{group.note}</Caption> : null}
 
           {group.actions?.length ? (
-            <div className="flex flex-col gap-stack sm:flex-row sm:flex-wrap">
+            <div className="flex flex-col items-start gap-stack sm:flex-row sm:flex-wrap">
               {group.actions.map((action) => (
                 <ButtonLink
                   key={action.href}

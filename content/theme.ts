@@ -99,6 +99,21 @@ export const palette = {
 } as const;
 
 /**
+ * Màu nút của từng tông — `button` là nền viên thuốc, `buttonText` là chữ.
+ *
+ * Mọi cặp đều lấy từ chính màu nền của moodboard (kem, xanh rừng, vàng nghệ,
+ * rượu vang, đỏ son, cam, ô liu, lá, giấy beige), không có màu nào đứng ngoài
+ * bộ tranh của khách. Công thức chung: nền section đậm thì nút là giấy sáng
+ * với chữ mang đúng màu nền section đó (giấy beige chữ cam trên nền cam, chữ
+ * đỏ trên nền đỏ…); nền section sáng thì nút đậm chữ kem — đúng nút "Check
+ * map" của cảnh Venue, mẫu gốc của cả hệ nút. Chữ trên nút đạt AA mọi tông.
+ *
+ * `brand` là màu đậm của chính section. Tông `beige` (tờ giấy đặt trên nền
+ * Visa và RSVP) KHÔNG khai `brand`, nên nó kế thừa `brand` của section bọc
+ * ngoài: nút trên tờ giấy Visa thành đỏ sọc, trên tờ giấy RSVP thành ô liu,
+ * mà không cần một tông giấy riêng cho mỗi section.
+ */
+/**
  * Bảng màu theo "tông" của section. SectionWrapper nhận `tone` và đặt
  * --section-bg / --section-fg / --section-accent, nên nút, gạch, input bên
  * trong tự đổi màu theo section mà không cần truyền prop.
@@ -111,6 +126,9 @@ export const tones = {
     accent: palette.gold,
     line: palette.line,
     contrast: palette.forest,
+    button: palette.forest,
+    buttonText: palette.cream,
+    brand: palette.forest,
   },
   paper: {
     bg: palette.creamDeep,
@@ -119,6 +137,9 @@ export const tones = {
     accent: palette.gold,
     line: palette.line,
     contrast: palette.forest,
+    button: palette.forest,
+    buttonText: palette.cream,
+    brand: palette.forest,
   },
   dark: {
     bg: palette.forest,
@@ -127,6 +148,9 @@ export const tones = {
     accent: palette.goldSoft,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.sun,
+    buttonText: palette.forest,
+    brand: palette.forest,
   },
   /**
    * Tông của cảnh vẽ trên giấy ô liu (section Venue).
@@ -150,6 +174,9 @@ export const tones = {
     accent: palette.creamDeep,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.olive,
+    brand: palette.olive,
   },
   /**
    * Ba tông giấy màu, cùng một cách dựng như `olive`: `bg` trùng đúng màu
@@ -168,6 +195,9 @@ export const tones = {
     accent: palette.goldSoft,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.sun,
+    buttonText: palette.wine,
+    brand: palette.wine,
   },
   /**
    * Nền lá của trang "Our story". Dựng như `olive`: `bg` trùng đúng màu dải
@@ -184,6 +214,9 @@ export const tones = {
     accent: palette.creamDeep,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.leaf,
+    brand: palette.leaf,
   },
   /**
    * Nền sọc đỏ–kem của trang Visa. Dựng như `olive`: `bg` trùng đúng vạch đỏ
@@ -199,6 +232,9 @@ export const tones = {
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.stripe,
+    brand: palette.stripe,
   },
   /** Dải sọc xanh ô liu–kem của trang RSVP. Dựng y như `stripe` ở trên. */
   stripeOlive: {
@@ -208,6 +244,9 @@ export const tones = {
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.olive,
+    brand: palette.olive,
   },
   /**
    * Tờ giấy beige đặt lên một nền rộn (hiện là nền sọc của trang Visa).
@@ -226,6 +265,8 @@ export const tones = {
     accent: palette.gold,
     line: palette.line,
     contrast: palette.forest,
+    button: "var(--t-section-brand)",
+    buttonText: palette.cream,
   },
   vermilion: {
     bg: palette.vermilion,
@@ -234,6 +275,9 @@ export const tones = {
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.vermilion,
+    brand: palette.vermilion,
   },
   mango: {
     bg: palette.mango,
@@ -242,6 +286,9 @@ export const tones = {
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.mango,
+    brand: palette.mango,
   },
 } as const;
 
@@ -308,6 +355,11 @@ export const typeScale = {
    * đuôi chữ `g` của dòng trên chạm đầu dòng dưới khi tiêu đề xuống hai dòng.
    */
   sectionTitle: { size: "clamp(2.25rem, 7.5vw, 4rem)", line: "1.25", tracking: "0em" },
+  /**
+   * Nhãn nút — chữ thường, đậm vừa, không giãn chữ, như "Check map" của cảnh
+   * Venue. Trong một cảnh dựng sẵn thì `text-stage-action` đè bậc này.
+   */
+  action: { size: "clamp(0.9375rem, 1.4vw, 1.0625rem)", line: "1.2", tracking: "0em" },
   /** Dòng dẫn bằng font tiêu đề, đứng ngay dưới `SectionTitle`. */
   subhead: { size: "clamp(1.125rem, 2.6vw, 1.5rem)", line: "1.4", tracking: "0em" },
 } as const;
@@ -455,6 +507,9 @@ export function themeCssVars(): string {
   push("section-accent", base.accent);
   push("section-line", base.line);
   push("section-contrast", base.contrast);
+  push("section-button", base.button);
+  push("section-button-text", base.buttonText);
+  push("section-brand", base.brand);
 
   const toneBlocks = Object.entries(tones)
     .map(([name, tone]) =>
@@ -466,6 +521,9 @@ export function themeCssVars(): string {
         `  --t-section-accent: ${tone.accent};`,
         `  --t-section-line: ${tone.line};`,
         `  --t-section-contrast: ${tone.contrast};`,
+        `  --t-section-button: ${tone.button};`,
+        `  --t-section-button-text: ${tone.buttonText};`,
+        ...("brand" in tone ? [`  --t-section-brand: ${tone.brand};`] : []),
         `}`,
       ].join("\n"),
     )

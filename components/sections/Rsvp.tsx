@@ -141,7 +141,7 @@ export function Rsvp() {
             >
               <Heading level="h3">{rsvp.successTitle}</Heading>
               <Script>{rsvp.successNote}</Script>
-              <Button variant="outline" onClick={() => setStatus("idle")}>
+              <Button variant="ghost" onClick={() => setStatus("idle")}>
                 Change my answer
               </Button>
             </div>
