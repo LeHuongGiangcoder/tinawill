@@ -600,6 +600,8 @@ export const travel = {
   intro:
     "Where to stay, what the weather is like, and the small things worth knowing before you pack.",
   tabsLabel: "Choose a topic",
+  /** Chữ trên nút mở cửa sổ — trước khi bấm, cả hàng thẻ lẫn nội dung còn khuất. */
+  gateLabel: "Can't wait",
   tabs: [
     {
       id: "stay",

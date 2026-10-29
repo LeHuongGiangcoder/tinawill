@@ -10,18 +10,23 @@ import { travel } from "@/content/client";
 /**
  * Hướng dẫn tại chỗ: ở đâu, thời tiết thế nào, quanh đó có gì.
  *
- * Dựng thành một ô cửa sổ: hai cánh cửa đứng yên hai bên, còn hai thẻ nằm
- * cạnh nhau trên một dải rộng gấp đôi phía sau. Bấm thẻ kia thì dải trượt
- * sang — như đứng một chỗ nhìn qua cửa sổ rồi đưa mắt sang bên kia, chứ
- * không phải bên này tắt đi bên kia bật lên.
+ * Dựng thành một ô cửa sổ thật: khung bao quanh nội dung, hai cánh khép lại
+ * che hết, và một nút "Can't wait" đứng trên cánh. Bấm nút thì hai cánh xoay
+ * mở vào trong, một dấu son bay ra phía người xem, rồi hàng thẻ và nội dung
+ * mới hiện. Trạng thái đóng/mở do `gate` của TabSet giữ, CSS đọc qua
+ * `data-gate` — xem components/ui/TabSet.tsx.
+ *
+ * Hai thẻ nằm cạnh nhau trên một dải rộng gấp đôi phía sau khung. Bấm thẻ kia
+ * thì dải trượt sang — như đứng một chỗ nhìn qua cửa sổ rồi đưa mắt sang bên
+ * kia, chứ không phải bên này tắt đi bên kia bật lên.
  *
  * Section vẫn đúng bề ngang màn hình: cái rộng gấp đôi là dải BÊN TRONG, bị
  * `.window` cắt khuất, nên không sinh thanh cuộn ngang.
  *
- * Ô cửa là tranh khách gửi, cắt sẵn bằng `node scripts/window-assets.mjs`:
- * mỗi cánh ba mảnh (nắp trên — ô kính — nắp dưới) để cao bao nhiêu cũng vừa
- * mà không méo phối cảnh, cộng một chậu hoa rời đặt trên bệ cửa. Lý do phải
- * cắt ba nằm trong chính script đó.
+ * Khung và hai cánh là tranh khách gửi, cắt sẵn bằng
+ * `node scripts/travel-window.mjs`: mỗi tấm ba mảnh (nắp trên — khúc giữa —
+ * nắp dưới) để cao bao nhiêu cũng vừa mà không méo. Lý do phải cắt ba nằm
+ * trong chính script đó.
  */
 
 const BASE = "/window";
@@ -31,24 +36,37 @@ const BASE = "/window";
  * sẵn chỗ, nếu không ô cửa giật một nhịp lúc ảnh về.
  */
 const ART = {
-  leftTop: { src: `${BASE}/leaf-left-top.webp`, width: 240, height: 827 },
-  leftBottom: { src: `${BASE}/leaf-left-bottom.webp`, width: 240, height: 467 },
-  rightTop: { src: `${BASE}/leaf-right-top.webp`, width: 240, height: 1124 },
-  rightBottom: { src: `${BASE}/leaf-right-bottom.webp`, width: 240, height: 596 },
-  plant: { src: `${BASE}/plant.webp`, width: 440, height: 353 },
+  frameTop: { src: `${BASE}/frame-top.webp`, width: 1400, height: 151 },
+  frameBottom: { src: `${BASE}/frame-bottom.webp`, width: 1400, height: 275 },
+  leftTop: { src: `${BASE}/sash-left-top.webp`, width: 600, height: 107 },
+  leftBottom: { src: `${BASE}/sash-left-bottom.webp`, width: 600, height: 110 },
+  rightTop: { src: `${BASE}/sash-right-top.webp`, width: 600, height: 87 },
+  rightBottom: {
+    src: `${BASE}/sash-right-bottom.webp`,
+    width: 600,
+    height: 116,
+  },
+  kiss: { src: `${BASE}/kiss.webp`, width: 520, height: 456 },
 } as const;
 
-const LEAVES = [
+/**
+ * Hai cánh. `side` quyết chỗ đứng và bản lề: cánh trái treo ở mép trái, cánh
+ * phải ở mép phải, nên mở ra là hai mép trong cùng lùi vào.
+ *
+ * Bề ngang hai cánh không bằng nhau (39.6% và 40.7% bề ngang khung) — số đo
+ * lấy từ chính tấm tranh; ép bằng nhau là lệch chỗ hai cánh giáp mí.
+ */
+const SASHES = [
   {
-    side: "window-leaf-start",
+    side: "window-sash-start",
     top: ART.leftTop,
-    pane: `${BASE}/leaf-left-mid.webp`,
+    glass: `${BASE}/sash-left-mid.webp`,
     bottom: ART.leftBottom,
   },
   {
-    side: "window-leaf-end",
+    side: "window-sash-end",
     top: ART.rightTop,
-    pane: `${BASE}/leaf-right-mid.webp`,
+    glass: `${BASE}/sash-right-mid.webp`,
     bottom: ART.rightBottom,
   },
 ] as const;
@@ -56,36 +74,66 @@ const LEAVES = [
 function WindowFrame() {
   return (
     <div aria-hidden className="window-frame">
-      {LEAVES.map((leaf) => (
-        <span key={leaf.side} className={`window-leaf ${leaf.side}`}>
-          <Image
-            src={leaf.top.src}
-            alt=""
-            width={leaf.top.width}
-            height={leaf.top.height}
-            sizes="(max-width: 40rem) 10vw, 5rem"
-            className="h-auto w-full shrink-0 select-none"
-          />
-          {/* Ô kính giữa là ảnh nền để nó giãn dọc được — xem `.window-leaf-pane` */}
-          <span className="window-leaf-pane" style={{ backgroundImage: `url(${leaf.pane})` }} />
-          <Image
-            src={leaf.bottom.src}
-            alt=""
-            width={leaf.bottom.width}
-            height={leaf.bottom.height}
-            sizes="(max-width: 40rem) 10vw, 5rem"
-            className="h-auto w-full shrink-0 select-none"
-          />
-        </span>
-      ))}
+      <Image
+        src={ART.frameTop.src}
+        alt=""
+        width={ART.frameTop.width}
+        height={ART.frameTop.height}
+        sizes="(max-width: 40rem) 100vw, 36rem"
+        className="h-auto w-full shrink-0 select-none"
+      />
+
+      {/* Khúc giữa: chỉ còn hai đố dọc, giữa trống. Là ảnh nền để nó giãn dọc
+          được, và cũng là chỗ đứng của hai cánh. */}
+      <div
+        className="window-opening"
+        style={{ backgroundImage: `url(${BASE}/frame-mid.webp)` }}
+      >
+        {SASHES.map((sash) => (
+          <span key={sash.side} className={`window-sash ${sash.side}`}>
+            <Image
+              src={sash.top.src}
+              alt=""
+              width={sash.top.width}
+              height={sash.top.height}
+              sizes="(max-width: 40rem) 40vw, 15rem"
+              className="h-auto w-full shrink-0 select-none"
+            />
+            {/* Bốn hàng ô kính gom thành một mảnh: giãn dọc thì cả bốn hàng
+                cùng cao thêm một chút, không hàng nào phình lệch. */}
+            <span
+              className="window-sash-glass"
+              style={{ backgroundImage: `url(${sash.glass})` }}
+            />
+            <Image
+              src={sash.bottom.src}
+              alt=""
+              width={sash.bottom.width}
+              height={sash.bottom.height}
+              sizes="(max-width: 40rem) 40vw, 15rem"
+              className="h-auto w-full shrink-0 select-none"
+            />
+          </span>
+        ))}
+
+        {/* Dấu son: nằm im sau cánh, cửa mở thì nó lao thẳng về phía người xem. */}
+        <Image
+          src={ART.kiss.src}
+          alt=""
+          width={ART.kiss.width}
+          height={ART.kiss.height}
+          sizes="30vw"
+          className="window-kiss h-auto select-none"
+        />
+      </div>
 
       <Image
-        src={ART.plant.src}
+        src={ART.frameBottom.src}
         alt=""
-        width={ART.plant.width}
-        height={ART.plant.height}
-        sizes="(max-width: 40rem) 24vw, 10rem"
-        className="window-plant h-auto select-none"
+        width={ART.frameBottom.width}
+        height={ART.frameBottom.height}
+        sizes="(max-width: 40rem) 100vw, 36rem"
+        className="h-auto w-full shrink-0 select-none"
       />
     </div>
   );
@@ -110,6 +158,7 @@ export function Travel() {
           presentation="slide"
           panelsClassName="window"
           overlay={<WindowFrame />}
+          gate={{ label: travel.gateLabel }}
           items={travel.tabs.map((tab) => ({
             id: tab.id,
             tab: (

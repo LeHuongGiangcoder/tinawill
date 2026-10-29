@@ -543,82 +543,167 @@ html {
   */
   .window {
     /*
-      `--leaf` là bề rộng cánh TRÁI. Cánh phải hẹp hơn vì trong bản vẽ nó mở
-      xiên hơn — tỉ lệ 415/545 đo từ chính tấm tranh; ép hai cánh bằng nhau
-      là hỏng phối cảnh.
+      Tỉ lệ đo từ chính tấm tranh (xem scripts/travel-window.mjs): đố trên và
+      bệ cửa cao bao nhiêu phần trăm BỀ NGANG khung, hai đố dọc ăn vào bao
+      nhiêu. Dùng % vì lề % trong CSS tính theo bề ngang khối cha — nên bốn
+      lề của panel luôn khớp khung dù khung to nhỏ thế nào.
     */
-    --leaf: clamp(1.75rem, 8vw, 5rem);
-    --leaf-end: calc(var(--leaf) * 0.761);
-    /* Chậu hoa: bề ngang, và khoảng trống phải chừa dưới chân chữ cho nó. */
-    --plant-width: clamp(4.5rem, 22vw, 10rem);
-    --plant-clear: calc(var(--plant-width) * 0.802);
+    --frame-head: 10.8%;
+    --frame-foot: 19.6%;
+    --frame-side: 12.9%;
     position: relative;
     isolation: isolate;
+    /*
+      Trên điện thoại ô cửa ăn hết bề ngang màn hình. Hai đố dọc đã chiếm gần
+      13% mỗi bên; thụt thêm vào lề chữ nữa thì cột chữ chỉ còn hơn hai trăm
+      pixel, đọc không nổi. Màn rộng thì trả về trong lề như cũ.
+    */
+    margin-inline: calc(var(--t-space-gutter) * -1);
+    /*
+      `overflow: hidden` ở đây là thứ giữ luật "không cuộn ngang" của
+      CLAUDE.md: dải bên trong rộng gấp đôi, nhưng chính khối này vẫn đúng bề
+      ngang section.
+    */
     overflow: hidden;
+    /* Hai cánh xoay quanh bản lề nên cảnh phải có chiều sâu; thiếu
+       `perspective` thì chúng chỉ bẹt dần chứ không mở ra. */
+    perspective: 1400px;
+  }
+
+  @media (min-width: 40rem) {
+    .window {
+      margin-inline: 0;
+    }
   }
 
   /*
-    Lề trong của một panel: chừa chỗ hai cánh cửa đang đứng, CỘNG một nhịp
-    nữa. Chỉ chừa đúng bề rộng cánh thì chữ dán sát vào khung cửa — không đè
-    lên nhau, nhưng đọc thì nghẹt.
-
-    Hai bên chừa bằng nhau theo cánh rộng hơn, dù cánh phải hẹp hơn: cột chữ
-    lệch tâm trông như lỗi chứ không như dụng ý.
-
-    Lề dưới chừa cho chậu hoa đứng trên bệ cửa.
+    Lề trong của một panel: chừa đúng chỗ khung cửa đang đứng, cộng một nhịp
+    hẹp nữa cho chữ khỏi dán vào đố.
   */
   .window-pane {
-    padding-inline: calc(var(--leaf) + var(--t-space-stack));
-    padding-bottom: var(--plant-clear);
+    padding-inline: calc(var(--frame-side) + var(--t-space-tight));
+    padding-top: calc(var(--frame-head) + var(--t-space-tight));
+    padding-bottom: calc(var(--frame-foot) + var(--t-space-tight));
   }
 
   .window-frame {
     position: absolute;
     inset: 0;
     z-index: 10;
-    /* Không bắt chuột: dưới cánh cửa có link và ô nhập. */
+    display: flex;
+    flex-direction: column;
+    /* Không bắt chuột: dưới cửa sổ có link và ô nhập. */
     pointer-events: none;
   }
 
-  /*
-    Một cánh cửa, xếp dọc ba mảnh: nắp trên — ô kính — nắp dưới. Hai nắp giữ
-    nguyên tỉ lệ (`shrink-0` + `h-auto` ở chỗ gọi), chỉ ô kính giữa nở ra cho
-    đủ chiều cao. Vì sao phải cắt ba: xem scripts/window-assets.mjs.
-  */
-  .window-leaf {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .window-leaf-start {
-    left: 0;
-    width: var(--leaf);
-  }
-
-  .window-leaf-end {
-    right: 0;
-    width: var(--leaf-end);
-  }
-
-  /* Ô kính giữa: giãn dọc cho vừa khoảng trống còn lại. Giãn được vì mảnh
-     này không có thanh ngang nào, chỉ hai thanh dọc gần như thẳng. */
-  .window-leaf-pane {
+  /* Khoảng giữa hai đố dọc — cũng là chỗ hai cánh đứng. Ảnh nền để nó giãn
+     dọc cho vừa chiều cao còn lại. */
+  .window-opening {
+    position: relative;
     flex: 1;
     min-height: 0;
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
 
-  /* Chậu hoa đứng trên bệ cửa, nép vào cánh phải. */
-  .window-plant {
+  /*
+    Một cánh cửa, xếp dọc ba mảnh: nắp trên — ô kính — nắp dưới. Hai nắp giữ
+    nguyên tỉ lệ, chỉ ô kính giữa nở ra cho đủ chiều cao.
+
+    Bản lề nằm ở mép NGOÀI, nên mở ra là mép trong lùi vào trong phòng.
+    `backface-visibility` để lúc cánh quay gần nghiêng hẳn, trình duyệt không
+    vẽ mặt sau lật ngược.
+  */
+  .window-sash {
     position: absolute;
+    top: 0;
     bottom: 0;
-    right: var(--leaf-end);
-    width: var(--plant-width);
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+    transition: transform 900ms var(--t-ease);
+  }
+
+  .window-sash-start {
+    left: 11.7%;
+    width: 39.6%;
+    transform-origin: left center;
+  }
+
+  .window-sash-end {
+    left: 49.7%;
+    width: 40.7%;
+    transform-origin: right center;
+  }
+
+  [data-gate="open"] .window-sash-start {
+    transform: rotateY(78deg);
+  }
+
+  [data-gate="open"] .window-sash-end {
+    transform: rotateY(-78deg);
+  }
+
+  /* Ô kính giữa: giãn dọc cho vừa khoảng trống còn lại. Cả bốn hàng ô cùng
+     cao thêm một chút nên không hàng nào phình lệch. */
+  .window-sash-glass {
+    flex: 1;
+    min-height: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  /* Dấu son nằm im sau cánh; cửa mở thì nó lao thẳng về phía người xem rồi
+     tan đi. Chờ một nhịp cho hai cánh hé ra trước đã. */
+  .window-kiss {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    width: 24%;
+    opacity: 0;
+  }
+
+  [data-gate="open"] .window-kiss {
+    animation: glow-kiss-fly 1100ms var(--t-ease) 380ms both;
+  }
+
+  @keyframes glow-kiss-fly {
+    0% {
+      transform: translate(-50%, -50%) scale(0.3) rotate(-16deg);
+      opacity: 0;
+    }
+    22% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -64%) scale(2.8) rotate(8deg);
+      opacity: 0;
+    }
+  }
+
+  /* Nút mở cổng, đứng giữa cánh cửa đang khép. */
+  .tab-gate {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Nội dung chỉ hiện sau khi hai cánh đã mở hẳn. */
+  .tab-panels {
+    transition: opacity 520ms var(--t-ease) 620ms;
+  }
+
+  [data-gate="shut"] .tab-panels {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .window-sash,
+    .tab-panels {
+      transition: none;
+    }
   }
 
   /*
