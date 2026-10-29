@@ -771,6 +771,18 @@ html {
   }
 
   /*
+    Khối đầu trang giấy: kéo lên đè vào phần giấy trống của nắp trên.
+
+    Nắp trên là ảnh cao 34.8cqw nhưng hoa chỉ chiếm tới ~26cqw ở hai góc —
+    phần còn lại là giấy trơn. Chữ đứng ở giữa nên không đụng hoa, và không
+    kéo lên thì giữa hàng hoa và tiêu đề là một khoảng trắng gần 18cqw cộng
+    thêm lề thân trang.
+  */
+  .page-frame-lead {
+    margin-top: -18cqw;
+  }
+
+  /*
     Khung tranh dọc 9/16 phủ kín khung cha kiểu "cover": luôn chạm cả hai
     chiều, phần thừa bị cắt. Dùng cho cảnh ghép nhiều lớp mà toạ độ từng lớp
     tính theo phần trăm của một khung có tỉ lệ cố định — co giãn khung chứ

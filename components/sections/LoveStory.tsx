@@ -62,7 +62,7 @@ export function LoveStory() {
             nằm trong trang giấy, và `gap-block` của khung giấy đã là đúng
             khoảng cách giữa đầu trang và đoạn đầu tiên.
           */}
-          <div className="flex flex-col items-center gap-tight text-center">
+          <div className="page-frame-lead flex flex-col items-center gap-tight text-center">
             <Eyebrow data-reveal>{eyebrow}</Eyebrow>
             <SectionTitle id="love-story-title" data-reveal data-reveal-delay="90">
               {title}
