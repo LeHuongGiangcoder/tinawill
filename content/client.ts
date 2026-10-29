@@ -41,8 +41,8 @@ export type SectionId =
 export const sections: SectionId[] = [
   "intro",
   "hero",
-  "weddingInfo",
   "venue",
+  "weddingInfo",
   "loveStory",
   "travel",
   "agenda",
@@ -121,7 +121,9 @@ export const design: Record<SectionId, SectionDesign> = {
      Venue.tsx). `overlay: 0` vì nền này đã là màu phẳng, không cần lớp phủ cho
      chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
   venue: { anchor: "venue", tone: "olive", background: "/venue/backdrop.webp", overlay: 0 },
-  loveStory: { anchor: "love-story", tone: "paper" },
+  /* Trang "Our story" là một tờ giấy phủ kín section — nền section tô đúng
+     màu lá của khung, xem tông `leaf` trong content/theme.ts. */
+  loveStory: { anchor: "love-story", tone: "leaf" },
   travel: { anchor: "travel", tone: "olive", background: "paper-olive", overlay: 0 },
   agenda: { anchor: "agenda", tone: "wine", background: "paper-wine", overlay: 0 },
   dresscode: { anchor: "dresscode", tone: "mango", background: "paper-mango", overlay: 0 },

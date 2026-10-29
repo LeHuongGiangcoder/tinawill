@@ -334,6 +334,14 @@ html {
   .page-frame {
     container-type: inline-size;
     width: 100%;
+    /*
+      Trên điện thoại khung chạm hai mép màn, đúng như bản Canva (khổ gốc
+      1080×1920). Trên màn rộng nó dừng ở 30rem và đứng giữa — phần thừa hai
+      bên là nền section, vốn tô đúng màu lá của khung, nên trang vẫn liền
+      một mảng chứ không thành tấm áp phích phóng to.
+    */
+    max-width: 30rem;
+    margin-inline: auto;
   }
 
   .page-frame-cap {
@@ -353,7 +361,12 @@ html {
     border-image-slice: 0 68 0 68;
     border-image-repeat: stretch round;
     background-color: var(--t-color-parchment);
-    /* Lề chữ bên trong mặt giấy, đo từ bản vẽ của khách */
+    /* Lề chữ bên trong mặt giấy, đo từ bản vẽ của khách.
+
+       Lề dọc đo cùng đơn vị với lề ngang để bốn phía cùng một nhịp: hai nắp
+       khung có hoa và cỏ vẽ sát mép trong, không chừa khoảng này thì tiêu đề
+       dính ngay dưới hàng tim của nắp trên. */
+    padding-block: 9cqw;
     padding-inline: 6cqw;
   }
 

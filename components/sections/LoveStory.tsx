@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { Heading } from "@/components/ui/Heading";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { loveStory } from "@/content/client";
 
@@ -25,20 +26,26 @@ export function LoveStory() {
   const { title, paragraphs, closing } = loveStory;
 
   return (
-    <SectionWrapper section="loveStory" width="prose" labelledBy="love-story-title">
+    /*
+      `flush` + `width="bleed"`: trang giấy LÀ cả section, chạm bốn mép đúng
+      như trang 8 của bản Canva — không có viền kem nào quanh khung. Nền
+      section tô màu lá của chính khung (tông `leaf`), nên phần thừa hai bên
+      trên màn rộng hoà làm một với khung.
+    */
+    <SectionWrapper section="loveStory" flush width="bleed" labelledBy="love-story-title">
       {/*
         `data-tone="light"` cho cả trang: mặt giấy trong khung sáng hơn nền
         section, nên chữ, gạch và chữ phụ bên trong lấy bảng màu của nền sáng
         mà không phải viết màu cứng ở đây.
       */}
-      <div data-tone="light" className="page-frame shadow-paper">
+      <div data-tone="light" className="page-frame">
         <Image
           src={`${FRAME}/frame-top.webp`}
           alt=""
           aria-hidden
           width={CAP.width}
           height={CAP.top}
-          sizes="(max-width: 48rem) 100vw, 40rem"
+          sizes="(max-width: 30rem) 100vw, 30rem"
           unoptimized
           className="page-frame-cap"
         />
@@ -46,48 +53,39 @@ export function LoveStory() {
         {/* Nhịp sóng của hai mép bên đi qua `style` chứ không nằm trong
             globals.css: file ảnh là tài sản của khách, khuôn thì dùng chung. */}
         <div
-          className="page-frame-body flex flex-col gap-stack text-tone-fg"
+          className="page-frame-body flex flex-col gap-block text-tone-fg"
           style={{ borderImageSource: `url(${FRAME}/frame-side.webp)` }}
         >
           {/*
-            <h2> trần chứ không dùng <Heading>: Heading luôn kèm sẵn
-            `font-display`, mà tiêu đề này là chữ viết tay — hai class cùng
-            thuộc tính chồng nhau thì thắng thua phụ thuộc thứ tự sinh CSS.
+            Tiêu đề đi qua <Heading level="h2"> y như mọi section khác — cùng
+            font tiêu đề, cùng bậc chữ, và `gap-block` dưới nó là đúng khoảng
+            cách SectionHead để lại giữa đầu section và khối đầu tiên.
           */}
-          <h2
-            id="love-story-title"
-            data-reveal
-            className="text-center font-script text-h2 text-tone-fg"
-          >
+          <Heading level="h2" id="love-story-title" data-reveal className="text-center">
             {title}
-          </h2>
+          </Heading>
 
-          {paragraphs.map((text, i) => (
-            <p
-              key={text.slice(0, 24)}
-              data-reveal
-              data-reveal-delay={(i + 1) * 60}
-              /* Chữ in hai bên như bản vẽ của khách; `hyphens-auto` để cột
-                 chữ hẹp trên điện thoại không hở những khoảng trắng dài.
+          <div className="flex flex-col gap-stack">
+            {paragraphs.map((text, i) => (
+              /* <p> trần: chữ thân bài của site là font body ở bậc `base`,
+                 căn trái — giống Travel, Gifts, Dresscode. Bản Canva in hai
+                 bên, nhưng cột chữ trong khung chỉ còn ~270px nên chữ in hai
+                 bên giãn thành vệt trắng giữa dòng. */
+              <p key={text.slice(0, 24)} data-reveal data-reveal-delay={(i + 1) * 60}>
+                {text}
+              </p>
+            ))}
 
-                 Bậc chữ nhỏ trên điện thoại: khung ăn mất gần một phần ba bề
-                 rộng, nên cột chữ chỉ còn ~250px — ở `text-base` mỗi dòng chỉ
-                 vừa 28 chữ cái và chữ in hai bên bắt đầu giãn thành vệt. */
-              className="font-display text-small hyphens-auto text-justify sm:text-base"
-            >
-              {text}
-            </p>
-          ))}
-
-          {closing ? (
-            <p
-              data-reveal
-              data-reveal-delay={(paragraphs.length + 1) * 60}
-              className="font-display text-small italic text-tone-muted sm:text-base"
-            >
-              {closing}
-            </p>
-          ) : null}
+            {closing ? (
+              <p
+                data-reveal
+                data-reveal-delay={(paragraphs.length + 1) * 60}
+                className="text-small italic text-tone-muted"
+              >
+                {closing}
+              </p>
+            ) : null}
+          </div>
         </div>
 
         <Image
@@ -96,7 +94,7 @@ export function LoveStory() {
           aria-hidden
           width={CAP.width}
           height={CAP.bottom}
-          sizes="(max-width: 48rem) 100vw, 40rem"
+          sizes="(max-width: 30rem) 100vw, 30rem"
           unoptimized
           className="page-frame-cap"
         />

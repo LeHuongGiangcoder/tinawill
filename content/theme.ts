@@ -62,6 +62,13 @@ export const palette = {
   /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
   beige: "#f4e4b1",
   /**
+   * Nền lá của khung "Our story" — màu trung bình của dải xanh ngoài cùng
+   * trong chính file khung. Section tô đúng màu này để trang giấy đứng trên
+   * một nền liền mạch: trên điện thoại khung chạm hai mép màn, trên desktop
+   * khung đứng giữa và phần thừa hai bên vẫn là cùng một màu lá.
+   */
+  leaf: "#436b20",
+  /**
    * Giấy bên trong khung "Our story" — trung bình mặt giấy đo từ chính file
    * khung (public/love-story). Thân trang tô bằng màu này để nối liền với hai
    * nắp khung phía trên và dưới, vốn là ảnh thật có vân giấy.
@@ -137,6 +144,22 @@ export const tones = {
     fg: palette.cream,
     muted: palette.goldSoft,
     accent: palette.goldSoft,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  /**
+   * Nền lá của trang "Our story". Dựng như `olive`: `bg` trùng đúng màu dải
+   * xanh ngoài cùng của file khung, nên mép khung hoà vào nền section thay
+   * vì cắt thành một đường.
+   *
+   * Cam nhạt (goldSoft) chỉ đạt 3.5:1 trên nền lá nên không dùng được làm
+   * chữ ở đây; cả `muted` lẫn `accent` lấy creamDeep — 5.1:1.
+   */
+  leaf: {
+    bg: palette.leaf,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.creamDeep,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
   },
