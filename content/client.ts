@@ -25,6 +25,7 @@ export type SectionId =
   | "gallery"
   | "weddingInfo"
   | "venue"
+  | "visa"
   | "travel"
   | "agenda"
   | "dresscode"
@@ -48,6 +49,7 @@ export const sections: SectionId[] = [
   "hero",
   "time",
   "venue",
+  "visa",
   "travel",
   "loveStory",
   "agenda",
@@ -133,6 +135,10 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Trang "Our story" là một tờ giấy phủ kín section — nền section tô đúng
      màu lá của khung, xem tông `leaf` trong content/theme.ts. */
   loveStory: { anchor: "love-story", tone: "leaf" },
+  /* Hai trang hướng dẫn đứng liền nhau nên phải khác giấy, nếu không mắt đọc
+     ra một section dài thay vì hai. Đỏ son rồi tới cam: cùng họ ấm với giấy
+     ô liu của Venue phía trên, nhưng mỗi trang một sắc riêng. */
+  visa: { anchor: "visa", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
   travel: { anchor: "travel", tone: "mango", background: "paper-mango", overlay: 0 },
   agenda: { anchor: "agenda", tone: "wine", background: "paper-wine", overlay: 0 },
   dresscode: { anchor: "dresscode", tone: "mango", background: "paper-mango", overlay: 0 },

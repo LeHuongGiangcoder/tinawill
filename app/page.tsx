@@ -12,6 +12,7 @@ import { ThankYou } from "@/components/sections/ThankYou";
 import { Time } from "@/components/sections/Time";
 import { Travel } from "@/components/sections/Travel";
 import { Venue } from "@/components/sections/Venue";
+import { Visa } from "@/components/sections/Visa";
 import { WeddingInfo } from "@/components/sections/WeddingInfo";
 import { Motion } from "@/components/ui/Motion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
@@ -29,6 +30,7 @@ const SECTIONS: Record<SectionId, () => React.ReactNode> = {
   gallery: Gallery,
   weddingInfo: WeddingInfo,
   venue: Venue,
+  visa: Visa,
   travel: Travel,
   agenda: Agenda,
   dresscode: Dresscode,
