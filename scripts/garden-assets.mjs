@@ -25,7 +25,14 @@ const SRC = "assets-source/garden/assets";
 const OUT = "public/garden";
 
 /** Lớp phủ kín khung cần nhiều điểm ảnh hơn một cụm hoa nằm ở mép. */
-const FULL_FRAME = new Set(["water", "foliage-left", "foliage-right", "banana-leaf", "palm-frond"]);
+const FULL_FRAME = new Set(["water", "foliage-left", "foliage-right"]);
+
+/**
+ * Màn lá của intro cũ. Màn mở thiệp giờ là <TropicalCanopy> dựng từ bộ hoạ
+ * tiết trong public/tropical, nên hai tàu này không còn ai gọi — bản WebP
+ * nằm trong assets-source/garden/retired, không xuất lại vào public nữa.
+ */
+const RETIRED = new Set(["banana-leaf", "palm-frond"]);
 
 mkdirSync(OUT, { recursive: true });
 
@@ -33,6 +40,8 @@ let total = 0;
 
 for (const file of readdirSync(SRC).filter((f) => f.endsWith(".png"))) {
   const name = file.replace(/\.png$/, "");
+  if (RETIRED.has(name)) continue;
+
   const max = FULL_FRAME.has(name) ? 1200 : 860;
 
   await sharp(`${SRC}/${file}`)

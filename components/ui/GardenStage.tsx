@@ -73,29 +73,14 @@ const LAYERS: Layer[] = [
   { name: "grapes", w: 1312, h: 1199, from: [62, 95, 34], to: [81, 99, 31], z: 12 },
 ];
 
-type Curtain = {
-  name: string;
-  w: number;
-  h: number;
-  /** Vị trí và bề rộng (%) — màn lá đứng yên, chỉ trượt ngang khi mở */
-  at: [x: number, y: number, width: number];
-  /** -1 trượt sang trái, 1 sang phải */
-  side: -1 | 1;
-  rotate: number;
-};
-
-/** Màn lá che giữa khung ở intro. Trượt hẳn ra khỏi khung khi mở thiệp. */
-const CURTAINS: Curtain[] = [
-  { name: "banana-leaf", w: 1536, h: 1024, at: [38, 8, 110], side: -1, rotate: -24 },
-  { name: "palm-frond", w: 1536, h: 1024, at: [60, 23, 108], side: 1, rotate: 20 },
-  { name: "banana-leaf", w: 1536, h: 1024, at: [38, 38, 115], side: -1, rotate: 8 },
-  { name: "palm-frond", w: 1536, h: 1024, at: [62, 53, 115], side: 1, rotate: -10 },
-  { name: "banana-leaf", w: 1536, h: 1024, at: [35, 68, 108], side: -1, rotate: 5 },
-  { name: "banana-leaf", w: 1536, h: 1024, at: [62, 87, 114], side: 1, rotate: -24 },
-];
-
-const CURTAIN_TRAVEL = 108;
-const CURTAIN_SPIN = 18;
+/*
+ * Màn lá che giữa khung ở intro từng nằm ở đây — sáu tàu banana-leaf và
+ * palm-frond trượt ra hai bên khi mở thiệp. Nó đã nghỉ: màn mở thiệp giờ là
+ * <TropicalCanopy>, dựng từ bộ hoạ tiết vẽ tay khách gửi sau này và tách
+ * thành bốn tầng sâu thay vì một màn phẳng.
+ *
+ * Hai file ảnh của màn cũ nằm trong assets-source/garden/retired (ngoài git).
+ */
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
@@ -107,7 +92,6 @@ export function GardenStage() {
     if (!root) return;
 
     const nodes = gsap.utils.toArray<HTMLElement>("[data-garden-layer]", root);
-    const curtains = gsap.utils.toArray<HTMLElement>("[data-garden-curtain]", root);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     /* Một con số duy nhất điều khiển cả cảnh: 0 = intro, 1 = hero. */
@@ -122,18 +106,19 @@ export function GardenStage() {
         node.style.left = `${lerp(from[0], to[0], p)}%`;
         node.style.top = `${lerp(from[1], to[1], p)}%`;
         node.style.width = `${lerp(from[2], to[2], p)}%`;
-        /* Phao và hoa đăng chỉ hiện khi lá đã mở đủ để thấy mặt nước. */
-        if (node.dataset.water) {
-          node.style.opacity = String(Math.max(0, (p - 0.25) / 0.75));
-        }
-      }
+        /*
+          Cả khu vườn hiện dần theo cú mở, không phải vì nó là hoạ tiết bị làm
+          mờ cho chìm vào nền — mà vì ở trạng thái intro nó đứng sau màn lá
+          của <TropicalCanopy>, một bộ tranh khác hẳn về nét vẽ. Hở qua khe lá
+          thì hai bộ chồng lên nhau thành một mảng rối. Tới lúc tán lá rẽ đủ
+          rộng để thấy mặt nước thì khu vườn cũng vừa hiện trọn.
 
-      for (const node of curtains) {
-        const side = Number(node.dataset.side);
-        const rotate = Number(node.dataset.rotate);
-        node.style.transform = `translate(calc(-50% + ${side * p * CURTAIN_TRAVEL}%), -50%) rotate(${
-          rotate + side * p * CURTAIN_SPIN
-        }deg)`;
+          Phao và hoa đăng chờ lâu hơn một nhịp: chúng nổi trên mặt nước, lộ ra
+          sớm quá thì thành ra trôi trên lá.
+        */
+        node.style.opacity = String(
+          Math.min(1, Math.max(0, (p - (node.dataset.water ? 0.25 : 0.1)) / 0.45)),
+        );
       }
     };
 
@@ -168,7 +153,7 @@ export function GardenStage() {
         ease: "power2.inOut",
         onUpdate: draw,
         onComplete: () => {
-          for (const node of [...nodes, ...curtains]) node.style.willChange = "auto";
+          for (const node of nodes) node.style.willChange = "auto";
         },
       });
     };
@@ -209,7 +194,7 @@ export function GardenStage() {
               width: `${layer.from[2]}%`,
               transform: "translate(-50%, -50%)",
               zIndex: layer.z,
-              opacity: layer.water ? 0 : 1,
+              opacity: 0,
               willChange: "left, top, width",
             }}
           >
@@ -238,34 +223,6 @@ export function GardenStage() {
           </div>
         ))}
 
-        {CURTAINS.map((curtain, i) => (
-          <div
-            key={`${curtain.name}-${i}`}
-            data-garden-curtain
-            data-side={curtain.side}
-            data-rotate={curtain.rotate}
-            style={{
-              position: "absolute",
-              left: `${curtain.at[0]}%`,
-              top: `${curtain.at[1]}%`,
-              width: `${curtain.at[2]}%`,
-              transform: `translate(-50%, -50%) rotate(${curtain.rotate}deg)`,
-              zIndex: 20,
-              willChange: "transform",
-            }}
-          >
-            <Image
-              src={`${BASE}/${curtain.name}.webp`}
-              unoptimized
-              alt=""
-              width={curtain.w}
-              height={curtain.h}
-              priority
-              sizes="120vw"
-              className="h-auto w-full"
-            />
-          </div>
-        ))}
       </div>
     </div>
   );
