@@ -10,11 +10,11 @@ import { travel } from "@/content/client";
 /**
  * Hướng dẫn tại chỗ: ở đâu, thời tiết thế nào, quanh đó có gì.
  *
- * Dựng thành một ô cửa sổ thật: khung bao quanh nội dung, hai cánh khép lại
- * che hết, và một nút "Can't wait" đứng trên cánh. Bấm nút thì hai cánh xoay
- * mở vào trong, một dấu son bay ra phía người xem, rồi hàng thẻ và nội dung
- * mới hiện. Trạng thái đóng/mở do `gate` của TabSet giữ, CSS đọc qua
- * `data-gate` — xem components/ui/TabSet.tsx.
+ * Dựng thành một ô cửa sổ chớp thật: khung đỏ bao quanh nội dung, hai cánh
+ * chớp xanh khép lại che hết, và một nút "Can't wait" đứng trên cánh. Bấm nút
+ * thì hai cánh xoay mở vào trong, chữ hiện ra trước, rồi chừng một giây rưỡi
+ * sau dấu son mới bay ra phía người xem. Trạng thái đóng/mở do `gate` của
+ * TabSet giữ, CSS đọc qua `data-gate` — xem components/ui/TabSet.tsx.
  *
  * Hai thẻ nằm cạnh nhau trên một dải rộng gấp đôi phía sau khung. Bấm thẻ kia
  * thì dải trượt sang — như đứng một chỗ nhìn qua cửa sổ rồi đưa mắt sang bên
@@ -23,10 +23,10 @@ import { travel } from "@/content/client";
  * Section vẫn đúng bề ngang màn hình: cái rộng gấp đôi là dải BÊN TRONG, bị
  * `.window` cắt khuất, nên không sinh thanh cuộn ngang.
  *
- * Khung và hai cánh là tranh khách gửi, cắt sẵn bằng
- * `node scripts/travel-window.mjs`: mỗi tấm ba mảnh (nắp trên — khúc giữa —
- * nắp dưới) để cao bao nhiêu cũng vừa mà không méo. Lý do phải cắt ba nằm
- * trong chính script đó.
+ * Khung và cánh đều tách ra từ MỘT tấm tranh khách gửi, bằng
+ * `node scripts/travel-window.mjs`. Chỉ có một cánh: cánh phải là chính nó lật
+ * gương. Mỗi mảnh cắt ba (nắp trên — khúc giữa — nắp dưới) để cao bao nhiêu
+ * cũng vừa mà không méo; lý do nằm trong chính script đó.
  */
 
 const BASE = "/window";
@@ -36,39 +36,21 @@ const BASE = "/window";
  * sẵn chỗ, nếu không ô cửa giật một nhịp lúc ảnh về.
  */
 const ART = {
-  frameTop: { src: `${BASE}/frame-top.webp`, width: 1400, height: 151 },
-  frameBottom: { src: `${BASE}/frame-bottom.webp`, width: 1400, height: 275 },
-  leftTop: { src: `${BASE}/sash-left-top.webp`, width: 600, height: 107 },
-  leftBottom: { src: `${BASE}/sash-left-bottom.webp`, width: 600, height: 110 },
-  rightTop: { src: `${BASE}/sash-right-top.webp`, width: 600, height: 87 },
-  rightBottom: {
-    src: `${BASE}/sash-right-bottom.webp`,
-    width: 600,
-    height: 116,
-  },
+  frameTop: { src: `${BASE}/shutter-frame-top.webp`, width: 1400, height: 193 },
+  frameBottom: { src: `${BASE}/shutter-frame-bottom.webp`, width: 1400, height: 175 },
+  leafTop: { src: `${BASE}/shutter-leaf-top.webp`, width: 640, height: 326 },
+  leafBottom: { src: `${BASE}/shutter-leaf-bottom.webp`, width: 640, height: 882 },
   kiss: { src: `${BASE}/kiss.webp`, width: 520, height: 456 },
 } as const;
 
 /**
- * Hai cánh. `side` quyết chỗ đứng và bản lề: cánh trái treo ở mép trái, cánh
- * phải ở mép phải, nên mở ra là hai mép trong cùng lùi vào.
- *
- * Bề ngang hai cánh không bằng nhau (39.6% và 40.7% bề ngang khung) — số đo
- * lấy từ chính tấm tranh; ép bằng nhau là lệch chỗ hai cánh giáp mí.
+ * Hai cánh dùng chung một bộ ảnh. `window-leaf-start` treo ở mép trái, còn
+ * `window-leaf-end` ở mép phải và được lật gương (`-scale-x-100`) — bản lề
+ * luôn nằm ở mép ngoài, mép khép giữa luôn ở trong.
  */
-const SASHES = [
-  {
-    side: "window-sash-start",
-    top: ART.leftTop,
-    glass: `${BASE}/sash-left-mid.webp`,
-    bottom: ART.leftBottom,
-  },
-  {
-    side: "window-sash-end",
-    top: ART.rightTop,
-    glass: `${BASE}/sash-right-mid.webp`,
-    bottom: ART.rightBottom,
-  },
+const LEAVES = [
+  { side: "window-leaf-start", flip: "" },
+  { side: "window-leaf-end", flip: "-scale-x-100" },
 ] as const;
 
 function WindowFrame() {
@@ -83,40 +65,40 @@ function WindowFrame() {
         className="h-auto w-full shrink-0 select-none"
       />
 
-      {/* Khúc giữa: chỉ còn hai đố dọc, giữa trống. Là ảnh nền để nó giãn dọc
-          được, và cũng là chỗ đứng của hai cánh. */}
+      {/* Khúc giữa của khung: chỉ còn hai trụ dọc, giữa thủng. Là ảnh nền để
+          nó giãn dọc được, và cũng là chỗ đứng của hai cánh. */}
       <div
         className="window-opening"
-        style={{ backgroundImage: `url(${BASE}/frame-mid.webp)` }}
+        style={{ backgroundImage: `url(${BASE}/shutter-frame-mid.webp)` }}
       >
-        {SASHES.map((sash) => (
-          <span key={sash.side} className={`window-sash ${sash.side}`}>
+        {LEAVES.map((leaf) => (
+          <span key={leaf.side} className={`window-leaf ${leaf.side}`}>
             <Image
-              src={sash.top.src}
+              src={ART.leafTop.src}
               alt=""
-              width={sash.top.width}
-              height={sash.top.height}
+              width={ART.leafTop.width}
+              height={ART.leafTop.height}
               sizes="(max-width: 40rem) 40vw, 15rem"
-              className="h-auto w-full shrink-0 select-none"
+              className={`h-auto w-full shrink-0 select-none ${leaf.flip}`}
             />
-            {/* Bốn hàng ô kính gom thành một mảnh: giãn dọc thì cả bốn hàng
-                cùng cao thêm một chút, không hàng nào phình lệch. */}
+            {/* Khúc lam ở giữa: ảnh nền để giãn dọc cho vừa khoảng trống. */}
             <span
-              className="window-sash-glass"
-              style={{ backgroundImage: `url(${sash.glass})` }}
+              className={`window-leaf-louvers ${leaf.flip}`}
+              style={{ backgroundImage: `url(${BASE}/shutter-leaf-mid.webp)` }}
             />
             <Image
-              src={sash.bottom.src}
+              src={ART.leafBottom.src}
               alt=""
-              width={sash.bottom.width}
-              height={sash.bottom.height}
+              width={ART.leafBottom.width}
+              height={ART.leafBottom.height}
               sizes="(max-width: 40rem) 40vw, 15rem"
-              className="h-auto w-full shrink-0 select-none"
+              className={`h-auto w-full shrink-0 select-none ${leaf.flip}`}
             />
           </span>
         ))}
 
-        {/* Dấu son: nằm im sau cánh, cửa mở thì nó lao thẳng về phía người xem. */}
+        {/* Dấu son: nằm im, cửa mở và chữ hiện xong thì nó mới lao thẳng về
+            phía người xem. */}
         <Image
           src={ART.kiss.src}
           alt=""

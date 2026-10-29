@@ -1,36 +1,37 @@
 /**
- * Ô cửa sổ MỚI của trang "Travel Guide": PNG gốc → WebP dùng thật.
+ * Ô cửa sổ của trang "Travel Guide": PNG gốc → WebP dùng thật.
  *
  *   node scripts/travel-window.mjs
  *
- * Khách gửi bốn tấm rời trong public/travel, nền trong suốt, khung 3375×6000:
+ * Khách gửi hai tấm trong public/travel, nền trong suốt, khung 3375×6000:
  *
- *   44.png    khung cửa — đố trên, hai đố dọc, bệ cửa; giữa là lỗ trống
- *   45.png    cánh trái, vẽ lúc đóng
- *   46.png    cánh phải, vẽ lúc đóng
- *   kiss.png  dấu son
+ *   travel.png  cửa sổ chớp xanh khép kín trong khung đỏ — MỘT tấm phẳng,
+ *               không có lớp nào tách sẵn
+ *   kiss.png    dấu son
  *
- * (43.png là tấm tham chiếu cả ô cửa lúc đóng — không cắt, chỉ để đối chiếu.)
+ * Nên việc đầu tiên là TÁCH tấm đó ra thành khung và cánh cửa:
  *
- * VÌ SAO PHẢI CẮT LÀM BA
+ *   • khung  = tấm gốc, nhưng chỗ hai cánh đứng được đục thủng
+ *   • cánh   = một cánh trái cắt ra nguyên vẹn; cánh phải là chính nó lật
+ *              gương (hai cánh vẽ cùng một kiểu, chỉ đối xứng)
  *
- * Cùng một lý do như scripts/window-assets.mjs: ô cửa phải cao theo chữ, mà
- * chữ dài ngắn tuỳ thẻ và tuỳ máy. Kéo giãn cả tấm cho vừa thì đố trên và bệ
- * cửa béo ra trông thấy — bệ cửa cao gần 600px trong bản vẽ, giãn 40% là nó
- * dày bằng cả một hàng ô kính.
+ * Mốc cắt đo từ chính file: cánh nằm trọn trong x 560→2826, y 1148→4440, vết
+ * khép giữa hai cánh ở x≈1697, và khoảng thủng của khung khớp đúng khoảng đó.
  *
- * Nên mỗi tấm cắt thành NẮP TRÊN — KHÚC GIỮA — NẮP DƯỚI. Hai nắp giữ nguyên
+ * VÌ SAO MỖI MẢNH LẠI CẮT LÀM BA
+ *
+ * Ô cửa phải cao theo chữ, mà chữ dài ngắn tuỳ thẻ và tuỳ máy. Kéo giãn cả
+ * tấm cho vừa thì viền khung béo ra, tấm đỏ hình thoi ở chân cánh méo đi.
+ * Nên mỗi mảnh cắt thành NẮP TRÊN — KHÚC GIỮA — NẮP DƯỚI; hai nắp giữ nguyên
  * tỉ lệ, chỉ khúc giữa giãn dọc:
  *
- *   • khung:  khúc giữa chỉ còn hai đố dọc, giãn dọc là nó dài ra, không méo
- *   • cánh:   khúc giữa là CẢ BỐN hàng ô kính, nên phần giãn chia đều cho
- *             bốn hàng — mỗi hàng cao thêm một chút, giống hệt một ô cửa cao
- *             hơn ngoài đời. Cắt lấy MỘT hàng rồi giãn thì hàng đó phình to
- *             lệch hẳn với ba hàng kia.
+ *   • khung:  khúc giữa chỉ còn hai trụ dọc, giãn dọc là nó dài ra, không méo
+ *   • cánh:   khúc giữa là các thanh lam. Lam cách nhau đều đặn (khoảng 145px),
+ *             nên mốc cắt đặt đúng vào KHE TỐI giữa hai thanh lam — chỗ nối
+ *             nằm trong bóng nên không lộ. Hai nắp giữ lại vài thanh lam ở hai
+ *             đầu để cánh vẫn trông là cánh chớp khi khúc giữa bị nén.
  *
- * Mốc cắt đo từ chính kênh alpha của file: chỗ khung bắt đầu thủng là đáy đố
- * trên, chỗ thôi thủng là đỉnh bệ cửa; với cánh thì là mép trong của hai đố
- * ngang ngoài cùng.
+ * assets-source/ nằm ngoài git — xem scripts/venue-assets.mjs.
  */
 
 import { mkdirSync, statSync } from "node:fs";
@@ -40,30 +41,30 @@ import sharp from "sharp";
 const SRC = "public/travel";
 const OUT = "public/window";
 
+/** Khung: bao ngoài và phần đục thủng cho hai cánh. */
+const FRAME = { left: 240, top: 747, width: 2912, bottom: 4804 };
+/** Đáy đố trên và đỉnh bệ dưới — cũng là chiều cao của chỗ thủng. */
+const OPENING = { top: 1148, bottom: 4440, left: 562, right: 2826 };
+
 /**
- * `left`/`width` là bề ngang tấm, ba mốc `y` chia tấm thành nắp trên / khúc
- * giữa / nắp dưới. Số đo lấy từ kênh alpha của chính file.
+ * Cánh trái. `top`/`mid`/`low`/`end` là bốn mốc y chia cánh thành nắp trên /
+ * khúc giữa / nắp dưới; `mid` và `low` đặt vào khe tối giữa hai thanh lam.
  */
-const PARTS = [
-  // Khung: thủng từ y=1101 tới y=4167 — đó đúng là khoảng hai đố dọc.
-  { name: "frame", file: "44.png", left: 171, width: 3052, top: 771, mid: 1101, low: 4167, end: 4766, out: 1400 },
-  // Cánh trái: bốn hàng ô kính nằm giữa 1255 và 4007.
-  { name: "sash-left", file: "45.png", left: 527, width: 1209, top: 1040, mid: 1255, low: 4007, end: 4228, out: 600 },
-  // Cánh phải: hàng ô kính nằm giữa 1238 và 4001.
-  { name: "sash-right", file: "46.png", left: 1687, width: 1241, top: 1058, mid: 1238, low: 4001, end: 4241, out: 600 },
-];
+const LEAF = { left: 556, width: 1141, top: 1138, mid: 1719, low: 2874, end: 4446 };
 
 /** Dấu son — một mảnh rời, bay thẳng về phía người xem lúc cửa mở. */
 const KISS = { file: "kiss.png", left: 844, top: 1700, width: 1565, height: 1372, out: 520 };
+
+const FRAME_WIDTH = 1400;
+const LEAF_WIDTH = 640;
 
 mkdirSync(OUT, { recursive: true });
 
 let total = 0;
 
-async function cut(name, file, box, width) {
+async function save(pipeline, name, width) {
   const out = `${OUT}/${name}.webp`;
-  await sharp(`${SRC}/${file}`)
-    .extract(box)
+  await pipeline
     .resize({ width, withoutEnlargement: true })
     .webp({ quality: 82, effort: 6, alphaQuality: 92 })
     .toFile(out);
@@ -71,17 +72,62 @@ async function cut(name, file, box, width) {
   const { width: w, height: h } = await sharp(out).metadata();
   const size = statSync(out).size;
   total += size;
-  console.log(`${name.padEnd(18)} ${w}×${h}  ${Math.round(size / 1024)}KB`);
+  console.log(`${name.padEnd(14)} ${w}×${h}  ${Math.round(size / 1024)}KB`);
 }
 
-for (const part of PARTS) {
-  const box = (top, height) => ({ left: part.left, top, width: part.width, height });
+/* ---- khung: tấm gốc đã đục thủng chỗ hai cánh đứng ----------------------- */
 
-  await cut(`${part.name}-top`, part.file, box(part.top, part.mid - part.top), part.out);
-  await cut(`${part.name}-mid`, part.file, box(part.mid, part.low - part.mid), part.out);
-  await cut(`${part.name}-bottom`, part.file, box(part.low, part.end - part.low), part.out);
+const { data, info } = await sharp(`${SRC}/travel.png`)
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+
+for (let y = OPENING.top + 4; y < OPENING.bottom - 4; y++) {
+  for (let x = OPENING.left; x < OPENING.right; x++) {
+    data[(y * info.width + x) * info.channels + 3] = 0;
+  }
 }
 
-await cut("kiss", KISS.file, KISS, KISS.out);
+const framed = () =>
+  sharp(Buffer.from(data), {
+    raw: { width: info.width, height: info.height, channels: info.channels },
+  });
+
+const frameBox = (top, bottom) => ({
+  left: FRAME.left,
+  top,
+  width: FRAME.width,
+  height: bottom - top,
+});
+
+await save(framed().extract(frameBox(FRAME.top, OPENING.top)), "shutter-frame-top", FRAME_WIDTH);
+await save(framed().extract(frameBox(OPENING.top, OPENING.bottom)), "shutter-frame-mid", FRAME_WIDTH);
+await save(framed().extract(frameBox(OPENING.bottom, FRAME.bottom)), "shutter-frame-bottom", FRAME_WIDTH);
+
+/* ---- cánh trái: lấy từ tấm gốc, KHÔNG đục thủng -------------------------- */
+
+const leafBox = (top, bottom) => ({
+  left: LEAF.left,
+  top,
+  width: LEAF.width,
+  height: bottom - top,
+});
+
+const source = () => sharp(`${SRC}/travel.png`);
+
+await save(source().extract(leafBox(LEAF.top, LEAF.mid)), "shutter-leaf-top", LEAF_WIDTH);
+await save(source().extract(leafBox(LEAF.mid, LEAF.low)), "shutter-leaf-mid", LEAF_WIDTH);
+await save(source().extract(leafBox(LEAF.low, LEAF.end)), "shutter-leaf-bottom", LEAF_WIDTH);
+
+await save(
+  sharp(`${SRC}/${KISS.file}`).extract({
+    left: KISS.left,
+    top: KISS.top,
+    width: KISS.width,
+    height: KISS.height,
+  }),
+  "kiss",
+  KISS.out,
+);
 
 console.log(`\nTổng: ${(total / 1024).toFixed(0)}KB`);
