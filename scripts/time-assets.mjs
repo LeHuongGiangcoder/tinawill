@@ -9,7 +9,8 @@
  *
  *   loungers  hai ghế tắm nắng + hai con mèo — nằm DƯỚI chữ
  *   foliage   lá cây bốn góc — nằm TRÊN chữ, đúng như bản vẽ (nhành lá
- *             góc trái trên liếm qua chữ "S" của "Save")
+ *             góc trái trên liếm qua chữ "S" của "Save"). Lớp này KHÔNG xuất
+ *             ở đây: xem scripts/time-foliage.mjs
  *
  * assets-source/ nằm ngoài git. Mất thư mục đó thì xuất lại từ Canva rồi chạy
  * lại script này. Không để bộ này trong public/brand: `npm run assets` xoá
@@ -26,8 +27,14 @@ const OUT = "public/time";
 /* Hai lớp đều phủ kín khung nên cùng bề rộng — xem scripts/venue-assets.mjs. */
 const WIDTH = 1200;
 
-/* Bản ghép đầy đủ chỉ để đối chiếu khi dựng, không lên web. */
-const SKIP = new Set(["reference"]);
+/* `reference` là bản ghép đầy đủ, chỉ để đối chiếu khi dựng.
+   `foliage` thì đi đường riêng: scripts/time-foliage.mjs cắt nó thành từng
+   tán lá rời để gió thổi tán này mà không kéo theo tán kia, nên lớp gộp
+   không lên web. Chạy xong script này thì chạy luôn:
+
+     node scripts/time-foliage.mjs
+*/
+const SKIP = new Set(["reference", "foliage"]);
 
 mkdirSync(OUT, { recursive: true });
 

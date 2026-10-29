@@ -117,6 +117,19 @@
       transform: rotate(2.5deg);
     }
   }
+  /*
+    Gió thổi qua một tán lá. Khác `glow-sway` ở chỗ biên độ là biến: mỗi tán
+    một biên độ, một nhịp, một độ trễ — xem `.frond` trong @layer components.
+  */
+  @keyframes glow-frond {
+    0%,
+    100% {
+      transform: rotate(calc(var(--frond-deg) * -1));
+    }
+    50% {
+      transform: rotate(var(--frond-deg));
+    }
+  }
   @keyframes glow-nudge {
     0%,
     100% {
@@ -261,6 +274,29 @@ html {
 /* ---------------------------------------------------- COMPONENTS */
 
 @layer components {
+  /*
+    Một tán lá đung đưa trong gió nhẹ.
+
+    Ba biến để mỗi tán thổi một kiểu — gió thật không thổi cả vườn cùng một
+    nhịp, mà đó mới là cái làm cảnh sống:
+
+      --frond-deg    biên độ, đo từ giữa ra mỗi bên
+      --frond-dur    một nhịp đi–về
+      --frond-delay  lệch pha với tán bên cạnh
+
+    Gốc quay (`transform-origin`) đặt ở chỗ tán lá dính vào mép khung, bằng
+    utility `origin-*` tại chỗ gọi: cuống đứng yên, chỉ đầu lá động — và mép
+    khung không hở ra một vệt nền khi tán nghiêng.
+
+    Biên độ giữ nhỏ (quanh 1°): tán lá ở đây là tranh vẽ phủ kín bốn góc
+    khung, không phải một nhành hoa rời, nên quay nhiều là cả mảng tranh trượt
+    đi thấy rõ. Đây là gió, không phải cần gạt nước.
+  */
+  .frond {
+    animation: glow-frond var(--frond-dur, 8s) ease-in-out var(--frond-delay, 0s) infinite;
+    will-change: transform;
+  }
+
   /*
     Hệ nút — MỘT hình dáng cho cả site, lấy từ nút "Check map" của cảnh Venue:
     viên thuốc, chữ thường đậm vừa, không giãn chữ, bóng giấy mềm.
@@ -636,12 +672,18 @@ html {
     transform-origin: right center;
   }
 
+  /*
+    Mở hết cỡ: cánh gần như quay nghiêng hẳn, nép sát vào đố dọc. Góc này
+    không phải cho đẹp mà để cánh KHÔNG đè lên cột chữ — ở 78° cánh còn chiếu
+    xuống hơn ba chục pixel, đủ phủ lên mép chữ; ở 88° nó chỉ còn vài pixel,
+    nằm gọn trong bề dày đố.
+  */
   [data-gate="open"] .window-sash-start {
-    transform: rotateY(78deg);
+    transform: rotateY(88deg);
   }
 
   [data-gate="open"] .window-sash-end {
-    transform: rotateY(-78deg);
+    transform: rotateY(-88deg);
   }
 
   /* Ô kính giữa: giãn dọc cho vừa khoảng trống còn lại. Cả bốn hàng ô cùng
