@@ -23,14 +23,17 @@ import { agenda, type AgendaStamp } from "@/content/client";
  */
 
 /**
- * Ba con tem, cắt từ bản khách gửi bằng `node scripts/agenda-assets.mjs`.
+ * Ba con tem, cắt từ bản khách gửi bằng `node scripts/agenda-assets.mjs`,
+ * rồi tách làm hai lớp — khung và icon — bằng `node scripts/agenda-icons.mjs`
+ * để icon của tem đang chọn đung đưa được mà khung đứng yên.
+ *
  * Kiểu `Record<AgendaStamp, …>` nên thêm một con tem mới vào content/client.ts
  * mà quên khai ở đây là build đỏ.
  */
-const STAMPS: Record<AgendaStamp, { src: string }> = {
-  cocktail: { src: "/agenda/cocktail.webp" },
-  sun: { src: "/agenda/sun.webp" },
-  monstera: { src: "/agenda/monstera.webp" },
+const STAMPS: Record<AgendaStamp, { frame: string; icon: string }> = {
+  cocktail: { frame: "/agenda/cocktail-frame.webp", icon: "/agenda/cocktail-icon.webp" },
+  sun: { frame: "/agenda/sun-frame.webp", icon: "/agenda/sun-icon.webp" },
+  monstera: { frame: "/agenda/monstera-frame.webp", icon: "/agenda/monstera-icon.webp" },
 };
 
 export function Agenda() {
@@ -58,13 +61,22 @@ export function Agenda() {
                       cao), nên mỗi con nằm trong một khung cùng tỉ lệ và
                       `object-contain` — có vậy ba dòng chữ dưới tem mới thẳng
                       hàng thay vì so le theo chiều cao tranh. */}
-                  <span className="relative block aspect-[6/7] w-full">
+                  <span className="tab-stamp relative block aspect-[6/7] w-full">
                     <Image
-                      src={stamp.src}
+                      src={stamp.frame}
                       alt=""
                       fill
                       sizes="(max-width: 40rem) 30vw, 11rem"
-                      className="tab-stamp rounded-paper object-contain"
+                      className="object-contain"
+                    />
+                    {/* Icon cùng khổ với khung nên chồng lên là khớp; chỉ
+                        lớp này đung đưa khi tem được chọn. */}
+                    <Image
+                      src={stamp.icon}
+                      alt=""
+                      fill
+                      sizes="(max-width: 40rem) 30vw, 11rem"
+                      className="tab-wiggle object-contain"
                     />
                   </span>
                   {/* Ngày rồi tên chủ đề, nằm dưới con tem đúng như bản mẫu */}

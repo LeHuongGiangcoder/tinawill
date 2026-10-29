@@ -32,6 +32,7 @@ export function TabSet({
   items,
   className = "",
   listClassName = "grid grid-flow-col auto-cols-fr gap-stack",
+  tabClassName = "",
   presentation = "swap",
   panelsClassName = "",
   overlay,
@@ -46,6 +47,8 @@ export function TabSet({
    * lưới riêng vào, ví dụ `"grid grid-cols-3 sm:grid-cols-6 gap-stack"`.
    */
   listClassName?: string;
+  /** Lớp thêm cho từng nút, ví dụ `tab-boxed` để nút chọn có khung viền. */
+  tabClassName?: string;
   /**
    * Cách đổi thẻ.
    *
@@ -103,7 +106,7 @@ export function TabSet({
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
             onClick={() => setActive(i)}
-            className="tab"
+            className={`tab ${tabClassName}`}
           >
             {item.tab}
           </button>

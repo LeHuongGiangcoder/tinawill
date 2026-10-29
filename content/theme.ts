@@ -40,6 +40,13 @@ export const palette = {
   /** Nhấn: cam cháy cho nền sáng, cam nhạt cho nền tối */
   gold: "#a8491f",
   goldSoft: "#eab98d",
+  /**
+   * Hai nâu đậm cho chữ trên giấy beige (tông `beige`) — thay mực đen và xám
+   * ấm của tông sáng, vốn trông lạnh trên nền vàng kem. Đo trên màu giấy
+   * parchment: nâu đậm 10.8:1, nâu vừa 7.5:1.
+   */
+  brown: "#4a2c17",
+  brownSoft: "#6b4126",
   /** Nền thẻ, khung ảnh */
   surface: "#ffffff",
   line: "#ddcdb8",
@@ -200,6 +207,22 @@ export const tones = {
     brand: palette.wine,
   },
   /**
+   * Rượu vang của cảnh Save the Date: cùng nền với `wine`, nhưng chữ lấy sắc
+   * beige của giấy thay vì kem — chữ trắng kem trên nền đỏ vang lạc khỏi bộ
+   * tranh vẽ tay ở cảnh này. Beige trên rượu vang 7.5:1.
+   */
+  wineBeige: {
+    bg: palette.wine,
+    fg: palette.beige,
+    muted: palette.goldSoft,
+    accent: palette.goldSoft,
+    line: "rgba(244, 228, 177, 0.28)",
+    contrast: palette.beige,
+    button: palette.sun,
+    buttonText: palette.wine,
+    brand: palette.wine,
+  },
+  /**
    * Nền lá của trang "Our story". Dựng như `olive`: `bg` trùng đúng màu dải
    * xanh ngoài cùng của file khung, nên mép khung hoà vào nền section thay
    * vì cắt thành một đường.
@@ -260,8 +283,8 @@ export const tones = {
    */
   beige: {
     bg: palette.parchment,
-    fg: palette.ink,
-    muted: palette.inkSoft,
+    fg: palette.brown,
+    muted: palette.brownSoft,
     accent: palette.gold,
     line: palette.line,
     contrast: palette.forest,

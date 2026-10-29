@@ -58,6 +58,7 @@ export function Visa() {
              cũng không đủ chỗ: tờ giấy rộng tối đa 40rem, chia sáu còn chưa
              tới 90px mỗi cột và "Southeast Asia" tràn sang tên bên cạnh. */
           listClassName="grid grid-cols-3 gap-stack"
+          tabClassName="tab-boxed"
           items={visa.regions.map((region) => {
             const flag = resolveElement(region.flag);
             const route = visa.routes[region.route];
@@ -70,7 +71,7 @@ export function Visa() {
                       khung cùng tỉ lệ 3/2 và `object-cover` — có vậy hàng cờ
                       mới thẳng và sáu cái tên dưới cờ mới ngang nhau. */}
                   {flag ? (
-                    <span className="relative block aspect-[3/2] w-full overflow-hidden rounded-paper">
+                    <span className="tab-wave relative block aspect-[3/2] w-full overflow-hidden rounded-paper">
                       <Image
                         src={flag.src}
                         alt=""
@@ -81,7 +82,6 @@ export function Visa() {
                     </span>
                   ) : null}
                   <span className="font-display text-h4">{region.label}</span>
-                  <span aria-hidden className="tab-mark" />
                 </>
               ),
               panel: (

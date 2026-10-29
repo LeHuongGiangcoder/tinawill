@@ -666,14 +666,131 @@ html {
     background-color: var(--t-section-accent);
   }
 
+  /*
+    Biến thể có khung: nút được chọn đóng một đường viền quanh cả cờ lẫn tên
+    thay cho gạch dưới. Viền trong suốt sẵn ở nút không chọn nên bật viền
+    không làm cả hàng xê dịch.
+  */
+  .tab-boxed {
+    /* Khung nở sang hai bên đúng một `tight`, ăn vào khe giữa hai cột: trên
+       điện thoại cột chỉ ~77px, không nở thì "Southeast" chạm sát viền. Khe
+       giữa hai cột là `stack` = hai lần `tight`, nên hai nút cạnh nhau vừa
+       khít mà không chồng lên nhau. */
+    margin-inline: calc(-1 * var(--t-space-tight));
+    border: 1.5px solid transparent;
+    transition:
+      color 200ms var(--t-ease),
+      border-color 200ms var(--t-ease);
+  }
+
+  .tab-boxed[aria-selected="true"] {
+    border-color: var(--t-section-accent);
+  }
+
+  /*
+    Lá cờ được chọn bay trong gió: ảnh lắc quanh cạnh cột cờ (bên trái) bằng
+    xoay trục dọc và nghiêng nhẹ, còn một dải sáng–tối trượt ngang qua mặt cờ
+    để ra cảm giác nếp vải gợn sóng. Dải bóng chỉ đổ sáng tối lên chính lá cờ,
+    không phủ mờ nó. Cờ không được chọn đứng yên.
+  */
+  .tab-wave::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgb(255 255 255 / 0.3) 22%,
+      transparent 40%,
+      rgb(0 0 0 / 0.2) 62%,
+      transparent 80%
+    );
+    background-size: 220% 100%;
+    background-position: 0% 0;
+    display: none;
+  }
+
+  .tab[aria-selected="true"] .tab-wave::after {
+    display: block;
+    animation: flag-ripple 2.8s linear infinite;
+  }
+
+  .tab[aria-selected="true"] .tab-wave img {
+    transform-origin: 0% 50%;
+    animation: flag-wave 2.8s ease-in-out infinite;
+  }
+
+  @keyframes flag-wave {
+    0%,
+    100% {
+      transform: scale(1.06) perspective(280px) rotateY(0deg) skewY(0deg);
+    }
+    25% {
+      transform: scale(1.06) perspective(280px) rotateY(-9deg) skewY(-2.5deg);
+    }
+    50% {
+      transform: scale(1.06) perspective(280px) rotateY(2deg) skewY(0.5deg);
+    }
+    75% {
+      transform: scale(1.06) perspective(280px) rotateY(-7deg) skewY(2.5deg);
+    }
+  }
+
+  /*
+    Icon của con tem đang chọn đung đưa nhẹ — lớp icon tách riêng khỏi khung
+    (scripts/agenda-icons.mjs), nên khung đứng yên còn icon lắc qua lắc lại
+    quanh tâm, kèm một nhịp nhún rất khẽ. Biên độ nhỏ và nhịp chậm để nó trông
+    như đang lúc lắc chứ không phải đang rung báo lỗi.
+  */
+  .tab-wiggle {
+    transform-origin: 50% 55%;
+  }
+
+  .tab[aria-selected="true"] .tab-wiggle {
+    animation: stamp-wiggle 2.4s ease-in-out infinite;
+  }
+
+  @keyframes stamp-wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+    20% {
+      transform: rotate(-4deg) translateY(-1%);
+    }
+    40% {
+      transform: rotate(3deg) translateY(0);
+    }
+    60% {
+      transform: rotate(-2deg) translateY(-0.5%);
+    }
+    80% {
+      transform: rotate(1deg) translateY(0);
+    }
+  }
+
+  @keyframes flag-ripple {
+    to {
+      background-position: 220% 0;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .tab,
-    .tab-stamp {
+    .tab-stamp,
+    .tab-boxed {
       transition: none;
     }
 
     .tab[aria-selected="true"] .tab-stamp {
       transform: none;
+    }
+
+    .tab[aria-selected="true"] .tab-wave img,
+    .tab[aria-selected="true"] .tab-wave::after,
+    .tab[aria-selected="true"] .tab-wiggle {
+      animation: none;
     }
   }
 
@@ -954,9 +1071,11 @@ html {
     transition: border-color var(--t-duration-fast) var(--t-ease);
   }
 
+  /* Màu chữ phụ của tông chứ không hạ opacity của chữ: trên giấy beige nó là
+     nâu vừa, không phải xám. */
   .field-input::placeholder {
-    color: currentColor;
-    opacity: 0.4;
+    color: var(--t-section-muted);
+    opacity: 1;
   }
 
   .field-input:focus {

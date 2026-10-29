@@ -150,7 +150,7 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Save the date là cảnh ghép hai lớp như Venue: giấy rượu vang phủ kín
      section, còn lá cây và hai ghế tắm nắng nằm trong khung 9/16 của chính
      section (components/sections/Time.tsx). */
-  time: { anchor: "time", tone: "wine", background: "paper-wine", overlay: 0 },
+  time: { anchor: "time", tone: "wineBeige", background: "paper-wine", overlay: 0 },
   venue: {
     anchor: "venue",
     tone: "olive",
