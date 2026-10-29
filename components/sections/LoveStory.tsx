@@ -1,21 +1,29 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Divider } from "@/components/ui/Divider";
 import { Caption, Eyebrow, Heading, Lead, SectionHead } from "@/components/ui/Heading";
-import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { loveStory } from "@/content/client";
 
 /**
- * Chuyện tình, kể bằng một băng thẻ kéo ngang.
+ * Chuyện tình, kể bằng một tập trang giấy kéo ngang.
+ *
+ * Mỗi chương là một trang trong khung giấy khách vẽ (public/love-story), tỉ
+ * lệ 9/16 đúng như file gốc. Chữ là chữ thật nằm trong vùng giấy trống giữa
+ * trang — khuôn `.page-frame` trong app/globals.css giữ bốn lề đó, nên không
+ * section nào phải tự tính toạ độ.
  *
  * Dùng scroll-snap gốc của trình duyệt: trên điện thoại vuốt là xong, trên
  * máy tính có hai mũi tên và hàng chấm. Không cần thư viện carousel nào, và
  * cũng không có listener nào chạy khi khách không chạm tới.
  */
+/** Khung giấy khách vẽ — một file dùng cho cả bốn trang. */
+const FRAME = "/love-story/frame.webp";
+
 export function LoveStory() {
   const trackRef = useRef<HTMLUListElement>(null);
   const [index, setIndex] = useState(0);
@@ -81,19 +89,25 @@ export function LoveStory() {
 
         <ul className="reel" ref={trackRef} onPointerDown={() => setHintDone(true)}>
           {chapters.map((chapter, i) => (
-            <li key={chapter.title} className="w-[78%] sm:w-[22rem]">
+            <li key={chapter.title} className="w-[86%] sm:w-[22rem]">
               <article
-                className="flex flex-col gap-stack"
+                className="page-frame"
                 style={{ transform: `rotate(${i % 2 === 0 ? -1.2 : 1.2}deg)` }}
                 aria-label={`${chapter.year} — ${chapter.title}`}
               >
-                <ImageFrame
-                  src={chapter.photo}
-                  alt={chapter.alt}
-                  ratio="3 / 4"
-                  sizes="(max-width: 48rem) 78vw, 22rem"
+                {/* Khung đã đúng cỡ hiển thị và đúng tỉ lệ 9/16 của thẻ: để
+                    Next nén lại chỉ thêm một vòng encode mà không bớt byte. */}
+                <Image
+                  src={FRAME}
+                  alt=""
+                  aria-hidden
+                  fill
+                  sizes="(max-width: 48rem) 86vw, 22rem"
+                  unoptimized
+                  className="pointer-events-none select-none object-cover"
                 />
-                <div className="flex flex-col gap-tight text-center">
+
+                <div className="page-frame-body text-center">
                   <Eyebrow>{chapter.year}</Eyebrow>
                   <Heading level="h4">{chapter.title}</Heading>
                   <Caption>{chapter.body}</Caption>

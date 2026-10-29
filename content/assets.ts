@@ -11,7 +11,12 @@ export const assets = {
   textures: {},
 
   /** Ảnh nền full-bleed của một section */
-  backgrounds: {},
+  backgrounds: {
+    "paper-mango": { src: "/brand/backgrounds/paper-mango.webp", width: 1200, height: 2132 },
+    "paper-olive": { src: "/brand/backgrounds/paper-olive.webp", width: 1200, height: 2133 },
+    "paper-vermilion": { src: "/brand/backgrounds/paper-vermilion.webp", width: 1200, height: 2132 },
+    "paper-wine": { src: "/brand/backgrounds/paper-wine.webp", width: 1200, height: 2132 },
+  },
 
   /** Hoạ tiết rời (hoa, ruy băng, con dấu) — nền trong suốt */
   elements: {},

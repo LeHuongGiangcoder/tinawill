@@ -111,7 +111,10 @@ export const design: Record<SectionId, SectionDesign> = {
      Vì thế cả hai đều để `background` trống. */
   intro: { anchor: "intro", tone: "light" },
   hero: { anchor: "hero", tone: "dark" },
-  weddingInfo: { anchor: "wedding", tone: "dark" },
+  /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
+     đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
+     được — xem ghi chú ở `palette.wine` trong content/theme.ts. */
+  weddingInfo: { anchor: "wedding", tone: "wine", background: "paper-wine", overlay: 0 },
   /* Venue là một cảnh ghép nhiều lớp như intro/hero, không phải section chữ.
      Nền giấy xanh ô liu đi qua `background` để nó phủ kín mọi khổ màn; bốn lớp
      tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
@@ -119,13 +122,13 @@ export const design: Record<SectionId, SectionDesign> = {
      chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
   venue: { anchor: "venue", tone: "olive", background: "/venue/backdrop.webp", overlay: 0 },
   loveStory: { anchor: "love-story", tone: "paper" },
-  travel: { anchor: "travel", tone: "light" },
-  agenda: { anchor: "agenda", tone: "paper" },
-  dresscode: { anchor: "dresscode", tone: "dark" },
+  travel: { anchor: "travel", tone: "olive", background: "paper-olive", overlay: 0 },
+  agenda: { anchor: "agenda", tone: "wine", background: "paper-wine", overlay: 0 },
+  dresscode: { anchor: "dresscode", tone: "mango", background: "paper-mango", overlay: 0 },
   gallery: { anchor: "gallery", tone: "light" },
-  rsvp: { anchor: "rsvp", tone: "light" },
-  gifts: { anchor: "gifts", tone: "paper" },
-  thankYou: { anchor: "thank-you", tone: "dark" },
+  rsvp: { anchor: "rsvp", tone: "olive", background: "paper-olive", overlay: 0 },
+  gifts: { anchor: "gifts", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
+  thankYou: { anchor: "thank-you", tone: "wine", background: "paper-wine", overlay: 0 },
 };
 
 /* ------------------------------------------------------------------ COUPLE */
@@ -198,35 +201,27 @@ export const loveStory = {
   eyebrow: "How we met",
   title: "Our Love Story",
   intro: "Two people, two cultures, one building — and now, one life together.",
-  /** Mỗi chương là một thẻ trong băng ảnh kéo ngang. */
+  /** Mỗi chương là một trang giấy trong tập kéo ngang. */
   chapters: [
     {
       year: "Chapter one",
       title: "The conversation that didn't end",
       body: "The first time we talked was at an event. The event ended, everyone went home — and we still hadn't finished our conversation. So we took it to a little Chinese restaurant nearby and kept talking till 3am.",
-      photo: "/images/couple-01.jpg",
-      alt: "Tina and Will",
     },
     {
       year: "Chapter two",
       title: "The same building",
       body: "When it was time to go home, Tina asked Will where he lived. Then we realised we were living in the exact same building. We shared a Grab home that night.",
-      photo: "/images/couple-02.jpg",
-      alt: "Tina and Will",
     },
     {
       year: "Chapter three",
       title: "Seven days in a row",
       body: "Then the universe got involved. Every single day for the next week we kept running into each other — in the gym, at a cafe, at a different hour each day, without ever planning it. By day seven, it was hard to call it a coincidence.",
-      photo: "/images/couple-03.jpg",
-      alt: "Tina and Will",
     },
     {
       year: "Chapter four",
       title: "Germany meets America",
       body: "Will's way of seeing the world is shaped by German culture — direct, structured, a bit dry they say. Tina's is shaped by American culture — expressive, spontaneous, always up to do more. Every difference we worked through taught us something new about each other.",
-      photo: "/images/couple-04.jpg",
-      alt: "Tina and Will",
     },
   ],
   /** Nhịp kết, đứng riêng dưới băng ảnh. Để null thì không hiện. */

@@ -25,6 +25,7 @@
   --color-surface: var(--t-color-surface);
   --color-line: var(--t-color-line);
   --color-olive: var(--t-color-olive);
+  --color-beige: var(--t-color-beige);
 
   /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
   --color-tone-bg: var(--t-section-bg);
@@ -311,6 +312,29 @@ html {
   .reel > * {
     scroll-snap-align: center;
     flex: none;
+  }
+
+  /*
+    Một trang giấy có khung vẽ sẵn của khách: ảnh khung phủ kín trang, chữ
+    nằm trong vùng giấy trống ở giữa. Tỉ lệ và bốn lề đo từ chính file khung
+    (mép trong của hoa góc), nên chữ không bao giờ đè lên hoạ tiết.
+
+    Tên đặt chung chứ không theo section: section sau có khung giấy khác chỉ
+    cần đổi ảnh nền, không phải chép lại khuôn này.
+  */
+  .page-frame {
+    position: relative;
+    aspect-ratio: 9 / 16;
+  }
+
+  .page-frame-body {
+    position: absolute;
+    inset: 15% 12% 17%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--t-space-tight);
+    overflow: hidden;
   }
 
   /*

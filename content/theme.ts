@@ -45,6 +45,22 @@ export const palette = {
   line: "#ddcdb8",
   /** Giấy ô liu — màu nền của cảnh Venue, lấy từ chính file tranh khách gửi */
   olive: "#516403",
+  /**
+   * Ba tờ giấy màu còn lại khách gửi cùng bộ với giấy ô liu
+   * (brand/backgrounds/paper-*.webp). Mỗi giá trị là màu trung bình đo từ
+   * chính file, để nền section trùng đúng màu giấy khi ảnh chưa tải xong.
+   *
+   * Hai tờ đỏ son và cam khách gửi ở sắc nguyên bản chói hơn nhiều
+   * (#e32b03 và #fc6102) — chữ kem trên đó chỉ đạt 4.2:1 và 2.9:1, không đủ
+   * đọc ngoài nắng. Chúng được hạ sắc ngay khi xuất WebP (scripts tạo file,
+   * hệ số 0.73 và 0.64) chứ không phủ `overlay`: giấy giữ nguyên hạt vân,
+   * và nền section vẫn trùng đúng màu file.
+   */
+  wine: "#8e062f",
+  vermilion: "#a51f01",
+  mango: "#a03d01",
+  /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
+  beige: "#f4e4b1",
 } as const;
 
 /**
@@ -88,12 +104,49 @@ export const tones = {
    *
    * Cam nhạt (goldSoft) chỉ đạt 3.7:1 trên nền ô liu nên không dùng làm chữ
    * nhấn ở đây; cả `muted` lẫn `accent` đều lấy sắc kem — thấp nhất 5.3:1.
+   *
+   * Chữ lấy đúng beige của khăn trải bàn trong tranh để tiêu đề nổi trên nền
+   * giấy mà vẫn cùng một bảng màu với cảnh — 5.2:1, đạt AA cho cả chữ thường.
    */
   olive: {
     bg: palette.olive,
-    fg: palette.cream,
+    fg: palette.beige,
     muted: palette.creamDeep,
     accent: palette.creamDeep,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  /**
+   * Ba tông giấy màu, cùng một cách dựng như `olive`: `bg` trùng đúng màu
+   * trung bình của file giấy, nên `design` của section đi kèm để `overlay: 0`
+   * — không có lớp phủ nào, giấy lên nguyên màu và nguyên vân.
+   *
+   * Chữ đều lấy sắc kem. Chữ phụ và chữ nhấn chọn theo đúng cái nào đạt AA
+   * trên từng nền: cam nhạt (goldSoft) chỉ đủ trên rượu vang (5.3:1), còn
+   * trên đỏ son và cam nó rơi xuống 4.2:1 và 3.7:1 nên hai tông đó dùng
+   * creamDeep (6.1:1 và 5.4:1) và beige (5.9:1 và 5.2:1) thay vào.
+   */
+  wine: {
+    bg: palette.wine,
+    fg: palette.cream,
+    muted: palette.goldSoft,
+    accent: palette.goldSoft,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  vermilion: {
+    bg: palette.vermilion,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.beige,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+  },
+  mango: {
+    bg: palette.mango,
+    fg: palette.cream,
+    muted: palette.creamDeep,
+    accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
     contrast: palette.cream,
   },
