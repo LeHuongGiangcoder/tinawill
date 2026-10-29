@@ -67,6 +67,8 @@
   --text-section-title--line-height: var(--t-leading-section-title);
   --text-subhead: var(--t-text-subhead);
   --text-subhead--line-height: var(--t-leading-subhead);
+  --text-motif: var(--t-text-motif);
+  --text-motif--line-height: var(--t-leading-motif);
   --text-action: var(--t-text-action);
   --text-action--line-height: var(--t-leading-action);
 
@@ -1287,8 +1289,15 @@ html {
         • 9/16 của chiều cao màn — để cảnh vừa trọn một màn, không phải cuộn;
         • 30rem — để trên màn lớn nó vẫn là một tấm thiệp dọc chứ không phình
           thành tấm áp phích rạp phim.
+
+      `max(100%, …)` ở cái chặn thứ nhất là bắt buộc: trên iPhone khổ lớn
+      (430pt ngang) mà Safari còn hiện thanh địa chỉ, `100svh` chỉ còn ~745px,
+      9/16 của nó là 419px — hẹp hơn màn 11px, nên cảnh co lại và để hở hai
+      dải giấy nền ở trái phải. Cảnh dựng sẵn phải chạm hai mép màn; thà cuộn
+      thêm một nhịp nhỏ còn hơn hở mép. Trên desktop `100%` là cả bề ngang
+      section nên cái chặn 30rem vẫn thắng như cũ.
     */
-    max-width: min(calc(100svh * 9 / 16), 30rem);
+    max-width: min(max(100%, calc(100svh * 9 / 16)), 30rem);
     aspect-ratio: 9 / 16;
     margin-inline: auto;
   }

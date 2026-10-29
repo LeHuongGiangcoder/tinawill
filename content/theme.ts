@@ -392,6 +392,16 @@ export const typeScale = {
   action: { size: "clamp(0.9375rem, 1.4vw, 1.0625rem)", line: "1.2", tracking: "0em" },
   /** Dòng dẫn bằng font tiêu đề, đứng ngay dưới `SectionTitle`. */
   subhead: { size: "clamp(1.125rem, 2.6vw, 1.5rem)", line: "1.4", tracking: "0em" },
+  /**
+   * Cũng là chỗ của `Subhead`, nhưng khi dòng đó không phải một câu mà là
+   * TÊN của một thứ — tên bảng màu trang phục ("Jungle Glam"), tên một chủ đề.
+   *
+   * Tên thì khách phải đọc được từ xa và nhớ được, nên nó to hơn `subhead`
+   * một nhịp rưỡi và nằm giữa `subhead` với `h3`. Không đẩy cao hơn nữa: trên
+   * nó là tiêu đề viết tay của section, và hai dòng liền nhau cùng to thì
+   * không còn dòng nào là chính.
+   */
+  motif: { size: "clamp(1.5rem, 4.4vw, 2.125rem)", line: "1.3", tracking: "0em" },
 } as const;
 
 export const weights = {

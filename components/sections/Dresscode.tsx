@@ -36,7 +36,10 @@ export function Dresscode() {
           eyebrow={dresscode.eyebrow}
           title={dresscode.title}
           titleId="dresscode-title"
+          /* Dòng này là TÊN bảng màu, không phải một câu dẫn — bậc `motif`,
+             xem Subhead trong components/ui/Heading.tsx. */
           subtitle={dresscode.subtitle}
+          subtitleVariant="motif"
           intro={dresscode.note}
         />
 

@@ -27,6 +27,14 @@ const LEVEL_TAG: Record<Level, ElementType> = {
 */
 type TextProps = HTMLAttributes<HTMLElement> & { className?: string; children: ReactNode };
 
+/** Xem chú thích của `Subhead`. */
+type SubheadVariant = "sentence" | "motif";
+
+const SUBHEAD_CLASS: Record<SubheadVariant, string> = {
+  sentence: "text-subhead",
+  motif: "text-motif",
+};
+
 /** Tiêu đề. Cỡ chữ chỉ được lấy từ thang trong content/theme.ts. */
 export function Heading({
   level = "h2",
@@ -110,16 +118,25 @@ export function SectionTitle({
  * Font tiêu đề in nghiêng, màu nhấn: đủ khác `SectionTitle` để không tranh
  * chỗ với nó, mà vẫn tách hẳn khỏi `Lead` (font chữ thường, màu chữ phụ) ở
  * ngay dưới.
+ *
+ * Hai biến thể, khác nhau đúng một bậc chữ (xem `typeScale` trong theme.ts):
+ *
+ *   sentence  mặc định — một câu nói rõ tiêu đề ("A weekend by the river")
+ *   motif     TÊN của một thứ ("Jungle Glam") — to hơn, để đọc được từ xa
+ *
+ * Chọn biến thể theo nội dung dòng chữ, không theo "section này muốn chữ to
+ * hơn": một câu dài đặt ở `motif` sẽ nuốt mất tiêu đề ngay trên nó.
  */
 export function Subhead({
   as: Tag = "p",
+  variant = "sentence",
   className = "",
   children,
   ...rest
-}: TextProps & { as?: ElementType }) {
+}: TextProps & { as?: ElementType; variant?: SubheadVariant }) {
   return (
     <Tag
-      className={`font-display text-subhead italic text-tone-accent ${className}`}
+      className={`font-display ${SUBHEAD_CLASS[variant]} italic text-tone-accent ${className}`}
       {...rest}
     >
       {children}
@@ -155,6 +172,7 @@ export function SectionHead({
   title,
   titleId,
   subtitle,
+  subtitleVariant = "sentence",
   intro,
   children,
 }: {
@@ -162,6 +180,8 @@ export function SectionHead({
   title: string;
   titleId?: string;
   subtitle?: string;
+  /** "motif" khi `subtitle` là tên của một thứ chứ không phải một câu — xem `Subhead`. */
+  subtitleVariant?: SubheadVariant;
   intro?: string;
   children?: ReactNode;
 }) {
@@ -169,7 +189,11 @@ export function SectionHead({
     <Reveal className="mb-block flex flex-col items-center gap-tight text-center">
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <SectionTitle id={titleId}>{title}</SectionTitle>
-      {subtitle ? <Subhead className="max-w-prose">{subtitle}</Subhead> : null}
+      {subtitle ? (
+        <Subhead variant={subtitleVariant} className="max-w-prose">
+          {subtitle}
+        </Subhead>
+      ) : null}
       {intro ? <Lead className="max-w-prose">{intro}</Lead> : null}
       {children}
     </Reveal>

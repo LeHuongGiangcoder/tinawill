@@ -1,6 +1,14 @@
 "use client";
 
-import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
+
+import { Button } from "@/components/ui/Button";
 
 export type TabItem = {
   /** Khoá ổn định, dùng dựng id cho cặp tab ↔ panel. */
@@ -36,6 +44,7 @@ export function TabSet({
   presentation = "swap",
   panelsClassName = "",
   overlay,
+  gate,
 }: {
   /** Nhãn của hàng nút cho trình đọc màn hình. */
   label: string;
@@ -61,9 +70,18 @@ export function TabSet({
   panelsClassName?: string;
   /** Phủ lên vùng panel, ví dụ hai cánh cửa sổ của trang Travel. */
   overlay?: ReactNode;
+  /**
+   * Cổng: khi có, hàng nút lẫn nội dung đứng im phía sau cho tới khi khách
+   * bấm mở. Chỗ gọi chỉ đặt chữ cho nút — hình dáng cổng vẽ bằng CSS qua
+   * `data-gate` ("shut" | "open") trên khối gốc, để mỗi section tự quyết
+   * (Travel: hai cánh cửa sổ khép lại).
+   */
+  gate?: { label: string };
 }) {
   const base = useId();
   const [active, setActive] = useState(0);
+  /* Không có cổng thì coi như đã mở sẵn — mọi bộ thẻ khác không đổi gì. */
+  const [opened, setOpened] = useState(!gate);
   const sliding = presentation === "slide";
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -91,8 +109,19 @@ export function TabSet({
   }
 
   return (
-    <div className={className}>
-      <div role="tablist" aria-label={label} onKeyDown={onKeyDown} className={listClassName}>
+    <div
+      className={className}
+      data-gate={gate ? (opened ? "open" : "shut") : undefined}
+    >
+      {/* Cổng đóng thì hàng nút chưa có mặt: cái duy nhất bấm được lúc đó là
+          nút mở cổng. */}
+      <div
+        role="tablist"
+        aria-label={label}
+        onKeyDown={onKeyDown}
+        hidden={!opened}
+        className={listClassName}
+      >
         {items.map((item, i) => (
           <button
             key={item.id}
@@ -125,34 +154,44 @@ export function TabSet({
           Tab sẽ lạc vào cái link nằm ngoài màn hình và trình đọc màn hình
           đọc cả phần đang không xem.
         */}
-        <div
-          className={sliding ? "tab-track" : undefined}
-          style={
-            sliding
-              ? {
-                  width: `${items.length * 100}%`,
-                  transform: `translateX(-${(active * 100) / items.length}%)`,
+        <div className="tab-panels" inert={!opened}>
+          <div
+            className={sliding ? "tab-track" : undefined}
+            style={
+              sliding
+                ? {
+                    width: `${items.length * 100}%`,
+                    transform: `translateX(-${(active * 100) / items.length}%)`,
+                  }
+                : undefined
+            }
+          >
+            {items.map((item, i) => (
+              <div
+                key={item.id}
+                role="tabpanel"
+                id={`${base}-panel-${item.id}`}
+                aria-labelledby={`${base}-tab-${item.id}`}
+                hidden={sliding ? undefined : active !== i}
+                inert={sliding && active !== i}
+                style={
+                  sliding ? { width: `${100 / items.length}%` } : undefined
                 }
-              : undefined
-          }
-        >
-          {items.map((item, i) => (
-            <div
-              key={item.id}
-              role="tabpanel"
-              id={`${base}-panel-${item.id}`}
-              aria-labelledby={`${base}-tab-${item.id}`}
-              hidden={sliding ? undefined : active !== i}
-              inert={sliding && active !== i}
-              style={sliding ? { width: `${100 / items.length}%` } : undefined}
-              className={sliding ? "shrink-0" : undefined}
-            >
-              {item.panel}
-            </div>
-          ))}
+                className={sliding ? "shrink-0" : undefined}
+              >
+                {item.panel}
+              </div>
+            ))}
+          </div>
         </div>
 
         {overlay}
+
+        {gate && !opened ? (
+          <div className="tab-gate">
+            <Button onClick={() => setOpened(true)}>{gate.label}</Button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
