@@ -237,6 +237,7 @@ server component.
 | `data-reveal-delay="120"` | trễ ms, cho các khối hiện so le |
 | `data-parallax="30"` | trôi chậm hơn trang 30% khi cuộn |
 | `data-hero` | hiện theo cú chạm mở thiệp, không chờ cuộn |
+| `data-clink="left\|right"` | hai cánh tay của trang Venue vươn vào cụng ly rồi thu về khi section cuộn tới |
 
 `prefers-reduced-motion: reduce` thì Motion hiện hết ngay và không dựng trigger
 nào. JS tắt thì thẻ `<noscript>` trong `layout.tsx` trả lại opacity cho các

@@ -92,7 +92,7 @@ export function Agenda() {
                       key={`${item.time}-${item.title}`}
                       className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack sm:grid-cols-[6rem_1.5rem_1fr]"
                     >
-                      <p className="pt-1 text-right font-display text-h4 text-tone-accent">
+                      <p className="text-right font-display text-h3 text-tone-accent">
                         {item.time}
                       </p>
 
@@ -100,7 +100,7 @@ export function Agenda() {
                       <div
                         aria-hidden
                         className={`flex h-full flex-col items-center ${
-                          i === day.items.length - 1 ? "" : "pb-stack"
+                          i === day.items.length - 1 ? "" : "pb-block"
                         }`}
                       >
                         <span className="mt-2 size-2 shrink-0 rotate-45 bg-tone-accent" />
@@ -109,7 +109,9 @@ export function Agenda() {
                         )}
                       </div>
 
-                      <div className="flex flex-col gap-tight pb-stack last:pb-0">
+                      {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`) và cách mốc kế
+                          tiếp bằng `pb-block`, để mắt đọc ra "tiêu đề + ghi chú" là một cặp. */}
+                      <div className="flex flex-col pb-block last:pb-0">
                         <Heading level="h4">{item.title}</Heading>
                         {item.note ? (
                           <p className="text-small text-tone-muted">{item.note}</p>

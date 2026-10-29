@@ -18,7 +18,12 @@ import { venue, venueScene } from "@/content/client";
  * content/theme.ts nên nó co giãn cùng tranh.
  *
  * Bộ asset gốc ~41MB nằm ngoài git; bản dùng thật là WebP 0.4MB trong
- * public/venue, dựng lại bằng `node scripts/venue-assets.mjs`.
+ * public/venue, dựng lại bằng `node scripts/venue-assets.mjs` (rồi
+ * `node scripts/venue-arms.mjs` để dựng hai cánh tay từ hands.png).
+ *
+ * Section `flush`: cảnh tự quản chiều dọc — khung 9/16 phải chạm đúng hai mép
+ * trên dưới của section, nếu không khoảng đệm `py-section` để lộ ra một dải
+ * giấy trơn nơi đường cắt của nhánh ca cao và hai ống tay áo.
  */
 
 const BASE = "/venue";
@@ -42,12 +47,29 @@ const BEHIND = ["table", "vines", "fruit-branch"] as const;
    hẹp), nên cụm sẽ cao hơn hoặc thấp hơn bản vẽ vài pixel. Neo mép trên thì
    sai số dồn hết xuống dưới và nút trôi khỏi mặt bàn; neo tâm thì nó chia đều
    hai đầu và cụm vẫn nằm giữa khăn trải. */
+/**
+ * Hai cánh tay: kích thước ảnh (px) và chỗ đặt trong khung — số in ra từ
+ * `node scripts/venue-arms.mjs`, chạy lại script thì chép số mới vào đây.
+ */
+const ARMS = [
+  {
+    side: "left",
+    px: { w: 788, h: 520 },
+    at: { left: "-23.79%", top: "64.96%", width: "65.67%", height: "24.38%" },
+  },
+  {
+    side: "right",
+    px: { w: 728, h: 519 },
+    at: { left: "56.63%", top: "68.24%", width: "60.67%", height: "24.33%" },
+  },
+] as const;
+
 const TITLE_Y = `${((443.9 / FRAME.h) * 100).toFixed(2)}%`;
 const COLUMN_Y = `${((1083.1 / FRAME.h) * 100).toFixed(2)}%`;
 
 export function Venue() {
   return (
-    <SectionWrapper section="venue" width="bleed" labelledBy="venue-title">
+    <SectionWrapper section="venue" width="bleed" flush labelledBy="venue-title">
       <div className="stage-9x16">
         {BEHIND.map((name, i) => (
           <Image
@@ -132,15 +154,35 @@ export function Venue() {
           ly bên trái cắt qua mép dưới của nút. Không bắt chuột, nếu không nó
           nuốt mất cú chạm vào nút ngay dưới nó.
         */}
-        <Image
-          src={`${BASE}/toast.webp`}
-          alt=""
-          aria-hidden
-          fill
-          sizes="(max-width: 48rem) 100vw, 30rem"
-          unoptimized
-          className="pointer-events-none z-50 select-none object-cover"
-        />
+        {/*
+          Hai cánh tay cụng ly, mỗi cánh một lớp để Motion.tsx cho chúng vươn
+          vào nhau khi section cuộn tới (`data-clink`). Nằm TRÊN cả chữ lẫn
+          nút, đúng như bản Canva — ly bên trái cắt qua mép dưới của nút. Không
+          bắt chuột, nếu không nó nuốt mất cú chạm vào nút ngay dưới nó.
+
+          Cánh tay vẽ TRỌN, dài quá mép khung (`node scripts/venue-arms.mjs`),
+          nên bọc trong một lớp `overflow-hidden` ăn theo khung 9/16: tay đi
+          vào bao nhiêu thì phần tay phía sau trượt ra bấy nhiêu, ống tay áo
+          không bao giờ lộ đầu cụt. Mỗi cánh nằm trong một lớp `inset-0` nguyên
+          khung để dịch theo phần trăm của khung, còn vị trí của cánh trong lớp
+          ấy là phần trăm đo từ bản vẽ — in ra bởi chính script cắt ảnh.
+        */}
+        <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden">
+          {ARMS.map((arm) => (
+            <div key={arm.side} data-clink={arm.side} className="absolute inset-0">
+              <Image
+                src={`${BASE}/arm-${arm.side}.webp`}
+                alt=""
+                aria-hidden
+                width={arm.px.w}
+                height={arm.px.h}
+                unoptimized
+                className="absolute max-w-none select-none"
+                style={arm.at}
+              />
+            </div>
+          ))}
+        </div>
 
         {/* Tranh là trang trí nên aria-hidden hết; câu này tả cảnh cho người
             dùng trình đọc màn hình. */}

@@ -321,6 +321,14 @@ html {
   }
 
   /*
+    Nút gọn — cùng hình dáng, lề ngang hẹp lại. Dùng khi hai nút phải đứng
+    chung một dòng trong cột chữ hẹp (ví dụ trong ô cửa sổ trên điện thoại).
+  */
+  .btn-compact {
+    padding-inline: var(--t-space-stack);
+  }
+
+  /*
     Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
 
     Ẩn sẵn bằng CSS để không nháy một nhịp trước khi GSAP kịp chạy. JS tắt thì
@@ -867,6 +875,285 @@ html {
 
   .disclosure-body {
     padding-bottom: var(--t-space-stack);
+  }
+
+  /*
+    Khối "mở ra": một hình vẽ lớn đứng giữa mời bấm, bấm vào thì hình thu nhỏ
+    lại nhường chỗ cho nội dung trượt lên. Vẫn là <details> của trình duyệt
+    như `.disclosure` — không state, mở được khi JS chưa tải, Ctrl+F vẫn tìm
+    thấy chữ đang gập.
+
+    Tên đặt chung chứ không theo section: section nào cần một hình mời bấm
+    cũng dùng lại được.
+  */
+  .unfold-summary {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--t-space-tight);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .unfold-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .unfold-summary:focus-visible {
+    outline: 2px solid var(--t-section-accent);
+    outline-offset: 8px;
+    border-radius: var(--t-radius-card);
+  }
+
+  /* Hình thu nhỏ bằng `max-width` chứ không bằng `scale`: đổi bề rộng thật
+     thì chỗ trống bên dưới co theo, còn `scale` chỉ vẽ nhỏ đi mà vẫn chiếm
+     nguyên khoảng cũ. Lớp lắc lư nằm bên trong nên `transform` của nó không
+     tranh với chuyển động này. */
+  .unfold {
+    /* Bề rộng bức vẽ lúc đóng — cũng là thước đo cho lớp hoạ tiết rơi bên
+       dưới, nên đổi một chỗ này là cả cảnh đi theo. */
+    --unfold-art: 13rem;
+    --unfold-art-open: 5.5rem;
+  }
+
+  .unfold-art {
+    width: 100%;
+    max-width: var(--unfold-art);
+    transition: max-width 420ms var(--t-ease);
+  }
+
+  /* Đợi mấy trái nho lăn khuất khỏi màn rồi bình mới thu lại. Mặt đất của
+     chúng đo từ đáy bình lúc còn to: bình co sớm thì mấy trái đang nảy bỗng
+     lơ lửng giữa khoảng trống, chẳng còn nền nào đỡ. Lúc gập vào thì không
+     đợi gì cả, nên độ trễ chỉ đặt ở nhánh `[open]`. */
+  .unfold[open] .unfold-art {
+    max-width: var(--unfold-art-open);
+    transition-delay: 1750ms;
+  }
+
+  /* Dòng mời bấm đổi chữ theo trạng thái — hai dòng, mỗi lúc hiện một. */
+  .unfold:not([open]) .unfold-open,
+  .unfold[open] .unfold-closed {
+    display: none;
+  }
+
+  .unfold-body {
+    animation: glow-unfold 520ms var(--t-ease) 1750ms both;
+  }
+
+  @keyframes glow-unfold {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /*
+    Hoạ tiết rời khỏi bức vẽ khi khối mở ra — ở Gifts là mấy trái nho tuột
+    khỏi đít chùm, rơi xuống, nảy nhỏ dần cho tới lúc gần như nằm sát đất,
+    rồi lăn ngang đi khỏi màn hình.
+
+    Lớp này nằm đúng khung bức vẽ lúc CHƯA mở và không co theo nó: trái đã
+    rời chùm thì không còn thuộc về bức vẽ nữa, nên nó rơi theo nền đất chứ
+    không theo cái bình đang thu nhỏ. Chỗ gọi đặt toạ độ chỗ rụng bằng
+    `--fx`/`--fy` (% của khung), quãng rơi `--fdrop`, nhịp nảy đầu `--fbounce`
+    và quãng lăn `--froll`.
+
+    Ba lớp lồng nhau, mỗi lớp một `transform` để chúng không tranh nhau:
+    ngoài cùng đi ngang, giữa nảy lên xuống, trong cùng xoay.
+  */
+  .fall-layer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--unfold-art);
+    /* Đúng tỉ lệ file bình gốm, để toạ độ % bám vào chính bức vẽ. */
+    aspect-ratio: 883 / 1331;
+    margin-left: calc(var(--unfold-art) / -2);
+    pointer-events: none;
+  }
+
+  .fall-piece {
+    position: absolute;
+    left: var(--fx);
+    top: var(--fy);
+    width: var(--fsize);
+    height: var(--fsize);
+    /* Đặt tâm trái vào đúng chỗ rụng chứ không phải góc trên bên trái. */
+    margin-left: calc(var(--fsize) / -2);
+    margin-top: calc(var(--fsize) / -2);
+    /* Chưa mở thì chưa có gì rụng. Lúc rơi thì keyframes cầm lấy opacity —
+       đây là trái nho lăn khuất khỏi màn, không phải hoạ tiết bị làm mờ cho
+       chìm vào nền. */
+    opacity: 0;
+  }
+
+  .fall-drop,
+  .fall-spin {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .unfold[open] .fall-piece {
+    animation: glow-fall-roll var(--fdur) var(--fdelay, 0ms) both;
+  }
+
+  .unfold[open] .fall-drop {
+    animation: glow-fall-drop var(--fdur) var(--fdelay, 0ms) both;
+  }
+
+  .unfold[open] .fall-spin {
+    animation: glow-fall-spin var(--fdur) var(--fdelay, 0ms) both;
+  }
+
+  /* Một trái nho: khối cầu tím, bắt sáng chếch trên bên trái. */
+  .grape {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 26%, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 46%),
+      radial-gradient(circle at 62% 72%, #8e4079, #5f1c4d 58%, #371029);
+  }
+
+  /*
+    Trục đứng: rơi nhanh dần, chạm đất rồi nảy sáu nhịp, nhịp sau chỉ còn
+    chừng nửa nhịp trước, tới nhịp cuối thì gần như nằm sát đất. Mỗi chặng
+    tự khai nhịp của nó — vươn lên thì chậm dần, rơi xuống thì nhanh dần,
+    đúng như một vật đang mất đà.
+  */
+  @keyframes glow-fall-drop {
+    0% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    14% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    23% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce)));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    32% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    38% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce) * 0.52));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    44% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    48.5% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce) * 0.27));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    53% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    56% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce) * 0.14));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    59% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    61% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce) * 0.07));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    63% {
+      transform: translateY(var(--fdrop));
+      animation-timing-function: cubic-bezier(0, 0, 0.42, 1);
+    }
+    64% {
+      transform: translateY(calc(var(--fdrop) - var(--fbounce) * 0.03));
+      animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    65%,
+    100% {
+      transform: translateY(var(--fdrop));
+    }
+  }
+
+  /*
+    Trục ngang: lúc còn rơi thì gần như thẳng đứng, cú chạm đất đầu tiên hất
+    nó lệch sang một bên, rồi mỗi nhịp nảy đưa đi thêm một quãng đều đều.
+    Hết nảy thì nó nằm hẳn xuống và lăn mỗi lúc một nhanh ra khỏi màn — đó
+    cũng là lúc nó đi gần hết quãng đường. Mọi trái lăn cùng một chiều.
+  */
+  @keyframes glow-fall-roll {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+      animation-timing-function: linear;
+    }
+    14% {
+      transform: translateX(calc(var(--froll) * 0.02));
+      animation-timing-function: linear;
+    }
+    32% {
+      transform: translateX(calc(var(--froll) * 0.09));
+      animation-timing-function: linear;
+    }
+    44% {
+      transform: translateX(calc(var(--froll) * 0.15));
+      animation-timing-function: linear;
+    }
+    53% {
+      transform: translateX(calc(var(--froll) * 0.19));
+      animation-timing-function: linear;
+    }
+    59% {
+      transform: translateX(calc(var(--froll) * 0.22));
+      animation-timing-function: linear;
+    }
+    65% {
+      transform: translateX(calc(var(--froll) * 0.25));
+      animation-timing-function: cubic-bezier(0.4, 0, 0.75, 1);
+    }
+    94% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(var(--froll));
+      opacity: 0;
+    }
+  }
+
+  /* Vòng xoay: đứng yên lúc còn rơi, chớm xoay khi nảy, xoay nhanh dần lúc
+     đã nằm xuống và lăn đi. */
+  @keyframes glow-fall-spin {
+    0%,
+    14% {
+      transform: rotate(0deg);
+      animation-timing-function: linear;
+    }
+    65% {
+      transform: rotate(calc(var(--fspin) * 0.25));
+      animation-timing-function: cubic-bezier(0.4, 0, 0.75, 1);
+    }
+    100% {
+      transform: rotate(var(--fspin));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .unfold-art {
+      transition: none;
+    }
   }
 
   /* Băng ảnh kéo ngang — dùng cho Love Story và Gallery. Cuộn gốc của

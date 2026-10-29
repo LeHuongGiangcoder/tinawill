@@ -13,6 +13,7 @@ import type { ReactNode } from "react";
  */
 export function Disclosure({
   label,
+  name,
   defaultOpen = false,
   className = "",
   children,
@@ -20,11 +21,16 @@ export function Disclosure({
   label: string;
   /** Mở sẵn khi trang vừa tải — dành cho mục quan trọng nhất của nhóm. */
   defaultOpen?: boolean;
+  /**
+   * Các khối cùng `name` thành một nhóm: mở khối này thì khối đang mở tự gập
+   * lại — trình duyệt tự làm, không cần state.
+   */
+  name?: string;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <details className={`disclosure ${className}`} open={defaultOpen}>
+    <details className={`disclosure ${className}`} name={name} open={defaultOpen}>
       <summary className="disclosure-summary">
         <span className="font-display text-h4">{label}</span>
         {/* Dấu cộng xoay thành dấu trừ khi mở — vẽ bằng hai gạch nên nó lấy

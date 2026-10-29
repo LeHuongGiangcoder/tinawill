@@ -47,6 +47,13 @@ export const palette = {
    */
   brown: "#4a2c17",
   brownSoft: "#6b4126",
+  /**
+   * Vàng nhạt của chiếc khăn tắm trong cảnh Save the Date — trung vị các điểm
+   * ảnh của khăn trong public/time/loungers.webp. Nhạt hơn `sun` (#e5ba05),
+   * nên nút vàng ở cảnh này không chói hơn tranh. Chữ rượu vang trên nền này
+   * đạt 6.4:1.
+   */
+  towel: "#ecd366",
   /** Nền thẻ, khung ảnh */
   surface: "#ffffff",
   line: "#ddcdb8",
@@ -218,7 +225,7 @@ export const tones = {
     accent: palette.goldSoft,
     line: "rgba(244, 228, 177, 0.28)",
     contrast: palette.beige,
-    button: palette.sun,
+    button: palette.towel,
     buttonText: palette.wine,
     brand: palette.wine,
   },

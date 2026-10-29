@@ -390,18 +390,40 @@ export const venueScene = {
  *   bullets — gạch đầu dòng
  *   steps   — danh sách có số, dùng cho quy trình e-visa
  *
- * `highlight` làm khối nổi lên như một thẻ (dùng cho "wedding night is on us").
- * `actions` thành nút ở cuối khối.
+ *   topics  — một chồng khối gập: mỗi mục một từ khoá, bấm mới mở ra, và
+ *             mở mục này thì mục kia gập lại. Dùng khi hai thẻ của ô cửa sổ
+ *             cần cao xấp xỉ nhau — gập lại thì thẻ nào cũng chỉ còn một
+ *             hàng từ khoá, chỉ một mục mở sẵn.
+ *
+ * `highlight` làm khối nổi lên như một thẻ.
+ * `actions` thành nút ở cuối khối (hoặc cuối một mục của `topics`).
  */
-export type TravelGroup = {
-  title: string;
-  kind: "text" | "bullets" | "steps";
-  lead?: string;
-  items: string[];
-  note?: string;
-  highlight?: boolean;
-  actions?: { label: string; href: string }[];
+export type GuideAction = { label: string; href: string };
+
+/** Một mục gập của khối `topics`: từ khoá hiện sẵn, nội dung bấm mới thấy. */
+export type GuideTopic = {
+  label: string;
+  body: string;
+  actions?: GuideAction[];
 };
+
+export type TravelGroup =
+  | {
+      title: string;
+      kind: "text" | "bullets" | "steps";
+      lead?: string;
+      items: string[];
+      note?: string;
+      highlight?: boolean;
+      actions?: GuideAction[];
+    }
+  | {
+      /** Không hiện — nhãn của thẻ đã nói rồi. Chỉ dùng làm khoá và tên nhóm gập. */
+      title: string;
+      kind: "topics";
+      lead?: string;
+      topics: GuideTopic[];
+    };
 
 /**
  * Một thẻ của trang hướng dẫn: nhãn trên nút, và mấy khối hướng dẫn bên dưới.
@@ -584,22 +606,26 @@ export const travel = {
       label: "Where to stay",
       groups: [
         {
-          title: "Where to stay",
-          kind: "text",
-          highlight: true,
-          lead: "The wedding night is on us. 🏝",
-          items: [
-            "We're covering one night at NHAAN Resort & Spa Hoi An on Saturday, March 27, 2027 for all our guests — so you can celebrate late and simply walk back to your room.",
-            "Staying longer? We'd love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, contact our wedding planner and the team will take care of everything for you.",
-          ],
-          actions: [
+          title: "stay",
+          kind: "topics",
+          // nbsp giữ biểu tượng đảo đi cùng chữ, không rơi một mình xuống dòng
+          lead: "The wedding night is on\u00a0us.\u00a0🏝",
+          topics: [
             {
-              label: "WhatsApp the planner",
-              href: "https://wa.me/84363059436",
+              label: "Wedding night",
+              body: "One night at NHAAN Resort & Spa Hoi An on Saturday, March 27 is covered for every guest — celebrate late, then simply walk back to your room.",
             },
             {
-              label: "Email the planner",
-              href: "mailto:teamhandsheart.planner@gmail.com",
+              label: "The whole weekend",
+              body: "Join us for the Welcome Dinner on Friday and the Farewell Brunch on Sunday — Hoi An is well worth a few extra days.",
+            },
+            {
+              label: "Extra nights",
+              body: "Our wedding planner will book additional nights at the resort and take care of everything for you.",
+              actions: [
+                { label: "WhatsApp", href: "https://wa.me/84363059436" },
+                { label: "Email", href: "mailto:teamhandsheart.planner@gmail.com" },
+              ],
             },
           ],
         },
@@ -610,14 +636,25 @@ export const travel = {
       label: "Weather & tips",
       groups: [
         {
-          title: "Weather & good to know",
-          kind: "bullets",
-          items: [
-            "Late March is warm and mostly dry — around 24–29°C. Bring sunscreen, sunglasses and a light layer for the evening.",
-            "Currency: Vietnamese Dong (VND). Cards work at the resort; carry some cash for markets and cafés.",
-            "Grab is the go-to app for rides and food.",
-            "Make a holiday of it: Hoi An Ancient Town is just 5 km away, with the best tailor shops, leather shoes and bag stores, and custom silver — enough to bring a whole wardrobe home. The town is beautiful, with lanterns everywhere, amazing food and history.",
-            "An Bang Beach, the Marble Mountains and Da Nang City are all nearby to explore.",
+          title: "tips",
+          kind: "topics",
+          topics: [
+            {
+              label: "Weather",
+              body: "Late March is warm and mostly dry, around 24–29°C. Pack sunscreen, sunglasses and a light layer for the evening.",
+            },
+            {
+              label: "Currency & payment",
+              body: "Vietnamese Dong (VND). Cards work at the resort; carry some cash for markets and cafés.",
+            },
+            {
+              label: "Getting around",
+              body: "Grab is the go-to app for rides and food.",
+            },
+            {
+              label: "Around Hoi An",
+              body: "The Ancient Town is 5 km away — lanterns, amazing food, and the best tailors, leather goods and custom silver. An Bang Beach, the Marble Mountains and Da Nang are all close by.",
+            },
           ],
         },
       ],
@@ -827,25 +864,35 @@ export const rsvp = {
 export const gifts = {
   eyebrow: "Gifts",
   title: "Honeymoon Fund",
+  /**
+   * Bình gốm đứng giữa khi section vừa mở ra — bấm vào nó mới hiện ba lựa
+   * chọn. Tên file trong brand/elements, bỏ đuôi.
+   */
+  jar: "honeymoon-jar" as const,
+  /** Dòng mời bấm dưới bình, đổi chữ theo lúc đóng / lúc mở. */
+  jarPrompt: {
+    closed: "Tap the jar",
+    open: "Tap to close",
+  },
   subtitle: "Your presence is already the greatest gift.",
   intro:
     "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, here are a few options — whatever feels right for you.",
   options: [
     {
-      title: "🌴 Honeymoon fund",
+      title: "Honeymoon fund",
       body: "A contribution towards our honeymoon would help us create memories we'll treasure for the rest of our lives.",
       /** TODO: thay bằng chi tiết chuyển khoản / PayPal / Wise khi khách gửi. */
       note: "",
       actions: [] as { label: string; href: string }[],
     },
     {
-      title: "🎁 A wedding gift",
+      title: "A wedding gift",
       body: "If you'd prefer to give a gift, there will be a gift table at the reception. Since many of you are flying in, small and light is perfect — no need to squeeze anything big into your suitcase! You're also welcome to send something to us after the wedding; just message us on WhatsApp for our address.",
       note: "",
       actions: [] as { label: string; href: string }[],
     },
     {
-      title: "💌 A note",
+      title: "A note",
       body: "Honestly, a handwritten card with your wishes means just as much to us.",
       note: "",
       actions: [] as { label: string; href: string }[],

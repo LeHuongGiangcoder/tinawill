@@ -49,7 +49,7 @@ const TEXT_Y = `${((650 / FRAME.h) * 100).toFixed(2)}%`;
 
 export function Time() {
   return (
-    <SectionWrapper section="time" width="bleed" labelledBy="time-title">
+    <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
       <div className="stage-9x16">
         {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. */}
         <Image

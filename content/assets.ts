@@ -30,6 +30,7 @@ export const assets = {
     "flag-india": { src: "/brand/elements/flag-india.webp", width: 320, height: 199 },
     "flag-maldives": { src: "/brand/elements/flag-maldives.webp", width: 320, height: 199 },
     "flag-usa": { src: "/brand/elements/flag-usa.webp", width: 320, height: 163 },
+    "honeymoon-jar": { src: "/brand/elements/honeymoon-jar.webp", width: 883, height: 1331 },
   },
 
   /** Dải ngăn giữa hai section, lặp theo chiều ngang */
