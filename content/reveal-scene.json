@@ -1084,6 +1084,78 @@
       }
     },
     {
+      "id": "deep_mid-01-banana",
+      "asset": "/reveal/banana.webp",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1104,
+      "reveal": {
+        "delay": 3.4943,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": 60,
+        "arcY": 0,
+        "bend": 0.525
+      },
+      "closed": {
+        "x": 700,
+        "y": 1720,
+        "width": 440,
+        "rotation": -28,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 790,
+        "y": 1830,
+        "width": 440,
+        "rotation": -28,
+        "flipX": false,
+        "opacity": 0
+      }
+    },
+    {
+      "id": "deep_mid-02-banana",
+      "asset": "/reveal/banana.webp",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1105,
+      "reveal": {
+        "delay": 3.3239,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": -60,
+        "arcY": 0,
+        "bend": -0.525
+      },
+      "closed": {
+        "x": 520,
+        "y": 1790,
+        "width": 400,
+        "rotation": 12,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 460,
+        "y": 1900,
+        "width": 400,
+        "rotation": 12,
+        "flipX": false,
+        "opacity": 0
+      }
+    },
+    {
       "id": "bottom_left-05-bracts_purple",
       "asset": "/reveal/bracts_purple.webp",
       "rawSize": [

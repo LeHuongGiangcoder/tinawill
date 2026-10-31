@@ -107,6 +107,8 @@ const ASSET_SWAP = {
 /* Sprite thêm vào: mượn nhịp mở và quỹ đạo của `ref`, dịch trạng thái mở theo
    `exit` (px artboard) để chúng thoát ra cùng cú mở tán. */
 const EXTRA = [
+  { id: "deep_mid-01-banana", asset: "/reveal/banana.webp", rawSize: [385, 1160], ref: "deep_right-03-banana", z: 1104, closed: { x: 700, y: 1720, width: 440, rotation: -28 }, exit: [90, 110] },
+  { id: "deep_mid-02-banana", asset: "/reveal/banana.webp", rawSize: [385, 1160], ref: "deep_left-02-banana", z: 1105, closed: { x: 520, y: 1790, width: 400, rotation: 12 }, exit: [-60, 110] },
   { id: "bottom_left-05-bracts_purple", asset: "/reveal/bracts_purple.webp", rawSize: [276, 267], ref: "bottom_left-04-bracts_pink", z: 4410, closed: { x: 330, y: 1840, width: 120, rotation: -10 } },
   { id: "bottom_left-06-bracts_purple", asset: "/reveal/bracts_purple.webp", rawSize: [276, 267], ref: "bottom_left-04-bracts_pink", z: 4411, closed: { x: 255, y: 1905, width: 95, rotation: 20 } },
   { id: "mid_right-04-heliconia", asset: "/reveal/heliconia.webp", rawSize: [553, 741], ref: "mid_right-01-frond", z: 4303, closed: { x: 1110, y: 1470, width: 340, rotation: -75 } },
