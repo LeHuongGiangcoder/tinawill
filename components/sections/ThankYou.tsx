@@ -15,9 +15,11 @@ export function ThankYou() {
         titleId="thank-you-title"
         subtitle={thankYou.subtitle}
       >
-        <div className="mt-tight flex flex-col items-center gap-tight">
-          {thankYou.lines.map((line) => (
-            <Lead key={line}>{line}</Lead>
+        <div className="mt-tight flex flex-col items-center gap-stack">
+          {thankYou.paragraphs.map((text) => (
+            <Lead key={text} className="text-balance">
+              {text}
+            </Lead>
           ))}
           <Divider diamond />
         </div>

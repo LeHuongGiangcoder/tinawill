@@ -909,12 +909,11 @@ export const thankYou = {
   eyebrow: "Thank you",
   title: "See you by the river",
   subtitle: "March 27, 2027 — Hoi An",
-  lines: [
-    "From the bottom of our heart",
-    "thank you for travelling all this way to",
-    "celebrate the start of our life together",
-    "You’re the closest people to us and we would be",
-    "beyond grateful to see your faces at our wedding.",
+  /* Mỗi phần tử là một đoạn — chữ tự xuống dòng và cân hai bên theo bề rộng
+     cột, đừng cắt dòng bằng tay. */
+  paragraphs: [
+    "From the bottom of our heart, thank you for travelling all this way to celebrate the start of our life together.",
+    "You’re the closest people to us, and we would be beyond grateful to see your faces at our wedding.",
     "We love you!",
   ],
   signature: "Will & Tina",
