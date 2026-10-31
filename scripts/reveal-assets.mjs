@@ -29,12 +29,16 @@ const target = (asset) => {
 };
 
 const copied = new Map();
+/** Ảnh phủ cả artboard (nền tán lá, nước) hạ về bề rộng này: giải nén 1152×2048 tốn ~9MB mỗi lớp, iPhone đóng tab khi quá tải. */
+const FULL_BLEED_WIDTH = 864;
 const place = async (asset) => {
   const name = target(asset);
   if (!copied.has(name)) {
     copied.set(name, true);
     const from = join(SRC, asset);
-    if (asset.endsWith(".webp")) copyFileSync(from, join(OUT, name));
+    const full = /canopy-ground|river-seamless/.test(asset);
+    if (full) await sharp(from).resize({ width: FULL_BLEED_WIDTH }).webp({ quality: 84, alphaQuality: 90 }).toFile(join(OUT, name));
+    else if (asset.endsWith(".webp")) copyFileSync(from, join(OUT, name));
     else await sharp(from).webp({ quality: 84, alphaQuality: 90 }).toFile(join(OUT, name));
   }
   return `/reveal/${name}`;
@@ -48,7 +52,7 @@ const PAPER_SOURCE = "public/hero paper.png";
 const placePaper = async (asset) => {
   const name = target(asset);
   await sharp(PAPER_SOURCE)
-    .resize(manifest.canvas.width, manifest.canvas.height)
+    .resize(FULL_BLEED_WIDTH, Math.round((FULL_BLEED_WIDTH * manifest.canvas.height) / manifest.canvas.width))
     .webp({ quality: 86, alphaQuality: 92 })
     .toFile(join(OUT, name));
   return `/reveal/${name}`;
