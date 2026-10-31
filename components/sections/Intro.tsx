@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import { useExperience } from "@/components/experience/ExperienceProvider";
 import { Button } from "@/components/ui/Button";
-import { Lead } from "@/components/ui/Heading";
 import { design, intro } from "@/content/client";
 
 /**
@@ -45,7 +44,7 @@ export function Intro({ ready }: { ready: boolean }) {
       ].join(" ")}
     >
       <p className="font-script text-stage-cover text-tone-fg">{intro.title}</p>
-      <Lead>{intro.note}</Lead>
+      <p className="text-stage-lead text-tone-muted text-balance">{intro.note}</p>
       <Button onClick={open} disabled={!ready}>
         {intro.cta}
       </Button>

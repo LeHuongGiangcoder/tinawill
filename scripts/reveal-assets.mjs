@@ -28,9 +28,6 @@ const target = (asset) => {
   return folder === "floaters" || folder === "ripples" ? `${folder}-${name}` : name;
 };
 
-/* Tờ giấy của Canva nằm giữa artboard (576, 1084); file package lệch (+24, +29). */
-const PAPER_SHIFT = { x: -24, y: -29 };
-
 const copied = new Map();
 const place = async (asset) => {
   const name = target(asset);
@@ -44,17 +41,15 @@ const place = async (asset) => {
 };
 
 mkdirSync(OUT, { recursive: true });
+for (const name of ["agave", "leaf-sprigs"]) copyFileSync(`public/tropical/${name}.webp`, join(OUT, `${name}.webp`));
 
-/** Dời tờ giấy theo PAPER_SHIFT (âm = sang trái/lên) trên cùng khung artboard. */
+/** Tờ giấy do khách vẽ lại (public/hero paper.png, 9:16 như artboard), thay file trong package. */
+const PAPER_SOURCE = "public/hero paper.png";
 const placePaper = async (asset) => {
   const name = target(asset);
-  const { width, height } = manifest.canvas;
-  const dx = -PAPER_SHIFT.x;
-  const dy = -PAPER_SHIFT.y;
-  await sharp(join(SRC, asset))
-    .extract({ left: dx, top: dy, width: width - dx, height: height - dy })
-    .extend({ right: dx, bottom: dy, background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .webp({ quality: 84, alphaQuality: 90 })
+  await sharp(PAPER_SOURCE)
+    .resize(manifest.canvas.width, manifest.canvas.height)
+    .webp({ quality: 86, alphaQuality: 92 })
     .toFile(join(OUT, name));
   return `/reveal/${name}`;
 };
@@ -64,12 +59,13 @@ const placePaper = async (asset) => {
   còn trên màn ngang thì cảnh co lại để tờ giấy vẫn lọt màn. Đo từ chính file
   để không phải đoán lại khi khách đổi tranh.
 */
-const { info } = await sharp(join(SRC, manifest.paper.asset))
-  .trim()
-  .toBuffer({ resolveWithObject: true });
+const { info } = await sharp(PAPER_SOURCE)
+  .resize(manifest.canvas.width, manifest.canvas.height)
+  .toBuffer()
+  .then((buffer) => sharp(buffer).trim().toBuffer({ resolveWithObject: true }));
 const box = {
-  x: -info.trimOffsetLeft + PAPER_SHIFT.x,
-  y: -info.trimOffsetTop + PAPER_SHIFT.y,
+  x: -info.trimOffsetLeft,
+  y: -info.trimOffsetTop,
   width: info.width,
   height: info.height,
 };
@@ -81,18 +77,40 @@ const box = {
   nguyên. Sprite nào không có ở đây thì giữ toạ độ của package.
 */
 const CANVA_CLOSED = {
-  "mid_left-04-pineapple": { x: 115.2, y: 1047.9, width: 293.5, rotation: 0 },
+  "mid_left-04-pineapple": { x: 225, y: 1190, width: 250, rotation: 0 },
+  "top_left-02-mango": { x: 350, y: 250, width: 470, rotation: 6 },
   "bottom_left-03-hibiscus": { x: 173.8, y: 1506.1, width: 449.8 },
   "top_right-02-hibiscus": { x: 1042.3, y: 152.6, width: 353.2, flipX: true },
   "mid_right-02-plumeria": { x: 629.1, y: 679.4, width: 287.0, rotation: 0 },
-  "bottom_right-02-pomegranate": { x: 938.7, y: 1683.1, width: 501.6, rotation: 30 },
-  "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6, rotation: -28 },
+  "bottom_right-02-pomegranate": { x: 835, y: 1690, width: 440, rotation: 30 },
+  "bottom_right-01-fan": { x: 990, y: 1790 },
+  "bottom_right-03-bracts_purple": { x: 1000, y: 1330 },
+  "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6 },
+  "mid_right-01-frond": { x: 966.3, y: 690 },
   "top_right-03-bracts_pink": { x: 776.3, y: 276.7, width: 178.8 },
   "lower_bract-01-bracts_pink": { x: 552.4, y: 1831.2, width: 178.8 },
 };
 
+/* Ảnh khách vẽ lại, cắt từ public/lê.png: đủ cụm xoài và cả quả dứa, không bị
+   cắt cụt như file trong package. */
+const ASSET_SWAP = {
+  "mid_left-04-pineapple": { asset: "/reveal/pineapple-new.webp", rawSize: [700, 1091] },
+  "top_left-02-mango": { asset: "/reveal/mango-new.webp", rawSize: [900, 822] },
+};
+
+/* Sprite thêm vào: mượn nhịp mở và quỹ đạo của `ref`, dịch trạng thái mở theo
+   `exit` (px artboard) để chúng thoát ra cùng cú mở tán. */
+const EXTRA = [
+  { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 905, y: 1280, width: 290, rotation: 5 } },
+  { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
+  { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 470, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
+  { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
+];
+
 const relayout = ({ closed, open, ...e }) => {
   const o = CANVA_CLOSED[e.id];
+  const swap = ASSET_SWAP[e.id];
+  if (swap) Object.assign(e, swap);
   if (!o) return { ...e, closed, open };
   const next = { ...closed, ...o };
   return {
@@ -102,6 +120,27 @@ const relayout = ({ closed, open, ...e }) => {
   };
 };
 
+const withExtras = (list) => {
+  const byId = new Map(list.map((e) => [e.id, e]));
+  const extras = EXTRA.map(({ ref, closed, exit, id, asset, rawSize, z }) => {
+    const r = byId.get(ref);
+    const c = { x: closed.x, y: closed.y, width: closed.width, rotation: closed.rotation, flipX: false, opacity: 1 };
+    const dx = exit ? exit[0] : r.open.x - r.closed.x;
+    const dy = exit ? exit[1] : r.open.y - r.closed.y;
+    return {
+      id,
+      asset,
+      rawSize,
+      z,
+      reveal: r.reveal,
+      motion: r.motion,
+      closed: c,
+      open: { ...c, x: c.x + dx, y: c.y + dy, width: c.width * (r.open.width / r.closed.width), rotation: c.rotation + (r.open.rotation - r.closed.rotation) },
+    };
+  });
+  return [...list, ...extras];
+};
+
 const scene = {
   canvas: { width: manifest.canvas.width, height: manifest.canvas.height },
   revealDuration: manifest.revealDuration,
@@ -109,9 +148,11 @@ const scene = {
   ground: { ...manifest.ground, asset: await place(manifest.ground.asset) },
   paper: { ...manifest.paper, asset: await placePaper(manifest.paper.asset), box },
   camera: manifest.camera,
-  elements: await Promise.all(
-    manifest.elements.map(async ({ png: _png, group: _group, ...e }) =>
-      relayout({ ...e, asset: await place(e.asset) }),
+  elements: withExtras(
+    await Promise.all(
+      manifest.elements.map(async ({ png: _png, group: _group, ...e }) =>
+        relayout({ ...e, asset: await place(e.asset) }),
+      ),
     ),
   ),
   floaters: await Promise.all(

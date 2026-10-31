@@ -20,10 +20,10 @@
     "fadeStart": 0.2557,
     "fadeEnd": 1.0795,
     "box": {
-      "x": 181,
-      "y": 626,
-      "width": 791,
-      "height": 916
+      "x": 187,
+      "y": 639,
+      "width": 782,
+      "height": 875
     }
   },
   "camera": {
@@ -581,10 +581,10 @@
     },
     {
       "id": "top_left-02-mango",
-      "asset": "/reveal/mango.webp",
+      "asset": "/reveal/mango-new.webp",
       "rawSize": [
-        505,
-        467
+        900,
+        822
       ],
       "z": 4001,
       "reveal": {
@@ -599,16 +599,16 @@
         "bend": -0.525
       },
       "closed": {
-        "x": 172.4726,
-        "y": 156.5003,
-        "width": 430,
-        "rotation": 8,
+        "x": 350,
+        "y": 250,
+        "width": 470,
+        "rotation": 6,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 112.4726,
-        "y": 141.5003,
+        "x": 290,
+        "y": 235.00000000000003,
         "width": 430,
         "rotation": 8,
         "flipX": false,
@@ -854,7 +854,7 @@
         "x": 133.8,
         "y": 626.8,
         "width": 527.6,
-        "rotation": -28,
+        "rotation": 25,
         "flipX": false,
         "opacity": 1
       },
@@ -905,10 +905,10 @@
     },
     {
       "id": "mid_left-04-pineapple",
-      "asset": "/reveal/pineapple.webp",
+      "asset": "/reveal/pineapple-new.webp",
       "rawSize": [
-        358,
-        572
+        700,
+        1091
       ],
       "z": 4203,
       "reveal": {
@@ -923,16 +923,16 @@
         "bend": -1.2
       },
       "closed": {
-        "x": 115.2,
-        "y": 1047.9,
-        "width": 293.5,
+        "x": 225,
+        "y": 1190,
+        "width": 250,
         "rotation": 0,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": -19.799999999999997,
-        "y": 1042.9,
+        "x": 90,
+        "y": 1185,
         "width": 245,
         "rotation": -14,
         "flipX": false,
@@ -995,16 +995,16 @@
         "bend": 1.2
       },
       "closed": {
-        "x": 966.2871,
-        "y": 880.0026,
+        "x": 966.3,
+        "y": 690,
         "width": 520,
         "rotation": -28,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1101.2871,
-        "y": 880.0026,
+        "x": 1101.2999999999997,
+        "y": 690,
         "width": 520,
         "rotation": -28,
         "flipX": false,
@@ -1211,16 +1211,16 @@
         "bend": 1.875
       },
       "closed": {
-        "x": 1116.4465,
-        "y": 1587.723,
+        "x": 990,
+        "y": 1790,
         "width": 430,
         "rotation": -65,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1221.4465,
-        "y": 1607.723,
+        "x": 1095,
+        "y": 1810,
         "width": 430,
         "rotation": -65,
         "flipX": false,
@@ -1247,16 +1247,16 @@
         "bend": 1.875
       },
       "closed": {
-        "x": 938.7,
-        "y": 1683.1,
-        "width": 501.6,
+        "x": 835,
+        "y": 1690,
+        "width": 440,
         "rotation": 30,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1043.6999999999998,
-        "y": 1703.1,
+        "x": 940,
+        "y": 1710,
         "width": 430,
         "rotation": -13,
         "flipX": false,
@@ -1283,16 +1283,16 @@
         "bend": 1.875
       },
       "closed": {
-        "x": 1045,
-        "y": 1320,
+        "x": 1000,
+        "y": 1330,
         "width": 105,
         "rotation": 24,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1150,
-        "y": 1340,
+        "x": 1105,
+        "y": 1350,
         "width": 105,
         "rotation": 24,
         "flipX": false,
@@ -1331,6 +1331,150 @@
         "y": 1866.1999999999998,
         "width": 145,
         "rotation": 27,
+        "flipX": false,
+        "opacity": 1
+      }
+    },
+    {
+      "id": "mid_right-03-pear",
+      "asset": "/reveal/pear-new.webp",
+      "rawSize": [
+        700,
+        987
+      ],
+      "z": 4302,
+      "reveal": {
+        "delay": 1.733,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": 20.25,
+        "arcY": 0,
+        "bend": 1.2
+      },
+      "closed": {
+        "x": 905,
+        "y": 1280,
+        "width": 290,
+        "rotation": 5,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1040,
+        "y": 1280,
+        "width": 247.5609756097561,
+        "rotation": -12,
+        "flipX": false,
+        "opacity": 1
+      }
+    },
+    {
+      "id": "bottom_mid-01-leaf",
+      "asset": "/reveal/leaf-new.webp",
+      "rawSize": [
+        700,
+        1062
+      ],
+      "z": 4410,
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.750000000000002,
+        "arcY": 16.5,
+        "bend": -1.875
+      },
+      "closed": {
+        "x": 610,
+        "y": 1800,
+        "width": 260,
+        "rotation": 30,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 650,
+        "y": 1890,
+        "width": 260,
+        "rotation": 30,
+        "flipX": false,
+        "opacity": 1
+      }
+    },
+    {
+      "id": "bottom_mid-02-agave",
+      "asset": "/reveal/agave.webp",
+      "rawSize": [
+        1100,
+        772
+      ],
+      "z": 4411,
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.750000000000002,
+        "arcY": 16.5,
+        "bend": -1.875
+      },
+      "closed": {
+        "x": 470,
+        "y": 1960,
+        "width": 420,
+        "rotation": 0,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 430,
+        "y": 2050,
+        "width": 420,
+        "rotation": 0,
+        "flipX": false,
+        "opacity": 1
+      }
+    },
+    {
+      "id": "bottom_mid-03-sprigs",
+      "asset": "/reveal/leaf-sprigs.webp",
+      "rawSize": [
+        408,
+        720
+      ],
+      "z": 4412,
+      "reveal": {
+        "delay": 0.7386,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": 15.75,
+        "arcY": 16.5,
+        "bend": 1.875
+      },
+      "closed": {
+        "x": 730,
+        "y": 1900,
+        "width": 200,
+        "rotation": 25,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 790,
+        "y": 1980,
+        "width": 200,
+        "rotation": 25,
         "flipX": false,
         "opacity": 1
       }

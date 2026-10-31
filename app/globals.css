@@ -1734,7 +1734,7 @@ html {
     top: var(--cover-y);
     width: var(--cover-w);
     height: var(--cover-h);
-    padding-inline: calc(var(--cover-w) * 0.14);
+    padding-inline: calc(var(--cover-w) * 0.2);
     transform: translate(-50%, -50%);
     container-type: inline-size;
   }

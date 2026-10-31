@@ -452,10 +452,10 @@ export const weights = {
  */
 export const stageScale = {
   /** Dòng viết tay trên tờ giấy mở thiệp — to hơn `title` vì nó đứng một mình. */
-  cover: { size: "clamp(2.5rem, 15cqw, 4.5rem)", line: "1.25" },
+  cover: { size: "clamp(2rem, 13cqw, 4rem)", line: "1.25" },
   title: { size: "clamp(2.25rem, 11.07cqw, 4.5rem)", line: "1.25" },
   heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
-  lead: { size: "clamp(1rem, 3.7cqw, 1.5rem)", line: "1.2" },
+  lead: { size: "clamp(0.9375rem, 3.4cqw, 1.5rem)", line: "1.2" },
   caption: { size: "clamp(0.875rem, 3.09cqw, 1.25rem)", line: "1.3" },
   /* Bằng `type.action` — nút trong cảnh không được to nhỏ khác nút ngoài cảnh. */
   action: { size: "1.0625rem", line: "1.2" },
