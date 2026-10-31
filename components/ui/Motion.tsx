@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { sections } from "@/content/client";
 import { motion } from "@/content/theme";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -35,10 +36,16 @@ export function Motion() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Ai tắt hiệu ứng thì hiện hết ngay, không dựng trigger nào.
+    /* Có màn mở thiệp thì chữ hero đợi cảnh mở xong; không có thì hiện ngay. */
+    const heroDelay = sections.includes("intro") ? motion.heroDelay : 0;
+
+    // Ai tắt hiệu ứng thì hiện hết ngay, không dựng trigger nào. Riêng chữ hero
+    // vẫn chờ cú mở thiệp: lúc chưa mở nó nằm đúng chỗ chữ của tờ giấy.
     if (reduce) {
-      gsap.set("[data-reveal]", { opacity: 1 });
-      return;
+      gsap.set("[data-reveal]:not([data-hero])", { opacity: 1 });
+      const showHero = () => void gsap.set("[data-hero]", { opacity: 1, delay: heroDelay });
+      window.addEventListener(OPEN_EVENT, showHero);
+      return () => window.removeEventListener(OPEN_EVENT, showHero);
     }
 
     const ctx = gsap.context(() => {
@@ -173,9 +180,8 @@ export function Motion() {
           duration: 1.2,
           ease: "power3.out",
           stagger: motion.revealStagger,
-          /* Chờ màn lá của GardenStage rút ra hai mép rồi chữ mới hiện —
-             "chữ hero xuất hiện khi vùng giữa đã thoáng". */
-          delay: 1.2,
+          /* Chờ tán lá của TropicalReveal mở hẳn rồi chữ mới hiện. */
+          delay: heroDelay,
           overwrite: "auto",
         },
       );

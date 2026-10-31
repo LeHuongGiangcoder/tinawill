@@ -74,6 +74,8 @@
 
   /* Bậc chữ bên trong một cảnh dựng sẵn — đo theo bề rộng khung, không phải
      bề rộng màn hình. Chỉ dùng trong .stage-9x16, xem stageScale ở theme.ts */
+  --text-stage-cover: var(--t-text-stage-cover);
+  --text-stage-cover--line-height: var(--t-leading-stage-cover);
   --text-stage-title: var(--t-text-stage-title);
   --text-stage-title--line-height: var(--t-leading-stage-title);
   --text-stage-heading: var(--t-text-stage-heading);
@@ -1652,6 +1654,125 @@ html {
 
   .stage-art-bottom {
     bottom: 0;
+  }
+
+  /*
+    Cảnh nhiều lớp dựng theo toạ độ gốc của một artboard cố định
+    (components/ui/TropicalReveal.tsx). Artboard phóng bằng một hệ số chung, nên
+    bên trong mọi số đều là pixel gốc của tranh — JS đặt vị trí từng lớp, ở đây
+    chỉ có khuôn.
+
+    `.scene-stage` KHÔNG tạo stacking context: `.scene-cover` phải đè lên cột
+    chữ của section (đang ẩn nhưng vẫn bắt chạm) nằm ngoài stage.
+  */
+  .scene-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: var(--t-color-forest-deep);
+  }
+
+  .scene-artboard {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    transition: opacity var(--t-duration-slow) var(--t-ease);
+  }
+
+  /* Chờ ảnh giải mã xong rồi mới lộ, nền rừng đứng thay trong lúc đó. */
+  .scene-stage[data-ready="false"] .scene-artboard,
+  .scene-stage[data-ready="false"] .scene-cover {
+    opacity: 0;
+  }
+
+  .scene-world {
+    position: absolute;
+    inset: 0;
+    isolation: isolate;
+  }
+
+  /* Nước và nền lá rộng gấp ba artboard: màn ngang không che hết bằng tranh
+     9:16, phần tràn hai bên là thứ lấp vào. */
+  .scene-water {
+    position: absolute;
+    inset-block: 0;
+    left: -100%;
+    width: 300%;
+    overflow: hidden;
+  }
+
+  /*
+    Dải nước cao gấp đôi một ô lặp, dịch đúng một ô rồi quay lại. Ảnh nằm trong
+    CSS chứ không phải thẻ <img> vì nó lặp cả chiều ngang.
+  */
+  .scene-belt {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 200%;
+    background: url("/reveal/river-seamless.webp") center top / 33.3334% 50% repeat;
+    animation: scene-flow var(--scene-water-period) linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes scene-flow {
+    to {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  /* Luật reduced-motion chung ép mọi animation chạy một lần — nước thì vẫn
+     chảy, chỉ chậm đi nhiều. */
+  @media (prefers-reduced-motion: reduce) {
+    .scene-belt {
+      animation-duration: 600s !important;
+      animation-iteration-count: infinite !important;
+    }
+  }
+
+  .scene-veil {
+    position: absolute;
+    inset-block: 0;
+    left: -100%;
+    width: 300%;
+    background-color: var(--t-color-forest-deep);
+  }
+
+  /* Lớp tranh nguyên khung artboard. */
+  .scene-plate {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .scene-sprite {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transform-origin: center;
+  }
+
+  .scene-plate img,
+  .scene-sprite img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Lớp chữ trên vùng giấy của cảnh. Bốn số do JS đo theo hệ số phóng, nên chữ
+     bám tờ giấy ở mọi khổ màn; `cqw` của `text-stage-*` đo theo chính tờ giấy. */
+  .scene-cover {
+    position: absolute;
+    z-index: 30;
+    left: var(--cover-x);
+    top: var(--cover-y);
+    width: var(--cover-w);
+    height: var(--cover-h);
+    padding-inline: 12%;
+    transform: translate(-50%, -50%);
+    container-type: inline-size;
   }
 
   /* Một vòng nước lan ra từ tâm của khối cha. */

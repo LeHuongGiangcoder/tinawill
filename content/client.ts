@@ -15,7 +15,7 @@ import type { Tone } from "@/content/theme";
  * Ngày giờ luôn viết dạng ISO kèm offset Việt Nam (+07:00) để lịch và đồng hồ
  * đếm ngược không lệch múi giờ.
  *
- * ⚠️ Còn chờ khách gửi: ảnh cặp đôi (public/images còn ảnh mẫu), nhạc nền,
+ * ⚠️ Còn chờ khách gửi: ảnh cặp đôi (public/images còn ảnh mẫu),
  * link Maps ghim sẵn của resort, và thông tin chuyển khoản cho honeymoon fund.
  */
 
@@ -50,9 +50,8 @@ export type SectionId =
  * nó hiện ngay cùng khối tên gia đình hai bên.
  */
 export const sections: SectionId[] = [
-  // TẠM TẮT để gửi client — mở lại: bỏ `//` hai dòng dưới
-  // "intro",
-  // "hero",
+  "intro",
+  "hero",
   "time",
   "venue",
   "visa",
@@ -178,10 +177,10 @@ export type SectionDesign = {
  * không nằm liền nhau cùng một màu nền.
  */
 export const design: Record<SectionId, SectionDesign> = {
-  /* Intro và hero dùng chung một nền: khu vườn nhiều lớp trong
-     components/ui/GardenStage.tsx, chứ không phải ảnh nền của SectionWrapper.
+  /* Intro và hero dùng chung một nền: cảnh nhiều lớp trong
+     components/ui/TropicalReveal.tsx, chứ không phải ảnh nền của SectionWrapper.
      Vì thế cả hai đều để `background` trống. */
-  intro: { anchor: "intro", tone: "light" },
+  intro: { anchor: "intro", tone: "clearing" },
   hero: { anchor: "hero", tone: "dark" },
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
@@ -322,17 +321,18 @@ export const venue = {
 export const intro = {
   /** Nhãn cho trình đọc màn hình — tấm giấy không in dòng này ra. */
   label: "Wedding invitation of Tina and Will",
-  /** Dòng duy nhất trên tấm giấy giữa khu vườn. */
-  note: "We are pleased to have you",
+  /** Dòng viết tay trên tờ giấy giữa tán lá. */
+  title: "Update!",
+  note: "We want to share some special news with you.",
   /** Nút mở thiệp. Chính cú chạm này bật nhạc — xem ExperienceProvider. */
-  cta: "Open invitation",
+  cta: "Spill the tea",
 };
 
 /* ------------------------------------------------------------------- HERO */
 
 export const hero = {
   /** Lời mời nổi trên mặt nước, ngay trên tên hai người. */
-  invitation: "With all our heart, we invite you to our wedding",
+  invitation: "We joyfully invite you to our wedding",
   scrollHint: "Scroll",
 };
 
@@ -1008,16 +1008,13 @@ export const thankYou = {
 
 /**
  * Nhạc nền. `src` để "" thì nút nhạc tự ẩn và trang vẫn chạy bình thường.
- * Nhạc chỉ bật từ chính cú chạm "Open invitation" — trình duyệt trên điện
- * thoại không cho phát nhạc ngoài một thao tác của người dùng.
- *
- * Đang dùng file mẫu của khung nền: thay public/audio/music.mp3 khi khách
- * chọn được bài.
+ * Nhạc chỉ bật từ chính cú chạm nút mở thiệp — trình duyệt trên điện thoại
+ * không cho phát nhạc ngoài một thao tác của người dùng.
  */
 export const music = {
   src: "/audio/music.mp3",
   enabled: true,
-  title: "",
+  title: "Until I Found You",
   volume: 0.55,
 };
 

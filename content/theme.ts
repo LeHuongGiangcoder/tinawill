@@ -110,6 +110,13 @@ export const palette = {
    * nắp khung phía trên và dưới, vốn là ảnh thật có vân giấy.
    */
   parchment: "#fbedc2",
+  /**
+   * Hai màu của màn mở thiệp — đo từ bản khách duyệt: xanh lá rừng của chữ
+   * "Update!" và hồng dâm bụt của nút. Chữ xanh trên giấy 9.2:1, chữ giấy trên
+   * nút 5.5:1.
+   */
+  jungle: "#344126",
+  hibiscus: "#ac2759",
 } as const;
 
 /**
@@ -298,6 +305,21 @@ export const tones = {
     button: "var(--t-section-brand)",
     buttonText: palette.cream,
   },
+  /**
+   * Tờ giấy của màn mở thiệp, nằm giữa tán lá. Dựng như tông `beige` nhưng chữ
+   * xanh lá và nút hồng dâm bụt, theo đúng bản khách duyệt.
+   */
+  clearing: {
+    bg: palette.parchment,
+    fg: palette.jungle,
+    muted: palette.jungle,
+    accent: palette.hibiscus,
+    line: palette.line,
+    contrast: palette.forest,
+    button: palette.hibiscus,
+    buttonText: palette.parchment,
+    brand: palette.hibiscus,
+  },
   vermilion: {
     bg: palette.vermilion,
     fg: palette.cream,
@@ -429,6 +451,8 @@ export const weights = {
  * trên trần thì cảnh trông như áp phích phóng to.
  */
 export const stageScale = {
+  /** Dòng viết tay trên tờ giấy mở thiệp — to hơn `title` vì nó đứng một mình. */
+  cover: { size: "clamp(2.5rem, 15cqw, 4.5rem)", line: "1.25" },
   title: { size: "clamp(2.25rem, 11.07cqw, 4.5rem)", line: "1.25" },
   heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
   lead: { size: "clamp(1rem, 3.7cqw, 1.5rem)", line: "1.2" },
@@ -487,6 +511,8 @@ export const motion = {
   /** GSAP đọc hai số này trong components/ui/Motion.tsx */
   revealDistance: 28,
   revealStagger: 0.12,
+  /** Giây từ cú mở thiệp tới lúc chữ hero hiện — cảnh mở trong 5 giây. */
+  heroDelay: 4.4,
 } as const;
 
 /* -------------------------------------------------- CSS VARIABLE EXPORTER */
