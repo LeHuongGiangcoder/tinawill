@@ -88,7 +88,8 @@ const CANVA_CLOSED = {
   "bottom_right-03-bracts_purple": { x: 1000, y: 1330 },
   "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6 },
   "mid_right-01-frond": { x: 966.3, y: 690 },
-  "top_right-03-bracts_pink": { x: 776.3, y: 276.7, width: 178.8 },
+  "top_right-01-frond": { x: 705, y: 156 },
+  "top_right-03-bracts_pink": { x: 682, y: 276.7, width: 178.8 },
   "lower_bract-01-bracts_pink": { x: 552.4, y: 1831.2, width: 178.8 },
 };
 
