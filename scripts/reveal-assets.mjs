@@ -80,9 +80,10 @@ const CANVA_CLOSED = {
   "mid_left-04-pineapple": { x: 225, y: 1190, width: 250, rotation: 0 },
   "top_left-02-mango": { x: 235, y: 212, width: 470, rotation: 6 },
   "bottom_left-03-hibiscus": { x: 173.8, y: 1506.1, width: 449.8 },
+  "bottom_left-02-frond": { x: 230, y: 1960, width: 900 },
   "top_right-02-hibiscus": { x: 1042.3, y: 152.6, width: 353.2, flipX: true },
   "mid_right-02-plumeria": { x: 629.1, y: 679.4, width: 287.0, rotation: 0 },
-  "bottom_right-02-pomegranate": { x: 910, y: 1820, width: 440, rotation: 30 },
+  "bottom_right-02-pomegranate": { x: 910, y: 1740, width: 440, rotation: 30 },
   "bottom_right-01-fan": { x: 990, y: 1790 },
   "bottom_right-03-bracts_purple": { x: 1000, y: 1330 },
   "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6 },
@@ -101,6 +102,10 @@ const ASSET_SWAP = {
 /* Sprite thêm vào: mượn nhịp mở và quỹ đạo của `ref`, dịch trạng thái mở theo
    `exit` (px artboard) để chúng thoát ra cùng cú mở tán. */
 const EXTRA = [
+  { id: "bottom_left-05-bracts_purple", asset: "/reveal/bracts_purple.webp", rawSize: [276, 267], ref: "bottom_left-04-bracts_pink", z: 4410, closed: { x: 330, y: 1840, width: 120, rotation: -10 } },
+  { id: "bottom_left-06-bracts_purple", asset: "/reveal/bracts_purple.webp", rawSize: [276, 267], ref: "bottom_left-04-bracts_pink", z: 4411, closed: { x: 255, y: 1905, width: 95, rotation: 20 } },
+  { id: "mid_right-04-heliconia", asset: "/reveal/heliconia.webp", rawSize: [553, 741], ref: "mid_right-01-frond", z: 4303, closed: { x: 1110, y: 1470, width: 340, rotation: -75 } },
+  { id: "bottom_right-04-hibiscus", asset: "/reveal/hibiscus.webp", rawSize: [352, 344], ref: "top_right-02-hibiscus", z: 4499, closed: { x: 1090, y: 1990, width: 380, rotation: -20 }, exit: [60, 90] },
   { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 915, y: 1285, width: 235, rotation: 5 } },
   { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
   { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 470, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
