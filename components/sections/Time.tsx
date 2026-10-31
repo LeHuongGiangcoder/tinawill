@@ -81,15 +81,21 @@ const FRONDS = [
   {
     name: "branch-top",
     anchor: "top",
-    at: { left: "-18.50%", top: "-10.27%", width: "54.08%", height: "39.29%" },
+    /* Phóng 1,2 lần quanh tâm cây (37% 44%), nhích lên một chút để đầu lá chỉ
+       liếm qua chữ "S" chứ không nuốt cả "Sa" — vẫn dính góc trái trên. */
+    at: { left: "-22.50%", top: "-15.70%", width: "64.90%", height: "47.15%" },
+    /* Nằm TRÊN chữ như bản Canva: lá dưới cùng liếm qua chữ "S" của "Save". */
+    layer: "z-40",
     origin: "37% 44%",
     deg: "4.2deg",
     dur: "9.2s",
     delay: "-1.4s",
   },
   {
+    /* Neo đáy cùng `leaves-left`: hai tán chạm nhau trong bản vẽ, neo khác mép
+       thì khung cao thêm kéo chúng rời nhau. */
     name: "frond-left",
-    anchor: "mid",
+    anchor: "bottom",
     at: { left: "-6.00%", top: "38.82%", width: "25.08%", height: "9.42%" },
     origin: "23% 87%",
     deg: "6deg",
@@ -260,7 +266,7 @@ export function Time() {
           <div
             key={frond.name}
             aria-hidden
-            className="pointer-events-none absolute z-20 frond"
+            className={`pointer-events-none absolute ${"layer" in frond ? frond.layer : "z-20"} frond`}
             style={frondStyle(frond)}
           >
             <Image

@@ -1642,10 +1642,19 @@ html {
     transition: border-color var(--t-duration-fast) var(--t-ease);
   }
 
-  /* Màu chữ phụ của tông chứ không hạ opacity của chữ: trên giấy beige nó là
-     nâu vừa, không phải xám. */
+  /*
+    Gợi ý trong ô là bậc thấp nhất của một câu hỏi: câu hỏi (to, đậm màu chữ)
+    > ghi chú dưới câu hỏi (nhỏ, màu phụ) > gợi ý trong ô. Cùng màu phụ với
+    ghi chú nên phải khác ở hình dáng — nghiêng và nhỏ hơn chữ khách gõ, để
+    mắt đọc ra "chỗ để điền" chứ không phải thêm một dòng ghi chú nữa.
+
+    Chỉ co cỡ chữ của placeholder: cỡ chữ của ô vẫn >= 16px nên iOS không
+    phóng trang. Màu là chữ phụ của tông chứ không hạ opacity của chữ.
+  */
   .field-input::placeholder {
     color: var(--t-section-muted);
+    font-style: italic;
+    font-size: var(--t-text-small);
     opacity: 1;
   }
 

@@ -835,7 +835,7 @@ export const rsvp = {
     roomSharing: {
       label: "Do you have any room-sharing preferences?",
       hint: "We wanted our wedding to be as intimate as possible, so unfortunately we cannot accommodate plus-ones.",
-      placeholder: "Who you'd like to share a room with, if anyone",
+      placeholder: "Who you'd like to share with",
     },
     extendStay: {
       label: "Extend your stay? (at your own expense)",
