@@ -191,15 +191,25 @@ export function TropicalReveal() {
     });
     visibility.observe(stage);
 
-    /* Giải mã xong mới hiện cảnh và mở khoá nút, để lúc lá trượt không khựng
-       vì ảnh chưa về. Mạng quá chậm thì vẫn mở sau vài giây, không kẹt khách. */
+    /* Đủ ảnh mới hiện cảnh và mở khoá nút, để lúc lá trượt không hở lỗ. Đợi
+       `load` chứ không đợi `decode()`: decode() treo vô hạn khi tab đang ẩn.
+       Mạng quá chậm thì vẫn mở sau vài giây, không kẹt khách. */
     let cancelled = false;
     const water = new window.Image();
     water.src = scene.water.asset;
     const images = [water, ...stage.querySelectorAll("img")];
-    const decoded = Promise.all(images.map((image) => image.decode().catch(() => undefined)));
+    const loaded = Promise.all(
+      images.map(
+        (image) =>
+          new Promise((resolve) => {
+            if (image.complete) return resolve(undefined);
+            image.addEventListener("load", resolve, { once: true });
+            image.addEventListener("error", resolve, { once: true });
+          }),
+      ),
+    );
     const timeout = new Promise((resolve) => window.setTimeout(resolve, 6000));
-    void Promise.race([decoded, timeout]).then(() => {
+    void Promise.race([loaded, timeout]).then(() => {
       if (!cancelled) setReady(true);
     });
 

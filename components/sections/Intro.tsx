@@ -41,7 +41,7 @@ export function Intro({ ready }: { ready: boolean }) {
       aria-label={intro.label}
       className={[
         "scene-cover flex flex-col items-center justify-center gap-stack text-center transition-opacity duration-[650ms] ease-glow",
-        opened ? "pointer-events-none opacity-0" : "opacity-100",
+        opened ? "pointer-events-none opacity-0" : ready ? "opacity-100" : "opacity-0",
       ].join(" ")}
     >
       <p className="font-script text-stage-cover text-tone-fg">{intro.title}</p>

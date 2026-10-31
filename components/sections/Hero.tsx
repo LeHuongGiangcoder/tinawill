@@ -18,12 +18,16 @@ export function Hero() {
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
         <TropicalReveal />
 
-        <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
+        {/* Cột chữ đứng ở khoảng nước phía trên phao, để chữ không đè lên nó:
+            hai khối co giãn trên dưới giữ tỉ lệ đó ở mọi chiều cao màn. */}
+        <div aria-hidden className="flex-1" />
+
+        <div className="container-site relative z-20 flex flex-col items-center gap-stack text-center">
           {/* Quầng nền mềm ôm lấy cột chữ, giữ cho chữ đọc được trên mặt nước
               nhiều chi tiết. Nó bám theo khối chữ chứ không phủ cả màn hình,
               nếu không thì màn ngang sẽ bị xám cả mặt sông. */}
           <div data-reveal data-hero aria-hidden className="scrim pointer-events-none absolute inset-0" />
-          <p data-reveal data-hero className="font-script text-h3">
+          <p data-reveal data-hero className="font-script text-h3 text-balance">
             {hero.invitation}
           </p>
 
@@ -32,7 +36,7 @@ export function Hero() {
             id="hero-title"
             data-reveal
             data-hero
-            className="flex flex-col items-center short:text-h1"
+            className="flex items-baseline justify-center gap-tight short:text-h1"
           >
             <span>{couple.groom}</span>
             <span className="font-script text-h2 text-tone-accent">&amp;</span>
@@ -48,8 +52,10 @@ export function Hero() {
               {ceremony.timeLabel} · {venue.name}
             </Caption>
           </div>
+        </div>
 
-          <p data-reveal data-hero className="mt-block text-eyebrow uppercase text-tone-muted">
+        <div className="relative z-20 flex flex-[4.5] items-end pb-section">
+          <p data-reveal data-hero className="text-eyebrow uppercase text-tone-muted">
             {hero.scrollHint} ↓
           </p>
         </div>

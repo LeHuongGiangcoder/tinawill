@@ -1664,11 +1664,15 @@ html {
 
     `.scene-stage` KHÔNG tạo stacking context: `.scene-cover` phải đè lên cột
     chữ của section (đang ẩn nhưng vẫn bắt chạm) nằm ngoài stage.
+
+    `clip` chứ không phải `hidden`: lá và dải nước tràn xa khỏi khung, mà khối
+    `hidden` vẫn cuộn được bằng code — trình duyệt focus nút rồi cuộn nó vào
+    tầm nhìn là cả cảnh trôi lên, hở một dải nền ở đáy.
   */
   .scene-stage {
     position: absolute;
     inset: 0;
-    overflow: hidden;
+    overflow: clip;
     background-color: var(--t-color-forest-deep);
   }
 
@@ -1681,8 +1685,7 @@ html {
   }
 
   /* Chờ ảnh giải mã xong rồi mới lộ, nền rừng đứng thay trong lúc đó. */
-  .scene-stage[data-ready="false"] .scene-artboard,
-  .scene-stage[data-ready="false"] .scene-cover {
+  .scene-stage[data-ready="false"] .scene-artboard {
     opacity: 0;
   }
 
@@ -1771,8 +1774,8 @@ html {
     width: var(--cover-w);
     height: var(--cover-h);
     /* Lệch sang trái: tàu lá tiền cảnh gác lên mép phải tờ giấy, chữ né nó ra. */
-    padding-left: 8%;
-    padding-right: 18%;
+    padding-left: calc(var(--cover-w) * 0.06);
+    padding-right: calc(var(--cover-w) * 0.22);
     transform: translate(-50%, -50%);
     container-type: inline-size;
   }

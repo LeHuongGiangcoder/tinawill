@@ -162,7 +162,7 @@ export function Travel() {
       {/* Dãy nhà phố cổ đứng dưới ô cửa sổ, như phố nhìn thấy qua khung cửa.
           Ảnh có lề trong suốt quanh dãy nhà, nên phóng 110% để nhà chạm hai mép,
           rồi kéo âm lề trên/dưới cho nhà đứng sát đáy section (pb-0 ở trên). */}
-      <Reveal className="container-prose mt-stack" delay={120}>
+      <div className="container-prose mt-stack">
         <div className="-mx-gutter overflow-hidden sm:mx-0">
           <Image
             src="/travel/house.png"
@@ -174,7 +174,7 @@ export function Travel() {
             className="-mb-[3.6%] -ml-[5%] -mt-[4%] h-auto w-[110%] max-w-none select-none"
           />
         </div>
-      </Reveal>
+      </div>
     </SectionWrapper>
   );
 }

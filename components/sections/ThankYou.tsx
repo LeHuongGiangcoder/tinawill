@@ -45,7 +45,7 @@ export function ThankYou() {
 
       {/* Monogram khép thiệp. Tô bằng màu chữ của section (xem `.logo-mark`). */}
       <Reveal delay={210} className="mt-block flex justify-center">
-        <span role="img" aria-label={thankYou.logoLabel} className="logo-mark w-28" />
+        <span role="img" aria-label={thankYou.logoLabel} className="logo-mark w-20" />
       </Reveal>
     </SectionWrapper>
   );
