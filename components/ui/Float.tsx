@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import type { DriftPlacement, HangPlacement } from "@/content/client";
+import type { DriftPlacement, HangPlacement, SprigPlacement } from "@/content/client";
 import { element } from "@/lib/assets";
 
 /*
@@ -71,6 +71,22 @@ export function Drifter({ name, left, top, width, x = 2, y = 0.8, deg = 3, perio
           "--drift-deg": `${deg}deg`,
         } as React.CSSProperties
       }
+    >
+      <Image src={art.src} alt="" width={art.width} height={art.height} sizes="30rem" className="h-auto w-full" />
+    </span>
+  );
+}
+
+/** Một nhánh dây leo đặt tĩnh, thường dọc một mép giấy. `left`/`top` là góc trái trên. */
+export function Sprig({ name, left, top, width, flip = false }: SprigPlacement) {
+  const art = element(name);
+  if (!art?.width || !art.height) return null;
+
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute select-none"
+      style={{ left: `${left}cqw`, top: `${top}cqw`, width: `${width}cqw`, transform: flip ? "scaleX(-1)" : undefined }}
     >
       <Image src={art.src} alt="" width={art.width} height={art.height} sizes="30rem" className="h-auto w-full" />
     </span>

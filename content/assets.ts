@@ -52,6 +52,7 @@ export const assets = {
     "lotus-08": { src: "/brand/elements/lotus-08.webp", width: 329, height: 277 },
     "lotus-09": { src: "/brand/elements/lotus-09.webp", width: 356, height: 368 },
     "lotus-10": { src: "/brand/elements/lotus-10.webp", width: 336, height: 298 },
+    "vine-trail": { src: "/brand/elements/vine-trail.webp", width: 1100, height: 382 },
   },
 
   /** Dải ngăn giữa hai section, lặp theo chiều ngang */

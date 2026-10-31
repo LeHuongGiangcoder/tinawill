@@ -1,4 +1,4 @@
-import { Drifter, Hung } from "@/components/ui/Float";
+import { Drifter, Hung, Sprig } from "@/components/ui/Float";
 import { Eyebrow, SectionTitle, Subhead } from "@/components/ui/Heading";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { loveStory } from "@/content/client";
@@ -6,9 +6,10 @@ import { loveStory } from "@/content/client";
 /**
  * "Our story" — một tờ giấy lượn sóng đặt trên nền lá, dưới một dải đèn lồng.
  *
- * Đèn treo thành một chùm sát nhau phía trên giấy, như chùm đèn Hội An: dây
- * dài ngắn khác nhau, thân đèn chồng lên nhau, đèn khai sau nằm đè lên đèn
- * khai trước (thứ tự trong mảng `lanterns`). Đèn nhỏ nằm sau giấy cho có chiều sâu.
+ * Mỗi góc trên của giấy một chùm đèn lồng bám sát nhau, như chùm đèn Hội An:
+ * dây dài ngắn khác nhau, thân đèn chồng lên nhau, đèn khai sau nằm đè lên
+ * đèn khai trước (thứ tự trong mảng `lanterns`). Giữa hai chùm, dây leo chạy
+ * dọc mép trên giấy.
  *
  * Từ dưới lên, các lớp xếp như sau (z-index trong `.page-frame`):
  *
@@ -29,14 +30,13 @@ import { loveStory } from "@/content/client";
 const PAPER = "/love-story";
 
 /**
- * Dải nền xanh phía trên giấy, cqw — nơi chùm đèn treo. Đèn `front` treo thấp
- * hơn mức này nên chóp tua đè lên mép giấy; đèn giữa trang thì dừng trước dòng
- * chữ đầu, đèn hai mép được xuống thấp hơn (xem `hang` trong content/client.ts).
+ * Dải nền xanh phía trên giấy, cqw. Đèn treo sâu hơn mức này nên thân đèn đè
+ * lên mép giấy ở hai góc (xem `hang` trong content/client.ts).
  */
-const CURTAIN = 40;
+const CURTAIN = 15;
 
 export function LoveStory() {
-  const { eyebrow, title, subtitle, paragraphs, closing, lanterns, lotuses } = loveStory;
+  const { eyebrow, title, subtitle, paragraphs, closing, lanterns, lotuses, vines } = loveStory;
 
   return (
     /*
@@ -91,9 +91,11 @@ export function LoveStory() {
               <SectionTitle id="love-story-title" data-reveal data-reveal-delay="90">
                 {title}
               </SectionTitle>
-              <Subhead data-reveal data-reveal-delay="150" className="max-w-prose">
-                {subtitle}
-              </Subhead>
+              {subtitle ? (
+                <Subhead data-reveal data-reveal-delay="150" className="max-w-prose">
+                  {subtitle}
+                </Subhead>
+              ) : null}
             </div>
 
             <div className="flex flex-col gap-stack">
@@ -118,8 +120,11 @@ export function LoveStory() {
           </div>
         </div>
 
-        {/* Đèn trước giấy. */}
+        {/* Dây leo rồi tới đèn trước giấy: dây nằm dưới đèn. */}
         <div aria-hidden className="pointer-events-none absolute inset-0 z-20 overflow-y-clip">
+          {vines.map((v, i) => (
+            <Sprig key={i} {...v} />
+          ))}
           {lanterns
             .filter((l) => l.layer === "front")
             .map((l) => (

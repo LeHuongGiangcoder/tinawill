@@ -267,3 +267,21 @@ async function splitBySeeds(file, prefix, seeds, scale) {
 }
 
 await splitBySeeds("lotus.png", "lotus", LOTUS_SEEDS, LOTUS_SCALE);
+
+/* ---------------------------------------------------- dây hoa ở mép giấy */
+
+/*
+ * Nhánh dây leo dài của cảnh Venue (assets-source/venue/vines.png), xoay nằm
+ * ngang để chạy dọc mép trên tờ giấy: gốc ở góc trái, đuôi buông về phía phải.
+ * Bên phải dùng chính file này lật ngang (xem `vines` trong content/client.ts).
+ * Hộp cắt đo trên bản xem 1125px của tờ ảnh gốc, nhân 3 ra khổ thật.
+ */
+const VINE_BOX = { left: 0, top: 0, width: 270 * 3, height: 765 * 3 };
+const vine = await sharp("assets-source/venue/vines.png").extract(VINE_BOX).png().toBuffer();
+const vineTrimmed = await sharp(vine).trim({ threshold: 1 }).png().toBuffer();
+await sharp(vineTrimmed)
+  .rotate(-90)
+  .resize({ width: 1100 })
+  .webp({ quality: 85, alphaQuality: 90 })
+  .toFile(`${ELEMENTS}/vine-trail.webp`);
+console.log("vine-trail");

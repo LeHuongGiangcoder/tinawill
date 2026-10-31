@@ -123,7 +123,7 @@ function WindowFrame() {
 
 export function Travel() {
   return (
-    <SectionWrapper section="travel" width="bleed" labelledBy="travel-title">
+    <SectionWrapper section="travel" width="bleed" labelledBy="travel-title" className="pb-0">
       <div className="container-prose">
         <SectionHead
           eyebrow={travel.eyebrow}
@@ -160,9 +160,10 @@ export function Travel() {
       </Reveal>
 
       {/* Dãy nhà phố cổ đứng dưới ô cửa sổ, như phố nhìn thấy qua khung cửa.
-          Ảnh có lề trong suốt hai bên nên cho ăn gần hết bề ngang. */}
-      <Reveal className="container-prose mt-block" delay={120}>
-        <div className="-mx-gutter sm:mx-0">
+          Ảnh có lề trong suốt quanh dãy nhà, nên phóng 110% để nhà chạm hai mép,
+          rồi kéo âm lề trên/dưới cho nhà đứng sát đáy section (pb-0 ở trên). */}
+      <Reveal className="container-prose mt-stack" delay={120}>
+        <div className="-mx-gutter overflow-hidden sm:mx-0">
           <Image
             src="/travel/house.png"
             alt=""
@@ -170,7 +171,7 @@ export function Travel() {
             width={2067}
             height={761}
             sizes="(max-width: 40rem) 100vw, 36rem"
-            className="h-auto w-full select-none"
+            className="-mb-[3.6%] -ml-[5%] -mt-[4%] h-auto w-[110%] max-w-none select-none"
           />
         </div>
       </Reveal>

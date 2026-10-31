@@ -91,6 +91,16 @@ export type HangPlacement = {
   delay?: number;
 };
 
+/** Một nhánh dây leo đặt tĩnh trên khung giấy. `left`/`top` là góc trái trên, theo cqw. */
+export type SprigPlacement = {
+  name: ElementName;
+  left: number;
+  top: number;
+  width: number;
+  /** Lật ngang — một file dùng cho cả hai bên. */
+  flip?: boolean;
+};
+
 /** Một vật nổi trên mặt nước. `left`/`top` là TÂM vật, tính theo cqw của khung. */
 export type DriftPlacement = {
   name: ElementName;
@@ -333,8 +343,8 @@ export const loveStory = {
   eyebrow: "How it started",
   /** Tiêu đề viết tay trên đầu trang giấy. */
   title: "Our story",
-  /** Dòng dẫn in nghiêng ngay dưới tiêu đề. */
-  subtitle: "An event, a conversation that ran till 3am, and one building.",
+  /** Dòng dẫn in nghiêng ngay dưới tiêu đề. Để trống thì không hiện. */
+  subtitle: "",
   /**
    * Chuyện tình kể liền một mạch trên MỘT trang giấy — mỗi phần tử là một
    * đoạn. Thêm hay bớt một đoạn thì trang tự cao lên hoặc thấp xuống, khung
@@ -350,25 +360,23 @@ export const loveStory = {
   closing:
     "Two people, two cultures, one building — and now, one life together.",
   /**
-   * Đèn lồng treo phía trên trang giấy. Hai lớp: `back` nhỏ, treo cao, nằm sau
-   * giấy; `front` to hơn, treo thấp hơn, đè lên mép giấy. Trong mỗi lớp, đèn khai
-   * sau nằm đè lên đèn khai trước. Toạ độ xem `HangPlacement`.
+   * Đèn lồng treo phía trên trang giấy. Mỗi góc một chùm ba đèn bám sát nhau.
+   * Lớp `front` đè lên giấy, `back` nằm sau giấy (hiện chưa dùng). Trong mỗi lớp,
+   * đèn khai sau nằm đè lên đèn khai trước. Toạ độ xem `HangPlacement`.
    */
   lanterns: [
-    { name: "lantern-11", left: 22, hang: 32, width: 9, layer: "back", swing: 12, delay: 3 },
-    { name: "lantern-04", left: 50, hang: 28, width: 10, layer: "back", swing: 13, delay: 6 },
-    { name: "lantern-11", left: 78, hang: 33, width: 9, layer: "back", swing: 14, delay: 9 },
-    { name: "lantern-07", left: 36, hang: 38, width: 9, layer: "back", swing: 12, delay: 1 },
-    { name: "lantern-04", left: 66, hang: 36, width: 9, layer: "back", swing: 13, delay: 5 },
-    { name: "lantern-03", left: 28, hang: 46, width: 12, layer: "front", swing: 13, delay: 2 },
-    { name: "lantern-10", left: 72, hang: 50, width: 14, layer: "front", swing: 14, delay: 7 },
-    { name: "lantern-05", left: 40, hang: 40, width: 14, layer: "front", swing: 12, delay: 4 },
-    { name: "lantern-08", left: 58, hang: 47, width: 15, layer: "front", swing: 13, delay: 8 },
-    { name: "lantern-09", left: 8, hang: 72, width: 13, layer: "front", swing: 14, delay: 0 },
-    { name: "lantern-06", left: 93, hang: 68, width: 14, layer: "front", swing: 12, delay: 6 },
-    { name: "lantern-01", left: 15, hang: 58, width: 19, layer: "front", swing: 13, delay: 3 },
-    { name: "lantern-02", left: 87, hang: 54, width: 18, layer: "front", swing: 12, delay: 5 },
-  ] satisfies HangPlacement[],
+    { name: "lantern-03", left: 10, hang: 30, width: 12, layer: "front", swing: 13, delay: 2 },
+    { name: "lantern-01", left: 16, hang: 52, width: 18, layer: "front", swing: 12, delay: 5 },
+    { name: "lantern-05", left: 8, hang: 62, width: 16, layer: "front", swing: 14, delay: 8 },
+    { name: "lantern-06", left: 82, hang: 28, width: 12, layer: "front", swing: 13, delay: 6 },
+    { name: "lantern-09", left: 89, hang: 33, width: 13, layer: "front", swing: 12, delay: 1 },
+    { name: "lantern-02", left: 92, hang: 56, width: 16, layer: "front", swing: 14, delay: 4 },
+  ] as HangPlacement[],
+  /** Dây leo dọc mép trên giấy: gốc ở hai góc, đuôi buông vào giữa. */
+  vines: [
+    { name: "vine-trail", left: -1, top: 2, width: 54 },
+    { name: "vine-trail", left: 47, top: 3, width: 54, flip: true },
+  ] satisfies SprigPlacement[],
   /**
    * Đèn hoa đăng trôi dưới chân trang giấy, nằm sau chữ. `top` đo từ mép trên
    * của vùng nước (xem LoveStory.tsx), không phải của cả trang.
