@@ -108,7 +108,7 @@ const EXTRA = [
   { id: "bottom_right-04-hibiscus", asset: "/reveal/hibiscus.webp", rawSize: [352, 344], ref: "top_right-02-hibiscus", z: 4499, closed: { x: 1090, y: 1990, width: 380, rotation: -20 }, exit: [60, 90] },
   { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 915, y: 1285, width: 235, rotation: 5 } },
   { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
-  { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 470, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
+  { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 600, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
   { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
 ];
 
