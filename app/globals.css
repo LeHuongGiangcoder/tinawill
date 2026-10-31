@@ -1673,7 +1673,7 @@ html {
     position: absolute;
     inset: 0;
     overflow: clip;
-    background-color: var(--t-color-forest-deep);
+    background: var(--t-color-forest-deep) url("/brand/backgrounds/paper-olive.webp") center / cover no-repeat;
   }
 
   .scene-artboard {
@@ -1693,45 +1693,6 @@ html {
     position: absolute;
     inset: 0;
     isolation: isolate;
-  }
-
-  /* Nước và nền lá rộng gấp ba artboard: màn ngang không che hết bằng tranh
-     9:16, phần tràn hai bên là thứ lấp vào. */
-  .scene-water {
-    position: absolute;
-    inset-block: 0;
-    left: -100%;
-    width: 300%;
-    overflow: hidden;
-  }
-
-  /*
-    Dải nước cao gấp đôi một ô lặp, dịch đúng một ô rồi quay lại. Ảnh nằm trong
-    CSS chứ không phải thẻ <img> vì nó lặp cả chiều ngang.
-  */
-  .scene-belt {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    height: 200%;
-    background: url("/reveal/river-seamless.webp") center top / 33.3334% 50% repeat;
-    animation: scene-flow var(--scene-water-period) linear infinite;
-    will-change: transform;
-  }
-
-  @keyframes scene-flow {
-    to {
-      transform: translate3d(0, -50%, 0);
-    }
-  }
-
-  /* Luật reduced-motion chung ép mọi animation chạy một lần — nước thì vẫn
-     chảy, chỉ chậm đi nhiều. */
-  @media (prefers-reduced-motion: reduce) {
-    .scene-belt {
-      animation-duration: 600s !important;
-      animation-iteration-count: infinite !important;
-    }
   }
 
   .scene-veil {
@@ -1773,9 +1734,7 @@ html {
     top: var(--cover-y);
     width: var(--cover-w);
     height: var(--cover-h);
-    /* Lệch sang trái: tàu lá tiền cảnh gác lên mép phải tờ giấy, chữ né nó ra. */
-    padding-left: calc(var(--cover-w) * 0.06);
-    padding-right: calc(var(--cover-w) * 0.22);
+    padding-inline: calc(var(--cover-w) * 0.14);
     transform: translate(-50%, -50%);
     container-type: inline-size;
   }

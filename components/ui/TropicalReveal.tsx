@@ -11,7 +11,7 @@ import scene from "@/content/reveal-scene.json";
 /**
  * Cảnh reveal của Tina & Will — một artboard duy nhất cho cả màn mở thiệp lẫn
  * hero. Đóng: tán lá che kín, tờ giấy nằm giữa. Mở: camera hạ dần qua từng tầng
- * lá trong 5 giây xuống mặt sông, nước và vật nổi trôi mãi không dừng.
+ * lá xuống nền giấy xanh ô liu, nơi lời mời nằm giữa trang.
  *
  * Toạ độ, thứ tự lớp và nhịp mở của từng lá đều đọc từ content/reveal-scene.json
  * (sinh bằng `node scripts/reveal-assets.mjs`), không đặt tay. Công thức chuyển
@@ -23,7 +23,13 @@ import scene from "@/content/reveal-scene.json";
  * vẫn chảy sau khi reveal xong.
  */
 
-const { canvas, camera, ground, paper, elements, floaters, revealDuration } = scene;
+const { canvas, camera, ground, paper, elements } = scene;
+
+/** Hệ số tăng tốc so với nhịp gốc 5 giây của bộ animation. */
+const SPEED = 1.6;
+const revealDuration = scene.revealDuration / SPEED;
+/** Nhịp của scene.json tính theo giây gốc; đổi về giây thật để so với `progress`. */
+const authored = (progress: number) => clamp(progress) * scene.revealDuration;
 
 /** Tờ giấy chiếm tối đa chừng này chiều cao màn — xem `fit` bên dưới. */
 const PAPER_FILL = 0.92;
@@ -46,7 +52,6 @@ export function TropicalReveal() {
   const stageRef = useRef<HTMLDivElement>(null);
   const artboardRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
-  const beltRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
   const groundRef = useRef<HTMLDivElement>(null);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -60,19 +65,15 @@ export function TropicalReveal() {
     const stage = stageRef.current;
     const artboard = artboardRef.current;
     const world = worldRef.current;
-    const belt = beltRef.current;
-    if (!stage || !artboard || !world || !belt) return;
+    if (!stage || !artboard || !world) return;
 
     const sprites = [...stage.querySelectorAll<HTMLElement>("[data-sprite]")];
-    const drifters = [...stage.querySelectorAll<HTMLElement>("[data-floater]")];
-    const ripples = [...stage.querySelectorAll<HTMLElement>("[data-ripple]")];
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const depth = reduced ? 0.15 : 1;
-    const drift = reduced ? 0.12 : 1;
 
     const drawReveal = (progress: number) => {
-      const seconds = clamp(progress) * revealDuration;
+      const seconds = authored(progress);
 
       const cameraT = ease((seconds - camera.start) / camera.duration) * (reduced ? 0.2 : 1);
       world.style.transform = `translate3d(0, ${camera.offsetY * cameraT}px, 0) scale(${lerp(camera.scaleFrom, camera.scaleTo, cameraT)})`;
@@ -105,28 +106,11 @@ export function TropicalReveal() {
       }
     };
 
-    const drawAmbient = (t: number) => {
-      floaters.forEach((f, i) => {
-        const m = f.drift;
-        const w = (2 * Math.PI) / m.period;
-        // Hai tần số lệch nhau để bốn vật không nhấp nhô đồng loạt.
-        const dx = drift * m.amplitudeX * (Math.sin(w * t + m.phase) + 0.22 * Math.sin(0.43 * w * t + 1.7 * m.phase));
-        const dy = drift * m.amplitudeY * (Math.cos(0.81 * w * t + m.phase) + 0.18 * Math.sin(0.37 * w * t + 0.8));
-        const rotation = drift * m.rotation * Math.sin(0.63 * w * t + m.phase + 0.6);
-        drifters[i].style.transform = `translate3d(${f.x + dx}px, ${f.y + dy}px, 0) translate(-50%, -50%) rotate(${rotation}deg)`;
-
-        const wave = (t / f.ripple.period + m.phase / (2 * Math.PI)) % 1;
-        // Gợn nước lan ra rồi tan — chuyển động của nước, không phải hoạ tiết.
-        ripples[i].style.opacity = String(0.5 * Math.sin(Math.PI * wave) ** 2);
-        ripples[i].style.transform = `translate3d(${f.ripple.x + dx * 0.65}px, ${f.ripple.y + dy * 0.65}px, 0) translate(-50%, -50%) scale(${1 + 0.13 * wave * drift})`;
-      });
-    };
-
     /*
       Phóng cả artboard bằng một hệ số chung. Điện thoại dọc ra đúng "cover" của
       manifest. Màn ngang mà cover thì 9:16 phóng to gấp đôi màn và tờ giấy tràn
       khỏi khung, nên trần hệ số đặt theo tờ giấy; khi đó nước và nền lá tràn
-      ra hai bên artboard (`.scene-water`, `.scene-veil`).
+      ra hai bên artboard (`.scene-veil`).
     */
     const fit = () => {
       const { clientWidth: w, clientHeight: h } = stage;
@@ -148,9 +132,6 @@ export function TropicalReveal() {
     /* Không có màn mở thiệp thì hero đứng sẵn ở trạng thái mở, không chạy reveal. */
     let progress = openedRef.current ? 1 : 0;
     let revealStart: number | null = null;
-    let onScreen = true;
-    let ambient = 0;
-    let last = performance.now();
     let frame = 0;
 
     const setLayerHint = (value: string) => {
@@ -159,12 +140,8 @@ export function TropicalReveal() {
     };
 
     drawReveal(progress);
-    drawAmbient(0);
 
     const tick = (now: number) => {
-      const dt = Math.min(0.1, (now - last) / 1000);
-      last = now;
-
       if (openedRef.current && progress < 1) {
         if (revealStart === null) {
           revealStart = now;
@@ -175,29 +152,15 @@ export function TropicalReveal() {
         if (progress === 1) setLayerHint("auto");
       }
 
-      if (onScreen && !document.hidden) {
-        ambient += dt;
-        drawAmbient(ambient);
-      }
-
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-
-    /* Cuộn qua hero rồi thì thôi vẽ — pin điện thoại của khách. */
-    const visibility = new IntersectionObserver(([entry]) => {
-      onScreen = entry.isIntersecting;
-      belt.style.animationPlayState = onScreen ? "running" : "paused";
-    });
-    visibility.observe(stage);
 
     /* Đủ ảnh mới hiện cảnh và mở khoá nút, để lúc lá trượt không hở lỗ. Đợi
        `load` chứ không đợi `decode()`: decode() treo vô hạn khi tab đang ẩn.
        Mạng quá chậm thì vẫn mở sau vài giây, không kẹt khách. */
     let cancelled = false;
-    const water = new window.Image();
-    water.src = scene.water.asset;
-    const images = [water, ...stage.querySelectorAll("img")];
+    const images = [...stage.querySelectorAll("img")];
     const loaded = Promise.all(
       images.map(
         (image) =>
@@ -217,7 +180,6 @@ export function TropicalReveal() {
       cancelled = true;
       cancelAnimationFrame(frame);
       resize.disconnect();
-      visibility.disconnect();
     };
   }, []);
 
@@ -234,14 +196,6 @@ export function TropicalReveal() {
           className="scene-world"
           style={{ transformOrigin: `${camera.origin[0]}px ${camera.origin[1]}px` }}
         >
-          <div className="scene-water">
-            <div
-              ref={beltRef}
-              className="scene-belt"
-              style={{ "--scene-water-period": `${scene.water.period}s` } as CSSProperties}
-            />
-          </div>
-
           <div ref={veilRef} className="scene-veil" style={{ zIndex: ground.z - 1 }} />
 
           <div ref={groundRef} className="scene-plate" style={{ zIndex: ground.z }}>
@@ -269,27 +223,6 @@ export function TropicalReveal() {
             </div>
           ))}
 
-          {floaters.map((f) => (
-            <div key={f.id}>
-              <div
-                data-ripple
-                className="scene-sprite"
-                style={{ zIndex: f.z - 1, width: f.ripple.width }}
-              >
-                <Image
-                  src={f.ripple.asset}
-                  unoptimized
-                  alt=""
-                  width={f.ripple.width}
-                  height={f.ripple.height}
-                  loading="eager"
-                />
-              </div>
-              <div data-floater className="scene-sprite" style={{ zIndex: f.z, width: f.width }}>
-                <Image src={f.asset} unoptimized alt="" width={f.width} height={f.height} loading="eager" />
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 

@@ -512,7 +512,7 @@ export const motion = {
   revealDistance: 28,
   revealStagger: 0.12,
   /** Giây từ cú mở thiệp tới lúc chữ hero hiện — cảnh mở trong 5 giây. */
-  heroDelay: 4.4,
+  heroDelay: 2.8,
 } as const;
 
 /* -------------------------------------------------- CSS VARIABLE EXPORTER */
