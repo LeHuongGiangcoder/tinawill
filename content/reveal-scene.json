@@ -256,42 +256,6 @@
       }
     },
     {
-      "id": "deep_right-04-fan",
-      "asset": "/reveal/fan.webp",
-      "rawSize": [
-        680,
-        485
-      ],
-      "z": 1103,
-      "reveal": {
-        "delay": 3.4943,
-        "duration": 1.4205,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.03,
-        "arcX": 60,
-        "arcY": 0,
-        "bend": 0.525
-      },
-      "closed": {
-        "x": 1037.896,
-        "y": 1639.8668,
-        "width": 800,
-        "rotation": -73,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 2287.896,
-        "y": 1639.8668,
-        "width": 800,
-        "rotation": -73,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
       "id": "bank_left-01-banana",
       "asset": "/reveal/banana.webp",
       "rawSize": [
