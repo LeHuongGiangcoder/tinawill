@@ -75,6 +75,8 @@ export const palette = {
   mango: "#a03d01",
   /** Beige khăn trải bàn — trung bình mặt khăn trong public/venue/table.webp */
   beige: "#f4e4b1",
+  /** Đỏ trái tim ở hero — sáng hơn `wine` để nổi trên nền ô liu. */
+  heart: "#d92b3f",
   /**
    * Đỏ của dải sọc nền trang Visa — màu của chính vạch đỏ, đo từ
    * brand/backgrounds/stripe-vermilion.webp.
@@ -452,7 +454,9 @@ export const weights = {
  */
 export const stageScale = {
   /** Dòng viết tay trên tờ giấy mở thiệp — to hơn `title` vì nó đứng một mình. */
-  cover: { size: "clamp(2rem, 13cqw, 4rem)", line: "1.25" },
+  cover: { size: "clamp(2.5rem, 20cqw, 4.5rem)", line: "1.2" },
+  /** Đoạn nói trên tờ giấy mở thiệp — to hơn `lead` vì giấy là cả khung hình. */
+  note: { size: "clamp(1.125rem, 6cqw, 1.75rem)", line: "1.3" },
   title: { size: "clamp(2.25rem, 11.07cqw, 4.5rem)", line: "1.25" },
   heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
   lead: { size: "clamp(0.9375rem, 3.4cqw, 1.5rem)", line: "1.2" },

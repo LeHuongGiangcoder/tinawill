@@ -44,7 +44,7 @@ export function Intro({ ready }: { ready: boolean }) {
       ].join(" ")}
     >
       <p className="font-script text-stage-cover text-tone-fg">{intro.title}</p>
-      <p className="text-stage-lead text-tone-muted text-balance">{intro.note}</p>
+      <p className="text-stage-note text-tone-muted text-balance">{intro.note}</p>
       <Button onClick={open} disabled={!ready}>
         {intro.cta}
       </Button>

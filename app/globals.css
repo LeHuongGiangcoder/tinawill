@@ -26,6 +26,7 @@
   --color-line: var(--t-color-line);
   --color-olive: var(--t-color-olive);
   --color-beige: var(--t-color-beige);
+  --color-heart: var(--t-color-heart);
   --color-sun: var(--t-color-sun);
 
   /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
@@ -76,6 +77,8 @@
      bề rộng màn hình. Chỉ dùng trong .stage-9x16, xem stageScale ở theme.ts */
   --text-stage-cover: var(--t-text-stage-cover);
   --text-stage-cover--line-height: var(--t-leading-stage-cover);
+  --text-stage-note: var(--t-text-stage-note);
+  --text-stage-note--line-height: var(--t-leading-stage-note);
   --text-stage-title: var(--t-text-stage-title);
   --text-stage-title--line-height: var(--t-leading-stage-title);
   --text-stage-heading: var(--t-text-stage-heading);
@@ -111,6 +114,9 @@
   --animate-drift: glow-drift 12s ease-in-out infinite;
   --animate-nudge: glow-nudge 1.6s ease-in-out infinite;
   --animate-ripple: glow-ripple 6s ease-out infinite;
+  --animate-heartbeat: glow-heartbeat 1.3s ease-in-out infinite;
+  --animate-tremble: glow-tremble 1.8s ease-in-out infinite;
+  --animate-tremble-late: glow-tremble 1.8s ease-in-out -0.9s infinite;
 
   @keyframes glow-sway {
     0%,
@@ -191,6 +197,39 @@
     }
     82% {
       transform: rotate(calc(var(--frond-deg) * -0.6)) translateY(0) scale(1);
+    }
+  }
+  /* Trái tim phập phồng: hai nhịp đập ngắn rồi nghỉ, như tim thật. */
+  @keyframes glow-heartbeat {
+    0%,
+    40%,
+    100% {
+      transform: scale(1);
+    }
+    12% {
+      transform: scale(1.22);
+    }
+    24% {
+      transform: scale(1.04);
+    }
+    32% {
+      transform: scale(1.16);
+    }
+  }
+  /* Rung nhè nhẹ: chỉ vài phần mười độ và vài px, đủ để hai cái đầu "sống". */
+  @keyframes glow-tremble {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(0.6%, -0.8%) rotate(0.8deg);
+    }
+    50% {
+      transform: translate(-0.5%, 0.4%) rotate(-0.6deg);
+    }
+    75% {
+      transform: translate(0.4%, 0.8%) rotate(0.5deg);
     }
   }
   @keyframes glow-nudge {
@@ -375,6 +414,15 @@ html {
     Nằm trong @layer components nên utility vẫn thắng: cảnh dựng sẵn ghi đè
     cỡ chữ bằng `text-stage-action` mà không phải chống lại khuôn này.
   */
+  /* Hình một màu tô theo `currentColor` qua mask: một file nét đen dùng được
+     trên mọi nền. Đường dẫn ảnh đi qua biến `--glyph`. */
+  .glyph {
+    display: block;
+    background-color: currentColor;
+    mask: var(--glyph) center / contain no-repeat;
+    -webkit-mask: var(--glyph) center / contain no-repeat;
+  }
+
   .btn {
     display: inline-flex;
     align-items: center;
@@ -1734,7 +1782,7 @@ html {
     top: var(--cover-y);
     width: var(--cover-w);
     height: var(--cover-h);
-    padding-inline: calc(var(--cover-w) * 0.2);
+    padding-inline: calc(var(--cover-w) * 0.12);
     transform: translate(-50%, -50%);
     container-type: inline-size;
   }

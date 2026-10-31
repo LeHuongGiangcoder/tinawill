@@ -78,11 +78,11 @@ const box = {
 */
 const CANVA_CLOSED = {
   "mid_left-04-pineapple": { x: 225, y: 1190, width: 250, rotation: 0 },
-  "top_left-02-mango": { x: 350, y: 250, width: 470, rotation: 6 },
+  "top_left-02-mango": { x: 235, y: 212, width: 470, rotation: 6 },
   "bottom_left-03-hibiscus": { x: 173.8, y: 1506.1, width: 449.8 },
   "top_right-02-hibiscus": { x: 1042.3, y: 152.6, width: 353.2, flipX: true },
   "mid_right-02-plumeria": { x: 629.1, y: 679.4, width: 287.0, rotation: 0 },
-  "bottom_right-02-pomegranate": { x: 835, y: 1690, width: 440, rotation: 30 },
+  "bottom_right-02-pomegranate": { x: 910, y: 1820, width: 440, rotation: 30 },
   "bottom_right-01-fan": { x: 990, y: 1790 },
   "bottom_right-03-bracts_purple": { x: 1000, y: 1330 },
   "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6 },
@@ -107,8 +107,15 @@ const EXTRA = [
   { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
 ];
 
+/* Xoài đứng lớp đầu tiên của nhóm tán lá (dưới lá và bract đè lên). */
+const Z_OVERRIDE = { "top_left-02-mango": 3999 };
+
+/* Bỏ bớt lá và bract ở đáy giữa cho đỡ rối. */
+const DROP = new Set(["bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
+
 const relayout = ({ closed, open, ...e }) => {
   const o = CANVA_CLOSED[e.id];
+  if (Z_OVERRIDE[e.id]) e.z = Z_OVERRIDE[e.id];
   const swap = ASSET_SWAP[e.id];
   if (swap) Object.assign(e, swap);
   if (!o) return { ...e, closed, open };
@@ -120,6 +127,7 @@ const relayout = ({ closed, open, ...e }) => {
   };
 };
 
+/* Hero mở ra chỉ còn nền giấy: mọi lá, hoa, quả tan hết theo cú mở tán. */
 const withExtras = (list) => {
   const byId = new Map(list.map((e) => [e.id, e]));
   const extras = EXTRA.map(({ ref, closed, exit, id, asset, rawSize, z }) => {
@@ -138,7 +146,7 @@ const withExtras = (list) => {
       open: { ...c, x: c.x + dx, y: c.y + dy, width: c.width * (r.open.width / r.closed.width), rotation: c.rotation + (r.open.rotation - r.closed.rotation) },
     };
   });
-  return [...list, ...extras];
+  return [...list, ...extras].filter((e) => !DROP.has(e.id));
 };
 
 const scene = {

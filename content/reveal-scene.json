@@ -586,7 +586,7 @@
         900,
         822
       ],
-      "z": 4001,
+      "z": 3999,
       "reveal": {
         "delay": 2.2727,
         "duration": 1.4205,
@@ -599,90 +599,18 @@
         "bend": -0.525
       },
       "closed": {
-        "x": 350,
-        "y": 250,
+        "x": 235,
+        "y": 212,
         "width": 470,
         "rotation": 6,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 290,
-        "y": 235.00000000000003,
+        "x": 175,
+        "y": 197.00000000000003,
         "width": 430,
         "rotation": 8,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "top_left-03-bracts_purple",
-      "asset": "/reveal/bracts_purple.webp",
-      "rawSize": [
-        276,
-        267
-      ],
-      "z": 4002,
-      "reveal": {
-        "delay": 2.2727,
-        "duration": 1.4205,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.0525,
-        "arcX": -9,
-        "arcY": -13.5,
-        "bend": -0.525
-      },
-      "closed": {
-        "x": 410,
-        "y": 25,
-        "width": 225,
-        "rotation": -14,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 350,
-        "y": 10,
-        "width": 225,
-        "rotation": -14,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "top_left-04-bracts_pink",
-      "asset": "/reveal/bracts_pink.webp",
-      "rawSize": [
-        245,
-        237
-      ],
-      "z": 4003,
-      "reveal": {
-        "delay": 2.2727,
-        "duration": 1.4205,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.0525,
-        "arcX": -9,
-        "arcY": -13.5,
-        "bend": -0.525
-      },
-      "closed": {
-        "x": 300,
-        "y": 150,
-        "width": 120,
-        "rotation": 31,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 240,
-        "y": 135,
-        "width": 120,
-        "rotation": 31,
         "flipX": false,
         "opacity": 1
       }
@@ -1156,78 +1084,6 @@
       }
     },
     {
-      "id": "bottom_left-04-bracts_pink",
-      "asset": "/reveal/bracts_pink.webp",
-      "rawSize": [
-        245,
-        237
-      ],
-      "z": 4403,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.75,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 260,
-        "y": 1875,
-        "width": 110,
-        "rotation": -35,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 155,
-        "y": 1905,
-        "width": 110,
-        "rotation": -35,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "bottom_right-01-fan",
-      "asset": "/reveal/fan.webp",
-      "rawSize": [
-        680,
-        485
-      ],
-      "z": 4500,
-      "reveal": {
-        "delay": 0.7386,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": 15.75,
-        "arcY": 16.5,
-        "bend": 1.875
-      },
-      "closed": {
-        "x": 990,
-        "y": 1790,
-        "width": 430,
-        "rotation": -65,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 1095,
-        "y": 1810,
-        "width": 430,
-        "rotation": -65,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
       "id": "bottom_right-02-pomegranate",
       "asset": "/reveal/pomegranate.webp",
       "rawSize": [
@@ -1247,90 +1103,18 @@
         "bend": 1.875
       },
       "closed": {
-        "x": 835,
-        "y": 1690,
+        "x": 910,
+        "y": 1820,
         "width": 440,
         "rotation": 30,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 940,
-        "y": 1710,
+        "x": 1015,
+        "y": 1840,
         "width": 430,
         "rotation": -13,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "bottom_right-03-bracts_purple",
-      "asset": "/reveal/bracts_purple.webp",
-      "rawSize": [
-        276,
-        267
-      ],
-      "z": 4502,
-      "reveal": {
-        "delay": 0.7386,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": 15.75,
-        "arcY": 16.5,
-        "bend": 1.875
-      },
-      "closed": {
-        "x": 1000,
-        "y": 1330,
-        "width": 105,
-        "rotation": 24,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 1105,
-        "y": 1350,
-        "width": 105,
-        "rotation": 24,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "lower_bract-01-bracts_pink",
-      "asset": "/reveal/bracts_pink.webp",
-      "rawSize": [
-        245,
-        237
-      ],
-      "z": 4600,
-      "reveal": {
-        "delay": 0.2841,
-        "duration": 1.25,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": 60,
-        "arcY": 16.5,
-        "bend": 1.875
-      },
-      "closed": {
-        "x": 552.4,
-        "y": 1831.2,
-        "width": 178.8,
-        "rotation": 27,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 1152.4,
-        "y": 1866.1999999999998,
-        "width": 145,
-        "rotation": 27,
         "flipX": false,
         "opacity": 1
       }
@@ -1372,42 +1156,6 @@
       }
     },
     {
-      "id": "bottom_mid-01-leaf",
-      "asset": "/reveal/leaf-new.webp",
-      "rawSize": [
-        700,
-        1062
-      ],
-      "z": 4410,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.750000000000002,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 610,
-        "y": 1800,
-        "width": 260,
-        "rotation": 30,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 650,
-        "y": 1890,
-        "width": 260,
-        "rotation": 30,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
       "id": "bottom_mid-02-agave",
       "asset": "/reveal/agave.webp",
       "rawSize": [
@@ -1439,42 +1187,6 @@
         "y": 2050,
         "width": 420,
         "rotation": 0,
-        "flipX": false,
-        "opacity": 1
-      }
-    },
-    {
-      "id": "bottom_mid-03-sprigs",
-      "asset": "/reveal/leaf-sprigs.webp",
-      "rawSize": [
-        408,
-        720
-      ],
-      "z": 4412,
-      "reveal": {
-        "delay": 0.7386,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": 15.75,
-        "arcY": 16.5,
-        "bend": 1.875
-      },
-      "closed": {
-        "x": 730,
-        "y": 1900,
-        "width": 200,
-        "rotation": 25,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 790,
-        "y": 1980,
-        "width": 200,
-        "rotation": 25,
         "flipX": false,
         "opacity": 1
       }

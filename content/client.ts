@@ -332,7 +332,7 @@ export const intro = {
 
 export const hero = {
   /** Lời mời nổi trên mặt nước, ngay trên tên hai người. */
-  invitation: "We joyfully invite you to our wedding",
+  invitation: "We joyfully invite you\nto our wedding",
   scrollHint: "Scroll",
 };
 
