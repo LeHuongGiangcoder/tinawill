@@ -49,8 +49,14 @@ export function Visa() {
           title={visa.title}
           titleId="visa-title"
           subtitle={visa.subtitle}
-          intro={visa.intro}
         />
+
+        {/* Lời mời bấm: to, thẳng, sát hàng cờ — khác dòng nghiêng nhỏ phía
+            trên, để khách hiểu đây là thứ bấm được chứ không phải chữ trang trí. */}
+        <div className="mb-stack flex flex-col items-center gap-tight text-center">
+          <Heading level="h3">{visa.pickPrompt}</Heading>
+          <Caption>{visa.pickNote}</Caption>
+        </div>
 
         <TabSet
           label={visa.regionsLabel}
@@ -85,18 +91,38 @@ export function Visa() {
                 </>
               ),
               panel: (
+                /* Bốn khối cùng một hình dáng: h3 → dòng dẫn → nội dung. */
                 <div className="flex flex-col gap-block">
                   <div className="flex flex-col gap-stack">
                     <Heading level="h3">{visa.visaHeading}</Heading>
-                    <Lead>{region.verdict}</Lead>
+                    <p className="verdict" data-state={region.needsEvisa ? "needed" : "clear"}>
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 20 20"
+                        className="size-5 shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="10" cy="10" r="8.5" />
+                        {region.needsEvisa ? (
+                          <path d="M10 5.8v5M10 13.8v.4" />
+                        ) : (
+                          <path d="M6.2 10.4l2.7 2.7 5-5.6" />
+                        )}
+                      </svg>
+                      {region.verdict.replace(/\.$/, "")}
+                    </p>
                     {region.note ? <p>{region.note}</p> : null}
                   </div>
 
                   {/* Sáu bước chỉ hiện với hộ chiếu thật sự cần e-visa —
                       khách Châu Âu và Đông Nam Á không phải đọc. */}
                   {region.needsEvisa ? (
-                    <div className="card flex flex-col gap-stack">
-                      <Heading level="h4">{visa.evisa.title}</Heading>
+                    <div className="flex flex-col gap-stack">
+                      <Heading level="h3">{visa.evisa.title}</Heading>
                       <ol className="flex list-decimal flex-col gap-stack pl-stack marker:font-display marker:text-tone-accent">
                         {visa.evisa.items.map((item) => (
                           <li key={item}>{item}</li>
@@ -130,10 +156,11 @@ export function Visa() {
 
         {/* Đường từ sân bay về resort: ai cũng đọc, nên nó nằm ngoài khối
             chọn hộ chiếu thay vì chép lại sáu lần. */}
-        <div className="mt-block flex flex-col gap-tight border-t border-tone-line pt-block">
-          <Heading level="h4">{visa.airport.title}</Heading>
-          <Caption>{visa.airport.body}</Caption>
-          </div>
+        <div className="mt-block flex flex-col gap-stack border-t border-tone-line pt-block">
+          <Heading level="h3">{visa.airport.title}</Heading>
+          <Lead>{visa.airport.lead}</Lead>
+          <p>{visa.airport.body}</p>
+        </div>
         </div>
       </Reveal>
     </SectionWrapper>

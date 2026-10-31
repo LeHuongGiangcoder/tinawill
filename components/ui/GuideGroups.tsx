@@ -61,7 +61,7 @@ export function GuideGroups({ groups }: { groups: TravelGroup[] }) {
                   defaultOpen={i === 0}
                 >
                   <div className="flex flex-col gap-stack">
-                    <p>{topic.body}</p>
+                    <p className="whitespace-pre-line">{topic.body}</p>
                     {topic.actions?.length ? (
                       <Actions actions={topic.actions} compact />
                     ) : null}

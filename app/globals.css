@@ -390,6 +390,37 @@ html {
   }
 
   /*
+    Kết luận một dòng của một mục ("E-visa required", "Visa-free…") — viên
+    thuốc đặc màu để khách quét mắt là biết mình có việc phải làm hay không,
+    thay vì phải đọc một dòng chữ thường giữa đoạn.
+
+    Hai trạng thái, đọc `data-state` chứ không nhận màu từ chỗ gọi:
+      needed  màu nút của tông (đỏ trên giấy beige) — còn việc phải làm
+      clear   màu `contrast` của tông (xanh rừng) — không phải làm gì
+  */
+  .verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--t-space-tight);
+    align-self: flex-start;
+    padding: var(--t-space-tight) var(--t-space-stack);
+    border-radius: var(--t-radius-btn);
+    font-family: var(--t-font-display);
+    font-size: var(--t-text-h4);
+    line-height: var(--t-leading-h4);
+  }
+
+  .verdict[data-state="needed"] {
+    background-color: var(--t-section-button);
+    color: var(--t-section-button-text);
+  }
+
+  .verdict[data-state="clear"] {
+    background-color: var(--t-section-contrast);
+    color: var(--t-section-bg);
+  }
+
+  /*
     Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
 
     Ẩn sẵn bằng CSS để không nháy một nhịp trước khi GSAP kịp chạy. JS tắt thì

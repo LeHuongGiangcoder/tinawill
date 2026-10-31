@@ -129,7 +129,7 @@ export function Travel() {
           eyebrow={travel.eyebrow}
           title={travel.title}
           titleId="travel-title"
-          subtitle={travel.subtitle}
+          subtitle={travel.subtitle || undefined}
           intro={travel.intro}
         />
       </div>

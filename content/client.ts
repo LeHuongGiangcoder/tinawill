@@ -507,9 +507,13 @@ export type VisaRegion = {
 export const visa = {
   eyebrow: "Before you fly",
   title: "Visa Guide",
-  subtitle: "Pick your passport — we'll show only the part that applies to you.",
-  intro:
-    "Whichever one it is, your passport must be valid for at least 6 months after you arrive.",
+  /* Dòng nhỏ nghiêng dưới tiêu đề: điều kiện chung cho mọi hộ chiếu. */
+  subtitle: "Whichever passport you hold, it must be valid for at least 6 months after you arrive.",
+  intro: "",
+  /* Lời mời bấm, đứng ngay trên hàng cờ — to và thẳng để khách hiểu đây là thứ
+     bấm được. */
+  pickPrompt: "Pick your passport",
+  pickNote: "We'll show only the part that applies to you.",
   /** Nhãn hàng cờ cho trình đọc màn hình. */
   regionsLabel: "Choose your passport",
   visaHeading: "Your visa",
@@ -537,7 +541,8 @@ export const visa = {
   /** Ai cũng đọc phần này, nên nó đứng ngoài khối chọn hộ chiếu. */
   airport: {
     title: "From the airport",
-    body: "The resort is about 40–45 minutes by car. Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
+    lead: "The resort is about 40–45 minutes by car.",
+    body: "Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
   },
 
   regions: [
@@ -597,34 +602,28 @@ export const visa = {
 export const travel = {
   eyebrow: "Once you're here",
   title: "Travel Guide",
-  subtitle: "From the moment you land to the river in Hoi An.",
-  intro:
-    "Where to stay, what the weather is like, and the small things worth knowing before you pack.",
+  subtitle: "",
+  intro: "Important information to know upon arriving!!! Click on door to unlock!",
   tabsLabel: "Choose a topic",
   /** Chữ trên nút mở cửa sổ — trước khi bấm, cả hàng thẻ lẫn nội dung còn khuất. */
   gateLabel: "Unlock",
   tabs: [
     {
       id: "stay",
-      label: "Where to stay",
+      label: "Accommodation & Contact",
       groups: [
         {
           title: "stay",
           kind: "topics",
-          // nbsp giữ biểu tượng đảo đi cùng chữ, không rơi một mình xuống dòng
-          lead: "The wedding night is on\u00a0us.\u00a0🏝",
           topics: [
             {
               label: "Wedding night",
-              body: "One night at NHAAN Resort & Spa Hoi An on Saturday, March 27 is covered for every guest — celebrate late, then simply walk back to your room.",
+              /* `\n` xuống dòng thật — GuideGroups in thân bài với pre-line. */
+              body: "The wedding night is on us. 💛\nWe’re covering one night at NHAAN Resort & Spa Hoi An on Saturday, March 27, 2027 for all our guests — so you can celebrate late and simply walk back to your room.",
             },
             {
-              label: "The whole weekend",
-              body: "Join us for the Welcome Dinner on Friday and the Farewell Brunch on Sunday — Hoi An is well worth a few extra days.",
-            },
-            {
-              label: "Extra nights",
-              body: "Our wedding planner will book additional nights at the resort and take care of everything for you.",
+              label: "Staying longer?",
+              body: "We’d love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, please contact our wedding planner on WhatsApp: +84 363 059 436 or email: teamhandsheart.planner@gmail.com and the team will take care of everything for you.",
               actions: [
                 { label: "WhatsApp", href: "https://wa.me/84363059436" },
                 { label: "Email", href: "mailto:teamhandsheart.planner@gmail.com" },
@@ -879,7 +878,7 @@ export const gifts = {
   },
   subtitle: "Your presence is already the greatest gift.",
   intro:
-    "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, here are a few options — whatever feels right for you.",
+    "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, tap the jar for a few options — whatever feels right for you.",
   options: [
     {
       title: "Honeymoon fund",
