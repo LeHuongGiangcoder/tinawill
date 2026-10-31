@@ -80,7 +80,7 @@ const COLUMN_TOP = `calc(${cq(1083.1)} + ${TABLE_TOP})`;
 export function Venue() {
   return (
     <SectionWrapper section="venue" width="bleed" flush labelledBy="venue-title">
-      <div className="stage-9x16 stage-tall">
+      <div className="stage-9x16 stage-tall stage-snug">
         {BEHIND.map((name, i) => (
           <div
             key={name}

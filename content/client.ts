@@ -68,6 +68,45 @@ export const sections: SectionId[] = [
 /* ----------------------------------------------------------- MẶT NHÌN */
 
 /**
+ * Một đèn lồng treo từ mép trên của một khung giấy (`.page-frame`). Mọi số đo
+ * là `cqw` — phần trăm bề rộng của khung — nên đèn co theo giấy trên mọi màn.
+ */
+export type HangPlacement = {
+  name: ElementName;
+  /** Toạ độ ngang của sợi dây, 0–100. */
+  left: number;
+  /** Toạ độ dọc của chóp tua, tính từ mép trên: số lớn = treo thấp, dây dài. */
+  hang: number;
+  /** Bề rộng thân đèn. */
+  width: number;
+  /**
+   * Lớp xếp so với tờ giấy: `back` nằm sau giấy (mép giấy che chóp tua),
+   * `front` nằm đè lên giấy. Đèn sau thì nhỏ, treo cao; đèn trước thì to,
+   * treo thấp — đó là độ sâu.
+   */
+  layer: "back" | "front";
+  /** Nhịp một lần đung đưa, giây. Mỗi đèn một nhịp thì chúng không lắc đồng loạt. */
+  swing?: number;
+  /** Lệch pha, giây — đèn không khởi động cùng lúc. */
+  delay?: number;
+};
+
+/** Một vật nổi trên mặt nước. `left`/`top` là TÂM vật, tính theo cqw của khung. */
+export type DriftPlacement = {
+  name: ElementName;
+  left: number;
+  top: number;
+  width: number;
+  /** Biên độ trôi ngang / dọc (cqw) và độ nghiêng (độ). */
+  x?: number;
+  y?: number;
+  deg?: number;
+  /** Nhịp một vòng trôi, giây. */
+  period?: number;
+  delay?: number;
+};
+
+/**
  * Một hoạ tiết rời đặt lên nền section.
  *
  * `at` là chuỗi utility Tailwind định vị + bề rộng, ví dụ
@@ -310,6 +349,40 @@ export const loveStory = {
   /** Câu kết in nghiêng, đứng tách dưới cùng trang. Để trống thì không hiện. */
   closing:
     "Two people, two cultures, one building — and now, one life together.",
+  /**
+   * Đèn lồng treo phía trên trang giấy. Hai lớp: `back` nhỏ, treo cao, nằm sau
+   * giấy; `front` to hơn, treo thấp hơn, đè lên mép giấy. Trong mỗi lớp, đèn khai
+   * sau nằm đè lên đèn khai trước. Toạ độ xem `HangPlacement`.
+   */
+  lanterns: [
+    { name: "lantern-11", left: 22, hang: 32, width: 9, layer: "back", swing: 12, delay: 3 },
+    { name: "lantern-04", left: 50, hang: 28, width: 10, layer: "back", swing: 13, delay: 6 },
+    { name: "lantern-11", left: 78, hang: 33, width: 9, layer: "back", swing: 14, delay: 9 },
+    { name: "lantern-07", left: 36, hang: 38, width: 9, layer: "back", swing: 12, delay: 1 },
+    { name: "lantern-04", left: 66, hang: 36, width: 9, layer: "back", swing: 13, delay: 5 },
+    { name: "lantern-03", left: 28, hang: 46, width: 12, layer: "front", swing: 13, delay: 2 },
+    { name: "lantern-10", left: 72, hang: 50, width: 14, layer: "front", swing: 14, delay: 7 },
+    { name: "lantern-05", left: 40, hang: 40, width: 14, layer: "front", swing: 12, delay: 4 },
+    { name: "lantern-08", left: 58, hang: 47, width: 15, layer: "front", swing: 13, delay: 8 },
+    { name: "lantern-09", left: 8, hang: 72, width: 13, layer: "front", swing: 14, delay: 0 },
+    { name: "lantern-06", left: 93, hang: 68, width: 14, layer: "front", swing: 12, delay: 6 },
+    { name: "lantern-01", left: 15, hang: 58, width: 19, layer: "front", swing: 13, delay: 3 },
+    { name: "lantern-02", left: 87, hang: 54, width: 18, layer: "front", swing: 12, delay: 5 },
+  ] satisfies HangPlacement[],
+  /**
+   * Đèn hoa đăng trôi dưới chân trang giấy, nằm sau chữ. `top` đo từ mép trên
+   * của vùng nước (xem LoveStory.tsx), không phải của cả trang.
+   */
+  lotuses: [
+    { name: "lotus-04", left: 22, top: 6, width: 12, x: 1.2, y: 0.35, deg: 1.5, period: 19, delay: 1 },
+    { name: "lotus-07", left: 62, top: 5, width: 13, x: 1, y: 0.45, deg: 1.75, period: 21, delay: 6 },
+    { name: "lotus-01", left: 12, top: 13, width: 11, x: 0.8, y: 0.3, deg: 2, period: 17, delay: 3 },
+    { name: "lotus-02", left: 34, top: 14, width: 14, x: 1.1, y: 0.4, deg: 1.25, period: 20, delay: 8 },
+    { name: "lotus-05", left: 49, top: 11, width: 11, x: 0.9, y: 0.5, deg: 1.6, period: 18, delay: 4 },
+    { name: "lotus-06", left: 71, top: 15, width: 14, x: 1.3, y: 0.35, deg: 1.4, period: 22, delay: 2 },
+    { name: "lotus-09", left: 87, top: 8, width: 12, x: 0.95, y: 0.4, deg: 1.8, period: 19, delay: 9 },
+    { name: "lotus-10", left: 84, top: 17, width: 10, x: 0.75, y: 0.3, deg: 2, period: 16, delay: 5 },
+  ] satisfies DriftPlacement[],
 };
 
 /* ---------------------------------------------------------------- GALLERY */

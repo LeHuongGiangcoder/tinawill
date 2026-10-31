@@ -158,6 +158,22 @@ export function Travel() {
           }))}
         />
       </Reveal>
+
+      {/* Dãy nhà phố cổ đứng dưới ô cửa sổ, như phố nhìn thấy qua khung cửa.
+          Ảnh có lề trong suốt hai bên nên cho ăn gần hết bề ngang. */}
+      <Reveal className="container-prose mt-block" delay={120}>
+        <div className="-mx-gutter sm:mx-0">
+          <Image
+            src="/travel/house.png"
+            alt=""
+            aria-hidden
+            width={2067}
+            height={761}
+            sizes="(max-width: 40rem) 100vw, 36rem"
+            className="h-auto w-full select-none"
+          />
+        </div>
+      </Reveal>
     </SectionWrapper>
   );
 }

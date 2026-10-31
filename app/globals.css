@@ -105,6 +105,8 @@
   --ease-glow: var(--t-ease);
 
   --animate-sway: glow-sway 7s ease-in-out infinite;
+  --animate-hang: glow-hang 10s ease-in-out infinite;
+  --animate-drift: glow-drift 12s ease-in-out infinite;
   --animate-nudge: glow-nudge 1.6s ease-in-out infinite;
   --animate-ripple: glow-ripple 6s ease-out infinite;
 
@@ -115,6 +117,46 @@
     }
     50% {
       transform: rotate(2.5deg);
+    }
+  }
+  /*
+    Một vật treo trên dây, đung đưa như quả lắc quanh đầu dây. Góc là biến
+    (`--swing-deg`): dây càng dài thì cùng một góc đẩy thân vật đi càng xa, nên
+    mỗi vật tự tính góc theo độ dài dây của nó — xem `Hung` trong
+    components/ui/Float.tsx.
+  */
+  @keyframes glow-hang {
+    0%,
+    100% {
+      transform: rotate(calc(var(--swing-deg) * -1));
+    }
+    50% {
+      transform: rotate(var(--swing-deg));
+    }
+  }
+  /*
+    Một vật nổi trên mặt nước, trôi theo dòng chứ không đứng một chỗ lắc: hai
+    trục lệch pha nhau để đường đi là một vòng bầu dục méo thay vì đi qua đi
+    lại một đường thẳng, và nó nghiêng nhẹ theo mỗi con sóng đi qua. Biên độ là
+    biến (`--drift-x`, `--drift-y`, `--drift-deg`) để mỗi vật một nhịp riêng —
+    xem `Drifter` trong components/ui/Float.tsx.
+  */
+  @keyframes glow-drift {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(calc(var(--drift-deg) * -1));
+    }
+    28% {
+      transform: translate(calc(var(--drift-x) * 0.7), calc(var(--drift-y) * -1))
+        rotate(calc(var(--drift-deg) * 0.4));
+    }
+    55% {
+      transform: translate(var(--drift-x), calc(var(--drift-y) * 0.3))
+        rotate(var(--drift-deg));
+    }
+    80% {
+      transform: translate(calc(var(--drift-x) * -0.4), var(--drift-y))
+        rotate(calc(var(--drift-deg) * -0.3));
     }
   }
   /*
@@ -1421,71 +1463,84 @@ html {
   }
 
   /*
-    Một trang giấy có khung vẽ tay, cao bao nhiêu cũng được.
+    Một trang giấy cao bao nhiêu cũng được.
 
-    Khung được cắt làm ba file (xem components/sections/LoveStory.tsx): nắp
-    trên, nắp dưới, và MỘT nhịp sóng của hai mép bên. Hai nắp là ảnh nguyên
-    vẹn nên hoa ở bốn góc không bao giờ bị kéo méo; thân trang lấy nhịp sóng
-    làm `border-image` với `round`, và trình duyệt tự co nhịp cho vừa đúng
-    một số nguyên lần — không có sóng nào bị cắt dở, dù chữ dài tới đâu.
+    Hình trang giấy là MỘT file (xem components/sections/LoveStory.tsx), cắt
+    chín mảnh bằng `border-image`: bốn góc giữ nguyên nên không bao giờ bị kéo
+    méo, bốn cạnh và mặt giữa giãn theo độ dài chữ. Cạnh bên giãn dọc thì nhịp
+    sóng dài ra chứ không đứt, nên thêm hay bớt một đoạn chuyện tình là trang
+    tự cao lên, không phải tính lại toạ độ gì.
 
     Mọi bề rộng trong khung đo bằng `cqw` — phần trăm bề rộng của chính trang
-    giấy, không phải của màn hình — nên mép, hoa góc và lề chữ co giãn cùng
-    nhau. Ba con số cqw dưới đây đọc thẳng từ file khung (mép khung chiếm
-    68/860 bề rộng ảnh), giống cách cảnh Venue đọc toạ độ từ bản Canva.
+    giấy, không phải của màn hình — nên mép, góc và lề chữ co giãn cùng nhau.
+    File giấy rộng 1080px ứng với 100cqw, vậy 1px ảnh = 0.0926cqw: lề góc
+    280px = 25.9cqw, lề bên 80px = 7.4cqw.
 
-    Tên đặt chung chứ không theo section: trang nào có khung giấy khác chỉ
-    cần đổi ba file ảnh, không phải chép lại khuôn này.
+    Tên đặt chung chứ không theo section: trang nào có tờ giấy khác chỉ cần đổi
+    file ảnh (và hai con số cqw nếu góc khác), không phải chép lại khuôn này.
   */
   .page-frame {
     container-type: inline-size;
+    position: relative;
     width: 100%;
     /*
-      Trên điện thoại khung chạm hai mép màn, đúng như bản Canva (khổ gốc
-      1080×1920). Trên màn rộng nó dừng ở 30rem và đứng giữa — phần thừa hai
-      bên là nền section, vốn tô đúng màu lá của khung, nên trang vẫn liền
-      một mảng chứ không thành tấm áp phích phóng to.
+      Trên điện thoại khung chạm hai mép màn. Trên màn rộng nó dừng ở 30rem và
+      đứng giữa — phần thừa hai bên là nền section nên trang vẫn liền một mảng.
     */
     max-width: 30rem;
     margin-inline: auto;
-  }
-
-  .page-frame-cap {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .page-frame-body {
-    /* Nửa pixel chồng lên hai nắp: trình duyệt làm tròn chiều cao ảnh xuống,
-       không khép lại thì hiện một vạch nền mỏng giữa nắp và thân. */
-    margin-block: -1px;
-    border-block-width: 0;
-    border-inline-width: 7.91cqw;
-    border-style: solid;
-    border-color: transparent;
-    border-image-slice: 0 68 0 68;
-    border-image-repeat: stretch round;
-    background-color: var(--t-color-parchment);
-    /* Lề chữ bên trong mặt giấy, đo từ bản vẽ của khách.
-
-       Lề dọc đo cùng đơn vị với lề ngang để bốn phía cùng một nhịp: hai nắp
-       khung có hoa và cỏ vẽ sát mép trong, không chừa khoảng này thì tiêu đề
-       dính ngay dưới hàng tim của nắp trên. */
-    padding-block: 9cqw;
-    padding-inline: 6cqw;
+    /* Chừa nền section dưới chân giấy: giấy không được chạm section kế tiếp. */
+    padding-bottom: 14cqw;
   }
 
   /*
-    Khối đầu trang giấy: kéo lên đè vào phần giấy trống của nắp trên.
+    Tờ giấy gồm ba mảnh (đường dẫn truyền qua `--paper-top/-mid/-bottom`):
+    hai nắp là `background` của chính khối, dải giữa là `::before` nằm dưới
+    nắp. Dải giữa chồng lên mỗi nắp 2px nên chỗ ghép không hở ra một vệt mờ.
+  */
+  .page-frame-body {
+    position: relative;
+    isolation: isolate;
+    background:
+      var(--paper-top) top / 100% auto no-repeat,
+      var(--paper-bottom) bottom / 100% auto no-repeat;
+    /* Lề trên và dưới bằng đúng chiều cao nắp (25.93cqw) để chữ nằm trong dải
+       giữa; lề dưới thêm 12cqw cho hoạ tiết nằm dưới chân trang (đèn hoa đăng
+       trôi trên nước). Lề ngang: 7.4cqw mép sóng + 4.6cqw lề chữ. */
+    padding-block: 25.93cqw 37.93cqw;
+    padding-inline: 12cqw;
+  }
 
-    Nắp trên là ảnh cao 34.8cqw nhưng hoa chỉ chiếm tới ~26cqw ở hai góc —
-    phần còn lại là giấy trơn. Chữ đứng ở giữa nên không đụng hoa, và không
-    kéo lên thì giữa hàng hoa và tiêu đề là một khoảng trắng gần 18cqw cộng
-    thêm lề thân trang.
+  .page-frame-body::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: calc(25.93cqw - 2px) 0;
+    background: var(--paper-mid) center / 100% 100% no-repeat;
+  }
+
+  /*
+    Đầu trang giấy: kéo lên đè vào phần giấy trống của viền trên. Viền trên
+    cao 25.9cqw để chứa hết góc bo, nhưng chữ đứng giữa nên không đụng tới
+    góc — không kéo lên thì giữa mép giấy và dòng chữ đầu là một khoảng trống.
   */
   .page-frame-lead {
-    margin-top: -18cqw;
+    margin-top: -15cqw;
+  }
+
+  /*
+    Vùng đất trống dưới chân trang giấy, nằm trong nắp dưới và sau chữ — chỗ
+    cho hoạ tiết rời (đèn hoa đăng trôi trên nước). Cao 20cqw, rộng đúng bằng
+    cả khối giấy, nên toạ độ cqw của hoạ tiết đo từ mép trái trang. Cách đáy
+    6cqw để chừa mép lượn sóng của nắp dưới.
+  */
+  .page-frame-foot {
+    position: absolute;
+    z-index: 0;
+    inset-inline: 0;
+    height: 20cqw;
+    bottom: 6cqw;
+    pointer-events: none;
   }
 
   /*
@@ -1570,6 +1625,12 @@ html {
     overflow: clip;
     aspect-ratio: 9 / 19.5;
     min-height: 100svh;
+  }
+
+  /* Bớt khoảng thở của .stage-tall: khung thấp đi, cả khoảng trên lẫn dưới
+     tiêu đề (nằm giữa phần cao thêm) cùng co lại. */
+  .stage-snug {
+    aspect-ratio: 9 / 18.5;
   }
 
   /* Lớp tranh nguyên khung 9/16 đặt trong .stage-tall, neo theo mép. */

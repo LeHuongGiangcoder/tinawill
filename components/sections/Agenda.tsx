@@ -90,7 +90,7 @@ export function Agenda() {
                   {day.items.map((item, i) => (
                     <li
                       key={`${item.time}-${item.title}`}
-                      className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack sm:grid-cols-[6rem_1.5rem_1fr]"
+                      className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack pb-block last:pb-0 sm:grid-cols-[6rem_1.5rem_1fr]"
                     >
                       <p className="text-right font-display text-h3 text-tone-accent">
                         {item.time}
@@ -109,8 +109,8 @@ export function Agenda() {
                       </div>
 
                       {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`) và cách mốc kế
-                          tiếp bằng `pb-block`, để mắt đọc ra "tiêu đề + ghi chú" là một cặp. */}
-                      <div className="flex flex-col pb-block last:pb-0">
+                          tiếp bằng `pb-block` ở <li>, để mắt đọc ra "tiêu đề + ghi chú" là một cặp. */}
+                      <div className="flex flex-col">
                         <Heading level="h4">{item.title}</Heading>
                         {item.note ? (
                           <p className="text-small text-tone-muted">{item.note}</p>
