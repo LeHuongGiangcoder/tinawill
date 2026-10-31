@@ -26,6 +26,7 @@ export const OPEN_EVENT = "glow:open";
  *   [data-parallax="N"]  trôi chậm hơn trang N% khi cuộn
  *   [data-hero]          hiện khi thiệp được mở, không chờ cuộn
  *   [data-clink]         hai cánh tay trang Venue vươn vào cụng ly rồi thu về
+ *   [data-drive]         chiếc xe trang Visa lăn dọc đường kẻ của khối cha
  *
  * Section chỉ cần gắn attribute, không section nào tự gọi GSAP — nhờ vậy
  * chúng vẫn là server component và không có hai hệ animation chạy song song.
@@ -102,6 +103,44 @@ export function Motion() {
           start: "top 45%",
           onEnter: () => void toast.restart(),
           onEnterBack: () => void toast.restart(),
+        });
+      }
+
+      /* Xe chạy dọc đường kẻ từ đầu này sang đầu kia, đúng một lần. Quãng đường
+         đo lúc cuộn tới (không đo sẵn) vì khối cha đổi bề rộng theo màn. Hai
+         tween riêng: tiến tới êm đều, còn nảy nhẹ theo mặt đường chạy lệch
+         nhịp — cùng một ease thì xe trượt như đồ chơi trên ray. */
+      for (const car of gsap.utils.toArray<HTMLElement>("[data-drive]")) {
+        const road = car.parentElement;
+        if (!road) continue;
+
+        ScrollTrigger.create({
+          trigger: road,
+          start: "top 85%",
+          once: true,
+          onEnter: () => {
+            const run = Math.max(0, road.clientWidth - car.offsetWidth);
+            const bob = gsap.to(car, {
+              y: -1.5,
+              duration: 0.17,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+            });
+            gsap.fromTo(
+              car,
+              { x: 0 },
+              {
+                x: run,
+                duration: 3.6,
+                ease: "power1.inOut",
+                onComplete: () => {
+                  bob.kill();
+                  gsap.to(car, { y: 0, duration: 0.2 });
+                },
+              },
+            );
+          },
         });
       }
 

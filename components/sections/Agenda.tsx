@@ -96,16 +96,15 @@ export function Agenda() {
                         {item.time}
                       </p>
 
-                      {/* Trục dọc: hàng cuối không kẻ tiếp để đường không thừa ra */}
-                      <div
-                        aria-hidden
-                        className={`flex h-full flex-col items-center ${
-                          i === day.items.length - 1 ? "" : "pb-block"
-                        }`}
-                      >
+                      {/* Trục dọc: đường kẻ nối mốc này tới mốc kế tiếp. Cột phải
+                          `self-stretch` — `h-full` trên ô lưới `items-start` không
+                          có chiều cao để ăn theo nên đường kẻ biến mất. `-mb-2`
+                          kéo đường xuống chạm đỉnh mốc dưới (cách `mt-2`); hàng
+                          cuối không kẻ tiếp để đường không thừa ra. */}
+                      <div aria-hidden className="flex flex-col items-center self-stretch">
                         <span className="mt-2 size-2 shrink-0 rotate-45 bg-tone-accent" />
                         {i === day.items.length - 1 ? null : (
-                          <span className="mt-tight w-px flex-1 bg-tone-line" />
+                          <span className="-mb-2 w-px flex-1 bg-tone-accent" />
                         )}
                       </div>
 

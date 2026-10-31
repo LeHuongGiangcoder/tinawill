@@ -421,6 +421,52 @@ html {
   }
 
   /*
+    Monogram của cặp đôi. Ảnh chỉ là MẶT NẠ (hình dáng nét vẽ); màu là màu chữ
+    của section đổ lên, nên cùng một file dùng được trên nền sáng lẫn nền tối
+    và đổi theo `tone` mà không phải xuất lại — giống dải ngăn của SectionWrapper.
+    Cỡ do chỗ gọi đặt bằng bề rộng; tỉ lệ lấy từ aspect-ratio của file.
+  */
+  .logo-mark {
+    display: block;
+    aspect-ratio: 640 / 661;
+    background-color: var(--t-section-fg);
+    -webkit-mask: url("/logo/monogram.webp") center / contain no-repeat;
+    mask: url("/logo/monogram.webp") center / contain no-repeat;
+  }
+
+  /*
+    Highlight kiểu nét cọ: một vệt sơn quét ngang sau vài chữ khoá của đoạn văn
+    (xem components/ui/Highlight.tsx).
+
+    Hình dáng là ảnh khách vẽ, dùng làm MẶT NẠ; màu vệt là beige của bảng màu
+    (`--t-color-beige`, cùng màu tờ giấy RSVP / Visa), còn chữ bên trên lấy màu
+    nền section để luôn đọc được.
+
+    Vệt tràn ra ngoài chữ một chút (`inset` âm) cho giống nét cọ thật, và
+    `nowrap` giữ cụm chữ trên một dòng — vệt cọ xuống dòng giữa chừng sẽ bị
+    kéo giãn thành một dải méo.
+  */
+  .highlight {
+    position: relative;
+    isolation: isolate;
+    white-space: nowrap;
+    /* <mark> mặc định tô nền vàng — nền thật là nét cọ ở ::before. */
+    background: transparent;
+    color: var(--t-section-bg);
+    padding-inline: 0.15em;
+  }
+
+  .highlight::before {
+    content: "";
+    position: absolute;
+    inset: -0.12em -0.3em -0.08em;
+    z-index: -1;
+    background-color: var(--t-color-beige);
+    -webkit-mask: url("/highlight/brush.webp") center / 100% 100% no-repeat;
+    mask: url("/highlight/brush.webp") center / 100% 100% no-repeat;
+  }
+
+  /*
     Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
 
     Ẩn sẵn bằng CSS để không nháy một nhịp trước khi GSAP kịp chạy. JS tắt thì

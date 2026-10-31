@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
 import { Disclosure } from "@/components/ui/Disclosure";
+import { Highlighted } from "@/components/ui/Highlight";
 import { Caption, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -87,7 +88,7 @@ export function Gifts() {
         title={gifts.title}
         titleId="gifts-title"
         subtitle={gifts.subtitle}
-        intro={gifts.intro}
+        intro={<Highlighted text={gifts.intro} words={gifts.highlight} />}
       />
 
       <Reveal>
@@ -122,7 +123,6 @@ export function Gifts() {
               ))}
             </span>
 
-            <Caption className="unfold-closed">{gifts.jarPrompt.closed}</Caption>
             <Caption className="unfold-open">{gifts.jarPrompt.open}</Caption>
           </summary>
 

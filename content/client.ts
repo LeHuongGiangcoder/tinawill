@@ -871,11 +871,12 @@ export const gifts = {
    * chọn. Tên file trong brand/elements, bỏ đuôi.
    */
   jar: "honeymoon-jar" as const,
-  /** Dòng mời bấm dưới bình, đổi chữ theo lúc đóng / lúc mở. */
+  /** Dòng hiện dưới bình khi đã mở, để biết bấm lại là gập. */
   jarPrompt: {
-    closed: "Tap the jar",
     open: "Tap to close",
   },
+  /** Cụm chữ trong `intro` được quét highlight nét cọ (không phân biệt hoa thường). */
+  highlight: ["tap the jar"],
   subtitle: "Your presence is already the greatest gift.",
   intro:
     "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, tap the jar for a few options — whatever feels right for you.",
@@ -916,6 +917,8 @@ export const thankYou = {
     "We love you!",
   ],
   signature: "Will & Tina",
+  /** Mô tả monogram cho trình đọc màn hình. */
+  logoLabel: "Will and Tina monogram",
   image: "/images/couple-06.jpg",
   imageAlt: "Tina and Will",
 };

@@ -129,8 +129,14 @@ const FRONDS = [
     name: "leaves-bottom",
     anchor: "bottom",
     at: { left: "48.50%", top: "78.90%", width: "51.50%", height: "21.10%" },
-    origin: "50% 100%",
-    deg: "3.2deg",
+    /* Bản cắt cũ, chưa có ảnh vẽ trọn: mép phải và mép dưới của nó CHÍNH LÀ
+       mép khung, nên xoay quanh đáy giữa sẽ nhấc một góc lên và hở một vệt
+       nền. Gốc quay đặt đúng góc khung, cả tán đẩy ra ngoài khung một đoạn
+       (`push`, cqw) bằng độ hở lớn nhất của cú lắc, và biên độ nhỏ lại cho
+       vừa đoạn đó — phần đẩy ra bị `.stage-9x16` clip nên không ai thấy. */
+    origin: "100% 100%",
+    push: "2.5cqw 4cqw",
+    deg: "1.8deg",
     dur: "11.4s",
     delay: "-4.3s",
   },
@@ -154,6 +160,7 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
     height: cq(height),
     ...vertical,
     transformOrigin: frond.origin,
+    ...("push" in frond ? { translate: frond.push } : {}),
     "--frond-deg": frond.deg,
     "--frond-dur": frond.dur,
     "--frond-delay": frond.delay,

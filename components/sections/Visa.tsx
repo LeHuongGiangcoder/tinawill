@@ -156,10 +156,26 @@ export function Visa() {
 
         {/* Đường từ sân bay về resort: ai cũng đọc, nên nó nằm ngoài khối
             chọn hộ chiếu thay vì chép lại sáu lần. */}
-        <div className="mt-block flex flex-col gap-stack border-t border-tone-line pt-block">
-          <Heading level="h3">{visa.airport.title}</Heading>
-          <Lead>{visa.airport.lead}</Lead>
-          <p>{visa.airport.body}</p>
+        <div className="mt-block flex flex-col gap-block">
+          {/* Con đường: đường kẻ ngăn các mục, xe đứng trên nó và lăn từ đầu
+              này sang đầu kia khi cuộn tới (`data-drive` — xem Motion.tsx). */}
+          <div aria-hidden className="relative border-b border-tone-line">
+            <Image
+              data-drive
+              src="/visa/car.webp"
+              alt=""
+              width={480}
+              height={156}
+              unoptimized
+              className="pointer-events-none block w-24 select-none"
+            />
+          </div>
+
+          <div className="flex flex-col gap-stack">
+            <Heading level="h3">{visa.airport.title}</Heading>
+            <Lead>{visa.airport.lead}</Lead>
+            <p>{visa.airport.body}</p>
+          </div>
         </div>
         </div>
       </Reveal>

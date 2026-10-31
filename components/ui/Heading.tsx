@@ -182,7 +182,7 @@ export function SectionHead({
   subtitle?: string;
   /** "motif" khi `subtitle` là tên của một thứ chứ không phải một câu — xem `Subhead`. */
   subtitleVariant?: SubheadVariant;
-  intro?: string;
+  intro?: ReactNode;
   children?: ReactNode;
 }) {
   return (
