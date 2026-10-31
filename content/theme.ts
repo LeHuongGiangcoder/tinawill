@@ -328,13 +328,13 @@ export type Tone = keyof typeof tones;
 
 /**
  * Ba họ chữ. Giá trị là CSS variable do next/font sinh ra trong layout.tsx
- * (--ff-display / --ff-body / --ff-script) — đổi font thì sửa cả hai nơi.
+ * (--ff-display / --ff-script / --ff-display-vn) — đổi font thì sửa cả hai nơi.
  *
  * Tina & Will dùng hai font khách gửi: IM Fell English cho tiêu đề, Leckerli
  * One cho chữ viết tay. Cả hai KHÔNG có dấu tiếng Việt.
  *
  * Vì thế mỗi stack có thêm một font đỡ ngay phía sau: --ff-display-vn
- * (Cormorant Garamond) và --ff-script-vn (Pinyon Script), đều có subset
+ * (Cormorant Garamond) cho cả hai stack, có subset
  * "vietnamese". Trình duyệt chỉ rơi sang chúng ở đúng những ký tự font trước
  * không có, nên site tiếng Anh vẫn đọc nguyên nét Canva, còn một chữ "Cảm ơn"
  * lọt vào thì ra dấu đúng thay vì vỡ thành ô vuông.
@@ -344,8 +344,9 @@ export type Tone = keyof typeof tones;
  */
 export const fonts = {
   display: 'var(--ff-display), var(--ff-display-vn), Georgia, "Times New Roman", serif',
-  body: "var(--ff-body), ui-sans-serif, system-ui, sans-serif",
-  script: 'var(--ff-script), var(--ff-script-vn), "Apple Chancery", cursive',
+  /* Chữ chạy dùng chung họ với `display` — site chỉ có ba font, xem layout.tsx. */
+  body: 'var(--ff-display), var(--ff-display-vn), Georgia, "Times New Roman", serif',
+  script: 'var(--ff-script), var(--ff-display-vn), "Apple Chancery", cursive',
 } as const;
 
 /**
@@ -389,7 +390,9 @@ export const typeScale = {
    * Nhãn nút — chữ thường, đậm vừa, không giãn chữ, như "Check map" của cảnh
    * Venue. Trong một cảnh dựng sẵn thì `text-stage-action` đè bậc này.
    */
-  action: { size: "clamp(0.9375rem, 1.4vw, 1.0625rem)", line: "1.2", tracking: "0em" },
+  /* Một cỡ duy nhất cho mọi nút trong site — không co theo màn, không co theo
+   cảnh, để Unlock / Add calendar / Check map / Send RSVP luôn bằng nhau. */
+  action: { size: "1.0625rem", line: "1.2", tracking: "0em" },
   /** Dòng dẫn bằng font tiêu đề, đứng ngay dưới `SectionTitle`. */
   subhead: { size: "clamp(1.125rem, 2.6vw, 1.5rem)", line: "1.4", tracking: "0em" },
   /**
@@ -430,7 +433,8 @@ export const stageScale = {
   heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
   lead: { size: "clamp(1rem, 3.7cqw, 1.5rem)", line: "1.2" },
   caption: { size: "clamp(0.875rem, 3.09cqw, 1.25rem)", line: "1.3" },
-  action: { size: "clamp(0.8125rem, 3.39cqw, 1.125rem)", line: "1.2" },
+  /* Bằng `type.action` — nút trong cảnh không được to nhỏ khác nút ngoài cảnh. */
+  action: { size: "1.0625rem", line: "1.2" },
 } as const;
 
 /* ---------------------------------------------------------------- SPACING */

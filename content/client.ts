@@ -410,21 +410,21 @@ export type GuideTopic = {
 
 export type TravelGroup =
   | {
-      title: string;
-      kind: "text" | "bullets" | "steps";
-      lead?: string;
-      items: string[];
-      note?: string;
-      highlight?: boolean;
-      actions?: GuideAction[];
-    }
+    title: string;
+    kind: "text" | "bullets" | "steps";
+    lead?: string;
+    items: string[];
+    note?: string;
+    highlight?: boolean;
+    actions?: GuideAction[];
+  }
   | {
-      /** Không hiện — nhãn của thẻ đã nói rồi. Chỉ dùng làm khoá và tên nhóm gập. */
-      title: string;
-      kind: "topics";
-      lead?: string;
-      topics: GuideTopic[];
-    };
+    /** Không hiện — nhãn của thẻ đã nói rồi. Chỉ dùng làm khoá và tên nhóm gập. */
+    title: string;
+    kind: "topics";
+    lead?: string;
+    topics: GuideTopic[];
+  };
 
 /**
  * Một thẻ của trang hướng dẫn: nhãn trên nút, và mấy khối hướng dẫn bên dưới.
@@ -602,7 +602,7 @@ export const travel = {
     "Where to stay, what the weather is like, and the small things worth knowing before you pack.",
   tabsLabel: "Choose a topic",
   /** Chữ trên nút mở cửa sổ — trước khi bấm, cả hàng thẻ lẫn nội dung còn khuất. */
-  gateLabel: "Can't wait",
+  gateLabel: "Unlock",
   tabs: [
     {
       id: "stay",
@@ -910,10 +910,14 @@ export const thankYou = {
   title: "See you by the river",
   subtitle: "March 27, 2027 — Hoi An",
   lines: [
-    "Thank you for travelling all this way",
-    "to celebrate the start of our life together.",
+    "From the bottom of our heart",
+    "thank you for travelling all this way to",
+    "celebrate the start of our life together",
+    "You’re the closest people to us and we would be",
+    "beyond grateful to see your faces at our wedding.",
+    "We love you!",
   ],
-  signature: "Tina & Will",
+  signature: "Will & Tina",
   image: "/images/couple-06.jpg",
   imageAlt: "Tina and Will",
 };

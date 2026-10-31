@@ -64,27 +64,44 @@ const ARMS = [
   },
 ] as const;
 
-const TITLE_Y = `${((443.9 / FRAME.h) * 100).toFixed(2)}%`;
-const COLUMN_Y = `${((1083.1 / FRAME.h) * 100).toFixed(2)}%`;
+/* Khung cao hơn tranh (.stage-tall): tiêu đề nằm giữa khoảng xanh trên mặt bàn
+   theo nửa phần cao thêm; dây leo và nhành ca cao neo mép trên.
+   Bàn và toàn bộ chữ trên bàn được nâng lên một khoảng vừa phải (TABLE_LIFT)
+   để giảm khoảng trống dưới tiêu đề, trong khi hai cánh tay giữ nguyên vị trí
+   ở mép đáy màn hình (stage-art-bottom). */
+const ART_CQW = (16 / 9) * 100;
+const cq = (px: number) => `${((px / FRAME.h) * ART_CQW).toFixed(2)}cqw`;
+
+const TABLE_LIFT = 12; // cqw
+const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2)`;
+const TABLE_TOP = `calc(100% - var(--art-h) - ${TABLE_LIFT}cqw)`;
+const COLUMN_TOP = `calc(${cq(1083.1)} + ${TABLE_TOP})`;
 
 export function Venue() {
   return (
     <SectionWrapper section="venue" width="bleed" flush labelledBy="venue-title">
-      <div className="stage-9x16">
+      <div className="stage-9x16 stage-tall">
         {BEHIND.map((name, i) => (
-          <Image
+          <div
             key={name}
-            src={`${BASE}/${name}.webp`}
-            alt=""
-            aria-hidden
-            fill
-            sizes="(max-width: 48rem) 100vw, 30rem"
-            /* Lớp tranh đã đúng cỡ hiển thị: để Next nén lại chỉ thêm một
-               vòng encode mà không bớt được byte nào. */
-            unoptimized
-            className="pointer-events-none select-none object-cover"
-            style={{ zIndex: (i + 1) * 10 }}
-          />
+            className={`stage-art ${name === "table" ? "" : "stage-art-top"}`}
+            style={{
+              zIndex: (i + 1) * 10,
+              ...(name === "table" ? { bottom: `${TABLE_LIFT}cqw` } : {}),
+            }}
+          >
+            <Image
+              src={`${BASE}/${name}.webp`}
+              alt=""
+              aria-hidden
+              fill
+              sizes="(max-width: 48rem) 100vw, 30rem"
+              /* Lớp tranh đã đúng cỡ hiển thị: để Next nén lại chỉ thêm một
+                 vòng encode mà không bớt được byte nào. */
+              unoptimized
+              className="select-none object-fill"
+            />
+          </div>
         ))}
 
         {/* <h2> trần chứ không dùng <Heading>: Heading luôn kèm sẵn
@@ -95,7 +112,7 @@ export function Venue() {
           id="venue-title"
           data-reveal
           className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center font-script text-stage-title text-tone-fg"
-          style={{ top: TITLE_Y }}
+          style={{ top: TITLE_TOP }}
         >
           {venueScene.title}
         </h2>
@@ -109,7 +126,7 @@ export function Venue() {
         <div
           data-tone="light"
           className="absolute left-1/2 z-40 flex w-[62%] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-tight text-center"
-          style={{ top: COLUMN_Y }}
+          style={{ top: COLUMN_TOP }}
         >
           <p data-reveal className="font-display text-stage-lead italic text-tone-fg">
             {venue.hall}
@@ -167,7 +184,7 @@ export function Venue() {
           khung để dịch theo phần trăm của khung, còn vị trí của cánh trong lớp
           ấy là phần trăm đo từ bản vẽ — in ra bởi chính script cắt ảnh.
         */}
-        <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden">
+        <div className="stage-art stage-art-bottom z-50 overflow-hidden">
           {ARMS.map((arm) => (
             <div key={arm.side} data-clink={arm.side} className="absolute inset-0">
               <Image

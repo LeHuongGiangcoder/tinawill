@@ -46,7 +46,13 @@ const FRAME = { w: 1080, h: 1920 };
    lên đầu hai chiếc ghế. Nhích lên 32px khung thì nút dừng đúng ở mép ghế
    (55.5% khung) trên máy hẹp, còn trên desktop — nơi đoạn chữ chỉ còn bốn
    dòng — cụm vẫn rơi đúng khoảng trống bản vẽ dành cho nó. */
-const TEXT_Y = `${((650 / FRAME.h) * 100).toFixed(2)}%`;
+const TEXT_Y = (650 / FRAME.h) * 100;
+
+/** Cao của tranh gốc tính bằng cqw (16/9 bề rộng khung) — xem .stage-tall. */
+const ART_CQW = (16 / 9) * 100;
+
+/** Phần trăm chiều cao tranh gốc → cqw, để lá giữ cỡ khi khung cao thêm. */
+const cq = (pct: number) => `${((pct * ART_CQW) / 100).toFixed(2)}cqw`;
 
 /**
  * Sáu tán lá, mỗi tán một lớp để gió thổi riêng.
@@ -64,52 +70,63 @@ const TEXT_Y = `${((650 / FRAME.h) * 100).toFixed(2)}%`;
  * Cả sáu đều là số lẻ và không chia hết cho nhau: hai tán cùng nhịp sẽ gặp
  * lại nhau sau mỗi vòng và mắt bắt ngay ra nhịp lặp.
  */
+/** Hai ghế + mèo nhích lên (cqw) cho gần nút hơn; tàu cọ bên phải bám theo. */
+const LOUNGER_LIFT = 5;
+
 const FRONDS = [
   {
     name: "branch-top",
-    at: { left: "0.00%", top: "0.00%", width: "36.33%", height: "26.39%" },
+    anchor: "top",
+    at: { left: "0.00%", top: "0.00%", width: "45.41%", height: "32.99%" },
     origin: "origin-top-left",
-    deg: "2deg",
+    deg: "4.2deg",
     dur: "9.2s",
     delay: "-1.4s",
   },
   {
     name: "frond-left",
+    anchor: "mid",
     at: { left: "0.00%", top: "38.02%", width: "18.42%", height: "11.02%" },
     origin: "origin-left",
-    deg: "3.4deg",
+    deg: "6deg",
     dur: "6.7s",
     delay: "-0.6s",
   },
   {
     name: "leaves-left",
+    anchor: "bottom",
     at: { left: "0.00%", top: "47.12%", width: "37.17%", height: "52.88%" },
     origin: "origin-bottom-left",
-    deg: "1.4deg",
+    deg: "2.8deg",
     dur: "10.5s",
     delay: "-3.1s",
   },
   {
     name: "palm-right-top",
+    anchor: "bottom",
     at: { left: "77.92%", top: "61.79%", width: "22.08%", height: "7.74%" },
     origin: "origin-right",
-    deg: "3.6deg",
+    lift: LOUNGER_LIFT,
+    deg: "6.5deg",
     dur: "7.3s",
     delay: "-2.2s",
   },
   {
     name: "palm-right-bottom",
+    anchor: "bottom",
     at: { left: "78.83%", top: "70.60%", width: "21.17%", height: "9.42%" },
     origin: "origin-right",
-    deg: "3.2deg",
+    lift: LOUNGER_LIFT,
+    deg: "6deg",
     dur: "8.1s",
     delay: "-0.9s",
   },
   {
     name: "leaves-bottom",
+    anchor: "bottom",
     at: { left: "48.50%", top: "78.90%", width: "51.50%", height: "21.10%" },
     origin: "origin-bottom",
-    deg: "1.6deg",
+    deg: "3.2deg",
     dur: "11.4s",
     delay: "-4.3s",
   },
@@ -117,8 +134,21 @@ const FRONDS = [
 
 /** Chỗ đặt + biến gió của một tán — `.frond` trong app/globals.css đọc chỗ này. */
 function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
+  const top = parseFloat(frond.at.top);
+  const height = parseFloat(frond.at.height);
+  /* Khung cao hơn tranh nên lá không được định vị bằng % chiều cao khung:
+     `top`/`bottom` tính theo cqw từ mép lá thuộc về, `mid` đi theo khối chữ. */
+  const vertical: CSSProperties =
+    frond.anchor === "top"
+      ? { top: cq(top) }
+      : frond.anchor === "bottom"
+        ? { bottom: `calc(${cq(100 - top - height)} + ${"lift" in frond ? frond.lift : 0}cqw)` }
+        : { top: `calc(${cq(top)} + (100% - var(--art-h)) / 2)` };
   return {
-    ...frond.at,
+    left: frond.at.left,
+    width: frond.at.width,
+    height: cq(height),
+    ...vertical,
     "--frond-deg": frond.deg,
     "--frond-dur": frond.dur,
     "--frond-delay": frond.delay,
@@ -128,18 +158,23 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
 export function Time() {
   return (
     <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
-      <div className="stage-9x16">
+      <div className="stage-9x16 stage-tall">
         {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. */}
-        <Image
-          src={`${BASE}/loungers.webp`}
-          alt=""
-          aria-hidden
-          fill
-          sizes="(max-width: 48rem) 100vw, 30rem"
-          /* Lớp tranh đã đúng cỡ hiển thị — xem components/sections/Venue.tsx */
-          unoptimized
-          className="pointer-events-none z-10 select-none object-cover"
-        />
+        <div
+          className="stage-art stage-art-bottom z-10"
+          style={{ bottom: `${LOUNGER_LIFT}cqw` }}
+        >
+          <Image
+            src={`${BASE}/loungers.webp`}
+            alt=""
+            aria-hidden
+            fill
+            sizes="(max-width: 48rem) 100vw, 30rem"
+            /* Lớp tranh đã đúng cỡ hiển thị — xem components/sections/Venue.tsx */
+            unoptimized
+            className="select-none object-fill"
+          />
+        </div>
 
         {/*
           <h2> trần chứ không dùng <Heading>: Heading luôn kèm sẵn
@@ -149,7 +184,7 @@ export function Time() {
         */}
         <div
           className="absolute left-1/2 z-30 flex w-[84%] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-stack text-center"
-          style={{ top: TEXT_Y }}
+          style={{ top: `calc(${cq(TEXT_Y)} + (100% - var(--art-h)) / 2)` }}
         >
           <h2
             id="time-title"

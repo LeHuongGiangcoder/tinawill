@@ -122,12 +122,31 @@
     một biên độ, một nhịp, một độ trễ — xem `.frond` trong @layer components.
   */
   @keyframes glow-frond {
+    /* Không phải sin đều: gió đến thành từng cơn — nghiêng dần, một cú đẩy
+       mạnh, chững lại, hồi về chậm, rồi một nhịp rung nhỏ. Cuống quay quanh
+       gốc, đầu lá hơi nảy lên (translate) và phồng theo (scale) như lá thật
+       bị gió đỡ. */
     0%,
     100% {
-      transform: rotate(calc(var(--frond-deg) * -1));
+      transform: rotate(calc(var(--frond-deg) * -0.5)) translateY(0) scale(1);
     }
-    50% {
-      transform: rotate(var(--frond-deg));
+    16% {
+      transform: rotate(calc(var(--frond-deg) * 0.2)) translateY(-1px)
+        scale(1.004);
+    }
+    34% {
+      transform: rotate(var(--frond-deg)) translateY(-3px) scale(1.012);
+    }
+    46% {
+      transform: rotate(calc(var(--frond-deg) * 0.8)) translateY(-2px)
+        scale(1.008);
+    }
+    68% {
+      transform: rotate(calc(var(--frond-deg) * -0.9)) translateY(1px)
+        scale(0.998);
+    }
+    82% {
+      transform: rotate(calc(var(--frond-deg) * -0.6)) translateY(0) scale(1);
     }
   }
   @keyframes glow-nudge {
@@ -288,12 +307,13 @@ html {
     utility `origin-*` tại chỗ gọi: cuống đứng yên, chỉ đầu lá động — và mép
     khung không hở ra một vệt nền khi tán nghiêng.
 
-    Biên độ giữ nhỏ (quanh 1°): tán lá ở đây là tranh vẽ phủ kín bốn góc
-    khung, không phải một nhành hoa rời, nên quay nhiều là cả mảng tranh trượt
-    đi thấy rõ. Đây là gió, không phải cần gạt nước.
+    Biên độ vừa đủ thấy (3–6°, tán càng lớn càng nhỏ): quá nhỏ thì chuyển
+    động chìm đi, quá lớn thì cả mảng tranh trượt như cần gạt nước. Nhịp trong
+    keyframes cố ý không đều — xem `glow-frond`.
   */
   .frond {
-    animation: glow-frond var(--frond-dur, 8s) ease-in-out var(--frond-delay, 0s) infinite;
+    animation: glow-frond var(--frond-dur, 8s) cubic-bezier(0.45, 0.05, 0.55, 0.95) var(--frond-delay, 0s)
+      infinite;
     will-change: transform;
   }
 
@@ -322,9 +342,12 @@ html {
     border-radius: var(--t-radius-btn);
     background-color: var(--t-section-button);
     color: var(--t-section-button-text);
-    font-family: var(--t-font-body);
+    /* Font chữ của thiệp (IM Fell), không phải font sans của form: nút nằm
+       giữa tiêu đề viết tay và chữ serif, một font thẳng tắp ở đây lạc mood.
+       IM Fell chỉ có một độ đậm nên weight display — bold giả làm bết nét. */
+    font-family: var(--t-font-display);
     font-size: var(--t-text-action);
-    font-weight: var(--t-weight-body-bold);
+    font-weight: var(--t-weight-display);
     line-height: var(--t-leading-action);
     letter-spacing: var(--t-tracking-action);
     text-transform: none;
@@ -1453,6 +1476,41 @@ html {
     .stage-9x16 {
       max-width: 22rem;
     }
+  }
+
+  /*
+    Khung cao hơn 9/16 — cho cảnh cần thở. Tranh vẫn vẽ ở khổ 9/16 (cao
+    `--art-h` = 16/9 bề rộng khung), phần cao thêm là khoảng giấy trơn mà các
+    lớp tranh KHÔNG giãn ra lấp: mỗi lớp neo vào mép mình thuộc về (trên, dưới
+    hoặc giữa) nên lá ở góc vẫn ở góc, chỉ có khoảng giữa chữ và tranh rộng ra.
+
+    `min-height: 100svh` để trên điện thoại cảnh phủ đủ một màn.
+  */
+  .stage-tall {
+    --art-h: 177.78cqw;
+    aspect-ratio: 9 / 19.5;
+    min-height: 100svh;
+  }
+
+  /* Lớp tranh nguyên khung 9/16 đặt trong .stage-tall, neo theo mép. */
+  .stage-art {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: var(--art-h);
+    pointer-events: none;
+  }
+
+  .stage-art-top {
+    top: 0;
+  }
+
+  .stage-art-mid {
+    top: calc((100% - var(--art-h)) / 2);
+  }
+
+  .stage-art-bottom {
+    bottom: 0;
   }
 
   /* Một vòng nước lan ra từ tâm của khối cha. */

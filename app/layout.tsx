@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro, Cormorant_Garamond, Pinyon_Script } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 
 import { meta } from "@/content/client";
@@ -32,31 +32,19 @@ const script = localFont({
 });
 
 /*
-  Hai font đỡ cho tiếng Việt. IM Fell và Leckerli One không có `ơ ư đ` hay dấu
-  chồng, nên chúng đứng ngay sau trong stack ở content/theme.ts: trình duyệt
-  chỉ dùng tới ở đúng ký tự còn thiếu. Khách không tải thêm byte nào nếu trang
-  toàn chữ tiếng Anh — font chỉ tải khi có ký tự cần tới nó.
+  Font đỡ cho tiếng Việt — họ thứ ba và cuối cùng của site. IM Fell và Leckerli
+  One không có `ơ ư đ` hay dấu chồng, nên Cormorant Garamond đứng ngay sau
+  chúng trong stack ở content/theme.ts: trình duyệt chỉ dùng tới ở đúng ký tự
+  còn thiếu. Khách không tải thêm byte nào nếu trang toàn chữ tiếng Anh.
+
+  Site chỉ có ba họ chữ: Leckerli One (tiêu đề), IM Fell English (chữ chạy +
+  nghiêng) và Cormorant (chỉ dấu tiếng Việt). Đừng thêm họ thứ tư.
 */
 const displayVn = Cormorant_Garamond({
   variable: "--ff-display-vn",
   subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-const scriptVn = Pinyon_Script({
-  variable: "--ff-script-vn",
-  subsets: ["latin", "vietnamese"],
-  weight: "400",
-  display: "swap",
-});
-
-/* Chữ chạy trong trang: Be Vietnam Pro có đủ subset "vietnamese". */
-const body = Be_Vietnam_Pro({
-  variable: "--ff-body",
-  subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -86,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={meta.lang}
-      className={`${display.variable} ${body.variable} ${script.variable} ${displayVn.variable} ${scriptVn.variable}`}
+      className={`${display.variable} ${script.variable} ${displayVn.variable}`}
     >
       <head>
         {/* Token của content/theme.ts, in ra dưới dạng CSS variable */}
