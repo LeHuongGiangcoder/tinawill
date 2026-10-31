@@ -1,0 +1,38 @@
+:root { color-scheme: light; font-family: system-ui, sans-serif; color: #35412d; background: #f3f0e7; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { min-height: 100svh; max-width: 1100px; margin: auto; display: grid; grid-template-columns: minmax(300px, 450px) minmax(270px, 390px); gap: 70px; align-items: center; justify-content: center; padding: 24px; }
+.preview { display: flex; justify-content: center; }
+.phone { position: relative; width: min(390px, calc((100svh - 48px) * 9 / 16)); aspect-ratio: 9 / 16; overflow: hidden; background: #435139; box-shadow: 0 18px 65px #24331922; }
+.artboard { position: absolute; left: 0; top: 0; width: 1152px; height: 2048px; transform-origin: top left; overflow: hidden; isolation: isolate; }
+.water-window { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.water-belt { position: absolute; left: 0; top: 0; width: 1152px; height: 4096px; animation: river-flow 240s linear infinite; will-change: transform; }
+.water-belt img { display: block; width: 1152px; height: 2048px; }
+@keyframes river-flow { from { transform: translate3d(0,0,0); } to { transform: translate3d(0,-2048px,0); } }
+.sprite, .floater, .ripple { position: absolute; top: 0; left: 0; pointer-events: none; transform-origin: center; }
+.sprite img, .floater img, .ripple img { display: block; width: 100%; height: auto; }
+.full-layer { position: absolute; inset: 0; width: 1152px; height: 2048px; pointer-events: none; }
+.floater, .ripple { will-change: transform; }
+.invitation { position: absolute; z-index: 10000; left: 370px; top: 1020px; width: 450px; text-align: center; color: #3b4931; }
+.invitation p { font: italic 62px/1.2 Georgia, serif; margin: 0 0 48px; }
+.invitation button { color: #fff8e5; background: #84223d; border: 0; border-radius: 80px; font: 500 38px/1.1 system-ui, sans-serif; padding: 26px 40px; cursor: pointer; }
+aside h1 { font: 52px/1.05 Georgia, serif; letter-spacing: -1.5px; margin: 16px 0 22px; }
+aside p { font-size: 15px; line-height: 1.65; }
+.eyebrow { font-size: 10px; letter-spacing: 2.5px; font-weight: 700; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0; }
+aside button { border: 1px solid #a4ac98; background: transparent; padding: 11px 14px; border-radius: 5px; font: inherit; font-size: 13px; color: inherit; cursor: pointer; }
+aside button:hover { background: #e3e8d9; }
+aside label { display: block; font-size: 12px; }
+output { float: right; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; margin: 16px 0 0; accent-color: #52613e; }
+aside .hint, aside .small { font-size: 12px; color: #73796b; }
+.small { margin-top: 24px; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a54971; outline-offset: 4px; }
+@media (max-width: 720px) {
+  main { display: block; padding: 16px; }
+  .phone { width: min(420px, calc(100vw - 32px)); }
+  aside { max-width: 420px; margin: 32px auto; }
+  aside h1 { font-size: 40px; }
+}
+
+.camera-world { position:absolute; inset:0; width:1152px; height:2048px; transform-origin:576px 1065px; will-change:transform; }

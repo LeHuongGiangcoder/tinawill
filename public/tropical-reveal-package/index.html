@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tropical reveal · Animation reference</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <main>
+    <section class="preview" aria-label="Bản xem thử animation khu vườn">
+      <div class="phone" id="viewport">
+        <div class="artboard" id="artboard">
+          <div class="camera-world" id="camera-world">
+          <div class="water-window"><div class="water-belt" id="water-belt"></div></div>
+          <div id="scene"></div>
+          <div class="invitation" id="invitation">
+            <p>Giữa một khu vườn</p>
+            <button id="open" type="button">Mở lời mời</button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <aside>
+      <p class="eyebrow">GLOW · MOTION REFERENCE</p>
+      <h1>Khu vườn<br>mở lối.</h1>
+      <p>Camera hạ dần qua từng tầng tán lá trong 5 giây. Tới mặt sông, nước, hoa đăng và phao tiếp tục trôi nhẹ.</p>
+      <div class="actions">
+        <button id="replay" type="button">Phát lại</button>
+        <button id="end" type="button">Xem trạng thái mở</button>
+      </div>
+      <label for="scrub">Tiến trình mở <output id="progress-value">0%</output></label>
+      <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Tiến trình mở khu vườn">
+      <p class="hint">Kéo thanh để kiểm tra layering. Nước và các vật nổi tiếp tục chuyển động khi thanh đứng yên.</p>
+      <button id="motion" type="button" aria-pressed="false">Tạm dừng chuyển động nền</button>
+      <p class="small">Demo chạy độc lập, không cần thư viện hay kết nối mạng. Nội dung trên giấy là placeholder HTML.</p>
+    </aside>
+  </main>
+  <script src="scene-data.js"></script>
+  <script src="demo.js"></script>
+</body>
+</html>

@@ -108,13 +108,15 @@ export function LoveStory() {
               ))}
 
               {closing ? (
-                <p
+                /* Câu kết là điểm nhấn của trang: cùng bậc chữ với dòng dẫn
+                   của các section khác, màu nhấn, đứng giữa. */
+                <Subhead
                   data-reveal
                   data-reveal-delay={(paragraphs.length + 1) * 60}
-                  className="text-small italic text-tone-muted"
+                  className="mt-stack text-center"
                 >
                   {closing}
-                </p>
+                </Subhead>
               ) : null}
             </div>
           </div>

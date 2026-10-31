@@ -1,0 +1,1518 @@
+{
+  "version": "2.1-drone-balanced",
+  "canvas": {
+    "width": 1152,
+    "height": 2048,
+    "aspectRatio": "9:16",
+    "coordinates": "native pixels; scale the whole artboard once"
+  },
+  "revealDuration": 5.0,
+  "water": {
+    "asset": "assets/water/river-seamless.webp",
+    "png": "assets/water/river-seamless.png",
+    "period": 240,
+    "direction": "up",
+    "tileHeight": 2048,
+    "z": 0
+  },
+  "ground": {
+    "asset": "layers/canopy-ground.png",
+    "z": 500,
+    "fadeStart": 2.1591,
+    "fadeEnd": 4.0341
+  },
+  "paper": {
+    "asset": "layers/paper.png",
+    "z": 3000,
+    "fadeStart": 0.2557,
+    "fadeEnd": 1.0795
+  },
+  "elements": [
+    {
+      "id": "deep_left-01-banana",
+      "group": "deep_left",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1000,
+      "closed": {
+        "x": 435.1723,
+        "y": 352.1645,
+        "width": 460,
+        "rotation": 65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -814.8277,
+        "y": 352.1645,
+        "width": 460,
+        "rotation": 65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.3239,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": -60,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "deep_left-02-banana",
+      "group": "deep_left",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1001,
+      "closed": {
+        "x": 157.3139,
+        "y": 1628.935,
+        "width": 430,
+        "rotation": 25,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -1092.6861,
+        "y": 1628.935,
+        "width": 430,
+        "rotation": 25,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.3239,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": -60,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "deep_left-03-fan",
+      "group": "deep_left",
+      "asset": "assets/elements/fan.webp",
+      "png": "assets/elements/fan.png",
+      "rawSize": [
+        680,
+        485
+      ],
+      "z": 1002,
+      "closed": {
+        "x": 135.9449,
+        "y": 969.946,
+        "width": 840,
+        "rotation": 84,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -1114.0551,
+        "y": 969.946,
+        "width": 840,
+        "rotation": 84,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.3239,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": -60,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "deep_right-01-banana",
+      "group": "deep_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1100,
+      "closed": {
+        "x": 779.0505,
+        "y": 519.2817,
+        "width": 390,
+        "rotation": -55,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 2029.0505,
+        "y": 519.2817,
+        "width": 390,
+        "rotation": -55,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.4943,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "deep_right-02-banana",
+      "group": "deep_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1101,
+      "closed": {
+        "x": 664.7024,
+        "y": 394.1173,
+        "width": 450,
+        "rotation": -170,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1914.7024,
+        "y": 394.1173,
+        "width": 450,
+        "rotation": -170,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.4943,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "deep_right-03-banana",
+      "group": "deep_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 1102,
+      "closed": {
+        "x": 871.5404,
+        "y": 1545.797,
+        "width": 520,
+        "rotation": -35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 2121.5404,
+        "y": 1545.797,
+        "width": 520,
+        "rotation": -35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.4943,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "deep_right-04-fan",
+      "group": "deep_right",
+      "asset": "assets/elements/fan.webp",
+      "png": "assets/elements/fan.png",
+      "rawSize": [
+        680,
+        485
+      ],
+      "z": 1103,
+      "closed": {
+        "x": 1037.896,
+        "y": 1639.8668,
+        "width": 800,
+        "rotation": -73,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 2287.896,
+        "y": 1639.8668,
+        "width": 800,
+        "rotation": -73,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.4943,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.03,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "bank_left-01-banana",
+      "group": "bank_left",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2000,
+      "closed": {
+        "x": 96.2079,
+        "y": 575.9286,
+        "width": 280,
+        "rotation": 6,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -603.7921,
+        "y": 575.9286,
+        "width": 280,
+        "rotation": 6,
+        "flipX": false,
+        "opacity": 0
+      },
+      "reveal": {
+        "delay": 2.9261,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -60,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "bank_left-02-banana",
+      "group": "bank_left",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2001,
+      "closed": {
+        "x": 88.5068,
+        "y": 1108.6328,
+        "width": 300,
+        "rotation": 8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -22.993,
+        "y": 1147.707,
+        "width": 225,
+        "rotation": 18,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.9261,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -16.72497,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "bank_left-03-banana",
+      "group": "bank_left",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2002,
+      "closed": {
+        "x": 112.3126,
+        "y": 1848.1156,
+        "width": 280,
+        "rotation": 9,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -114.8392,
+        "y": 1922.7162,
+        "width": 230,
+        "rotation": 12,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.9261,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -34.07277,
+        "arcY": 0.0,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "bank_right-01-banana",
+      "group": "bank_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2100,
+      "closed": {
+        "x": 1018.6218,
+        "y": 502.9795,
+        "width": 280,
+        "rotation": -10,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1718.6218,
+        "y": 502.9795,
+        "width": 280,
+        "rotation": -10,
+        "flipX": false,
+        "opacity": 0
+      },
+      "reveal": {
+        "delay": 3.125,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "bank_right-02-banana",
+      "group": "bank_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2101,
+      "closed": {
+        "x": 1045.3266,
+        "y": 1067.7688,
+        "width": 310,
+        "rotation": -8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1248.6286,
+        "y": 1102.9119,
+        "width": 240,
+        "rotation": -18,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.125,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 30.495299999999986,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "bank_right-03-banana",
+      "group": "bank_right",
+      "asset": "assets/elements/banana.webp",
+      "png": "assets/elements/banana.png",
+      "rawSize": [
+        385,
+        1160
+      ],
+      "z": 2102,
+      "closed": {
+        "x": 1042.7087,
+        "y": 1809.7114,
+        "width": 300,
+        "rotation": -6,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1742.7087,
+        "y": 1809.7114,
+        "width": 300,
+        "rotation": -6,
+        "flipX": false,
+        "opacity": 0
+      },
+      "reveal": {
+        "delay": 3.125,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 60,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "bank_right-04-fan",
+      "group": "bank_right",
+      "asset": "assets/elements/fan.webp",
+      "png": "assets/elements/fan.png",
+      "rawSize": [
+        680,
+        485
+      ],
+      "z": 2103,
+      "closed": {
+        "x": 1096.4239,
+        "y": 649.0602,
+        "width": 560,
+        "rotation": -65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1121.4239,
+        "y": 649.0602,
+        "width": 560,
+        "rotation": -65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 3.125,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 3.75,
+        "arcY": 0.0,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "top_left-01-paired_leaves",
+      "group": "top_left",
+      "asset": "assets/elements/paired_leaves.webp",
+      "png": "assets/elements/paired_leaves.png",
+      "rawSize": [
+        257,
+        436
+      ],
+      "z": 4000,
+      "closed": {
+        "x": 147.1104,
+        "y": 396.8699,
+        "width": 320,
+        "rotation": 70,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 87.1104,
+        "y": 381.8699,
+        "width": 320,
+        "rotation": 70,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.2727,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -9.0,
+        "arcY": -13.5,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "top_left-02-mango",
+      "group": "top_left",
+      "asset": "assets/elements/mango.webp",
+      "png": "assets/elements/mango.png",
+      "rawSize": [
+        505,
+        467
+      ],
+      "z": 4001,
+      "closed": {
+        "x": 172.4726,
+        "y": 156.5003,
+        "width": 430,
+        "rotation": 8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 112.4726,
+        "y": 141.5003,
+        "width": 430,
+        "rotation": 8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.2727,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -9.0,
+        "arcY": -13.5,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "top_left-03-bracts_purple",
+      "group": "top_left",
+      "asset": "assets/elements/bracts_purple.webp",
+      "png": "assets/elements/bracts_purple.png",
+      "rawSize": [
+        276,
+        267
+      ],
+      "z": 4002,
+      "closed": {
+        "x": 410,
+        "y": 25,
+        "width": 225,
+        "rotation": -14,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 350,
+        "y": 10,
+        "width": 225,
+        "rotation": -14,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.2727,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -9.0,
+        "arcY": -13.5,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "top_left-04-bracts_pink",
+      "group": "top_left",
+      "asset": "assets/elements/bracts_pink.webp",
+      "png": "assets/elements/bracts_pink.png",
+      "rawSize": [
+        245,
+        237
+      ],
+      "z": 4003,
+      "closed": {
+        "x": 300,
+        "y": 150,
+        "width": 120,
+        "rotation": 31,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 240,
+        "y": 135,
+        "width": 120,
+        "rotation": 31,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.2727,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": -9.0,
+        "arcY": -13.5,
+        "bend": -0.525
+      }
+    },
+    {
+      "id": "top_right-01-frond",
+      "group": "top_right",
+      "asset": "assets/elements/frond.webp",
+      "png": "assets/elements/frond.png",
+      "rawSize": [
+        654,
+        893
+      ],
+      "z": 4100,
+      "closed": {
+        "x": 799.0743,
+        "y": 155.9856,
+        "width": 410,
+        "rotation": -165,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 849.0743,
+        "y": 120.9856,
+        "width": 410,
+        "rotation": -165,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.642,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 7.5,
+        "arcY": -13.5,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "top_right-02-hibiscus",
+      "group": "top_right",
+      "asset": "assets/elements/hibiscus.webp",
+      "png": "assets/elements/hibiscus.png",
+      "rawSize": [
+        352,
+        344
+      ],
+      "z": 4101,
+      "closed": {
+        "x": 1110,
+        "y": 125,
+        "width": 355,
+        "rotation": 28,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1160,
+        "y": 90,
+        "width": 355,
+        "rotation": 28,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.642,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 7.5,
+        "arcY": -13.5,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "top_right-03-bracts_pink",
+      "group": "top_right",
+      "asset": "assets/elements/bracts_pink.webp",
+      "png": "assets/elements/bracts_pink.png",
+      "rawSize": [
+        245,
+        237
+      ],
+      "z": 4102,
+      "closed": {
+        "x": 830,
+        "y": 330,
+        "width": 100,
+        "rotation": -26,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 880,
+        "y": 295,
+        "width": 100,
+        "rotation": -26,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 2.642,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 7.5,
+        "arcY": -13.5,
+        "bend": 0.525
+      }
+    },
+    {
+      "id": "mid_left-01-paired_leaves",
+      "group": "mid_left",
+      "asset": "assets/elements/paired_leaves.webp",
+      "png": "assets/elements/paired_leaves.png",
+      "rawSize": [
+        257,
+        436
+      ],
+      "z": 4200,
+      "closed": {
+        "x": 2.4645,
+        "y": 911.2435,
+        "width": 300,
+        "rotation": 75,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -132.5355,
+        "y": 906.2435,
+        "width": 300,
+        "rotation": 75,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.3352,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": -20.25,
+        "arcY": 0.0,
+        "bend": -1.2
+      }
+    },
+    {
+      "id": "mid_left-02-heliconia",
+      "group": "mid_left",
+      "asset": "assets/elements/heliconia.webp",
+      "png": "assets/elements/heliconia.png",
+      "rawSize": [
+        553,
+        741
+      ],
+      "z": 4201,
+      "closed": {
+        "x": -7.4805,
+        "y": 725.1598,
+        "width": 450,
+        "rotation": 25,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -142.4805,
+        "y": 720.1598,
+        "width": 450,
+        "rotation": 25,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.3352,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": -20.25,
+        "arcY": 0.0,
+        "bend": -1.2
+      }
+    },
+    {
+      "id": "mid_left-03-fan",
+      "group": "mid_left",
+      "asset": "assets/elements/fan.webp",
+      "png": "assets/elements/fan.png",
+      "rawSize": [
+        680,
+        485
+      ],
+      "z": 4202,
+      "closed": {
+        "x": 9.8514,
+        "y": 973.116,
+        "width": 560,
+        "rotation": 35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -125.1486,
+        "y": 968.116,
+        "width": 560,
+        "rotation": 35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.3352,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": -20.25,
+        "arcY": 0.0,
+        "bend": -1.2
+      }
+    },
+    {
+      "id": "mid_left-04-pineapple",
+      "group": "mid_left",
+      "asset": "assets/elements/pineapple.webp",
+      "png": "assets/elements/pineapple.png",
+      "rawSize": [
+        358,
+        572
+      ],
+      "z": 4203,
+      "closed": {
+        "x": 90,
+        "y": 1155,
+        "width": 245,
+        "rotation": -14,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -45,
+        "y": 1150,
+        "width": 245,
+        "rotation": -14,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.3352,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": -20.25,
+        "arcY": 0.0,
+        "bend": -1.2
+      }
+    },
+    {
+      "id": "mid_left-05-bracts_purple",
+      "group": "mid_left",
+      "asset": "assets/elements/bracts_purple.webp",
+      "png": "assets/elements/bracts_purple.png",
+      "rawSize": [
+        276,
+        267
+      ],
+      "z": 4204,
+      "closed": {
+        "x": 75,
+        "y": 485,
+        "width": 100,
+        "rotation": 18,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -60,
+        "y": 480,
+        "width": 100,
+        "rotation": 18,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.3352,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": -20.25,
+        "arcY": 0.0,
+        "bend": -1.2
+      }
+    },
+    {
+      "id": "mid_right-01-frond",
+      "group": "mid_right",
+      "asset": "assets/elements/frond.webp",
+      "png": "assets/elements/frond.png",
+      "rawSize": [
+        654,
+        893
+      ],
+      "z": 4300,
+      "closed": {
+        "x": 966.2871,
+        "y": 880.0026,
+        "width": 520,
+        "rotation": -28,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1101.2871,
+        "y": 880.0026,
+        "width": 520,
+        "rotation": -28,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.733,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": 20.25,
+        "arcY": 0.0,
+        "bend": 1.2
+      }
+    },
+    {
+      "id": "mid_right-02-plumeria",
+      "group": "mid_right",
+      "asset": "assets/elements/plumeria.webp",
+      "png": "assets/elements/plumeria.png",
+      "rawSize": [
+        262,
+        245
+      ],
+      "z": 4301,
+      "closed": {
+        "x": 935,
+        "y": 675,
+        "width": 245,
+        "rotation": -17,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1070,
+        "y": 675,
+        "width": 245,
+        "rotation": -17,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 1.733,
+        "duration": 1.4773,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.06,
+        "arcX": 20.25,
+        "arcY": 0.0,
+        "bend": 1.2
+      }
+    },
+    {
+      "id": "bottom_left-01-paired_leaves",
+      "group": "bottom_left",
+      "asset": "assets/elements/paired_leaves.webp",
+      "png": "assets/elements/paired_leaves.png",
+      "rawSize": [
+        257,
+        436
+      ],
+      "z": 4400,
+      "closed": {
+        "x": 140.2867,
+        "y": 1664.5223,
+        "width": 360,
+        "rotation": 68,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 35.2867,
+        "y": 1694.5223,
+        "width": 360,
+        "rotation": 68,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.75,
+        "arcY": 16.5,
+        "bend": -1.875
+      }
+    },
+    {
+      "id": "bottom_left-02-frond",
+      "group": "bottom_left",
+      "asset": "assets/elements/frond.webp",
+      "png": "assets/elements/frond.png",
+      "rawSize": [
+        654,
+        893
+      ],
+      "z": 4401,
+      "closed": {
+        "x": 191.6681,
+        "y": 2064.024,
+        "width": 660,
+        "rotation": 12,
+        "flipX": true,
+        "opacity": 1
+      },
+      "open": {
+        "x": 86.6681,
+        "y": 2094.024,
+        "width": 660,
+        "rotation": 12,
+        "flipX": true,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.750000000000002,
+        "arcY": 16.5,
+        "bend": -1.875
+      }
+    },
+    {
+      "id": "bottom_left-03-hibiscus",
+      "group": "bottom_left",
+      "asset": "assets/elements/hibiscus.webp",
+      "png": "assets/elements/hibiscus.png",
+      "rawSize": [
+        352,
+        344
+      ],
+      "z": 4402,
+      "closed": {
+        "x": 95,
+        "y": 1560,
+        "width": 435,
+        "rotation": 8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": -10,
+        "y": 1590,
+        "width": 435,
+        "rotation": 8,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.75,
+        "arcY": 16.5,
+        "bend": -1.875
+      }
+    },
+    {
+      "id": "bottom_left-04-bracts_pink",
+      "group": "bottom_left",
+      "asset": "assets/elements/bracts_pink.webp",
+      "png": "assets/elements/bracts_pink.png",
+      "rawSize": [
+        245,
+        237
+      ],
+      "z": 4403,
+      "closed": {
+        "x": 260,
+        "y": 1875,
+        "width": 110,
+        "rotation": -35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 155,
+        "y": 1905,
+        "width": 110,
+        "rotation": -35,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.75,
+        "arcY": 16.5,
+        "bend": -1.875
+      }
+    },
+    {
+      "id": "bottom_right-01-fan",
+      "group": "bottom_right",
+      "asset": "assets/elements/fan.webp",
+      "png": "assets/elements/fan.png",
+      "rawSize": [
+        680,
+        485
+      ],
+      "z": 4500,
+      "closed": {
+        "x": 1116.4465,
+        "y": 1587.723,
+        "width": 430,
+        "rotation": -65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1221.4465,
+        "y": 1607.723,
+        "width": 430,
+        "rotation": -65,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.7386,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": 15.75,
+        "arcY": 16.5,
+        "bend": 1.875
+      }
+    },
+    {
+      "id": "bottom_right-02-pomegranate",
+      "group": "bottom_right",
+      "asset": "assets/elements/pomegranate.webp",
+      "png": "assets/elements/pomegranate.png",
+      "rawSize": [
+        486,
+        368
+      ],
+      "z": 4501,
+      "closed": {
+        "x": 1030,
+        "y": 1760,
+        "width": 430,
+        "rotation": -13,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1135,
+        "y": 1780,
+        "width": 430,
+        "rotation": -13,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.7386,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": 15.75,
+        "arcY": 16.5,
+        "bend": 1.875
+      }
+    },
+    {
+      "id": "bottom_right-03-bracts_purple",
+      "group": "bottom_right",
+      "asset": "assets/elements/bracts_purple.webp",
+      "png": "assets/elements/bracts_purple.png",
+      "rawSize": [
+        276,
+        267
+      ],
+      "z": 4502,
+      "closed": {
+        "x": 1045,
+        "y": 1320,
+        "width": 105,
+        "rotation": 24,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1150,
+        "y": 1340,
+        "width": 105,
+        "rotation": 24,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.7386,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": 15.75,
+        "arcY": 16.5,
+        "bend": 1.875
+      }
+    },
+    {
+      "id": "lower_bract-01-bracts_pink",
+      "group": "lower_bract",
+      "asset": "assets/elements/bracts_pink.webp",
+      "png": "assets/elements/bracts_pink.png",
+      "rawSize": [
+        245,
+        237
+      ],
+      "z": 4600,
+      "closed": {
+        "x": 585,
+        "y": 1990,
+        "width": 145,
+        "rotation": 27,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1185,
+        "y": 2025,
+        "width": 145,
+        "rotation": 27,
+        "flipX": false,
+        "opacity": 1
+      },
+      "reveal": {
+        "delay": 0.2841,
+        "duration": 1.25,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": 60,
+        "arcY": 16.5,
+        "bend": 1.875
+      }
+    }
+  ],
+  "floaters": [
+    {
+      "id": "lantern-01",
+      "kind": "lantern",
+      "asset": "assets/floaters/lantern.webp",
+      "png": "assets/floaters/lantern.png",
+      "x": 381.0,
+      "y": 439.5,
+      "width": 80.0,
+      "height": 99.0,
+      "z": 200,
+      "drift": {
+        "period": 14,
+        "amplitudeX": 10,
+        "amplitudeY": 15,
+        "rotation": 2.2,
+        "phase": 0
+      },
+      "ripple": {
+        "asset": "assets/ripples/lantern.webp",
+        "x": 390,
+        "y": 440,
+        "width": 160,
+        "height": 155,
+        "period": 4.8
+      }
+    },
+    {
+      "id": "lantern-02",
+      "kind": "lantern",
+      "asset": "assets/floaters/lantern.webp",
+      "png": "assets/floaters/lantern.png",
+      "x": 796.781,
+      "y": 895.078,
+      "width": 77.5,
+      "height": 95.906,
+      "z": 200,
+      "drift": {
+        "period": 19,
+        "amplitudeX": 12,
+        "amplitudeY": 18,
+        "rotation": 2.2,
+        "phase": 2.1
+      },
+      "ripple": {
+        "asset": "assets/ripples/lantern.webp",
+        "x": 805,
+        "y": 895,
+        "width": 155,
+        "height": 150,
+        "period": 4.8
+      }
+    },
+    {
+      "id": "ring-01",
+      "kind": "ring",
+      "asset": "assets/floaters/ring.webp",
+      "png": "assets/floaters/ring.png",
+      "x": 641.894,
+      "y": 1327.045,
+      "width": 249.242,
+      "height": 234.394,
+      "z": 200,
+      "drift": {
+        "period": 23,
+        "amplitudeX": 17,
+        "amplitudeY": 23,
+        "rotation": 1.8,
+        "phase": 4.2
+      },
+      "ripple": {
+        "asset": "assets/ripples/ring.webp",
+        "x": 635,
+        "y": 1330,
+        "width": 350,
+        "height": 339,
+        "period": 6
+      }
+    },
+    {
+      "id": "lantern-03",
+      "kind": "lantern",
+      "asset": "assets/floaters/lantern.webp",
+      "png": "assets/floaters/lantern.png",
+      "x": 761.45,
+      "y": 1645.625,
+      "width": 76.0,
+      "height": 94.05,
+      "z": 200,
+      "drift": {
+        "period": 17,
+        "amplitudeX": 10,
+        "amplitudeY": 17,
+        "rotation": 2.2,
+        "phase": 1.3
+      },
+      "ripple": {
+        "asset": "assets/ripples/lantern.webp",
+        "x": 770,
+        "y": 1645,
+        "width": 152,
+        "height": 147,
+        "period": 4.8
+      }
+    }
+  ],
+  "camera": {
+    "scaleFrom": 1.0,
+    "scaleTo": 1.16,
+    "offsetY": -28,
+    "origin": [
+      576,
+      1065
+    ],
+    "ease": "smootherstep",
+    "start": 0,
+    "duration": 5.0
+  }
+}

@@ -1,0 +1,458 @@
+{
+  "canvas": [
+    1152,
+    2048
+  ],
+  "elements": [
+    {
+      "group": "deep_left",
+      "asset": "banana",
+      "cx": 435.1722685437136,
+      "cy": 352.16445954767306,
+      "width": 460,
+      "angle": -65,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_right",
+      "asset": "banana",
+      "cx": 779.0504546139323,
+      "cy": 519.2816617889182,
+      "width": 390,
+      "angle": 55,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_right",
+      "asset": "banana",
+      "cx": 664.7024136743681,
+      "cy": 394.1173374785907,
+      "width": 450,
+      "angle": 170,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_left",
+      "asset": "banana",
+      "cx": 157.3138743266239,
+      "cy": 1628.9350177383008,
+      "width": 430,
+      "angle": -25,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_right",
+      "asset": "banana",
+      "cx": 871.5403851129861,
+      "cy": 1545.7969882436937,
+      "width": 520,
+      "angle": 35,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_left",
+      "asset": "fan",
+      "cx": 135.9449353562859,
+      "cy": 969.9459762412843,
+      "width": 840,
+      "angle": -84,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "deep_right",
+      "asset": "fan",
+      "cx": 1037.8959924856513,
+      "cy": 1639.8667631695923,
+      "width": 800,
+      "angle": 73,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_left",
+      "asset": "banana",
+      "cx": 96.2079258108671,
+      "cy": 575.9285709598074,
+      "width": 280,
+      "angle": -6,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_left",
+      "asset": "banana",
+      "cx": 88.50677514369274,
+      "cy": 1108.632802400137,
+      "width": 300,
+      "angle": -8,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_left",
+      "asset": "banana",
+      "cx": 112.31262106243278,
+      "cy": 1848.1156334496472,
+      "width": 280,
+      "angle": -9,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right",
+      "asset": "banana",
+      "cx": 1018.6218034298364,
+      "cy": 502.9795426895639,
+      "width": 280,
+      "angle": 10,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right",
+      "asset": "banana",
+      "cx": 1045.326591325188,
+      "cy": 1067.768765873684,
+      "width": 310,
+      "angle": 8,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right",
+      "asset": "banana",
+      "cx": 1042.7087464744804,
+      "cy": 1809.7114007210107,
+      "width": 300,
+      "angle": 6,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right",
+      "asset": "fan",
+      "cx": 1096.423932626741,
+      "cy": 649.0601505114213,
+      "width": 560,
+      "angle": 65,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_left",
+      "asset": "paired_leaves",
+      "cx": 147.1104135989234,
+      "cy": 396.86990261662754,
+      "width": 320,
+      "angle": -70,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_left",
+      "asset": "mango",
+      "cx": 172.47259958901057,
+      "cy": 156.500299443777,
+      "width": 430,
+      "angle": -8,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_left",
+      "asset": "bracts_purple",
+      "cx": 410,
+      "cy": 25,
+      "width": 225,
+      "angle": 14,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_left",
+      "asset": "bracts_pink",
+      "cx": 300,
+      "cy": 150,
+      "width": 120,
+      "angle": -31,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_right",
+      "asset": "frond",
+      "cx": 799.0742566375568,
+      "cy": 155.98563480989645,
+      "width": 410,
+      "angle": 165,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_right",
+      "asset": "hibiscus",
+      "cx": 1110,
+      "cy": 125,
+      "width": 355,
+      "angle": -28,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "top_right",
+      "asset": "bracts_pink",
+      "cx": 830,
+      "cy": 330,
+      "width": 100,
+      "angle": 26,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_left",
+      "asset": "paired_leaves",
+      "cx": 2.464474605371663,
+      "cy": 911.2434969187148,
+      "width": 300,
+      "angle": -75,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_left",
+      "asset": "heliconia",
+      "cx": -7.4805334534233054,
+      "cy": 725.1597728292866,
+      "width": 450,
+      "angle": -25,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_left",
+      "asset": "fan",
+      "cx": 9.851359089952325,
+      "cy": 973.1160004777723,
+      "width": 560,
+      "angle": -35,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_left",
+      "asset": "pineapple",
+      "cx": 90,
+      "cy": 1155,
+      "width": 245,
+      "angle": 14,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_left",
+      "asset": "bracts_purple",
+      "cx": 75,
+      "cy": 485,
+      "width": 100,
+      "angle": -18,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_right",
+      "asset": "frond",
+      "cx": 966.2871241292005,
+      "cy": 880.0026345157377,
+      "width": 520,
+      "angle": 28,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "mid_right",
+      "asset": "plumeria",
+      "cx": 935,
+      "cy": 675,
+      "width": 245,
+      "angle": 17,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_left",
+      "asset": "paired_leaves",
+      "cx": 140.28674169134507,
+      "cy": 1664.522255750091,
+      "width": 360,
+      "angle": -68,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_left",
+      "asset": "frond",
+      "cx": 191.66809229160225,
+      "cy": 2064.0240394030984,
+      "width": 660,
+      "angle": -12,
+      "flip": true,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_left",
+      "asset": "hibiscus",
+      "cx": 95,
+      "cy": 1560,
+      "width": 435,
+      "angle": -8,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_left",
+      "asset": "bracts_pink",
+      "cx": 260,
+      "cy": 1875,
+      "width": 110,
+      "angle": 35,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_right",
+      "asset": "fan",
+      "cx": 1116.4464845022792,
+      "cy": 1587.7229729498906,
+      "width": 430,
+      "angle": 65,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_right",
+      "asset": "pomegranate",
+      "cx": 1030,
+      "cy": 1760,
+      "width": 430,
+      "angle": 13,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bottom_right",
+      "asset": "bracts_purple",
+      "cx": 1045,
+      "cy": 1320,
+      "width": 105,
+      "angle": -24,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "lower_bract",
+      "asset": "bracts_pink",
+      "cx": 585,
+      "cy": 1990,
+      "width": 145,
+      "angle": -27,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_left_open",
+      "asset": "banana",
+      "cx": 2.0069820027265024,
+      "cy": 1147.7070143875308,
+      "width": 225,
+      "angle": -18,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_left_open",
+      "asset": "banana",
+      "cx": -89.83921309313155,
+      "cy": 1922.7161945363835,
+      "width": 230,
+      "angle": -12,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right_open",
+      "asset": "banana",
+      "cx": 1223.6285997156847,
+      "cy": 1102.9119097309294,
+      "width": 240,
+      "angle": 18,
+      "flip": false,
+      "opacity": 1
+    },
+    {
+      "group": "bank_right_open",
+      "asset": "fan",
+      "cx": 1096.423932626741,
+      "cy": 649.0601505114213,
+      "width": 560,
+      "angle": 65,
+      "flip": false,
+      "opacity": 1
+    }
+  ],
+  "open_translations": {
+    "deep_left": [
+      -1250,
+      0
+    ],
+    "deep_right": [
+      1250,
+      0
+    ],
+    "bank_left": [
+      -25,
+      0
+    ],
+    "bank_right": [
+      25,
+      0
+    ],
+    "top_left": [
+      -60,
+      -15
+    ],
+    "top_right": [
+      50,
+      -35
+    ],
+    "mid_left": [
+      -135,
+      -5
+    ],
+    "mid_right": [
+      135,
+      0
+    ],
+    "bottom_left": [
+      -105,
+      30
+    ],
+    "bottom_right": [
+      105,
+      20
+    ],
+    "lower_bract": [
+      600,
+      35
+    ]
+  },
+  "open_layer_overrides": {
+    "bank_left": "bank_left_open",
+    "bank_right": "bank_right_open"
+  }
+}
