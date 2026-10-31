@@ -101,14 +101,14 @@ const ASSET_SWAP = {
 /* Sprite thêm vào: mượn nhịp mở và quỹ đạo của `ref`, dịch trạng thái mở theo
    `exit` (px artboard) để chúng thoát ra cùng cú mở tán. */
 const EXTRA = [
-  { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 905, y: 1280, width: 290, rotation: 5 } },
+  { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 915, y: 1285, width: 235, rotation: 5 } },
   { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
   { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 470, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
   { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
 ];
 
-/* Xoài đứng lớp đầu tiên của nhóm tán lá (dưới lá và bract đè lên). */
-const Z_OVERRIDE = { "top_left-02-mango": 3999 };
+/* Xoài nằm lớp trên cùng của cảnh, không lá nào che. */
+const Z_OVERRIDE = { "top_left-02-mango": 5000 };
 
 /* Bỏ bớt lá và bract ở đáy giữa cho đỡ rối. */
 const DROP = new Set(["bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
@@ -146,7 +146,10 @@ const withExtras = (list) => {
       open: { ...c, x: c.x + dx, y: c.y + dy, width: c.width * (r.open.width / r.closed.width), rotation: c.rotation + (r.open.rotation - r.closed.rotation) },
     };
   });
-  return [...list, ...extras].filter((e) => !DROP.has(e.id));
+  /* Hero mở ra chỉ còn nền giấy: mọi lá, hoa, quả tan hết theo cú mở tán. */
+  return [...list, ...extras]
+    .filter((e) => !DROP.has(e.id))
+    .map((e) => ({ ...e, open: { ...e.open, opacity: 0 } }));
 };
 
 const scene = {

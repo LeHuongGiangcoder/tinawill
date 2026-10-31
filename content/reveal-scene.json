@@ -72,7 +72,7 @@
         "width": 460,
         "rotation": 65,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -108,7 +108,7 @@
         "width": 430,
         "rotation": 25,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -144,7 +144,7 @@
         "width": 840,
         "rotation": 84,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -180,7 +180,7 @@
         "width": 390,
         "rotation": -55,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -216,7 +216,7 @@
         "width": 450,
         "rotation": -170,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -252,7 +252,7 @@
         "width": 520,
         "rotation": -35,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -324,7 +324,7 @@
         "width": 225,
         "rotation": 18,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -360,7 +360,7 @@
         "width": 230,
         "rotation": 12,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -432,7 +432,7 @@
         "width": 240,
         "rotation": -18,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -504,7 +504,7 @@
         "width": 560,
         "rotation": -65,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -540,7 +540,7 @@
         "width": 320,
         "rotation": 70,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -550,7 +550,7 @@
         900,
         822
       ],
-      "z": 3999,
+      "z": 5000,
       "reveal": {
         "delay": 2.2727,
         "duration": 1.4205,
@@ -576,7 +576,7 @@
         "width": 430,
         "rotation": 8,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -612,7 +612,7 @@
         "width": 410,
         "rotation": -165,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -648,7 +648,7 @@
         "width": 355,
         "rotation": 28,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -684,7 +684,7 @@
         "width": 100,
         "rotation": -26,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -720,7 +720,7 @@
         "width": 300,
         "rotation": 75,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -756,7 +756,7 @@
         "width": 450,
         "rotation": 25,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -792,7 +792,7 @@
         "width": 560,
         "rotation": 35,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -828,7 +828,7 @@
         "width": 245,
         "rotation": -14,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -864,7 +864,7 @@
         "width": 100,
         "rotation": 18,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -900,7 +900,7 @@
         "width": 520,
         "rotation": -28,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -936,7 +936,7 @@
         "width": 245,
         "rotation": -17,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -972,7 +972,7 @@
         "width": 360,
         "rotation": 68,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -1008,7 +1008,7 @@
         "width": 660,
         "rotation": 12,
         "flipX": true,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -1044,7 +1044,7 @@
         "width": 435,
         "rotation": 8,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -1080,7 +1080,7 @@
         "width": 430,
         "rotation": -13,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -1103,20 +1103,20 @@
         "bend": 1.2
       },
       "closed": {
-        "x": 905,
-        "y": 1280,
-        "width": 290,
+        "x": 915,
+        "y": 1285,
+        "width": 235,
         "rotation": 5,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1040,
-        "y": 1280,
-        "width": 247.5609756097561,
+        "x": 1050,
+        "y": 1285,
+        "width": 200.60975609756096,
         "rotation": -12,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     },
     {
@@ -1152,7 +1152,7 @@
         "width": 420,
         "rotation": 0,
         "flipX": false,
-        "opacity": 1
+        "opacity": 0
       }
     }
   ],
