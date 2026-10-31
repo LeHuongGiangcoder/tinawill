@@ -1770,7 +1770,9 @@ html {
     top: var(--cover-y);
     width: var(--cover-w);
     height: var(--cover-h);
-    padding-inline: 12%;
+    /* Lệch sang trái: tàu lá tiền cảnh gác lên mép phải tờ giấy, chữ né nó ra. */
+    padding-left: 8%;
+    padding-right: 18%;
     transform: translate(-50%, -50%);
     container-type: inline-size;
   }
