@@ -20,17 +20,21 @@ export function Hero() {
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
         <TropicalReveal />
 
-        <div className="container-site relative z-20 flex flex-col items-center gap-stack text-center">
-          <div
-            data-reveal
-            data-hero
-            aria-hidden
-            className="glyph h-20 w-20 text-beige"
-            style={{ "--glyph": "url(/logo/monogram.webp)" } as CSSProperties}
-          />
-          <p data-reveal data-hero className="whitespace-pre-line font-script text-h3 text-beige">
-            {hero.invitation}
-          </p>
+        <div className="container-site relative z-20 flex flex-col items-center gap-stack pb-section text-center">
+          <div className="-translate-y-10">
+            <div
+              data-reveal
+              data-hero
+              aria-hidden
+              className="glyph h-20 w-20 text-beige"
+              style={{ "--glyph": "url(/logo/monogram.webp)" } as CSSProperties}
+            />
+          </div>
+          <div className="-translate-y-5">
+            <p data-reveal data-hero className="whitespace-pre-line font-script text-h3 text-beige">
+              {hero.invitation}
+            </p>
+          </div>
 
           <Heading
             level="display"
