@@ -1649,10 +1649,12 @@ html {
     mắt đọc ra "chỗ để điền" chứ không phải thêm một dòng ghi chú nữa.
 
     Chỉ co cỡ chữ của placeholder: cỡ chữ của ô vẫn >= 16px nên iOS không
-    phóng trang. Màu là chữ phụ của tông chứ không hạ opacity của chữ.
+    phóng trang. Màu nhạt hơn chữ phụ một bậc.
   */
   .field-input::placeholder {
-    color: var(--t-section-muted);
+    /* Pha chữ phụ với nền giấy cho nhạt hơn ghi chú — vẫn là một màu đặc, không
+       phải hạ opacity. 70% giữ độ tương phản đủ đọc trên giấy beige. */
+    color: color-mix(in srgb, var(--t-section-muted) 70%, var(--t-section-bg));
     font-style: italic;
     font-size: var(--t-text-small);
     opacity: 1;
