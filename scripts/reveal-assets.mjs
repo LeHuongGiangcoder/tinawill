@@ -79,7 +79,7 @@ const box = {
 const CANVA_CLOSED = {
   "mid_left-04-pineapple": { x: 225, y: 1190, width: 250, rotation: 0 },
   "top_left-02-mango": { x: 235, y: 212, width: 470, rotation: 6 },
-  "bottom_left-03-hibiscus": { x: 173.8, y: 1506.1, width: 449.8 },
+  "bottom_left-03-hibiscus": { x: 160, y: 1506.1, width: 370 },
   "bottom_left-02-frond": { x: 230, y: 1960, width: 900 },
   "top_right-02-hibiscus": { x: 1042.3, y: 152.6, width: 353.2, flipX: true },
   "mid_right-02-plumeria": { x: 629.1, y: 679.4, width: 287.0, rotation: 0 },

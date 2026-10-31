@@ -1031,15 +1031,15 @@
         "bend": -1.875
       },
       "closed": {
-        "x": 173.8,
+        "x": 160,
         "y": 1506.1,
-        "width": 449.8,
+        "width": 370,
         "rotation": 8,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 68.80000000000001,
+        "x": 55,
         "y": 1536.1,
         "width": 435,
         "rotation": 8,
