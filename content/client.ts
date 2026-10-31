@@ -796,8 +796,11 @@ export const dresscode = {
       label: "Welcome Dinner & Farewell Brunch",
       body: "Smart casual, palette optional.",
     },
+    {
+      label: "What to avoid",
+      body: "Please avoid white, ivory and very pale pastels.",
+    },
   ],
-  avoid: "Please avoid white, ivory and very pale pastels.",
 };
 
 /* ------------------------------------------------------------------- RSVP */
@@ -830,12 +833,9 @@ export const rsvp = {
       yes: "Joyfully accepts",
       no: "Regretfully declines",
     },
-    companion: {
-      label: "Will you bring a guest?",
-      options: ["Just me", "Yes, with my partner / family"],
-    },
     roomSharing: {
-      label: "Room-sharing preferences",
+      label: "Do you have any room-sharing preferences?",
+      hint: "We wanted our wedding to be as intimate as possible, so unfortunately we cannot accommodate plus-ones.",
       placeholder: "Who you'd like to share a room with, if anyone",
     },
     extendStay: {

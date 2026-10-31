@@ -1488,6 +1488,9 @@ html {
   */
   .stage-tall {
     --art-h: 177.78cqw;
+    /* Lá vẽ trọn dài quá mép khung — phần thừa phải bị cắt, không được lòi ra
+       ngoài tấm thiệp trên màn rộng. */
+    overflow: clip;
     aspect-ratio: 9 / 19.5;
     min-height: 100svh;
   }

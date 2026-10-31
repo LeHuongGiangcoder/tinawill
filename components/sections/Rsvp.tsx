@@ -36,7 +36,6 @@ export function Rsvp() {
   const { guest } = useGuest();
   const [status, setStatus] = useState<Status>("idle");
   const [attending, setAttending] = useState<"yes" | "no">("yes");
-  const [companion, setCompanion] = useState(rsvp.fields.companion.options[0]);
   const [hasDietary, setHasDietary] = useState(false);
 
   const personalized = rsvp.mode === "personalized";
@@ -51,7 +50,6 @@ export function Rsvp() {
     const values: Record<string, string> = {
       name: guest?.name ?? String(data.get("name") ?? "").trim(),
       attending,
-      companion: going ? companion : "",
       roomSharing: going ? String(data.get("roomSharing") ?? "").trim() : "",
       extendStay: going ? String(data.get("extendStay") ?? "").trim() : "",
       dietary: going
@@ -162,7 +160,7 @@ export function Rsvp() {
                 </Field>
               )}
 
-              <fieldset className="flex flex-col gap-tight">
+              <fieldset className="flex flex-col">
                 <FieldLabel as="legend">{fields.attending.label}</FieldLabel>
                 <Choice
                   name="attending"
@@ -184,24 +182,11 @@ export function Rsvp() {
 
               {going ? (
                 <>
-                  <fieldset className="flex flex-col gap-tight">
-                    <FieldLabel as="legend">
-                      {fields.companion.label}
-                    </FieldLabel>
-                    {fields.companion.options.map((option) => (
-                      <Choice
-                        key={option}
-                        name="companion"
-                        value={option}
-                        checked={companion === option}
-                        onChange={() => setCompanion(option)}
-                      >
-                        {option}
-                      </Choice>
-                    ))}
-                  </fieldset>
-
-                  <Field label={fields.roomSharing.label} htmlFor="rsvp-room">
+                  <Field
+                    label={fields.roomSharing.label}
+                    hint={fields.roomSharing.hint}
+                    htmlFor="rsvp-room"
+                  >
                     <input
                       id="rsvp-room"
                       name="roomSharing"
@@ -221,7 +206,7 @@ export function Rsvp() {
                     />
                   </Field>
 
-                  <fieldset className="flex flex-col gap-tight">
+                  <fieldset className="flex flex-col">
                     <FieldLabel as="legend">{fields.dietary.label}</FieldLabel>
                     <Choice
                       name="dietary"

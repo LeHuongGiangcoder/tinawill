@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Disclosure } from "@/components/ui/Disclosure";
-import { Caption, SectionHead } from "@/components/ui/Heading";
+import { SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { dresscode } from "@/content/client";
@@ -17,7 +17,7 @@ import { dresscode } from "@/content/client";
  * khách cầm đi may áo dài hay đưa cho thợ. Bảng màu xếp ba cột trên điện
  * thoại, sáu cột từ sm trở lên.
  *
- * Sáu khối gợi ý là khối gập (components/ui/Disclosure.tsx): mở hết ra thì
+ * Các khối gợi ý là khối gập (components/ui/Disclosure.tsx): mở hết ra thì
  * section dài hơn hai màn điện thoại và khách phải cuộn qua một bức tường
  * chữ mới tới phần tiếp theo. Khối đầu mở sẵn để thấy ngay đây là thứ bấm
  * vào được.
@@ -77,12 +77,6 @@ export function Dresscode() {
               </Reveal>
             ))}
           </div>
-        ) : null}
-
-        {dresscode.avoid ? (
-          <Reveal delay={120} className="mt-block flex justify-center">
-            <Caption className="text-center">{dresscode.avoid}</Caption>
-          </Reveal>
         ) : null}
       </div>
 

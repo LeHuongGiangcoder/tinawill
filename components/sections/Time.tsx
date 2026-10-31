@@ -57,12 +57,16 @@ const cq = (pct: number) => `${((pct * ART_CQW) / 100).toFixed(2)}cqw`;
 /**
  * Sáu tán lá, mỗi tán một lớp để gió thổi riêng.
  *
- * `at` in ra bởi `node scripts/time-foliage.mjs` — phần trăm của khung, cắt
- * sát nét vẽ. Chạy lại script thì chép bảng mới vào đây, đừng sửa tay.
+ * Năm tán đầu là ảnh VẼ TRỌN khách gửi (new1..5.png, dựng bằng
+ * `node scripts/time-fronds.mjs`): đặt đúng chỗ các bản cắt cũ từng đứng, phần
+ * thừa nằm ngoài khung và bị `.stage-9x16` clip. Nhờ vậy tán đung đưa không
+ * lộ mép cắt. `at` là phần trăm của khung 1200×2133. Tán `leaves-bottom` vẫn
+ * là bản cắt cũ từ `scripts/time-foliage.mjs`.
  *
  * Ba con số còn lại là phần đặt tay, và chúng đi cùng `origin`:
  *
- *   origin  chỗ tán dính vào mép khung — cuống đứng yên, chỉ đầu lá động
+ *   origin  tâm quay, đo trong chính ảnh tán — gốc cuống / giữa cây, nơi tán
+ *           bám vào khung; cuống đứng yên, chỉ đầu lá động
  *   deg     biên độ; tán càng lớn càng nhỏ biên độ, vì đầu lá ở xa gốc quay
  *           nên cùng một góc mà tán lớn quét đi xa hơn nhiều
  *   dur     nhịp đi–về; lệch nhau vài trăm ms là cả cụm hết thổi đều như máy
@@ -77,8 +81,8 @@ const FRONDS = [
   {
     name: "branch-top",
     anchor: "top",
-    at: { left: "0.00%", top: "0.00%", width: "45.41%", height: "32.99%" },
-    origin: "origin-top-left",
+    at: { left: "-18.50%", top: "-10.27%", width: "54.08%", height: "39.29%" },
+    origin: "37% 44%",
     deg: "4.2deg",
     dur: "9.2s",
     delay: "-1.4s",
@@ -86,8 +90,8 @@ const FRONDS = [
   {
     name: "frond-left",
     anchor: "mid",
-    at: { left: "0.00%", top: "38.02%", width: "18.42%", height: "11.02%" },
-    origin: "origin-left",
+    at: { left: "-6.00%", top: "38.82%", width: "25.08%", height: "9.42%" },
+    origin: "23% 87%",
     deg: "6deg",
     dur: "6.7s",
     delay: "-0.6s",
@@ -95,8 +99,8 @@ const FRONDS = [
   {
     name: "leaves-left",
     anchor: "bottom",
-    at: { left: "0.00%", top: "47.12%", width: "37.17%", height: "52.88%" },
-    origin: "origin-bottom-left",
+    at: { left: "-25.33%", top: "45.57%", width: "66.58%", height: "56.17%" },
+    origin: "40% 85%",
     deg: "2.8deg",
     dur: "10.5s",
     delay: "-3.1s",
@@ -104,8 +108,8 @@ const FRONDS = [
   {
     name: "palm-right-top",
     anchor: "bottom",
-    at: { left: "77.92%", top: "61.79%", width: "22.08%", height: "7.74%" },
-    origin: "origin-right",
+    at: { left: "78.00%", top: "62.03%", width: "27.83%", height: "7.83%" },
+    origin: "96% 67%",
     lift: LOUNGER_LIFT,
     deg: "6.5deg",
     dur: "7.3s",
@@ -114,8 +118,8 @@ const FRONDS = [
   {
     name: "palm-right-bottom",
     anchor: "bottom",
-    at: { left: "78.83%", top: "70.60%", width: "21.17%", height: "9.42%" },
-    origin: "origin-right",
+    at: { left: "78.25%", top: "71.59%", width: "24.58%", height: "6.24%" },
+    origin: "98% 66%",
     lift: LOUNGER_LIFT,
     deg: "6deg",
     dur: "8.1s",
@@ -125,7 +129,7 @@ const FRONDS = [
     name: "leaves-bottom",
     anchor: "bottom",
     at: { left: "48.50%", top: "78.90%", width: "51.50%", height: "21.10%" },
-    origin: "origin-bottom",
+    origin: "50% 100%",
     deg: "3.2deg",
     dur: "11.4s",
     delay: "-4.3s",
@@ -149,6 +153,7 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
     width: frond.at.width,
     height: cq(height),
     ...vertical,
+    transformOrigin: frond.origin,
     "--frond-deg": frond.deg,
     "--frond-dur": frond.dur,
     "--frond-delay": frond.delay,
@@ -248,7 +253,7 @@ export function Time() {
           <div
             key={frond.name}
             aria-hidden
-            className={`pointer-events-none absolute z-20 ${frond.origin} frond`}
+            className="pointer-events-none absolute z-20 frond"
             style={frondStyle(frond)}
           >
             <Image

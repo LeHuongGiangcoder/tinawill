@@ -10,9 +10,11 @@ export function FieldLabel({
   as?: "label" | "legend";
   children: ReactNode;
 }) {
-  const className = "font-body text-eyebrow font-medium uppercase text-tone-muted";
+  /* Câu hỏi là một câu hoàn chỉnh, có khi xuống hai dòng — chữ thường, không
+     giãn chữ, `text-pretty` để không mồ côi một chữ ở dòng cuối. */
+  const className = "font-body text-base text-tone-fg text-pretty";
   return Tag === "legend" ? (
-    <legend className={className}>{children}</legend>
+    <legend className={`${className} pb-tight`}>{children}</legend>
   ) : (
     <label htmlFor={htmlFor} className={className}>
       {children}
@@ -20,19 +22,22 @@ export function FieldLabel({
   );
 }
 
-/** Một ô nhập: nhãn trên, ô dưới. */
+/** Một ô nhập: nhãn trên, (ghi chú nhỏ), ô dưới. */
 export function Field({
   label,
+  hint,
   htmlFor,
   children,
 }: {
   label: string;
+  hint?: string;
   htmlFor: string;
   children: ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-tight">
       <FieldLabel htmlFor={htmlFor}>{label}</FieldLabel>
+      {hint ? <p className="text-small text-tone-muted">{hint}</p> : null}
       {children}
     </div>
   );
