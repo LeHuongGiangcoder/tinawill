@@ -1751,6 +1751,14 @@ html {
     background-color: var(--t-color-forest-deep);
   }
 
+  /* Điện thoại dọc: artboard đã phủ kín khung nên không cần dải nền rộng 300%.
+     Lớp này ở @3x có backing store hàng chục MB, đủ làm Safari iPhone 13 đóng tab. */
+  @media (max-aspect-ratio: 9/16) {
+    .scene-veil {
+      display: none;
+    }
+  }
+
   /* Lớp tranh nguyên khung artboard. */
   .scene-plate {
     position: absolute;

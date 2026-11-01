@@ -76,7 +76,7 @@ export function TropicalReveal() {
       const seconds = authored(progress);
 
       const cameraT = ease((seconds - camera.start) / camera.duration) * (reduced ? 0.2 : 1);
-      world.style.transform = `translate3d(0, ${camera.offsetY * cameraT}px, 0) scale(${lerp(camera.scaleFrom, camera.scaleTo, cameraT)})`;
+      world.style.transform = `translate(0, ${camera.offsetY * cameraT}px) scale(${lerp(camera.scaleFrom, camera.scaleTo, cameraT)})`;
 
       elements.forEach((e, i) => {
         const node = sprites[i];
@@ -90,7 +90,7 @@ export function TropicalReveal() {
         const opacity = lerp(a.opacity, b.opacity, t);
         node.style.opacity = String(opacity);
         node.style.visibility = opacity === 0 ? "hidden" : "";
-        node.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${rotation}deg) scale(${a.flipX ? -size : size}, ${size})`;
+        node.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotation}deg) scale(${a.flipX ? -size : size}, ${size})`;
       });
 
       /* Hai lớp này tan theo cú mở: nền tán lá rồi tới tờ giấy. Chúng là nền
