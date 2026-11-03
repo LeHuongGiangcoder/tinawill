@@ -306,7 +306,9 @@ export const ceremony = {
 };
 
 export const venue = {
-  name: "NHAAN Resort & Spa Hoi An",
+  /* ` ` giữ "Hoi An" liền một cụm: tên phải xuống dòng thì gãy sau "Spa",
+     không để chữ "An" đứng lẻ một dòng. */
+  name: "NHAAN Resort & Spa Hoi An",
   hall: "Tapestry Collection by Hilton",
   address: "Vong Nhi Village, Hoi An Dong Ward, Da Nang City, Vietnam",
   /** TODO: thay bằng link Maps ghim sẵn khi khách gửi. */
