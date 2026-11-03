@@ -322,7 +322,7 @@ export const intro = {
   /** Nhãn cho trình đọc màn hình — tấm giấy không in dòng này ra. */
   label: "Wedding invitation of Tina and Will",
   /** Dòng viết tay trên tờ giấy giữa tán lá. */
-  title: "Update!",
+  title: "Hi:)!",
   note: "We want to share some special news with you.",
   /** Nút mở thiệp. Chính cú chạm này bật nhạc — xem ExperienceProvider. */
   cta: "Spill the tea",
