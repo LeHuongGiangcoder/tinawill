@@ -13,9 +13,8 @@ import { venue, venueScene } from "@/content/client";
  * mọi khổ màn; bốn lớp còn lại nằm trong khung 9/16 (.stage-9x16) để trên
  * desktop cảnh thành một tấm áp phích dọc thay vì bị cắt còn một dải giữa.
  *
- * Chữ là chữ thật, không nằm trong tranh: cỡ và chỗ đặt lấy theo bản Canva
- * (phần trăm của khung 1080×1920), nhưng đi qua thang `stage-*` trong
- * content/theme.ts nên nó co giãn cùng tranh.
+ * Chữ là chữ thật, không nằm trong tranh: chỗ đặt lấy theo bản Canva
+ * (phần trăm của khung 1080×1920), còn cỡ chữ đi theo hệ chữ chung (`type-*`).
  *
  * Bộ asset gốc ~41MB nằm ngoài git; bản dùng thật là WebP 0.4MB trong
  * public/venue, dựng lại bằng `node scripts/venue-assets.mjs` (rồi
@@ -111,7 +110,7 @@ export function Venue() {
         <h2
           id="venue-title"
           data-reveal
-          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center font-script text-stage-title text-tone-fg"
+          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center type-title text-tone-fg"
           style={{ top: TITLE_TOP }}
         >
           {venueScene.title}
@@ -128,15 +127,15 @@ export function Venue() {
           className="absolute left-1/2 z-40 flex w-[62%] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-tight text-center"
           style={{ top: COLUMN_TOP }}
         >
-          <p data-reveal className="font-display text-stage-lead italic text-tone-fg">
+          <p data-reveal className="type-sub-body text-tone-fg">
             {venue.hall}
           </p>
 
-          <p data-reveal data-reveal-delay="90" className="font-display text-stage-heading text-tone-fg">
+          <p data-reveal data-reveal-delay="90" className="type-subtitle text-tone-fg">
             {venue.name}
           </p>
 
-          <p data-reveal data-reveal-delay="180" className="font-display text-stage-caption italic text-tone-muted">
+          <p data-reveal data-reveal-delay="180" className="type-sub-body text-tone-muted">
             {venueScene.cityLine}
           </p>
 

@@ -19,9 +19,8 @@ import { googleCalendarUrl } from "@/lib/calendar";
  * TRÊN chữ — nhành lá góc trái trên liếm qua chữ "S" của "Save", và tàu cọ
  * bên trái cắt qua mép ghế.
  *
- * Chữ là chữ thật: cỡ và chỗ đặt lấy theo bản Canva (phần trăm của khung
- * 1080×1920) nhưng đi qua thang `stage-*` trong content/theme.ts nên nó co
- * giãn cùng tranh.
+ * Chữ là chữ thật: chỗ đặt lấy theo bản Canva (phần trăm của khung
+ * 1080×1920), còn cỡ chữ đi theo hệ chữ chung (`type-*`) như mọi trang khác.
  *
  * Bản dùng thật là WebP 0.24MB trong public/time, dựng lại bằng
  * `node scripts/time-assets.mjs`.
@@ -36,8 +35,8 @@ const FRAME = { w: 1080, h: 1920 };
    (mép dưới viên thuốc), nên nó neo theo TÂM — 682/1920.
 
    Neo cả cụm bằng một cột chứ không đặt từng dòng theo đúng toạ độ Canva là
-   có chủ ý. Thang `stage-*` có sàn tính bằng rem để chữ còn đọc được trên máy
-   hẹp, nên trên điện thoại đoạn giới thiệu dài ra bảy dòng thay vì bốn như
+   có chủ ý. Chữ đi theo hệ chữ chung chứ không co theo tranh, nên trên điện
+   thoại đoạn giới thiệu dài ra nhiều dòng hơn hẳn bốn dòng như
    bản vẽ. Đặt từng dòng theo toạ độ thì tiêu đề và đoạn chữ chồng lên nhau;
    một cột thì nhịp giãn ra hai đầu và không dòng nào đè dòng nào.
 
@@ -176,7 +175,7 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
 export function Time() {
   return (
     <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
-      <div className="stage-9x16 stage-tall">
+      <div className="stage-9x16 stage-tall stage-roomy">
         {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. */}
         <div
           className="stage-art stage-art-bottom z-10"
@@ -207,7 +206,7 @@ export function Time() {
           <h2
             id="time-title"
             data-reveal
-            className="font-script text-stage-title text-tone-fg"
+            className="type-title text-tone-fg"
           >
             {timeScene.title}
           </h2>
@@ -215,22 +214,14 @@ export function Time() {
           <p
             data-reveal
             data-reveal-delay="90"
-            className="w-[92%] font-display text-stage-lead text-tone-fg"
+            className="type-body w-[92%] text-tone-fg"
           >
             {timeScene.intro}
           </p>
 
           <div className="flex flex-col items-center gap-tight">
-            <p data-reveal data-reveal-delay="180" className="font-display text-stage-heading text-tone-fg">
+            <p data-reveal data-reveal-delay="180" className="type-subtitle text-tone-fg">
               {ceremony.dateShort}
-            </p>
-
-            <p
-              data-reveal
-              data-reveal-delay="240"
-              className="font-display text-stage-caption italic text-tone-fg"
-            >
-              {ceremony.weekday} {ceremony.timeLabel}
             </p>
 
             {/* Viên thuốc vàng nghệ chữ rượu vang — cặp màu nút của tông

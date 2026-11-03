@@ -98,7 +98,7 @@ export function LoveStory() {
               ) : null}
             </div>
 
-            <div className="flex flex-col gap-stack">
+            <div className="page-frame-text flex flex-col gap-stack">
               {paragraphs.map((text, i) => (
                 /* <p> trần: chữ thân bài của site là font body ở bậc `base`,
                    căn trái — giống Travel, Gifts, Dresscode. */
@@ -108,15 +108,15 @@ export function LoveStory() {
               ))}
 
               {closing ? (
-                /* Câu kết là điểm nhấn của trang: cùng bậc chữ với dòng dẫn
-                   của các section khác, màu nhấn, đứng giữa. */
-                <Subhead
+                /* Câu kết là điểm nhấn của trang: cùng bậc body với cả đoạn,
+                   chỉ khác màu nhấn và đứng giữa. */
+                <p
                   data-reveal
                   data-reveal-delay={(paragraphs.length + 1) * 60}
-                  className="mt-stack text-center"
+                  className="type-body mt-stack text-center text-tone-accent"
                 >
                   {closing}
-                </Subhead>
+                </p>
               ) : null}
             </div>
           </div>

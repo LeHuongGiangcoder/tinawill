@@ -55,10 +55,10 @@ export function Dresscode() {
                     className="swatch w-full"
                     style={{ backgroundColor: swatch.hex }}
                   />
-                  <span className="text-small">{swatch.name}</span>
+                  <span className="type-note">{swatch.name}</span>
                   {/* Mã màu viết hoa cho dễ đọc; `tabular-nums` để sáu mã
                       xếp thành cột thẳng hàng thay vì so le. */}
-                  <span className="font-body text-small tabular-nums uppercase text-tone-muted">
+                  <span className="type-note tabular-nums uppercase text-tone-muted">
                     {swatch.hex}
                   </span>
                 </li>
@@ -71,8 +71,8 @@ export function Dresscode() {
           <div className="mt-block flex flex-col">
             {dresscode.notes.map((note, i) => (
               <Reveal key={note.label} delay={i * 60}>
-                <Disclosure label={note.label} defaultOpen={i === 0}>
-                  <p className="text-small text-tone-muted">{note.body}</p>
+                <Disclosure label={note.label} labelSize="body" defaultOpen={i === 0}>
+                  <p className="type-note text-tone-muted">{note.body}</p>
                 </Disclosure>
               </Reveal>
             ))}

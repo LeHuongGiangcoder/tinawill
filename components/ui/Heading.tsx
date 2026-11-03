@@ -4,12 +4,17 @@ import { Reveal } from "./Reveal";
 
 type Level = "display" | "h1" | "h2" | "h3" | "h4";
 
+/*
+  h3 là tiêu đề một khối trong trang — bậc `subtitle` của hệ chữ. h4 là tên
+  một mục nhỏ hơn thế (tên một mốc trong agenda) — bậc `body`, cùng cỡ với chữ
+  chạy để nó đọc liền với ghi chú ngay dưới.
+*/
 const LEVEL_CLASS: Record<Level, string> = {
   display: "font-display text-display",
   h1: "font-display text-h1",
   h2: "font-display text-h2",
-  h3: "font-display text-h3",
-  h4: "font-display text-h4",
+  h3: "type-subtitle",
+  h4: "type-body",
 };
 
 const LEVEL_TAG: Record<Level, ElementType> = {
@@ -31,8 +36,8 @@ type TextProps = HTMLAttributes<HTMLElement> & { className?: string; children: R
 type SubheadVariant = "sentence" | "motif";
 
 const SUBHEAD_CLASS: Record<SubheadVariant, string> = {
-  sentence: "text-subhead",
-  motif: "text-motif",
+  sentence: "type-sub-body",
+  motif: "type-subtitle",
 };
 
 /** Tiêu đề. Cỡ chữ chỉ được lấy từ thang trong content/theme.ts. */
@@ -68,19 +73,19 @@ export function Eyebrow({
   );
 }
 
-/** Câu dẫn dưới tiêu đề. */
+/** Đoạn dẫn dưới tiêu đề — bậc `body` của hệ chữ, màu chữ phụ. */
 export function Lead({ className = "", children, ...rest }: TextProps) {
   return (
-    <p className={`text-lead text-tone-muted ${className}`} {...rest}>
+    <p className={`type-body text-tone-muted ${className}`} {...rest}>
       {children}
     </p>
   );
 }
 
-/** Chú thích nhỏ: giờ, địa chỉ, ghi chú. */
+/** Ghi chú nhỏ: hạn chót, chú thích dưới một mục — bậc `note` của hệ chữ. */
 export function Caption({ className = "", children, ...rest }: TextProps) {
   return (
-    <p className={`text-small text-tone-muted ${className}`} {...rest}>
+    <p className={`type-note text-tone-muted ${className}`} {...rest}>
       {children}
     </p>
   );
@@ -106,7 +111,7 @@ export function SectionTitle({
   ...rest
 }: TextProps & { as?: ElementType }) {
   return (
-    <Tag className={`font-script text-section-title text-tone-fg ${className}`} {...rest}>
+    <Tag className={`type-title text-tone-fg ${className}`} {...rest}>
       {children}
     </Tag>
   );
@@ -115,14 +120,14 @@ export function SectionTitle({
 /**
  * Dòng dẫn đứng ngay dưới tiêu đề section — bậc thứ hai của đầu section.
  *
- * Font tiêu đề in nghiêng, màu nhấn: đủ khác `SectionTitle` để không tranh
- * chỗ với nó, mà vẫn tách hẳn khỏi `Lead` (font chữ thường, màu chữ phụ) ở
- * ngay dưới.
+ * Màu nhấn: đủ khác `SectionTitle` để không tranh chỗ với nó, mà vẫn tách
+ * hẳn khỏi `Lead` (màu chữ phụ) ở ngay dưới.
  *
- * Hai biến thể, khác nhau đúng một bậc chữ (xem `typeScale` trong theme.ts):
+ * Hai biến thể, mỗi cái một bậc của hệ chữ (xem `typeScale` trong theme.ts):
  *
- *   sentence  mặc định — một câu nói rõ tiêu đề ("A weekend by the river")
- *   motif     TÊN của một thứ ("Jungle Glam") — to hơn, để đọc được từ xa
+ *   sentence  mặc định — một câu nói rõ tiêu đề ("Whichever passport…"),
+ *             bậc `sub-body`: in nghiêng, nhỏ hơn đoạn dẫn
+ *   motif     TÊN của một thứ ("Jungle Glam") — bậc `subtitle`
  *
  * Chọn biến thể theo nội dung dòng chữ, không theo "section này muốn chữ to
  * hơn": một câu dài đặt ở `motif` sẽ nuốt mất tiêu đề ngay trên nó.
@@ -135,19 +140,16 @@ export function Subhead({
   ...rest
 }: TextProps & { as?: ElementType; variant?: SubheadVariant }) {
   return (
-    <Tag
-      className={`font-display ${SUBHEAD_CLASS[variant]} italic text-tone-accent ${className}`}
-      {...rest}
-    >
+    <Tag className={`${SUBHEAD_CLASS[variant]} text-tone-accent ${className}`} {...rest}>
       {children}
     </Tag>
   );
 }
 
-/** Chữ viết tay — dành cho lời ký và một hai câu nhấn. */
+/** Chữ viết tay — dành cho lời ký và một hai câu nhấn. Cỡ bằng bậc `subtitle`. */
 export function Script({ className = "", children, ...rest }: TextProps) {
   return (
-    <p className={`font-script text-h3 text-tone-accent ${className}`} {...rest}>
+    <p className={`font-script text-subtitle text-tone-accent ${className}`} {...rest}>
       {children}
     </p>
   );
@@ -194,7 +196,7 @@ export function SectionHead({
           {subtitle}
         </Subhead>
       ) : null}
-      {intro ? <Lead className="max-w-prose">{intro}</Lead> : null}
+      {intro ? <Lead className="max-w-prose text-balance">{intro}</Lead> : null}
       {children}
     </Reveal>
   );

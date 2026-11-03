@@ -385,50 +385,46 @@ export const fonts = {
  * line-height rời trong từng section.
  */
 export const typeScale = {
+  /* ---- Hệ chữ của thiệp — năm bậc, cả site chỉ dùng chừng này ----------
+
+     Mỗi bậc là một bộ trọn: font + cỡ + nhịp dòng + kiểu chữ. Utility gom bộ
+     đó nằm ở app/globals.css (`type-title`, `type-subtitle`, `type-body`,
+     `type-sub-body`, `type-note`). Chỗ gọi chỉ được chọn MÀU — `text-tone-*`.
+
+     Số đo lấy từ trang mở thiệp mà khách duyệt, đo trên iPhone 375px:
+       title     "Hi:)"                   47px, chữ viết tay
+       subtitle  "Pick your passport"     22px, font tiêu đề
+       body      "We want to share…"      18px, font tiêu đề
+       subBody   "Tapestry Collection…"   15px, font tiêu đề in nghiêng
+       note      ghi chú dưới một mục     15px, font tiêu đề — khác sub-body ở
+                                          chỗ đứng thẳng, vì nó là chữ đọc
+                                          lướt dưới một dòng body chứ không
+                                          phải một câu dẫn
+
+     Title đo theo `vw` nhưng trần thấp (3.25rem): trên desktop nó chỉ nhích
+     lên một nhịp, để tiêu đề ở mọi trang — kể cả trong cảnh dựng sẵn hẹp
+     30rem — vẫn cùng một cỡ nhìn bằng mắt.
+
+     Nhịp dòng 1.25 của title đo theo hộp dòng của Leckerli One (1.35em) — dưới
+     1.2 thì đuôi chữ `g` của dòng trên chạm đầu dòng dưới. */
+  title: { size: "clamp(2.75rem, 12.5vw, 3.25rem)", line: "1.25", tracking: "0em" },
+  subtitle: { size: "1.375rem", line: "1.3", tracking: "0em" },
+  body: { size: "1.125rem", line: "1.55", tracking: "0em" },
+  subBody: { size: "0.9375rem", line: "1.5", tracking: "0em" },
+  note: { size: "0.9375rem", line: "1.5", tracking: "0em" },
+
+  /* ---- Ngoài hệ chữ: chỉ còn ở trang bìa và section đang tạm tắt ---------- */
   display: { size: "clamp(3rem, 12vw, 7rem)", line: "1.02", tracking: "-0.015em" },
   h1: { size: "clamp(2.5rem, 8vw, 4.75rem)", line: "1.05", tracking: "-0.01em" },
   h2: { size: "clamp(1.875rem, 5.2vw, 3rem)", line: "1.14", tracking: "-0.005em" },
-  h3: { size: "clamp(1.375rem, 3.2vw, 2rem)", line: "1.22", tracking: "0em" },
-  h4: { size: "clamp(1.125rem, 2.2vw, 1.375rem)", line: "1.32", tracking: "0em" },
-  lead: { size: "clamp(1.0625rem, 1.5vw, 1.1875rem)", line: "1.65", tracking: "0em" },
-  body: { size: "1rem", line: "1.7", tracking: "0em" },
-  small: { size: "0.875rem", line: "1.6", tracking: "0em" },
   /** Dòng chữ nhỏ in hoa trên tiêu đề section */
   eyebrow: { size: "0.75rem", line: "1.2", tracking: "0.26em" },
   /**
-   * Tiêu đề viết tay của một section — bậc chữ của `SectionTitle`.
-   *
-   * Đây là bậc duy nhất dành cho font viết tay ngoài cảnh dựng sẵn, nên nó đo
-   * theo `vw` chứ không phải `cqw` như `stageScale.title`: section thường trải
-   * hết bề rộng trang, không nằm trong khung 9/16 nào.
-   *
-   * Hai đầu clamp đặt thấp hơn `stageScale.title` một nhịp (2.25rem→4rem thay
-   * vì 4.5rem) vì chữ ở đây đứng trong một cột chữ có eyebrow và dòng dẫn kèm
-   * bên dưới, không phải một dòng đơn độc giữa tranh.
-   *
-   * Nhịp dòng 1.25 đo theo hộp dòng của Leckerli One (1.35em) — dưới 1.2 thì
-   * đuôi chữ `g` của dòng trên chạm đầu dòng dưới khi tiêu đề xuống hai dòng.
+   * Nhãn nút — chữ thường, không giãn chữ, như "Check map" của cảnh Venue.
+   * Bằng đúng `body`: nút là một dòng chữ thân bài đặt trong viên thuốc. Trong
+   * cảnh Venue thì `text-stage-action` đè bậc này (xem `stageScale`).
    */
-  sectionTitle: { size: "clamp(2.25rem, 7.5vw, 4rem)", line: "1.25", tracking: "0em" },
-  /**
-   * Nhãn nút — chữ thường, đậm vừa, không giãn chữ, như "Check map" của cảnh
-   * Venue. Trong một cảnh dựng sẵn thì `text-stage-action` đè bậc này.
-   */
-  /* Một cỡ duy nhất cho mọi nút trong site — không co theo màn, không co theo
-   cảnh, để Unlock / Add calendar / Check map / Send RSVP luôn bằng nhau. */
-  action: { size: "1.0625rem", line: "1.2", tracking: "0em" },
-  /** Dòng dẫn bằng font tiêu đề, đứng ngay dưới `SectionTitle`. */
-  subhead: { size: "clamp(1.125rem, 2.6vw, 1.5rem)", line: "1.4", tracking: "0em" },
-  /**
-   * Cũng là chỗ của `Subhead`, nhưng khi dòng đó không phải một câu mà là
-   * TÊN của một thứ — tên bảng màu trang phục ("Jungle Glam"), tên một chủ đề.
-   *
-   * Tên thì khách phải đọc được từ xa và nhớ được, nên nó to hơn `subhead`
-   * một nhịp rưỡi và nằm giữa `subhead` với `h3`. Không đẩy cao hơn nữa: trên
-   * nó là tiêu đề viết tay của section, và hai dòng liền nhau cùng to thì
-   * không còn dòng nào là chính.
-   */
-  motif: { size: "clamp(1.5rem, 4.4vw, 2.125rem)", line: "1.3", tracking: "0em" },
+  action: { size: "1.125rem", line: "1.2", tracking: "0em" },
 } as const;
 
 export const weights = {
@@ -439,29 +435,13 @@ export const weights = {
 } as const;
 
 /**
- * Thang chữ thứ hai, chỉ dùng bên trong một cảnh dựng sẵn ở tỉ lệ dọc
- * (`.stage-9x16` trong app/globals.css).
+ * Bậc chữ riêng của cảnh dựng sẵn (`.stage-9x16`). Chữ trong cảnh giờ đi
+ * theo đúng hệ chữ ở trên như mọi trang khác — chỉ còn nhãn nút ở đây.
  *
- * Vì sao cần bậc riêng: thang ở trên đo theo `vw` — bề rộng màn hình. Trong
- * một cảnh 9/16 thì khung hẹp hơn màn hình trên desktop, nên chữ đo theo `vw`
- * sẽ phình to hơn tranh. Đơn vị `cqw` đo theo bề rộng của chính khung cảnh,
- * nên chữ và tranh giữ đúng tỉ lệ với nhau ở mọi bề rộng màn hình.
- *
- * Con số cqw lấy thẳng từ bản Canva (khung gốc 1080px): tiêu đề 119.5px =
- * 11.07% bề rộng khung, tên nơi tổ chức 69.8px = 6.46%, và cứ thế. Hai đầu
- * clamp là sàn và trần: dưới sàn thì chữ không còn đọc được trên máy hẹp,
- * trên trần thì cảnh trông như áp phích phóng to.
+ * Nút trong cảnh nhỏ hơn `action` một chút: ở cỡ chung, ly rượu vẽ sẵn của
+ * Venue che mất chữ đầu của "Check map" trên điện thoại.
  */
 export const stageScale = {
-  /** Dòng viết tay trên tờ giấy mở thiệp — to hơn `title` vì nó đứng một mình. */
-  cover: { size: "clamp(2.5rem, 20cqw, 4.5rem)", line: "1.2" },
-  /** Đoạn nói trên tờ giấy mở thiệp — to hơn `lead` vì giấy là cả khung hình. */
-  note: { size: "clamp(1.125rem, 6cqw, 1.75rem)", line: "1.3" },
-  title: { size: "clamp(2.25rem, 11.07cqw, 4.5rem)", line: "1.25" },
-  heading: { size: "clamp(1.5rem, 6.46cqw, 2.75rem)", line: "1.15" },
-  lead: { size: "clamp(0.9375rem, 3.4cqw, 1.5rem)", line: "1.2" },
-  caption: { size: "clamp(0.875rem, 3.09cqw, 1.25rem)", line: "1.3" },
-  /* Bằng `type.action` — nút trong cảnh không được to nhỏ khác nút ngoài cảnh. */
   action: { size: "1.0625rem", line: "1.2" },
 } as const;
 

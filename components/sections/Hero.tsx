@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
-import { Heading } from "@/components/ui/Heading";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalReveal } from "@/components/ui/TropicalReveal";
 import { couple, hero } from "@/content/client";
@@ -31,22 +30,22 @@ export function Hero() {
             />
           </div>
           <div className="-translate-y-5">
-            <p data-reveal data-hero className="whitespace-pre-line font-script text-h3 text-beige">
+            <p data-reveal data-hero className="type-body whitespace-pre-line text-beige">
               {hero.invitation}
             </p>
           </div>
 
-          <Heading
-            level="display"
+          {/* Tên hai người là title của trang — cùng bộ chữ với "Hi:)". */}
+          <h1
             id="hero-title"
             data-reveal
             data-hero
-            className="flex items-baseline justify-center gap-tight text-beige short:text-h1"
+            className="type-title flex items-baseline justify-center gap-tight text-beige"
           >
             <span>{couple.groom}</span>
-            <span className="font-script text-h2 text-tone-accent">&amp;</span>
+            <span className="text-tone-accent">&amp;</span>
             <span>{couple.bride}</span>
-          </Heading>
+          </h1>
 
           {/* Hai chân dung quay vào nhau, mỗi người nghiêng một phía; trái tim
               đập nhịp ở giữa. Hai đầu rung nhẹ lệch pha nhau. */}

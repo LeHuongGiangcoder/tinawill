@@ -33,7 +33,7 @@ export function WeddingInfo() {
                 <Eyebrow>{family.side}</Eyebrow>
                 <ul className="flex flex-col gap-tight">
                   {family.people.map((person) => (
-                    <li key={person.name} className="font-display text-h4">
+                    <li key={person.name} className="type-subtitle">
                       <span className="text-tone-muted">{person.role} </span>
                       {person.name}
                     </li>
@@ -76,7 +76,7 @@ export function WeddingInfo() {
           <div className="flex flex-col items-center gap-tight">
             <Eyebrow>{weddingInfo.venueLabel}</Eyebrow>
             <Heading level="h3">{venue.name}</Heading>
-            <p className="font-display text-h4">{venue.hall}</p>
+            <p className="type-subtitle">{venue.hall}</p>
             <Caption>{venue.address}</Caption>
           </div>
 

@@ -358,7 +358,7 @@ export const loveStory = {
   ],
   /** Câu kết in nghiêng, đứng tách dưới cùng trang. Để trống thì không hiện. */
   closing:
-    "Two people, two cultures, one building — and now, one life together.",
+    "Two people, two cultures, two ways of seeing the world — and now, one life together.",
   /**
    * Đèn lồng treo phía trên trang giấy. Mỗi góc một chùm ba đèn bám sát nhau.
    * Lớp `front` đè lên giấy, `back` nằm sau giấy (hiện chưa dùng). Trong mỗi lớp,
@@ -684,7 +684,11 @@ export const travel = {
   eyebrow: "Once you're here",
   title: "Travel Guide",
   subtitle: "",
-  intro: "Important information to know upon arriving!!! Click on door to unlock!",
+  intro: "Important information to know upon arriving!!!",
+  /** Cụm chữ trong `intro` được quét highlight nét cọ — giống "tap the jar" của Gifts. */
+  highlight: ["Important information"],
+  /** Dòng mời bấm, luôn đứng riêng một dòng dưới `intro` cho cân trên điện thoại. */
+  introAction: "Click on door to unlock!",
   tabsLabel: "Choose a topic",
   /** Chữ trên nút mở cửa sổ — trước khi bấm, cả hàng thẻ lẫn nội dung còn khuất. */
   gateLabel: "Unlock",
@@ -704,7 +708,7 @@ export const travel = {
             },
             {
               label: "Staying longer?",
-              body: "We’d love for you to join the Welcome Dinner on Friday and the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, please contact our wedding planner on WhatsApp: +84 363 059 436 or email: teamhandsheart.planner@gmail.com and the team will take care of everything for you.",
+              body: "We’d love for you to join the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, please contact our wedding planner on WhatsApp: +84 363 059 436 or email: teamhandsheart.planner@gmail.com and the team will take care of everything for you.",
               actions: [
                 { label: "WhatsApp", href: "https://wa.me/84363059436" },
                 { label: "Email", href: "mailto:teamhandsheart.planner@gmail.com" },
@@ -763,11 +767,14 @@ export const agenda = {
   title: "Agenda",
   subtitle: "Three days, one celebration.",
   intro: "Exact times will be confirmed closer to the date.",
+  /** Dòng mời bấm ngay dưới `intro` — để khách biết con tem bấm được. */
+  hint: "Click on the pictures for the detailed agenda of each day.",
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [
     {
-      label: "Friday, March 26",
+      weekday: "Friday",
+      date: "March 26",
       stamp: "cocktail",
       title: "Welcome Evening",
       items: [
@@ -784,7 +791,8 @@ export const agenda = {
       ],
     },
     {
-      label: "Saturday, March 27",
+      weekday: "Saturday",
+      date: "March 27",
       stamp: "sun",
       title: "Wedding Day",
       items: [
@@ -813,7 +821,8 @@ export const agenda = {
       ],
     },
     {
-      label: "Sunday, March 28",
+      weekday: "Sunday",
+      date: "March 28",
       stamp: "monstera",
       title: "Farewell Brunch",
       items: [
@@ -826,7 +835,9 @@ export const agenda = {
       ],
     },
   ] satisfies {
-    label: string;
+    /** Thứ và ngày in hai dòng dưới con tem. */
+    weekday: string;
+    date: string;
     stamp: AgendaStamp;
     title: string;
     items: { time: string; title: string; note: string }[];
@@ -908,6 +919,8 @@ export const rsvp = {
 
   fields: {
     name: { label: "Full name", placeholder: "Your full name" },
+    whatsapp: { label: "WhatsApp number", placeholder: "+1 555 123 4567" },
+    email: { label: "Email", placeholder: "you@example.com" },
     attending: {
       label: "Will you be joining us?",
       yes: "Joyfully accepts",

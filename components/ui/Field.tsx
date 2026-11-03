@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-/** Nhãn của một ô nhập — in hoa, nhỏ, cùng cỡ với eyebrow. */
+/** Nhãn của một ô nhập — một câu hỏi, bậc `body` của hệ chữ. */
 export function FieldLabel({
   htmlFor,
   as: Tag = "label",
@@ -12,7 +12,7 @@ export function FieldLabel({
 }) {
   /* Câu hỏi là một câu hoàn chỉnh, có khi xuống hai dòng — chữ thường, không
      giãn chữ, `text-pretty` để không mồ côi một chữ ở dòng cuối. */
-  const className = "font-body text-base text-tone-fg text-pretty";
+  const className = "type-body text-tone-fg text-pretty";
   return Tag === "legend" ? (
     <legend className={`${className} pb-tight`}>{children}</legend>
   ) : (
@@ -37,7 +37,7 @@ export function Field({
   return (
     <div className="flex flex-col gap-tight">
       <FieldLabel htmlFor={htmlFor}>{label}</FieldLabel>
-      {hint ? <p className="text-small text-tone-muted">{hint}</p> : null}
+      {hint ? <p className="type-note text-tone-muted">{hint}</p> : null}
       {children}
     </div>
   );
@@ -58,7 +58,7 @@ export function Choice({
   children: ReactNode;
 }) {
   return (
-    <label className="flex min-h-tap cursor-pointer items-center gap-stack text-small">
+    <label className="type-body flex min-h-tap cursor-pointer items-center gap-stack">
       <input
         type="radio"
         name={name}

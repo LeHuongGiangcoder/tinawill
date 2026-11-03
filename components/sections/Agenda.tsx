@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Heading, SectionHead } from "@/components/ui/Heading";
+import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -45,7 +45,9 @@ export function Agenda() {
         titleId="agenda-title"
         subtitle={agenda.subtitle}
         intro={agenda.intro}
-      />
+      >
+        <Lead className="max-w-prose text-balance">{agenda.hint}</Lead>
+      </SectionHead>
 
       <Reveal className="mx-auto max-w-prose">
         <TabSet
@@ -80,8 +82,14 @@ export function Agenda() {
                     />
                   </span>
                   {/* Ngày rồi tên chủ đề, nằm dưới con tem đúng như bản mẫu */}
-                  <span className="font-body text-small">{day.label}</span>
-                  <span className="font-display text-h4">{day.title}</span>
+                  {/* Thứ và ngày luôn hai dòng riêng ("Friday" / "March 26"),
+                      để ba con tem xuống dòng giống hệt nhau thay vì mỗi cái
+                      gãy một chỗ tuỳ độ dài tên thứ. */}
+                  <span className="type-body flex flex-col">
+                    <span>{day.weekday}</span>
+                    <span className="whitespace-nowrap">{day.date}</span>
+                  </span>
+                  <span className="type-subtitle">{day.title}</span>
                   <span aria-hidden className="tab-mark" />
                 </>
               ),
@@ -92,7 +100,7 @@ export function Agenda() {
                       key={`${item.time}-${item.title}`}
                       className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack pb-block last:pb-0 sm:grid-cols-[6rem_1.5rem_1fr]"
                     >
-                      <p className="text-right font-display text-h3 text-tone-accent">
+                      <p className="type-subtitle text-right text-tone-accent">
                         {item.time}
                       </p>
 
@@ -113,7 +121,7 @@ export function Agenda() {
                       <div className="flex flex-col">
                         <Heading level="h4">{item.title}</Heading>
                         {item.note ? (
-                          <p className="text-small text-tone-muted">{item.note}</p>
+                          <p className="type-note text-tone-muted">{item.note}</p>
                         ) : null}
                       </div>
                     </li>

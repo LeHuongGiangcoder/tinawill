@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { GuideGroups } from "@/components/ui/GuideGroups";
 import { SectionHead } from "@/components/ui/Heading";
+import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -130,7 +131,13 @@ export function Travel() {
           title={travel.title}
           titleId="travel-title"
           subtitle={travel.subtitle || undefined}
-          intro={travel.intro}
+          intro={
+            <>
+              <Highlighted text={travel.intro} words={travel.highlight} />
+              <br />
+              {travel.introAction}
+            </>
+          }
         />
       </div>
 
@@ -145,7 +152,7 @@ export function Travel() {
             id: tab.id,
             tab: (
               <>
-                <span className="font-display text-h4">{tab.label}</span>
+                <span className="type-subtitle">{tab.label}</span>
                 <span aria-hidden className="tab-mark" />
               </>
             ),

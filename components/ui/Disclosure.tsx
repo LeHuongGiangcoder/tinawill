@@ -15,10 +15,17 @@ export function Disclosure({
   label,
   name,
   defaultOpen = false,
+  labelSize = "subtitle",
   className = "",
   children,
 }: {
   label: string;
+  /**
+   * Bậc chữ của nhãn: `subtitle` khi nhãn là tiêu đề một khối hướng dẫn
+   * ("Wedding night"), `body` khi nó chỉ là tên một nhóm trong một danh sách
+   * gợi ý ("For him").
+   */
+  labelSize?: "subtitle" | "body";
   /** Mở sẵn khi trang vừa tải — dành cho mục quan trọng nhất của nhóm. */
   defaultOpen?: boolean;
   /**
@@ -32,7 +39,7 @@ export function Disclosure({
   return (
     <details className={`disclosure ${className}`} name={name} open={defaultOpen}>
       <summary className="disclosure-summary">
-        <span className="font-display text-h4">{label}</span>
+        <span className={labelSize === "body" ? "type-body" : "type-subtitle"}>{label}</span>
         {/* Dấu cộng xoay thành dấu trừ khi mở — vẽ bằng hai gạch nên nó lấy
             đúng màu chữ của tông, không cần file icon nào. */}
         <span aria-hidden className="disclosure-mark" />

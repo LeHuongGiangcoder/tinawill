@@ -49,6 +49,8 @@ export function Rsvp() {
     // Thứ tự các key ở đây chính là thứ tự cột trong Sheet của khách.
     const values: Record<string, string> = {
       name: guest?.name ?? String(data.get("name") ?? "").trim(),
+      whatsapp: String(data.get("whatsapp") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
       attending,
       roomSharing: going ? String(data.get("roomSharing") ?? "").trim() : "",
       extendStay: going ? String(data.get("extendStay") ?? "").trim() : "",
@@ -160,6 +162,34 @@ export function Rsvp() {
                 </Field>
               )}
 
+              {/* Cách liên lạc — để planner nhắn thẳng cho khách về phòng,
+                  xe đưa đón. Hỏi cả khi khách vào bằng link riêng: Sheet chỉ
+                  có tên, không có số điện thoại. */}
+              <Field label={fields.whatsapp.label} htmlFor="rsvp-whatsapp">
+                <input
+                  id="rsvp-whatsapp"
+                  name="whatsapp"
+                  type="tel"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  maxLength={40}
+                  placeholder={fields.whatsapp.placeholder}
+                  className="field-input"
+                />
+              </Field>
+
+              <Field label={fields.email.label} htmlFor="rsvp-email">
+                <input
+                  id="rsvp-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  maxLength={120}
+                  placeholder={fields.email.placeholder}
+                  className="field-input"
+                />
+              </Field>
+
               <fieldset className="flex flex-col">
                 <FieldLabel as="legend">{fields.attending.label}</FieldLabel>
                 <Choice
@@ -245,7 +275,7 @@ export function Rsvp() {
                 </Button>
                 <Caption>{rsvp.deadline}</Caption>
                 {status === "error" ? (
-                  <p role="alert" className="text-small text-tone-accent">
+                  <p role="alert" className="type-note text-tone-accent">
                     {rsvp.errorNote}
                   </p>
                 ) : null}
