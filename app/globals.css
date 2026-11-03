@@ -377,6 +377,62 @@ html {
 
 @layer components {
   /*
+    Hai khung hình chồng nhau, chạy như một GIF: hai khung `.flip-a` / `.flip-b`
+    thay phiên nhau hiện theo nhịp `--flip-cycle`. Không nội suy —
+    `steps(1)` để hai khung đổi cái bụp như GIF thật, không mờ chéo.
+    Trong một vòng: khung a 0–50%, khung b 50–88%, rồi a lại một nhịp ngắn.
+    Giảm chuyển động thì animation không chạy và chỉ còn khung a.
+  */
+  .flip-pair {
+    --flip-cycle: 1.6s;
+    position: relative;
+    overflow: hidden;
+  }
+  .flip-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .flip-a {
+    animation: glow-flip-a var(--flip-cycle) steps(1, end) infinite;
+  }
+  .flip-b {
+    opacity: 0;
+    animation: glow-flip var(--flip-cycle) steps(1, end) infinite;
+  }
+  /* Hai khung có nền trong suốt và tư thế khác nhau, nên khung a phải tắt hẳn
+     khi khung b bật — nếu không hai con mèo chồng lên nhau. */
+  @keyframes glow-flip-a {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    88% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes glow-flip {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  /*
     Một tán lá đung đưa trong gió nhẹ.
 
     Ba biến để mỗi tán thổi một kiểu — gió thật không thổi cả vườn cùng một

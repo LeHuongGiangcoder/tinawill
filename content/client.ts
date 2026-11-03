@@ -1000,8 +1000,7 @@ export const thankYou = {
   signature: "Will & Tina",
   /** Mô tả monogram cho trình đọc màn hình. */
   logoLabel: "Will and Tina monogram",
-  image: "/images/couple-06.jpg",
-  imageAlt: "Tina and Will",
+  imageAlt: "Two cats serving wine, calm and then startled",
 };
 
 /* ------------------------------------------------------------------ NHẠC */
