@@ -100,9 +100,9 @@ export function Caption({ className = "", children, ...rest }: TextProps) {
  * không phải thứ tự viết. Thẻ <h2> viết thẳng cùng `font-script` thì luôn
  * đúng, và `@layer base` trong globals.css đã nhường cho utility.
  *
- * Màu lấy `text-tone-fg` chứ không phải `text-tone-accent`: tiêu đề là dòng
- * đậm nhất của section, và mỗi tông đã tự có màu chữ riêng — nên cùng một
- * kiểu chữ đổi màu theo nền mà không cần truyền prop.
+ * Màu lấy `text-tone-title` — màu tiêu đề riêng của mỗi tông (xem `tones` trong
+ * content/theme.ts): beige trên mọi nền đậm, màu chữ của tông trên nền sáng —
+ * nên cùng một kiểu chữ đổi màu theo nền mà không cần truyền prop.
  */
 export function SectionTitle({
   as: Tag = "h2",
