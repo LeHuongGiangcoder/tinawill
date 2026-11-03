@@ -111,7 +111,7 @@ export function SectionTitle({
   ...rest
 }: TextProps & { as?: ElementType }) {
   return (
-    <Tag className={`type-title text-tone-fg ${className}`} {...rest}>
+    <Tag className={`type-title text-tone-title ${className}`} {...rest}>
       {children}
     </Tag>
   );

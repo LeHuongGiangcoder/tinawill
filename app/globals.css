@@ -32,6 +32,7 @@
   /* Màu theo tông của section — SectionWrapper đặt data-tone, con tự đổi màu */
   --color-tone-bg: var(--t-section-bg);
   --color-tone-fg: var(--t-section-fg);
+  --color-tone-title: var(--t-section-title);
   --color-tone-muted: var(--t-section-muted);
   --color-tone-accent: var(--t-section-accent);
   --color-tone-line: var(--t-section-line);

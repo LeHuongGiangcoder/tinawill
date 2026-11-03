@@ -137,6 +137,11 @@ export const palette = {
  * mà không cần một tông giấy riêng cho mỗi section.
  */
 /**
+ * `title` là màu của tiêu đề viết tay (`type-title`). Tông nào không khai thì
+ * tiêu đề lấy đúng `fg`. Mọi tông nền đậm chữ kem đều khai beige — cùng màu
+ * tiêu đề "Save the Date" — vì kem trắng quá lạnh cạnh giấy và tranh vẽ tay.
+ */
+/**
  * Bảng màu theo "tông" của section. SectionWrapper nhận `tone` và đặt
  * --section-bg / --section-fg / --section-accent, nên nút, gạch, input bên
  * trong tự đổi màu theo section mà không cần truyền prop.
@@ -167,6 +172,7 @@ export const tones = {
   dark: {
     bg: palette.forest,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.goldSoft,
     accent: palette.goldSoft,
     line: "rgba(251, 247, 240, 0.28)",
@@ -214,6 +220,7 @@ export const tones = {
   wine: {
     bg: palette.wine,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.goldSoft,
     accent: palette.goldSoft,
     line: "rgba(251, 247, 240, 0.28)",
@@ -249,6 +256,7 @@ export const tones = {
   leaf: {
     bg: palette.leaf,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.creamDeep,
     accent: palette.creamDeep,
     line: "rgba(251, 247, 240, 0.28)",
@@ -267,6 +275,7 @@ export const tones = {
   stripe: {
     bg: palette.stripe,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.creamDeep,
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
@@ -279,6 +288,7 @@ export const tones = {
   stripeOlive: {
     bg: palette.stripeOlive,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.creamDeep,
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
@@ -325,6 +335,7 @@ export const tones = {
   vermilion: {
     bg: palette.vermilion,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.creamDeep,
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
@@ -336,6 +347,7 @@ export const tones = {
   mango: {
     bg: palette.mango,
     fg: palette.cream,
+    title: palette.beige,
     muted: palette.creamDeep,
     accent: palette.beige,
     line: "rgba(251, 247, 240, 0.28)",
@@ -557,6 +569,7 @@ export function themeCssVars(): string {
   const base = tones.light;
   push("section-bg", base.bg);
   push("section-fg", base.fg);
+  push("section-title", base.fg);
   push("section-muted", base.muted);
   push("section-accent", base.accent);
   push("section-line", base.line);
@@ -571,6 +584,7 @@ export function themeCssVars(): string {
         `[data-tone="${name}"] {`,
         `  --t-section-bg: ${tone.bg};`,
         `  --t-section-fg: ${tone.fg};`,
+        `  --t-section-title: ${"title" in tone ? tone.title : tone.fg};`,
         `  --t-section-muted: ${tone.muted};`,
         `  --t-section-accent: ${tone.accent};`,
         `  --t-section-line: ${tone.line};`,

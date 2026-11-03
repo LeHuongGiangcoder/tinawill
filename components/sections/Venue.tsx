@@ -110,7 +110,7 @@ export function Venue() {
         <h2
           id="venue-title"
           data-reveal
-          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center type-title text-tone-fg"
+          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center type-title text-tone-title"
           style={{ top: TITLE_TOP }}
         >
           {venueScene.title}

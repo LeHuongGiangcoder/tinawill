@@ -206,7 +206,7 @@ export function Time() {
           <h2
             id="time-title"
             data-reveal
-            className="type-title text-tone-fg"
+            className="type-title text-tone-title"
           >
             {timeScene.title}
           </h2>

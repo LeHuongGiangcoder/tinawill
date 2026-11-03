@@ -40,7 +40,7 @@ export function Hero() {
             id="hero-title"
             data-reveal
             data-hero
-            className="type-title flex items-baseline justify-center gap-tight text-beige"
+            className="type-title flex items-baseline justify-center gap-tight text-tone-title"
           >
             <span>{couple.groom}</span>
             <span className="text-tone-accent">&amp;</span>
