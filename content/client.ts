@@ -239,6 +239,13 @@ export const design: Record<SectionId, SectionDesign> = {
     tone: "wine",
     background: "paper-wine",
     overlay: 0,
+    /* Hai cặp cầu disco tách từ một tranh, treo từ mép trên xuống hai bên
+       tiêu đề. Neo theo giữa section (không theo mép) để trên màn rộng chúng
+       vẫn ôm lấy chữ "Agenda" thay vì trôi ra tận hai lề. */
+    decor: [
+      { name: "disco-left", at: "top-0 right-[calc(50%+5.5rem)] w-[min(27%,12rem)]", sway: true },
+      { name: "disco-right", at: "top-0 left-[calc(50%+5.5rem)] w-[min(27%,12rem)]", sway: true },
+    ],
   },
   dresscode: {
     anchor: "dresscode",

@@ -24,6 +24,9 @@ export const assets = {
 
   /** Hoạ tiết rời (hoa, ruy băng, con dấu) — nền trong suốt */
   elements: {
+    "dancers": { src: "/brand/elements/dancers.webp", width: 1672, height: 589 },
+    "disco-left": { src: "/brand/elements/disco-left.webp", width: 715, height: 754 },
+    "disco-right": { src: "/brand/elements/disco-right.webp", width: 729, height: 653 },
     "flag-asean": { src: "/brand/elements/flag-asean.webp", width: 320, height: 199 },
     "flag-eu": { src: "/brand/elements/flag-eu.webp", width: 320, height: 199 },
     "flag-hongkong": { src: "/brand/elements/flag-hongkong.webp", width: 320, height: 199 },

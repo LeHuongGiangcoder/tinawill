@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
 import { agenda, type AgendaStamp } from "@/content/client";
+import { element } from "@/lib/assets";
 
 /**
  * Chương trình cả cuối tuần. Ba ngày nằm sau ba con tem: bấm con nào mở lịch
@@ -37,6 +38,8 @@ const STAMPS: Record<AgendaStamp, { frame: string; icon: string }> = {
 };
 
 export function Agenda() {
+  const dancers = element("dancers");
+
   return (
     <SectionWrapper section="agenda" labelledBy="agenda-title">
       <SectionHead
@@ -132,6 +135,23 @@ export function Agenda() {
           })}
         />
       </Reveal>
+
+      {/* Đoàn người nhảy múa khép section lại. Nằm trong dòng chảy chứ không
+          phải `decor` tuyệt đối, vì section cao thấp theo ngày đang mở — hoạ
+          tiết neo đáy sẽ đè lên mốc cuối của lịch. `-mb-section` cho chân
+          họ đứng đúng trên mép dưới của tờ giấy. */}
+      {dancers ? (
+        <Reveal className="mx-auto mt-block -mb-section w-full max-w-prose">
+          <Image
+            src={dancers.src}
+            alt=""
+            width={dancers.width ?? 1672}
+            height={dancers.height ?? 589}
+            sizes="(max-width: 40rem) 100vw, 40rem"
+            className="h-auto w-full"
+          />
+        </Reveal>
+      ) : null}
     </SectionWrapper>
   );
 }
