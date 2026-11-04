@@ -57,12 +57,12 @@ export function LoveStory() {
         </div>
 
         {/*
-          `data-tone="light"` cho cả trang: mặt giấy sáng hơn nền section, nên
+          `data-tone="storyPaper"` cho cả trang: mặt giấy sáng hơn nền section, nên
           chữ, gạch và chữ phụ bên trong lấy bảng màu của nền sáng mà không
           phải viết màu cứng ở đây.
         */}
         <div
-          data-tone="light"
+          data-tone="storyPaper"
           className="page-frame-body relative z-10 text-tone-fg"
           style={
             {

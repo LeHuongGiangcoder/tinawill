@@ -37,6 +37,8 @@ export const palette = {
   /** Chữ trên nền sáng */
   ink: "#332e28",
   inkSoft: "#6d6457",
+  /** Chữ trên tờ giấy kem của trang "Our story" — nâu đậm, ấm hơn `ink` */
+  inkBrown: "#4a3426",
   /** Nhấn: cam cháy cho nền sáng, cam nhạt cho nền tối */
   gold: "#a8491f",
   goldSoft: "#eab98d",
@@ -150,6 +152,19 @@ export const tones = {
   light: {
     bg: palette.cream,
     fg: palette.ink,
+    muted: palette.inkSoft,
+    accent: palette.gold,
+    line: palette.line,
+    contrast: palette.forest,
+    button: palette.forest,
+    buttonText: palette.cream,
+    brand: palette.forest,
+  },
+  /** Tờ giấy của trang "Our story": như `light` nhưng chữ nâu đậm thay vì đen. */
+  storyPaper: {
+    bg: palette.cream,
+    fg: palette.inkBrown,
+    title: palette.inkBrown,
     muted: palette.inkSoft,
     accent: palette.gold,
     line: palette.line,

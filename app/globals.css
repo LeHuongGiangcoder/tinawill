@@ -1666,14 +1666,14 @@ html {
     góc — không kéo lên thì giữa mép giấy và dòng chữ đầu là một khoảng trống.
   */
   .page-frame-lead {
-    margin-top: -15cqw;
+    margin-top: -9cqw;
   }
 
   /* Thân bài lùi xuống dưới chóp tua của đèn treo thấp nhất (`hang` lớn nhất
      trong `loveStory.lanterns`) — đo bằng cqw như chính đèn, nên ở bề rộng
      nào chữ cũng không chui vào dưới tua. */
   .page-frame-text {
-    margin-top: 9cqw;
+    margin-top: 3cqw;
   }
 
   /*
