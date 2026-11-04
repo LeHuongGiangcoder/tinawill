@@ -206,9 +206,9 @@ export const design: Record<SectionId, SectionDesign> = {
     background: "/venue/backdrop.webp",
     overlay: 0,
   },
-  /* Trang "Our story" là một tờ giấy phủ kín section — nền section tô đúng
-     màu lá của khung, xem tông `leaf` trong content/theme.ts. */
-  loveStory: { anchor: "love-story", tone: "leaf" },
+  /* Trang "Our story" là một tờ giấy đứng trên nền giấy ô liu — cùng tờ với
+     Venue, để phần xanh hai bên khung có hạt vân thay vì một màu phẳng. */
+  loveStory: { anchor: "love-story", tone: "olive", background: "paper-olive", overlay: 0 },
   /* Hai trang hướng dẫn đứng liền nhau nên phải khác giấy, nếu không mắt đọc
      ra một section dài thay vì hai. Đỏ son rồi tới cam: cùng họ ấm với giấy
      ô liu của Venue phía trên, nhưng mỗi trang một sắc riêng. */
