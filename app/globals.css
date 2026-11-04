@@ -101,6 +101,37 @@
   --animate-heartbeat: glow-heartbeat 1.3s ease-in-out infinite;
   --animate-tremble: glow-tremble 1.8s ease-in-out infinite;
   --animate-tremble-late: glow-tremble 1.8s ease-in-out -0.9s infinite;
+  --animate-wave: glow-wave 1.5s ease-in-out infinite;
+  --animate-breeze: glow-breeze 9s ease-in-out infinite;
+
+  /* Vẫy tay: quay qua lại quanh vai, nghiêng về một phía lâu hơn phía kia
+     cho ra nhịp "chào, chào" chứ không phải cái cần gạt nước. */
+  @keyframes glow-wave {
+    0%,
+    100% {
+      transform: rotate(4deg);
+    }
+    45% {
+      transform: rotate(-16deg);
+    }
+    60% {
+      transform: rotate(-13deg);
+    }
+  }
+
+  /* Cả đồng cỏ ngả nhẹ theo gió rồi đứng lại — nền của `.wind-field`. */
+  @keyframes glow-breeze {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) skewX(0deg);
+    }
+    40% {
+      transform: translate3d(-0.9%, 0.4%, 0) skewX(-1.2deg);
+    }
+    70% {
+      transform: translate3d(-0.4%, 0.2%, 0) skewX(-0.5deg);
+    }
+  }
 
   @keyframes glow-sway {
     0%,
@@ -1898,6 +1929,81 @@ html {
     padding-inline: calc(var(--cover-w) * 0.12);
     transform: translate(-50%, -50%);
     container-type: inline-size;
+  }
+
+  /*
+    Một tấm nền có gió thổi qua (components/ui/WindMeadow.tsx).
+
+    `.wind-field` tràn ra ngoài khung 6% mỗi phía rồi ngả qua lại
+    (`glow-breeze`), nên mép xiên không bao giờ lộ.
+
+    `.wind-gust` là một luồng gió: một dải chéo (mask) quét ngang tấm nền.
+    Trong dải là bản sao của chính tấm nền, lệch đi vài px và sáng hơn một
+    chút — mắt đọc ra cỏ bị gió rạp xuống, lật mặt sáng lên. Dải chạy bằng
+    `transform`, còn ảnh bên trong chạy ngược đúng quãng đó (`--gust-counter`)
+    nên vẫn khớp với nền; cả hai chỉ là transform nên chạy trên GPU, không vẽ
+    lại tấm ảnh lớn mỗi khung hình như filter dịch chuyển SVG.
+  */
+  .wind-field {
+    position: absolute;
+    inset: -6%;
+    animation: var(--animate-breeze);
+    will-change: transform;
+  }
+
+  .wind-gust {
+    position: absolute;
+    inset: 0;
+    mask-image: linear-gradient(
+      112deg,
+      transparent 34%,
+      #000 46%,
+      #000 54%,
+      transparent 66%
+    );
+    animation: wind-gust var(--gust-duration, 8s) cubic-bezier(0.45, 0, 0.55, 1)
+      var(--gust-delay, 0s) infinite;
+    will-change: transform;
+  }
+
+  .wind-gust > * {
+    position: absolute;
+    inset: 0;
+    translate: 0.45% -0.3%;
+    filter: brightness(1.1) saturate(1.06);
+    animation: wind-gust-counter var(--gust-duration, 8s) cubic-bezier(0.45, 0, 0.55, 1)
+      var(--gust-delay, 0s) infinite;
+  }
+
+  @keyframes wind-gust {
+    from {
+      transform: translate3d(-75%, -28%, 0);
+    }
+    to {
+      transform: translate3d(75%, 28%, 0);
+    }
+  }
+
+  @keyframes wind-gust-counter {
+    from {
+      transform: translate3d(75%, 28%, 0);
+    }
+    to {
+      transform: translate3d(-75%, -28%, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wind-gust {
+      display: none;
+    }
+  }
+
+  /* Một chi vẫy liên tục quanh khớp của nó. Gốc quay đặt ở chỗ gọi bằng
+     `--pivot` (toạ độ của vai trong chính ảnh tay). */
+  .wave-limb {
+    transform-origin: var(--pivot, 50% 100%);
+    animation: var(--animate-wave);
   }
 
   /* Một vòng nước lan ra từ tâm của khối cha. */

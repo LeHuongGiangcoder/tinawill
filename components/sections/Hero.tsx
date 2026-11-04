@@ -3,13 +3,15 @@ import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalReveal } from "@/components/ui/TropicalReveal";
+import { WindMeadow } from "@/components/ui/WindMeadow";
 import { couple, hero } from "@/content/client";
 
 /**
- * Trang bìa: tán lá mở ra, lời mời nổi trên mặt nước.
+ * Trang bìa: tán lá mở ra để lộ một đồng cỏ nhìn từ trên cao — cỏ lay theo
+ * gió (WindMeadow), cô dâu chú rể nằm giữa cỏ, cô dâu vẫy tay không ngừng.
  *
  * Nền là <TropicalReveal> — cùng một cảnh với màn mở thiệp, chỉ khác trạng
- * thái. Tán lá mở ra để lộ nền giấy xanh rồi chữ mới hiện, nằm giữa trang, nên các khối gắn
+ * thái. Tán lá mở ra để lộ đồng cỏ rồi chữ mới hiện, nằm giữa trang, nên các khối gắn
  * `data-hero`: chúng chờ cú chạm mở thiệp chứ không chờ cuộn (hero đứng ngay
  * đầu trang nên sẽ không bao giờ "cuộn tới"). Nhịp chờ là `motion.heroDelay`.
  */
@@ -17,7 +19,7 @@ export function Hero() {
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
-        <TropicalReveal />
+        <TropicalReveal backdrop={<WindMeadow src="/hero/meadow-poppies.webp" />} />
 
         <div className="container-site relative z-20 flex flex-col items-center gap-stack pb-section text-center">
           <div className="-translate-y-10">
@@ -25,12 +27,12 @@ export function Hero() {
               data-reveal
               data-hero
               aria-hidden
-              className="glyph h-20 w-20 text-beige"
+              className="glyph h-20 w-20 text-tone-title"
               style={{ "--glyph": "url(/logo/monogram.webp)" } as CSSProperties}
             />
           </div>
           <div className="-translate-y-5">
-            <p data-reveal data-hero className="type-body whitespace-pre-line text-beige">
+            <p data-reveal data-hero className="type-body whitespace-pre-line text-tone-fg">
               {hero.invitation}
             </p>
           </div>
@@ -47,18 +49,28 @@ export function Hero() {
             <span>{couple.bride}</span>
           </h1>
 
-          {/* Hai chân dung quay vào nhau, mỗi người nghiêng một phía; trái tim
-              đập nhịp ở giữa. Hai đầu rung nhẹ lệch pha nhau. */}
-          <div data-reveal data-hero aria-hidden className="mt-block flex w-full items-center justify-center gap-tight">
-            <div className="w-[36%] rotate-[7deg]">
-              <Image src="/hero/tina.webp" unoptimized alt="" width={600} height={732} className="animate-tremble h-auto w-full" />
-            </div>
-            <svg viewBox="0 0 24 22" className="animate-heartbeat w-[12%] shrink-0 text-heart" fill="currentColor">
-              <path d="M12 21.2 10.6 20C5.4 15.3 2 12.2 2 8.4 2 5.3 4.4 3 7.4 3c1.7 0 3.4.8 4.6 2.1C13.2 3.8 14.9 3 16.6 3 19.6 3 22 5.3 22 8.4c0 3.8-3.4 6.9-8.6 11.6L12 21.2Z" />
-            </svg>
-            <div className="w-[36%] -rotate-[7deg]">
-              <Image src="/hero/will.webp" unoptimized alt="" width={600} height={589} className="animate-tremble-late h-auto w-full" />
-            </div>
+          {/* Cặp đôi nằm trên cỏ, nhìn từ trên cao. Tranh là bản "sạch" đã
+              xoá tay vẫy của cô dâu; cánh tay là một lớp riêng chồng lên đúng
+              chỗ cũ và quay quanh vai. Toạ độ là % của khung tranh, đo từ
+              public/hero couple updated.png — giữ nguyên tỉ lệ khung là tay luôn khớp. */}
+          <div data-reveal data-hero aria-hidden className="relative mt-block w-full max-w-[min(34rem,42svh)]">
+            <Image
+              src="/hero/couple-plate-poppies.webp"
+              alt=""
+              width={1272}
+              height={1070}
+              sizes="(max-width: 40rem) 92vw, 34rem"
+              className="h-auto w-full"
+            />
+            <Image
+              src="/hero/bride-arm-poppies.webp"
+              alt=""
+              width={147}
+              height={286}
+              sizes="(max-width: 40rem) 11vw, 4rem"
+              className="wave-limb absolute left-[27.83%] top-[17.85%] w-[11.56%]"
+              style={{ "--pivot": "82% 94%" } as CSSProperties}
+            />
           </div>
         </div>
 

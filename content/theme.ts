@@ -336,6 +336,25 @@ export const tones = {
    * Tờ giấy của màn mở thiệp, nằm giữa tán lá. Dựng như tông `beige` nhưng chữ
    * xanh lá và nút hồng dâm bụt, theo đúng bản khách duyệt.
    */
+  /**
+   * Hero: đồng cỏ nhìn từ trên cao (public/hero/meadow-poppies.webp). `bg` là màu trung
+   * bình đo từ chính file, để lúc ảnh chưa về section không loé màu khác.
+   * Cỏ xanh rêu đậm nên chữ sáng: kem đạt 6.8:1 trên màu trung bình (4.8:1 ở
+   * vệt cỏ sáng nhất), be 5.7:1. Dấu "&" dùng cam nhạt (4.1:1) — nó nằm trong
+   * dòng tên cỡ tiêu đề nên chỉ cần mức chữ lớn.
+   */
+  meadow: {
+    bg: "#515903",
+    fg: palette.cream,
+    title: palette.beige,
+    muted: palette.cream,
+    accent: palette.goldSoft,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.forestDeep,
+    brand: palette.forestDeep,
+  },
   clearing: {
     bg: palette.parchment,
     fg: palette.jungle,

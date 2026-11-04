@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 
 import { useExperience } from "@/components/experience/ExperienceProvider";
@@ -45,7 +45,12 @@ const ease = (t: number) => {
 /** Bề rộng dựng thật của sprite; phần còn lại là `scale` để không reflow mỗi khung hình. */
 const baseWidth = (e: (typeof elements)[number]) => Math.max(e.closed.width, e.open.width);
 
-export function TropicalReveal() {
+/**
+ * `backdrop` là thứ nằm dưới tán lá, lộ ra khi cảnh mở — với hero là đồng cỏ
+ * có gió (WindMeadow). Không truyền thì dưới tán lá là nền giấy ô liu của
+ * `.scene-stage`.
+ */
+export function TropicalReveal({ backdrop }: { backdrop?: ReactNode }) {
   const { opened } = useExperience();
   const [ready, setReady] = useState(false);
 
@@ -185,6 +190,7 @@ export function TropicalReveal() {
 
   return (
     <div ref={stageRef} data-ready={ready} className="scene-stage">
+      {backdrop}
       <div
         ref={artboardRef}
         aria-hidden

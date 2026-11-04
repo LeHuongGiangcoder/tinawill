@@ -181,7 +181,9 @@ export const design: Record<SectionId, SectionDesign> = {
      components/ui/TropicalReveal.tsx, chứ không phải ảnh nền của SectionWrapper.
      Vì thế cả hai đều để `background` trống. */
   intro: { anchor: "intro", tone: "clearing" },
-  hero: { anchor: "hero", tone: "dark" },
+  /* Hero mở ra một đồng cỏ nhìn từ trên cao (WindMeadow trong
+     components/ui/WindMeadow.tsx) — cỏ rêu đậm nên chữ dùng tông `meadow` sáng. */
+  hero: { anchor: "hero", tone: "meadow" },
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
      được — xem ghi chú ở `palette.wine` trong content/theme.ts. */
