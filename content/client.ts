@@ -986,7 +986,7 @@ export const gifts = {
   highlight: ["tap the jar"],
   subtitle: "Your presence is already the greatest gift.",
   intro:
-    "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, tap the jar for a few options — whatever feels right for you.",
+    "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, tap the jar for options — whatever feels right for you.",
   options: [
     {
       title: "Honeymoon fund",

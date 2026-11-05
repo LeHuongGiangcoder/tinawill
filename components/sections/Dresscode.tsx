@@ -31,7 +31,7 @@ export function Dresscode() {
     <SectionWrapper section="dresscode" width="bleed" flush labelledBy="dresscode-title">
       {/* `flush` + tự đặt lề trên: dải dù phải chạm đúng mép dưới section như
           bản Canva, nên section không được có khoảng đệm dưới. */}
-      <div className="container-prose pt-section">
+      <div className="container-card pt-section">
         <SectionHead
           eyebrow={dresscode.eyebrow}
           title={dresscode.title}
@@ -45,7 +45,7 @@ export function Dresscode() {
 
         {dresscode.swatches.length > 0 ? (
           <Reveal delay={90} className="mt-block flex flex-col items-center gap-stack">
-            <ul className="grid w-full max-w-[22rem] grid-cols-3 gap-stack sm:max-w-none sm:grid-cols-6">
+            <ul className="grid w-full grid-cols-3 gap-stack">
               {dresscode.swatches.map((swatch) => (
                 <li key={swatch.hex} className="flex flex-col items-center gap-tight text-center">
                   {/* Vệt sơn khách gửi, tô bằng mã màu của chính ô — hình
@@ -72,7 +72,7 @@ export function Dresscode() {
             {dresscode.notes.map((note, i) => (
               <Reveal key={note.label} delay={i * 60}>
                 <Disclosure label={note.label} labelSize="body" defaultOpen={i === 0}>
-                  <p className="type-note text-justify text-tone-muted">{note.body}</p>
+                  <p className="type-body text-justify text-tone-muted">{note.body}</p>
                 </Disclosure>
               </Reveal>
             ))}

@@ -707,6 +707,17 @@ html {
     padding-right: max(var(--t-space-gutter), env(safe-area-inset-right));
   }
 
+  /* Cột chữ của thiệp: cùng lề với đoạn chữ của cảnh "Save the Date" (cột chữ
+     84% × đoạn 92% của khung ≈ 77% bề rộng, khung tối đa 30rem), để các section
+     chữ thường cùng một lề với các cảnh dựng sẵn. */
+  .container-card {
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+    padding-left: max(11.3%, env(safe-area-inset-left));
+    padding-right: max(11.3%, env(safe-area-inset-right));
+  }
+
   /* Thẻ giấy dùng chung: một khối nội dung nhấc lên khỏi nền section. Màu và
      viền đi theo tông nên thẻ dùng được trên cả nền sáng và nền tối. */
   .card {

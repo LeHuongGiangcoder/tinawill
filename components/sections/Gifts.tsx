@@ -82,7 +82,7 @@ export function Gifts() {
   const jar = element(gifts.jar);
 
   return (
-    <SectionWrapper section="gifts" width="prose" labelledBy="gifts-title">
+    <SectionWrapper section="gifts" width="card" labelledBy="gifts-title">
       <SectionHead
         eyebrow={gifts.eyebrow}
         title={gifts.title}

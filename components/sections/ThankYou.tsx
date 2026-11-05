@@ -9,7 +9,7 @@ import { couple, thankYou } from "@/content/client";
 /** Màn cuối: lời cảm ơn, ảnh hai người và hashtag. */
 export function ThankYou() {
   return (
-    <SectionWrapper section="thankYou" width="prose" labelledBy="thank-you-title">
+    <SectionWrapper section="thankYou" width="card" labelledBy="thank-you-title">
       <SectionHead
         eyebrow={thankYou.eyebrow}
         title={thankYou.title}

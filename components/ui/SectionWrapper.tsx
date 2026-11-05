@@ -11,7 +11,7 @@ type SectionWrapperProps = {
   /** Dùng khi section tự quản chiều dọc của nó (ví dụ hero cao full màn hình). */
   flush?: boolean;
   /** Bề rộng nội dung: "site" cho layout thường, "prose" cho khối chữ dài. */
-  width?: "site" | "prose" | "bleed";
+  width?: "site" | "prose" | "card" | "bleed";
   labelledBy?: string;
   /** Chỉ cho layout (grid, min-height…), tuyệt đối không dùng để đặt màu hay size chữ. */
   className?: string;
@@ -43,7 +43,13 @@ export function SectionWrapper({
   const divider = resolveDivider(spec.divider);
 
   const container =
-    width === "prose" ? "container-prose" : width === "bleed" ? "" : "container-site";
+    width === "prose"
+      ? "container-prose"
+      : width === "card"
+        ? "container-card"
+        : width === "bleed"
+          ? ""
+          : "container-site";
 
   return (
     <section
