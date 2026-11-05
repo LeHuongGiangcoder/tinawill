@@ -438,7 +438,7 @@ export const typeScale = {
      `type-sub-body`, `type-note`). Chỗ gọi chỉ được chọn MÀU — `text-tone-*`.
 
      Số đo lấy từ trang mở thiệp mà khách duyệt, đo trên iPhone 375px:
-       title     "Hi:)"                   43px, chữ viết tay
+       title     "Hi:)"                   39px, chữ viết tay
        subtitle  "Pick your passport"     22px, font tiêu đề
        body      "We want to share…"      18px, font tiêu đề
        subBody   "Tapestry Collection…"   16px, font tiêu đề in nghiêng
@@ -453,7 +453,7 @@ export const typeScale = {
 
      Nhịp dòng 1.25 của title đo theo hộp dòng của Leckerli One (1.35em) — dưới
      1.2 thì đuôi chữ `g` của dòng trên chạm đầu dòng dưới. */
-  title: { size: "clamp(2.5rem, 11.5vw, 3rem)", line: "1.25", tracking: "0em" },
+  title: { size: "clamp(2.25rem, 10.5vw, 2.75rem)", line: "1.25", tracking: "0em" },
   subtitle: { size: "1.375rem", line: "1.3", tracking: "0em" },
   body: { size: "1.125rem", line: "1.55", tracking: "0em" },
   subBody: { size: "1rem", line: "1.5", tracking: "0em" },
