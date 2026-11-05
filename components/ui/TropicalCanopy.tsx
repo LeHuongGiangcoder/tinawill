@@ -147,7 +147,7 @@ const FRUIT: Piece[] = [
   { name: "anthurium", at: [90, 26, 17], rotate: 12 },
   { name: "pear", at: [92, 48, 16], over: true },
   { name: "pomegranate-half", at: [88, 68, 19], over: true },
-  { name: "frangipani-pair", at: [62, 30, 17], rotate: -12, over: true },
+  { name: "frangipani-pair", at: [62, 26, 17], rotate: -12, over: true },
   { name: "pomegranate", at: [74, 88, 14] },
   { name: "papaya", at: [46, 92, 27], rotate: -8 },
   { name: "hibiscus", at: [16, 86, 25] },
