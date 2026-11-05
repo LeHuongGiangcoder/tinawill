@@ -46,6 +46,7 @@ export function TabSet({
   panelsGap = "mt-block",
   overlay,
   gate,
+  hint,
 }: {
   /** Nhãn của hàng nút cho trình đọc màn hình. */
   label: string;
@@ -80,11 +81,19 @@ export function TabSet({
    * (Travel: hai cánh cửa sổ khép lại).
    */
   gate?: { label: string };
+  /**
+   * Gợi ý đứng ngay trên hàng nút (ví dụ mũi tên chỉ vào nút đầu), biến mất
+   * ngay khi khách bấm chọn một thẻ bằng chuột hay bàn phím. Hãy đặt nó
+   * `absolute` trong khối `relative h-0` mà chỗ gọi tự dựng — TabSet không
+   * chừa chỗ cho nó.
+   */
+  hint?: ReactNode;
 }) {
   const base = useId();
   const [active, setActive] = useState(0);
   /* Không có cổng thì coi như đã mở sẵn — mọi bộ thẻ khác không đổi gì. */
   const [opened, setOpened] = useState(!gate);
+  const [touched, setTouched] = useState(false);
   const sliding = presentation === "slide";
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -107,6 +116,7 @@ export function TabSet({
 
     if (next === null) return;
     event.preventDefault();
+    setTouched(true);
     setActive(next);
     buttons.current[next]?.focus();
   }
@@ -116,6 +126,8 @@ export function TabSet({
       className={className}
       data-gate={gate ? (opened ? "open" : "shut") : undefined}
     >
+      {hint && !touched ? hint : null}
+
       {/* Cổng đóng thì hàng nút chưa có mặt: cái duy nhất bấm được lúc đó là
           nút mở cổng. */}
       <div
@@ -137,7 +149,10 @@ export function TabSet({
             aria-controls={`${base}-panel-${item.id}`}
             aria-selected={active === i}
             tabIndex={active === i ? 0 : -1}
-            onClick={() => setActive(i)}
+            onClick={() => {
+              setTouched(true);
+              setActive(i);
+            }}
             className={`tab ${tabClassName}`}
           >
             {item.tab}
