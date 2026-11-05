@@ -781,7 +781,7 @@ export const agenda = {
   /** Dòng mời bấm ngay dưới `intro` — để khách biết con tem bấm được. */
   hint: "Click on the pictures for the detailed agenda of each day.",
   /** Cụm trong `hint` được quét highlight nét cọ — giống "tap the jar" của Gifts. */
-  highlight: ["pictures"],
+  highlight: ["Click on the pictures"],
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [
