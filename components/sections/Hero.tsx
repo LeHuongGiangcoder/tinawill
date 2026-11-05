@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
-        <TropicalReveal backdrop={<WindMeadow src="/hero/meadow-poppies.webp" />} />
+        <TropicalReveal backdrop={<WindMeadow src="/hero/meadow-ver2.webp" />} />
 
         <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
           {/* Đôi chim ngậm ruy băng — mở đầu trang, ngay trên lời mời. */}

@@ -337,7 +337,7 @@ export const tones = {
    * xanh lá và nút hồng dâm bụt, theo đúng bản khách duyệt.
    */
   /**
-   * Hero: đồng cỏ nhìn từ trên cao (public/hero/meadow-poppies.webp). `bg` là màu trung
+   * Hero: đồng cỏ nhìn từ trên cao (public/hero/meadow-ver2.webp). `bg` là màu trung
    * bình đo từ chính file, để lúc ảnh chưa về section không loé màu khác.
    * Cỏ xanh rêu đậm nên chữ sáng: kem đạt 6.8:1 trên màu trung bình (4.8:1 ở
    * vệt cỏ sáng nhất), be 5.7:1. Dấu "&" dùng cam nhạt (4.1:1) — nó nằm trong
