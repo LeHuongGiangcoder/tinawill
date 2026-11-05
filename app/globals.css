@@ -1809,7 +1809,7 @@ html {
   /* Bớt khoảng thở của .stage-tall: khung thấp đi, cả khoảng trên lẫn dưới
      tiêu đề (nằm giữa phần cao thêm) cùng co lại. */
   .stage-snug {
-    aspect-ratio: 9 / 18.5;
+    aspect-ratio: 9 / 16.5;
   }
 
   /* Thêm khoảng thở cho .stage-tall: cảnh có một đoạn chữ dài ở giữa (cỡ

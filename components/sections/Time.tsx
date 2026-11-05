@@ -214,7 +214,7 @@ export function Time() {
           <p
             data-reveal
             data-reveal-delay="90"
-            className="type-body w-[92%] text-tone-fg"
+            className="type-body w-[92%] text-justify text-tone-fg"
           >
             {timeScene.intro}
           </p>

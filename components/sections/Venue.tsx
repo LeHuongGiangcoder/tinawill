@@ -71,8 +71,9 @@ const ARMS = [
 const ART_CQW = (16 / 9) * 100;
 const cq = (px: number) => `${((px / FRAME.h) * ART_CQW).toFixed(2)}cqw`;
 
-const TABLE_LIFT = 12; // cqw
-const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2)`;
+const TABLE_LIFT = 19; // cqw
+const TITLE_DROP = -3; // cqw — âm = nâng tiêu đề lên
+const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2 + ${TITLE_DROP}cqw)`;
 const TABLE_TOP = `calc(100% - var(--art-h) - ${TABLE_LIFT}cqw)`;
 const COLUMN_TOP = `calc(${cq(1083.1)} + ${TABLE_TOP})`;
 
