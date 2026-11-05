@@ -178,6 +178,7 @@ export function SectionHead({
   subtitle,
   subtitleVariant = "sentence",
   intro,
+  tight = false,
   children,
 }: {
   eyebrow?: string;
@@ -187,10 +188,12 @@ export function SectionHead({
   /** "motif" khi `subtitle` là tên của một thứ chứ không phải một câu — xem `Subhead`. */
   subtitleVariant?: SubheadVariant;
   intro?: ReactNode;
+  /** Đầu section đứng sát nội dung ngay dưới — `mb-stack` thay vì `mb-block`. */
+  tight?: boolean;
   children?: ReactNode;
 }) {
   return (
-    <Reveal className="mb-block flex flex-col items-center gap-tight text-center">
+    <Reveal className={`${tight ? "mb-stack" : "mb-block"} flex flex-col items-center gap-tight text-center`}>
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
       <SectionTitle id={titleId}>{title}</SectionTitle>
       {subtitle ? (

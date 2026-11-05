@@ -47,11 +47,24 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
+        tight
       >
         <Caption>{agenda.intro}</Caption>
         <Lead className="max-w-prose text-balance">
           <Highlighted text={agenda.hint} words={agenda.highlight} />
         </Lead>
+        {/* Mũi tên chỉ về con tem đầu tiên, để khách biết tem bấm được. Vẽ
+            hướng phải rồi lật ngang, nên cú nhích của `animate-nudge` (sang
+            phải) thành nhích sang trái, về phía tem. */}
+        <div data-reveal aria-hidden className="flex w-full max-w-prose justify-start pl-[14%]">
+          <span className="block -scale-x-100 text-tone-accent">
+            <span className="block animate-nudge">
+              <svg viewBox="0 0 48 24" className="h-6 w-12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12h41M34 3l10 9-10 9" />
+              </svg>
+            </span>
+          </span>
+        </div>
       </SectionHead>
 
       <Reveal className="mx-auto max-w-prose">
@@ -90,7 +103,7 @@ export function Agenda() {
                   {/* Thứ và ngày luôn hai dòng riêng ("Friday" / "March 26"),
                       để ba con tem xuống dòng giống hệt nhau thay vì mỗi cái
                       gãy một chỗ tuỳ độ dài tên thứ. */}
-                  <span className="type-note flex flex-col">
+                  <span className="type-sub-body flex flex-col">
                     <span>{day.weekday}</span>
                     <span className="whitespace-nowrap">{day.date}</span>
                   </span>
