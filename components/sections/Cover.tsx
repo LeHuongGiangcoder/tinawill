@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalReveal } from "@/components/ui/TropicalReveal";
-import { couple, design } from "@/content/client";
+import { couple, design, hero } from "@/content/client";
 import { background } from "@/lib/assets";
 
 /**
@@ -45,18 +45,35 @@ export function Cover() {
           }
         />
 
-        <div className="relative z-20 flex w-full flex-col items-center gap-stack py-section">
+        <div className="relative z-20 flex min-h-[100svh] w-full flex-col items-center">
+          {/* Tên nằm giữa khoảng trống phía trên cặp đôi. */}
+          <div className="container-site flex flex-1 items-center justify-center pt-section">
+            <h1
+              id="cover-title"
+              data-reveal
+              data-hero
+              className="type-title flex items-baseline justify-center gap-tight text-center text-tone-title"
+            >
+              <span>{couple.groom}</span>
+              <span className="text-tone-accent">&amp;</span>
+              <span>{couple.bride}</span>
+            </h1>
+          </div>
+
+          {/* Tranh bị cắt phẳng ở mép trái, phải và đáy — nên nó rộng hơn màn
+              (120vw, tràn đều hai bên, section đã clip) và đáy chạm đáy section,
+              để ba đường cắt nằm ngoài khung. Trần theo svh cho máy nằm ngang. */}
           <div
             data-reveal
             data-hero
-            className="ring-motion w-full max-w-[min(34rem,62svh,92vw)]"
+            className="ring-motion w-[min(120vw,78svh)] shrink-0"
           >
             <Image
               src="/coupleupdated.png"
               alt={`${couple.groom} và ${couple.bride} hôn nhau qua khung bàn tay đeo nhẫn`}
               width={1254}
               height={1254}
-              sizes="(max-width: 40rem) 92vw, 34rem"
+              sizes="(max-width: 40rem) 120vw, 78svh"
               priority
             />
             <svg
@@ -255,16 +272,16 @@ export function Cover() {
             </svg>
           </div>
 
-          <h1
-            id="cover-title"
-            data-reveal
-            data-hero
-            className="type-title container-site flex items-baseline justify-center gap-tight text-center text-tone-title"
-          >
-            <span>{couple.groom}</span>
-            <span className="text-tone-accent">&amp;</span>
-            <span>{couple.bride}</span>
-          </h1>
+          {/* Dòng mời cuộn nằm trên vạt váy kem — chữ mang màu nền rượu vang. */}
+          <div className="absolute inset-x-0 bottom-0 flex justify-center pb-section">
+            <p
+              data-reveal
+              data-hero
+              className="text-eyebrow uppercase text-tone-bg"
+            >
+              {hero.scrollHint} ↓
+            </p>
+          </div>
         </div>
       </div>
     </SectionWrapper>
