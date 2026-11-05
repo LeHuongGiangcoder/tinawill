@@ -39,7 +39,7 @@ export function Intro({ ready }: { ready: boolean }) {
       aria-modal="true"
       aria-label={intro.label}
       className={[
-        "scene-cover flex flex-col items-center justify-center gap-stack text-center transition-opacity duration-[650ms] ease-glow",
+        "scene-cover flex flex-col items-center justify-center gap-tight text-center transition-opacity duration-[650ms] ease-glow",
         opened ? "pointer-events-none opacity-0" : ready ? "opacity-100" : "opacity-0",
       ].join(" ")}
     >
