@@ -130,7 +130,7 @@ export function Gifts() {
             {gifts.options.map((option) => (
               <Disclosure key={option.title} label={option.title} name="gifts">
                 <div className="flex flex-col gap-stack">
-                  <p className="type-body text-tone-muted">{option.body}</p>
+                  <p className="type-body text-justify text-tone-muted">{option.body}</p>
                   {option.note ? <Caption>{option.note}</Caption> : null}
 
                   {option.actions.length ? (

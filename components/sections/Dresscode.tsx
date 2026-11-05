@@ -72,7 +72,7 @@ export function Dresscode() {
             {dresscode.notes.map((note, i) => (
               <Reveal key={note.label} delay={i * 60}>
                 <Disclosure label={note.label} labelSize="body" defaultOpen={i === 0}>
-                  <p className="type-note text-tone-muted">{note.body}</p>
+                  <p className="type-note text-justify text-tone-muted">{note.body}</p>
                 </Disclosure>
               </Reveal>
             ))}

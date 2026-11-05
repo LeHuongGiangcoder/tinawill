@@ -102,7 +102,7 @@ export function LoveStory() {
               {paragraphs.map((text, i) => (
                 /* <p> trần: chữ thân bài của site là font body ở bậc `base`,
                    căn trái — giống Travel, Gifts, Dresscode. */
-                <p key={text.slice(0, 24)} data-reveal data-reveal-delay={(i + 1) * 60}>
+                <p key={text.slice(0, 24)} data-reveal data-reveal-delay={(i + 1) * 60} className="text-justify">
                   {text}
                 </p>
               ))}

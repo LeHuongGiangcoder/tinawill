@@ -18,7 +18,7 @@ export function ThankYou() {
       >
         <div className="mt-tight flex flex-col items-center gap-stack">
           {thankYou.paragraphs.map((text) => (
-            <Lead key={text} className="text-balance">
+            <Lead key={text} className="text-justify">
               {text}
             </Lead>
           ))}

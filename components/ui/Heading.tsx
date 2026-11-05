@@ -33,11 +33,12 @@ const LEVEL_TAG: Record<Level, ElementType> = {
 type TextProps = HTMLAttributes<HTMLElement> & { className?: string; children: ReactNode };
 
 /** Xem chú thích của `Subhead`. */
-type SubheadVariant = "sentence" | "motif";
+type SubheadVariant = "sentence" | "motif" | "note";
 
 const SUBHEAD_CLASS: Record<SubheadVariant, string> = {
   sentence: "type-sub-body",
   motif: "type-subtitle",
+  note: "type-note",
 };
 
 /** Tiêu đề. Cỡ chữ chỉ được lấy từ thang trong content/theme.ts. */
@@ -128,6 +129,7 @@ export function SectionTitle({
  *   sentence  mặc định — một câu nói rõ tiêu đề ("Whichever passport…"),
  *             bậc `sub-body`: in nghiêng, nhỏ hơn đoạn dẫn
  *   motif     TÊN của một thứ ("Jungle Glam") — bậc `subtitle`
+ *   note      câu dẫn đứng thẳng, cùng bậc ghi chú — bậc `note`
  *
  * Chọn biến thể theo nội dung dòng chữ, không theo "section này muốn chữ to
  * hơn": một câu dài đặt ở `motif` sẽ nuốt mất tiêu đề ngay trên nó.

@@ -49,6 +49,7 @@ export function Visa() {
           title={visa.title}
           titleId="visa-title"
           subtitle={visa.subtitle}
+          subtitleVariant="note"
         />
 
         {/* Lời mời bấm: to, thẳng, sát hàng cờ — khác dòng nghiêng nhỏ phía
@@ -115,7 +116,7 @@ export function Visa() {
                       </svg>
                       {region.verdict.replace(/\.$/, "")}
                     </p>
-                    {region.note ? <p>{region.note}</p> : null}
+                    {region.note ? <p className="text-justify">{region.note}</p> : null}
                   </div>
 
                   {/* Sáu bước chỉ hiện với hộ chiếu thật sự cần e-visa —
@@ -125,7 +126,7 @@ export function Visa() {
                       <Heading level="h3">{visa.evisa.title}</Heading>
                       <ol className="flex list-decimal flex-col gap-stack pl-stack marker:font-display marker:text-tone-accent">
                         {visa.evisa.items.map((item) => (
-                          <li key={item}>{item}</li>
+                          <li key={item} className="text-justify">{item}</li>
                         ))}
                       </ol>
                       <ButtonLink
@@ -141,10 +142,10 @@ export function Visa() {
 
                   <div className="flex flex-col gap-stack">
                     <Heading level="h3">{visa.flightHeading}</Heading>
-                    <Lead>{route.lead}</Lead>
+                    <Lead className="text-justify">{route.lead}</Lead>
                     <ul className="flex list-disc flex-col gap-stack pl-stack marker:text-tone-accent">
                       {route.items.map((item) => (
-                        <li key={item}>{item}</li>
+                        <li key={item} className="text-justify">{item}</li>
                       ))}
                     </ul>
                   </div>
@@ -173,8 +174,8 @@ export function Visa() {
 
           <div className="flex flex-col gap-stack">
             <Heading level="h3">{visa.airport.title}</Heading>
-            <Lead>{visa.airport.lead}</Lead>
-            <p>{visa.airport.body}</p>
+            <Lead className="text-justify">{visa.airport.lead}</Lead>
+            <p className="text-justify">{visa.airport.body}</p>
           </div>
         </div>
         </div>
