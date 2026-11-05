@@ -71,7 +71,7 @@ const ARMS = [
 const ART_CQW = (16 / 9) * 100;
 const cq = (px: number) => `${((px / FRAME.h) * ART_CQW).toFixed(2)}cqw`;
 
-const TABLE_LIFT = 17; // cqw
+const TABLE_LIFT = 13; // cqw
 const TITLE_DROP = -3; // cqw — âm = nâng tiêu đề lên
 const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2 + ${TITLE_DROP}cqw)`;
 const TABLE_TOP = `calc(100% - var(--art-h) - ${TABLE_LIFT}cqw)`;
@@ -111,7 +111,7 @@ export function Venue() {
         <h2
           id="venue-title"
           data-reveal
-          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center type-title text-tone-title"
+          className="absolute left-1/2 z-40 w-[88%] -translate-x-1/2 -translate-y-1/2 text-center whitespace-pre-line type-title text-tone-title"
           style={{ top: TITLE_TOP }}
         >
           {venueScene.title}

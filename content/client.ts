@@ -466,7 +466,8 @@ export const timeScene = {
  * link Maps vẫn lấy từ `venue` ở trên để hai chỗ không bao giờ lệch nhau.
  */
 export const venueScene = {
-  title: "Our wedding venue",
+  /** `\n` xuống dòng — h2 để `whitespace-pre-line`. */
+  title: "Our wedding\nvenue",
   /** Dòng thành phố trên tấm bàn — ngắn hơn `venue.address` cho vừa bố cục. */
   cityLine: "Da Nang City, Vietnam",
   mapLabel: "Check map",
