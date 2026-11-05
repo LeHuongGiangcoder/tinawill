@@ -21,17 +21,20 @@ export function Hero() {
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
         <TropicalReveal backdrop={<WindMeadow src="/hero/meadow-poppies.webp" />} />
 
-        <div className="container-site relative z-20 flex flex-col items-center gap-stack pb-section text-center">
-          <div className="-translate-y-10">
-            <div
-              data-reveal
-              data-hero
-              aria-hidden
-              className="glyph h-20 w-20 text-tone-title"
-              style={{ "--glyph": "url(/logo/monogram.webp)" } as CSSProperties}
+        <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
+          {/* Đôi chim ngậm ruy băng — mở đầu trang, ngay trên lời mời. */}
+          <div data-reveal data-hero aria-hidden className="w-full max-w-[min(18rem,64vw)]">
+            <Image
+              src="/hero/birds-ribbon.webp"
+              alt=""
+              width={1997}
+              height={787}
+              sizes="(max-width: 40rem) 64vw, 18rem"
+              priority
+              className="h-auto w-full"
             />
           </div>
-          <div className="-translate-y-5">
+          <div>
             <p data-reveal data-hero className="type-body whitespace-pre-line text-tone-fg">
               {hero.invitation}
             </p>
@@ -53,7 +56,7 @@ export function Hero() {
               xoá tay vẫy của cô dâu; cánh tay là một lớp riêng chồng lên đúng
               chỗ cũ và quay quanh vai. Toạ độ là % của khung tranh, đo từ
               public/hero couple updated.png — giữ nguyên tỉ lệ khung là tay luôn khớp. */}
-          <div data-reveal data-hero aria-hidden className="relative mt-block w-full max-w-[min(34rem,42svh)]">
+          <div data-reveal data-hero aria-hidden className="relative mt-block w-full max-w-[min(34rem,36svh)]">
             <Image
               src="/hero/couple-plate-poppies.webp"
               alt=""
