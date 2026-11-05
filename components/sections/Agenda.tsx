@@ -53,15 +53,19 @@ export function Agenda() {
         <Lead className="max-w-prose text-balance">
           <Highlighted text={agenda.hint} words={agenda.highlight} />
         </Lead>
-        {/* Mũi tên chỉ về con tem đầu tiên, để khách biết tem bấm được. Vẽ
-            hướng phải rồi lật ngang, nên cú nhích của `animate-nudge` (sang
-            phải) thành nhích sang trái, về phía tem. */}
-        <div data-reveal aria-hidden className="flex w-full max-w-prose justify-start pl-[14%]">
-          <span className="block -scale-x-100 text-tone-accent">
-            <span className="block animate-nudge">
-              <svg viewBox="0 0 48 24" className="h-6 w-12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 12h41M34 3l10 9-10 9" />
-              </svg>
+        {/* Mũi tên chỉ chéo xuống con tem đầu tiên (Friday), để khách biết tem
+            bấm được. Hàng cao 0 nên mũi tên nằm đè lên khe giữa hint và tem
+            chứ không đẩy tem xuống. Vẽ hướng phải rồi lật ngang, nên cú nhích
+            của `animate-nudge` (sang phải) thành nhích về phía tem; lớp ngoài
+            xoay cả cụm thành hướng chéo xuống trái. */}
+        <div data-reveal aria-hidden className="relative h-0 w-full max-w-prose">
+          <span className="absolute left-[22%] top-0 block -rotate-45 text-tone-accent">
+            <span className="block -scale-x-100">
+              <span className="block animate-nudge">
+                <svg viewBox="0 0 36 18" className="h-4 w-8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9h30M25 2l8 7-8 7" />
+                </svg>
+              </span>
             </span>
           </span>
         </div>
@@ -118,7 +122,11 @@ export function Agenda() {
                       key={`${item.time}-${item.title}`}
                       className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack pb-block last:pb-0 sm:grid-cols-[6rem_1.5rem_1fr]"
                     >
-                      <p className="type-subtitle text-right text-tone-accent">
+                      {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
+                          chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
+                      <p
+                        className={`${/\d/.test(item.time) ? "type-subtitle" : "type-body"} text-right text-tone-accent`}
+                      >
                         {item.time}
                       </p>
 
