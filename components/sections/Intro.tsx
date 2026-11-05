@@ -43,8 +43,8 @@ export function Intro({ ready }: { ready: boolean }) {
         opened ? "pointer-events-none opacity-0" : ready ? "opacity-100" : "opacity-0",
       ].join(" ")}
     >
-      <p className="type-title text-tone-title">{intro.title}</p>
-      <p className="type-body text-tone-muted text-balance">{intro.note}</p>
+      <p className="type-title -mb-tight text-tone-title">{intro.title}</p>
+      <p className="type-body mb-tight text-tone-muted text-balance">{intro.note}</p>
       <Button onClick={open} disabled={!ready}>
         {intro.cta}
       </Button>
