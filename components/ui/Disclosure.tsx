@@ -39,7 +39,11 @@ export function Disclosure({
   return (
     <details className={`disclosure ${className}`} name={name} open={defaultOpen}>
       <summary className="disclosure-summary">
-        <span className={labelSize === "body" ? "type-body" : "type-subtitle"}>{label}</span>
+        <span
+          className={`${labelSize === "body" ? "type-body" : "type-subtitle"} text-tone-title`}
+        >
+          {label}
+        </span>
         {/* Dấu cộng xoay thành dấu trừ khi mở — vẽ bằng hai gạch nên nó lấy
             đúng màu chữ của tông, không cần file icon nào. */}
         <span aria-hidden className="disclosure-mark" />

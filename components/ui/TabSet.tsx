@@ -43,6 +43,7 @@ export function TabSet({
   tabClassName = "",
   presentation = "swap",
   panelsClassName = "",
+  panelsGap = "mt-block",
   overlay,
   gate,
 }: {
@@ -56,6 +57,8 @@ export function TabSet({
    * lưới riêng vào, ví dụ `"grid grid-cols-3 sm:grid-cols-6 gap-stack"`.
    */
   listClassName?: string;
+  /** Khoảng cách từ hàng nút xuống khung nội dung — một utility `mt-*` của hệ khoảng cách. */
+  panelsGap?: string;
   /** Lớp thêm cho từng nút, ví dụ `tab-boxed` để nút chọn có khung viền. */
   tabClassName?: string;
   /**
@@ -142,7 +145,7 @@ export function TabSet({
         ))}
       </div>
 
-      <div className={`relative mt-block ${panelsClassName}`}>
+      <div className={`relative ${panelsGap} ${panelsClassName}`}>
         {/*
           Kiểu `slide`: cả bộ panel nằm cạnh nhau trên một dải rộng gấp N lần,
           đổi thẻ là dải trượt ngang. Dải rộng N×100% và mỗi panel rộng

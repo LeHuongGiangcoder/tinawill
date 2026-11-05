@@ -146,13 +146,14 @@ export function Travel() {
           label={travel.tabsLabel}
           presentation="slide"
           panelsClassName="window"
+          panelsGap="mt-stack"
           overlay={<WindowFrame />}
           gate={{ label: travel.gateLabel }}
           items={travel.tabs.map((tab) => ({
             id: tab.id,
             tab: (
               <>
-                <span className="type-subtitle">{tab.label}</span>
+                <span className="type-body">{tab.label}</span>
                 <span aria-hidden className="tab-mark" />
               </>
             ),
