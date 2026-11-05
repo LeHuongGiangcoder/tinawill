@@ -40,10 +40,10 @@ const SECTIONS: Record<Exclude<SectionId, "intro">, () => React.ReactNode> = {
 };
 
 export default function Page() {
-  /* Màn mở thiệp là trạng thái đóng của cảnh trong Hero (xem TropicalReveal),
-     nên nó không render như một section riêng — và không có Hero thì cũng
+  /* Màn mở thiệp là trạng thái đóng của cảnh trong Cover (xem TropicalReveal),
+     nên nó không render như một section riêng — và không có Cover thì cũng
      không có nút để mở, phải bỏ cổng đi kẻo khoá cuộn mãi. */
-  const gated = sections.includes("intro") && sections.includes("hero");
+  const gated = sections.includes("intro") && sections.includes("cover");
   const flow = sections.filter((id) => id !== "intro");
 
   return (

@@ -2,28 +2,25 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { TropicalReveal } from "@/components/ui/TropicalReveal";
 import { WindMeadow } from "@/components/ui/WindMeadow";
 import { couple, hero } from "@/content/client";
 
 /**
- * Trang bìa: tán lá mở ra để lộ một đồng cỏ nhìn từ trên cao — cỏ lay theo
- * gió (WindMeadow), cô dâu chú rể nằm giữa cỏ, cô dâu vẫy tay không ngừng.
+ * Đồng cỏ nhìn từ trên cao — cỏ lay theo gió (WindMeadow), cô dâu chú rể nằm
+ * giữa cỏ, cô dâu vẫy tay không ngừng.
  *
- * Nền là <TropicalReveal> — cùng một cảnh với màn mở thiệp, chỉ khác trạng
- * thái. Tán lá mở ra để lộ đồng cỏ rồi chữ mới hiện, nằm giữa trang, nên các khối gắn
- * `data-hero`: chúng chờ cú chạm mở thiệp chứ không chờ cuộn (hero đứng ngay
- * đầu trang nên sẽ không bao giờ "cuộn tới"). Nhịp chờ là `motion.heroDelay`.
+ * Hero đứng ngay sau Cover; màn mở thiệp và cảnh tán lá giờ nằm ở Cover, nên
+ * chữ ở đây chỉ `data-reveal` — hiện khi cuộn tới như mọi section khác.
  */
 export function Hero() {
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
-        <TropicalReveal backdrop={<WindMeadow src="/hero/meadow-ver2.webp" />} />
+        <WindMeadow src="/hero/meadow-ver2.webp" />
 
         <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
           {/* Đôi chim ngậm ruy băng — mở đầu trang, ngay trên lời mời. */}
-          <div data-reveal data-hero aria-hidden className="w-full max-w-[min(18rem,64vw)]">
+          <div data-reveal aria-hidden className="w-full max-w-[min(18rem,64vw)]">
             <Image
               src="/hero/birds-ribbon.webp"
               alt=""
@@ -35,7 +32,7 @@ export function Hero() {
             />
           </div>
           <div>
-            <p data-reveal data-hero className="type-body whitespace-pre-line text-tone-fg">
+            <p data-reveal className="type-body whitespace-pre-line text-tone-fg">
               {hero.invitation}
             </p>
           </div>
@@ -44,7 +41,6 @@ export function Hero() {
           <h1
             id="hero-title"
             data-reveal
-            data-hero
             className="type-title flex items-baseline justify-center gap-tight text-tone-title"
           >
             <span>{couple.groom}</span>
@@ -56,7 +52,7 @@ export function Hero() {
               xoá tay vẫy của cô dâu; cánh tay là một lớp riêng chồng lên đúng
               chỗ cũ và quay quanh vai. Toạ độ là % của khung tranh, đo từ
               public/hero couple updated.png — giữ nguyên tỉ lệ khung là tay luôn khớp. */}
-          <div data-reveal data-hero aria-hidden className="relative mt-block w-full max-w-[min(34rem,36svh)]">
+          <div data-reveal aria-hidden className="relative mt-block w-full max-w-[min(34rem,36svh)]">
             <Image
               src="/hero/couple-plate-poppies.webp"
               alt=""
@@ -78,7 +74,7 @@ export function Hero() {
         </div>
 
         <div className="absolute inset-x-0 bottom-0 z-20 flex justify-center pb-section">
-          <p data-reveal data-hero className="text-eyebrow uppercase text-tone-muted">
+          <p data-reveal className="text-eyebrow uppercase text-tone-muted">
             {hero.scrollHint} ↓
           </p>
         </div>

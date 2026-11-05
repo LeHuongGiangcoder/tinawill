@@ -51,9 +51,8 @@ export type SectionId =
  * nó hiện ngay cùng khối tên gia đình hai bên.
  */
 export const sections: SectionId[] = [
-  /* `intro` là màn mở thiệp nằm trong cảnh của Hero (không phải một trang
-     riêng). Cover đứng trên Hero nên cuộn tự do; cổng chỉ khoá cuộn khi khách
-     chạm tới Hero — xem ExperienceProvider. */
+  /* `intro` là màn mở thiệp nằm trong cảnh tán lá của Cover (không phải một
+     trang riêng): bấm mở thì lá dạt ra lộ Cover, cuộn tiếp là Hero. */
   "intro",
   "cover",
   "hero",
@@ -184,9 +183,8 @@ export type SectionDesign = {
 export const design: Record<SectionId, SectionDesign> = {
   /* Trang bìa đầu tiên: cặp đôi trong suốt đặt trên giấy rượu vang. */
   cover: { anchor: "cover", tone: "wine", background: "paper-wine", overlay: 0 },
-  /* Intro và hero dùng chung một nền: cảnh nhiều lớp trong
-     components/ui/TropicalReveal.tsx, chứ không phải ảnh nền của SectionWrapper.
-     Vì thế cả hai đều để `background` trống. */
+  /* Intro là trạng thái đóng của cảnh tán lá trong Cover
+     (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
   /* Hero mở ra một đồng cỏ nhìn từ trên cao (WindMeadow trong
      components/ui/WindMeadow.tsx) — cỏ rêu đậm nên chữ dùng tông `meadow` sáng. */

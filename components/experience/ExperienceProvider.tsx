@@ -12,7 +12,7 @@ import {
 } from "react";
 
 import { OPEN_EVENT } from "@/components/ui/Motion";
-import { design, music } from "@/content/client";
+import { music } from "@/content/client";
 
 type ExperienceValue = {
   /** Thiệp đã mở chưa — màn Intro ẩn đi và trang mở khoá cuộn khi true. */
@@ -56,36 +56,10 @@ export function ExperienceProvider({
 
   const enabled = music.enabled && music.src !== "";
 
-  // Luôn bắt đầu từ đầu trang, thay vì để trình duyệt nhớ vị trí cuộn cũ.
+  // Khoá cuộn khi thiệp chưa mở.
   useEffect(() => {
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, []);
-
-  /* Khoá cuộn khi thiệp chưa mở. Màn mở thiệp nằm trong Hero, mà phía trên
-     Hero có thể còn trang bìa (Cover) — nên chỉ khoá khi khách cuộn tới Hero,
-     và kéo họ về đúng đầu Hero để thấy trọn màn mở thiệp. */
-  useEffect(() => {
-    if (opened) {
-      document.body.dataset.locked = "false";
-      return;
-    }
-    const lockAtHero = () => {
-      const hero = document.getElementById(design.hero.anchor);
-      if (!hero || document.body.dataset.locked === "true") return;
-      const top = hero.getBoundingClientRect().top;
-      if (top <= 0) {
-        window.scrollTo({ top: window.scrollY + top, behavior: "instant" });
-        document.body.dataset.locked = "true";
-      }
-    };
-    document.body.dataset.locked = "false";
-    lockAtHero();
-    window.addEventListener("scroll", lockAtHero, { passive: true });
+    document.body.dataset.locked = opened ? "false" : "true";
     return () => {
-      window.removeEventListener("scroll", lockAtHero);
       document.body.dataset.locked = "false";
     };
   }, [opened]);
@@ -94,6 +68,14 @@ export function ExperienceProvider({
   useEffect(() => {
     if (!gated) window.dispatchEvent(new Event(OPEN_EVENT));
   }, [gated]);
+
+  // Luôn bắt đầu từ đầu trang, thay vì để trình duyệt nhớ vị trí cuộn cũ.
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   const getAudio = useCallback(() => {
     if (!audioRef.current) {
