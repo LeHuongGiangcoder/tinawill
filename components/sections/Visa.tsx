@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/Button";
-import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
+import { Caption, Heading, Lead, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -55,7 +55,7 @@ export function Visa() {
             trên, để khách hiểu đây là thứ bấm được chứ không phải chữ trang trí. */}
         <div className="mb-stack flex flex-col items-center gap-tight text-center">
           <Heading level="h3">{visa.pickPrompt}</Heading>
-          <Lead>{visa.pickNote}</Lead>
+          <Caption>{visa.pickNote}</Caption>
         </div>
 
         <TabSet
