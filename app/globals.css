@@ -442,6 +442,85 @@ html {
 /* ---------------------------------------------------- COMPONENTS */
 
 @layer components {
+  /* Nhẫn lấp lánh của trang Cover — xem components/sections/Cover.tsx. Chỉ lớp SVG chuyển động. */
+  .ring-motion{--cycle:5.8s;--shine-strength:1;--drama:1.25;position:relative;isolation:isolate;width:100%;aspect-ratio:1/1}
+    .ring-motion>img{display:block;width:100%;height:100%;object-fit:contain}
+    .ring-motion>.ring-effects{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+    .ring-motion .fx{opacity:0;mix-blend-mode:screen;animation-duration:var(--cycle);animation-iteration-count:infinite;animation-fill-mode:both}
+    .ring-motion .light-sweep{animation-name:ring-sweep;animation-timing-function:cubic-bezier(.35,0,.35,1);will-change:transform,opacity}
+    .ring-motion .facet{animation-name:facet-flash;animation-timing-function:ease-in-out}
+    .ring-motion .facet-b{animation-delay:calc(var(--cycle) * .045)}
+    .ring-motion .facet-c{animation-delay:calc(var(--cycle) * .085)}
+    .ring-motion .warm-aura{animation-name:aura-bloom;animation-timing-function:ease-in-out}
+    .ring-motion .orbit-phase{animation-name:orbit-reveal;animation-timing-function:linear}
+    .ring-motion .orbit-trail{animation:ring-trail var(--cycle) linear infinite}
+    .ring-motion .orbit-trail-b{animation-delay:calc(var(--cycle) * .025)}
+    .ring-motion .orbit-comet{transform-origin:800px 450px;animation:orbit-turn var(--cycle) linear infinite}
+    .ring-motion .drama-scale{transform:scale(var(--drama));transform-origin:0 0}
+    .ring-motion .big-sparkle{transform-origin:0 0;animation-name:grand-finale;animation-timing-function:cubic-bezier(.2,.7,.25,1)}
+    .ring-motion .burst-halo{transform-origin:0 0;animation-name:halo-expand;animation-timing-function:ease-out}
+    .ring-motion .echo-ring{transform-origin:0 0;animation-name:echo-expand;animation-timing-function:ease-out}
+    .ring-motion .satellite{transform-origin:0 0;animation-name:satellite-pop;animation-timing-function:ease-out}
+    .ring-motion .satellite-b{animation-delay:calc(var(--cycle) * .055)}
+    .ring-motion .satellite-c{animation-delay:calc(var(--cycle) * .085)}
+    .ring-motion[data-paused="true"] *{animation-play-state:paused!important}
+    /* 0.35–2.2s: a wide, slow sweep. 1.9–3.55s: one orbit. 3.7s: POP. */
+    @keyframes ring-sweep{
+      0%,3%{transform:translateX(-200px);opacity:0}
+      9%{opacity:var(--shine-strength)}
+      32%{opacity:var(--shine-strength)}
+      39%,100%{transform:translateX(470px);opacity:0}
+    }
+    @keyframes facet-flash{
+      0%,8%,44%,100%{opacity:0}
+      22%{opacity:.42}30%{opacity:.12}35%{opacity:.4}
+    }
+    @keyframes aura-bloom{
+      0%,7%,45%,100%{opacity:0}24%{opacity:.42}34%{opacity:.18}
+    }
+    @keyframes orbit-reveal{
+      0%,30%,64%,100%{opacity:0}
+      35%,57%{opacity:1}61%{opacity:.65}
+    }
+    @keyframes ring-trail{
+      0%,31%{stroke-dashoffset:160}
+      62%,100%{stroke-dashoffset:-840}
+    }
+    @keyframes orbit-turn{
+      0%,31%{transform:rotate(-75deg)}62%,100%{transform:rotate(285deg)}
+    }
+    /* Quick anticipation, comic overshoot, one soft wobble, then a quiet tail. */
+    @keyframes grand-finale{
+      0%,59%,83%,100%{opacity:0;transform:scale(.05) rotate(-18deg)}
+      62%{opacity:.55;transform:scale(.18) rotate(-18deg)}
+      66%{opacity:1;transform:scale(1.32) rotate(7deg)}
+      70%{opacity:.96;transform:scale(.92) rotate(-5deg)}
+      74%{opacity:.75;transform:scale(1.07) rotate(3deg)}
+      80%{opacity:0;transform:scale(.65) rotate(10deg)}
+    }
+    @keyframes halo-expand{
+      0%,59%,83%,100%{opacity:0;transform:scale(.15)}
+      65%{opacity:.86;transform:scale(.88)}
+      73%{opacity:.23;transform:scale(1.5)}
+      82%{opacity:0;transform:scale(1.9)}
+    }
+    @keyframes echo-expand{
+      0%,64%,82%,100%{opacity:0;transform:scale(.3)}
+      67%{opacity:.55;transform:scale(.7)}
+      81%{opacity:0;transform:scale(1.75)}
+    }
+    @keyframes satellite-pop{
+      0%,66%,86%,100%{opacity:0;transform:scale(.05) rotate(-20deg)}
+      71%{opacity:1;transform:scale(1.12) rotate(12deg)}
+      77%{opacity:.6;transform:scale(.72) rotate(28deg)}
+      85%{opacity:0;transform:scale(.12) rotate(40deg)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .ring-motion:not([data-force-motion="true"]) .fx,
+      .ring-motion:not([data-force-motion="true"]) .orbit-trail,
+      .ring-motion:not([data-force-motion="true"]) .orbit-comet{animation:none;opacity:0}
+    }
+
   /*
     Hai khung hình chồng nhau, chạy như một GIF: hai khung `.flip-a` / `.flip-b`
     thay phiên nhau hiện theo nhịp `--flip-cycle`. Không nội suy —

@@ -1,6 +1,7 @@
 import { ExperienceProvider } from "@/components/experience/ExperienceProvider";
 import { GuestProvider } from "@/components/experience/GuestProvider";
 import { Agenda } from "@/components/sections/Agenda";
+import { Cover } from "@/components/sections/Cover";
 import { Dresscode } from "@/components/sections/Dresscode";
 import { Gallery } from "@/components/sections/Gallery";
 import { Gifts } from "@/components/sections/Gifts";
@@ -22,6 +23,7 @@ import { sections, type SectionId } from "@/content/client";
  * (content/client.ts) rồi thêm một dòng ở đây — không sửa gì khác.
  */
 const SECTIONS: Record<Exclude<SectionId, "intro">, () => React.ReactNode> = {
+  cover: Cover,
   hero: Hero,
   time: Time,
   loveStory: LoveStory,
