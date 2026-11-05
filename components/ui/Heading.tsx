@@ -198,7 +198,7 @@ export function SectionHead({
           {subtitle}
         </Subhead>
       ) : null}
-      {intro ? <Lead className="max-w-prose text-balance">{intro}</Lead> : null}
+      {intro ? <Lead className="max-w-prose text-justify">{intro}</Lead> : null}
       {children}
     </Reveal>
   );

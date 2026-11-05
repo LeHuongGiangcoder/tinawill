@@ -15,15 +15,15 @@ export function Disclosure({
   label,
   name,
   defaultOpen = false,
-  labelSize = "subtitle",
+  labelSize = "body",
   className = "",
   children,
 }: {
   label: string;
   /**
-   * Bậc chữ của nhãn: `subtitle` khi nhãn là tiêu đề một khối hướng dẫn
-   * ("Wedding night"), `body` khi nó chỉ là tên một nhóm trong một danh sách
-   * gợi ý ("For him").
+   * Bậc chữ của nhãn: mặc định `body` — cùng bậc với nội dung xổ ra bên dưới,
+   * để nhãn không to hơn chính thứ nó mở. `subtitle` chỉ dùng khi nhãn đóng
+   * vai tiêu đề của cả một khối.
    */
   labelSize?: "subtitle" | "body";
   /** Mở sẵn khi trang vừa tải — dành cho mục quan trọng nhất của nhóm. */
