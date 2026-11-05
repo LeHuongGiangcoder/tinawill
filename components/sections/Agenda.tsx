@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
+import { Caption, Heading, Lead, SectionHead } from "@/components/ui/Heading";
+import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -46,10 +47,11 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
-        subtitle={agenda.subtitle}
-        intro={agenda.intro}
       >
-        <Lead className="max-w-prose text-balance">{agenda.hint}</Lead>
+        <Caption>{agenda.intro}</Caption>
+        <Lead className="max-w-prose text-balance">
+          <Highlighted text={agenda.hint} words={agenda.highlight} />
+        </Lead>
       </SectionHead>
 
       <Reveal className="mx-auto max-w-prose">
@@ -88,11 +90,11 @@ export function Agenda() {
                   {/* Thứ và ngày luôn hai dòng riêng ("Friday" / "March 26"),
                       để ba con tem xuống dòng giống hệt nhau thay vì mỗi cái
                       gãy một chỗ tuỳ độ dài tên thứ. */}
-                  <span className="type-body flex flex-col">
+                  <span className="type-note flex flex-col">
                     <span>{day.weekday}</span>
                     <span className="whitespace-nowrap">{day.date}</span>
                   </span>
-                  <span className="type-subtitle">{day.title}</span>
+                  <span className="type-body">{day.title}</span>
                   <span aria-hidden className="tab-mark" />
                 </>
               ),

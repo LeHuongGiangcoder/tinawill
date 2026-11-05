@@ -777,10 +777,11 @@ export type AgendaStamp = "cocktail" | "sun" | "monstera";
 export const agenda = {
   eyebrow: "The weekend",
   title: "Agenda",
-  subtitle: "Three days, one celebration.",
   intro: "Exact times will be confirmed closer to the date.",
   /** Dòng mời bấm ngay dưới `intro` — để khách biết con tem bấm được. */
   hint: "Click on the pictures for the detailed agenda of each day.",
+  /** Cụm trong `hint` được quét highlight nét cọ — giống "tap the jar" của Gifts. */
+  highlight: ["pictures"],
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [
