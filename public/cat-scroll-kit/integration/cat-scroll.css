@@ -1,0 +1,9 @@
+/* Apply to a shared wrapper around both EXISTING sections. */
+.cat-journey-stage { position:relative; isolation:isolate; overflow:visible; }
+.cat-journey-layer { z-index:30; pointer-events:none; }
+/* If there is foreground foliage, move its separate transparent layer here.
+   Keep the journey layer behind it. Do not place the entire lower section above the cat. */
+.cat-journey-foreground { position:absolute; inset:0; z-index:40; pointer-events:none; }
+.cat-journey-section-content { position:relative; z-index:10; }
+/* Clip horizontal overflow at the page-shell, not on either section. */
+.cat-journey-page-shell { overflow-x:clip; }

@@ -652,42 +652,6 @@
       }
     },
     {
-      "id": "top_right-03-bracts_pink",
-      "asset": "/reveal/bracts_pink.webp",
-      "rawSize": [
-        245,
-        237
-      ],
-      "z": 4102,
-      "reveal": {
-        "delay": 2.642,
-        "duration": 1.4205,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.0525,
-        "arcX": 7.5,
-        "arcY": -13.5,
-        "bend": 0.525
-      },
-      "closed": {
-        "x": 682,
-        "y": 276.7,
-        "width": 178.8,
-        "rotation": -26,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 732,
-        "y": 241.70000000000005,
-        "width": 100,
-        "rotation": -26,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
       "id": "mid_left-01-paired_leaves",
       "asset": "/reveal/paired_leaves.webp",
       "rawSize": [
@@ -815,16 +779,16 @@
         "bend": -1.2
       },
       "closed": {
-        "x": 225,
-        "y": 1190,
-        "width": 250,
+        "x": 215,
+        "y": 1180,
+        "width": 310,
         "rotation": 0,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 90,
-        "y": 1185,
+        "x": 80,
+        "y": 1175,
         "width": 245,
         "rotation": -14,
         "flipX": false,
@@ -1012,42 +976,6 @@
       }
     },
     {
-      "id": "bottom_left-03-hibiscus",
-      "asset": "/reveal/hibiscus.webp",
-      "rawSize": [
-        352,
-        344
-      ],
-      "z": 4402,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.75,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 160,
-        "y": 1506.1,
-        "width": 370,
-        "rotation": 8,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 55,
-        "y": 1536.1,
-        "width": 435,
-        "rotation": 8,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
       "id": "bottom_right-02-pomegranate",
       "asset": "/reveal/pomegranate.webp",
       "rawSize": [
@@ -1151,78 +1079,6 @@
         "y": 1900,
         "width": 400,
         "rotation": 12,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
-      "id": "bottom_left-05-bracts_purple",
-      "asset": "/reveal/bracts_purple.webp",
-      "rawSize": [
-        276,
-        267
-      ],
-      "z": 4410,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.75,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 330,
-        "y": 1840,
-        "width": 120,
-        "rotation": -10,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 225,
-        "y": 1870,
-        "width": 120,
-        "rotation": -10,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
-      "id": "bottom_left-06-bracts_purple",
-      "asset": "/reveal/bracts_purple.webp",
-      "rawSize": [
-        276,
-        267
-      ],
-      "z": 4411,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.75,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 255,
-        "y": 1905,
-        "width": 95,
-        "rotation": 20,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 150,
-        "y": 1935,
-        "width": 95,
-        "rotation": 20,
         "flipX": false,
         "opacity": 0
       }

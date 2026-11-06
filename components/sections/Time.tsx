@@ -176,13 +176,16 @@ export function Time() {
   return (
     <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
       <div className="stage-9x16 stage-tall stage-roomy">
-        {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. */}
+        {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. Ghế trái để trống —
+            bé mèo của CatJourney chạy từ Hero xuống ngồi vào đó, toạ độ đáp
+            đo theo khung này (`data-cat-seat`). */}
         <div
+          data-cat-seat
           className="stage-art stage-art-bottom z-10"
           style={{ bottom: `${LOUNGER_LIFT}cqw` }}
         >
           <Image
-            src={`${BASE}/loungers.webp`}
+            src={`${BASE}/loungers-empty.webp`}
             alt=""
             aria-hidden
             fill
@@ -210,14 +213,6 @@ export function Time() {
           >
             {timeScene.title}
           </h2>
-
-          <p
-            data-reveal
-            data-reveal-delay="90"
-            className="type-body w-[92%] text-justify text-tone-fg"
-          >
-            {timeScene.intro}
-          </p>
 
           <div className="flex flex-col items-center gap-tight">
             <p data-reveal data-reveal-delay="180" className="type-subtitle text-tone-fg">

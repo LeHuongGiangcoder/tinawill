@@ -1,0 +1,19 @@
+Hãy tích hợp bộ cat-scroll-kit vào hai section đang có của website, giữ nguyên toàn bộ layout, artwork, text và typography hiện tại.
+
+Đọc ANIMATION-GUIDE.md và integration/cat-scroll.js, xem demo.html trước khi code.
+
+Mục tiêu: mèo tuxedo bên trái ban đầu KHÔNG có trên ghế. Khi scroll, bé xuất hiện từ góc trái của nửa dưới section olive, chạy xuống theo đường cong reference/trajectory-markup.png, vòng bên trái couple, hạ người lấy đà gần đáy section rồi nhảy xuống xuyên ranh giới sang section Save the Date. Đoạn xuống section đỏ đi sát mép trái, tránh title, date, button. Cuối cùng bé chạm ghế trái, chùng chân rồi ngồi đúng vị trí gốc. Mèo xám bên phải giữ nguyên.
+
+Thay đúng layer loungers.png cũ bằng assets/loungers-no-left-cat.png, giữ nguyên size/position. Không overlay lên base cũ vì sẽ có hai mèo. Base PNG có cả khoảng trong suốt phía trên, không trim.
+
+Dùng một absolute motion layer trong wrapper CHUNG của hai section, pointer-events:none, aria-hidden:true. Không tạo mèo riêng cho mỗi section, không position:fixed, không đổi parent khi qua section. Sửa overflow/stacking context gây clipping, giữ foreground lá cây tách riêng trên mèo nếu đã có sẵn.
+
+Ưu tiên controller dependency-free được cung cấp. Nếu project đã dùng GSAP có thể chuyển sang ScrollTrigger, nhưng phải giữ chính xác hành vi: progress phụ thuộc scroll, dừng scroll thì chân dừng, reverse được, không pin, không autoplay cả hành trình, không GIF tự chạy.
+
+Timeline: run 0–48%, crouch 48–53%, jump 53–90%, land 90–95%, settle 95–99.5%, sit sau đó. Run dùng bốn PNG. Jump không chạy chân. Đổi sang land trước điểm chạm. Không xoay mèo theo toàn bộ tangent hoặc kéo dãn như cao su.
+
+Tất cả sprite 512x512, chung anchor 50%,87.5%. Frame width mặc định 20% wrapper. Điểm đáp là 36.3%,69.4% TRÊN TOÀN BỘ CANVAS 1152x2048 của ảnh ghế chưa crop. Tính toạ độ từ kích thước ảnh render thật; ResizeObserver/load/resize phải cập nhật lại. Không dùng pixel hardcode từ screenshot. Dùng width + height:auto cho ảnh, tránh object-fit:cover làm sai anchor.
+
+prefers-reduced-motion:reduce: hiện pose ngồi tại ghế ngay. Cleanup listeners/ResizeObserver/RAF khi unmount. Không cho mèo chặn click hoặc tạo focus.
+
+Nền demo chỉ là ảnh tham chiếu, không đưa screenshot/nền demo vào website thật. Giữ nền xanh, nền đỏ và lá cây hiện có. Test mobile 360/390/430 và desktop, scroll nhanh/chậm/ngược, resize và reduced motion. Chỉ hoàn thành khi ghế không có mèo duplicate, mèo không bị cắt ở ranh giới, không che text/button và chân khớp vị trí cuối.

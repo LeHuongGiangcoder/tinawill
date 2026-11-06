@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalReveal } from "@/components/ui/TropicalReveal";
-import { couple, design, hero } from "@/content/client";
+import { couple, cover, design, hero } from "@/content/client";
 import { background } from "@/lib/assets";
 
 /**
@@ -46,18 +46,50 @@ export function Cover() {
         />
 
         <div className="relative z-20 flex min-h-[100svh] w-full flex-col items-center">
-          {/* Tên nằm giữa khoảng trống phía trên cặp đôi. */}
-          <div className="container-site flex flex-1 items-center justify-center pt-section">
-            <h1
-              id="cover-title"
-              data-reveal
-              data-hero
-              className="type-title flex items-baseline justify-center gap-tight text-center text-tone-title"
-            >
-              <span>{couple.groom}</span>
-              <span className="text-tone-accent">&amp;</span>
-              <span>{couple.bride}</span>
-            </h1>
+          {/* Tên xếp so le như bản khách duyệt: "Will" ôm lề trái, viên "and"
+              nghiêng chen trước "Tina" ở dòng dưới lệch phải, rồi lời mời
+              nghiêng kèm gạch lượn hồng. Khối nằm trong khoảng trống phía
+              trên bàn tay. */}
+          <div className="container-site flex flex-1 flex-col justify-center pt-section">
+            <div className="mx-auto flex w-full max-w-[22rem] flex-col gap-stack">
+              <h1
+                id="cover-title"
+                data-reveal
+                data-hero
+                className="flex flex-col font-script text-monogram text-tone-title"
+              >
+                <span className="self-start">{couple.groom}</span>
+                <span className="flex items-center gap-stack self-end">
+                  <span className="tag-pill -rotate-6 font-display text-subtitle italic">
+                    {cover.and}
+                  </span>
+                  <span>{couple.bride}</span>
+                </span>
+              </h1>
+
+              <div
+                data-reveal
+                data-hero
+                className="flex flex-col items-start gap-tight"
+              >
+                <p className="type-sub-body whitespace-pre-line text-tone-fg">
+                  {cover.invitation}
+                </p>
+                <svg
+                  aria-hidden
+                  viewBox="0 0 120 10"
+                  className="w-[8rem] text-blush"
+                  fill="none"
+                >
+                  <path
+                    d="M2 5 Q9.5 0 17 5 T32 5 T47 5 T62 5 T77 5 T92 5 T107 5 T118 5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
 
           {/* Tranh bị cắt phẳng ở mép trái, phải và đáy — nên nó rộng hơn màn
@@ -69,7 +101,7 @@ export function Cover() {
             className="ring-motion w-[min(120vw,78svh)] shrink-0"
           >
             <Image
-              src="/coupleupdated.png"
+              src="/couple-cover.png"
               alt={`${couple.groom} và ${couple.bride} hôn nhau qua khung bàn tay đeo nhẫn`}
               width={1254}
               height={1254}
@@ -270,6 +302,12 @@ export function Cover() {
                 </g>
               </g>
             </svg>
+
+            {/* Nằm trên vạt váy kem bên phải chiếc vòng — toạ độ % theo khung
+                tranh nên luôn bám đúng chỗ váy. Chữ mang màu nền rượu vang. */}
+            <p className="absolute left-[70%] top-[86.5%] -translate-x-1/2 -rotate-6 whitespace-pre text-center type-sub-body text-tone-bg">
+              {cover.yes}
+            </p>
           </div>
 
           {/* Dòng mời cuộn nằm trên vạt váy kem — chữ mang màu nền rượu vang. */}

@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { WindMeadow } from "@/components/ui/WindMeadow";
-import { couple, hero } from "@/content/client";
+import { hero } from "@/content/client";
 
 /**
  * Đồng cỏ nhìn từ trên cao — cỏ lay theo gió (WindMeadow), cô dâu chú rể nằm
@@ -35,25 +35,13 @@ export function Hero() {
               className="h-auto w-full"
             />
           </div>
-          <div>
-            <p
-              data-reveal
-              className="type-body whitespace-pre-line text-tone-fg"
-            >
-              {hero.invitation}
-            </p>
-          </div>
-
-          {/* Tên hai người là title của trang — cùng bộ chữ với "Hi:)". */}
-          <h1
+          <p
             id="hero-title"
             data-reveal
-            className="type-title flex items-baseline justify-center gap-tight text-tone-title"
+            className="type-body w-[87%] text-justify text-tone-fg"
           >
-            <span>{couple.groom}</span>
-            <span className="text-tone-accent">&amp;</span>
-            <span>{couple.bride}</span>
-          </h1>
+            {hero.intro}
+          </p>
 
           {/* Cặp đôi nằm trên cỏ, nhìn từ trên cao. Tranh là bản "sạch" đã
               xoá tay vẫy của cô dâu; cánh tay là một lớp riêng chồng lên đúng

@@ -1,0 +1,181 @@
+{
+  "frameSize": [
+    512,
+    512
+  ],
+  "anchor": [
+    0.5,
+    0.875
+  ],
+  "atlas": {
+    "file": "assets/cat-atlas.png",
+    "columns": 4,
+    "rows": 2
+  },
+  "frames": {
+    "run-01": {
+      "file": "assets/cat-run-01.png",
+      "frame": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        59,
+        150,
+        452,
+        448
+      ]
+    },
+    "run-02": {
+      "file": "assets/cat-run-02.png",
+      "frame": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        88,
+        141,
+        423,
+        448
+      ]
+    },
+    "run-03": {
+      "file": "assets/cat-run-03.png",
+      "frame": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        56,
+        207,
+        455,
+        448
+      ]
+    },
+    "run-04": {
+      "file": "assets/cat-run-04.png",
+      "frame": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        89,
+        128,
+        422,
+        448
+      ]
+    },
+    "crouch": {
+      "file": "assets/cat-crouch.png",
+      "frame": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        120,
+        174,
+        429,
+        448
+      ]
+    },
+    "jump": {
+      "file": "assets/cat-jump.png",
+      "frame": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        72,
+        108,
+        440,
+        448
+      ]
+    },
+    "land": {
+      "file": "assets/cat-land.png",
+      "frame": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        67,
+        138,
+        375,
+        448
+      ]
+    },
+    "sit": {
+      "file": "assets/cat-sit.png",
+      "frame": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        448
+      ],
+      "visibleBox": [
+        134,
+        115,
+        352,
+        448
+      ]
+    }
+  },
+  "base": {
+    "file": "assets/loungers-no-left-cat.png",
+    "size": [
+      1152,
+      2048
+    ],
+    "landingFeetNormalized": [
+      0.363,
+      0.694
+    ]
+  },
+  "note": "New illustrated gait poses; final pose reillustrated from source. Base original pixels retained outside localized cat-removal patch."
+}

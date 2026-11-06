@@ -14,6 +14,7 @@ import { Travel } from "@/components/sections/Travel";
 import { Venue } from "@/components/sections/Venue";
 import { Visa } from "@/components/sections/Visa";
 import { WeddingInfo } from "@/components/sections/WeddingInfo";
+import { CatJourney } from "@/components/ui/CatJourney";
 import { Motion } from "@/components/ui/Motion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 import { sections, type SectionId } from "@/content/client";
@@ -52,12 +53,15 @@ export default function Page() {
         {/* Toàn bộ chuyển động của trang nằm ở đây, section không tự gọi GSAP */}
         <Motion />
 
-        <main>
+        <main className="relative">
           {/* Thứ tự render đúng theo mảng `sections` trong content/client.ts */}
           {flow.map((id) => {
             const Section = SECTIONS[id];
             return <Section key={id} />;
           })}
+
+          {/* Bé mèo chạy từ Hero, nhảy xuống ghế trái của Save the Date */}
+          {flow.includes("hero") && flow.includes("time") ? <CatJourney upper="hero" lower="time" /> : null}
         </main>
 
         <MusicToggle />

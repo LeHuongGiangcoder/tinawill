@@ -81,7 +81,7 @@ const box = {
   nguyên. Sprite nào không có ở đây thì giữ toạ độ của package.
 */
 const CANVA_CLOSED = {
-  "mid_left-04-pineapple": { x: 225, y: 1190, width: 250, rotation: 0 },
+  "mid_left-04-pineapple": { x: 215, y: 1180, width: 310, rotation: 0 },
   "top_left-02-mango": { x: 235, y: 212, width: 470, rotation: 6 },
   "bottom_left-03-hibiscus": { x: 160, y: 1506.1, width: 370 },
   "bottom_left-02-frond": { x: 230, y: 1960, width: 900 },
@@ -123,7 +123,7 @@ const EXTRA = [
 const Z_OVERRIDE = { "top_left-02-mango": 5000 };
 
 /* Bỏ bớt lá và bract ở đáy giữa cho đỡ rối. */
-const DROP = new Set(["bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
+const DROP = new Set(["top_right-03-bracts_pink", "bottom_left-03-hibiscus", "bottom_left-05-bracts_purple", "bottom_left-06-bracts_purple", "bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
 
 const relayout = ({ closed, open, ...e }) => {
   const o = CANVA_CLOSED[e.id];

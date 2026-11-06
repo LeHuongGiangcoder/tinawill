@@ -346,9 +346,20 @@ export const intro = {
 
 /* ------------------------------------------------------------------- HERO */
 
+/* ------------------------------------------------------------------ COVER */
+
+export const cover = {
+  /** Chữ trong viên hồng giữa hai tên. */
+  and: "and",
+  invitation: "we joyfully invite you\nto our wedding",
+  /** Dòng chữ nằm trên vạt váy, góc phải dưới tranh. */
+  yes: "she said\n\u201cYES\u201d",
+};
+
 export const hero = {
-  /** Lời mời nổi trên mặt nước, ngay trên tên hai người. */
-  invitation: "We joyfully invite you\nto our wedding",
+  /** Đoạn dẫn nằm giữa đôi chim và cặp đôi trên cỏ. */
+  intro:
+    "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014 at a place whose name means \u201chome\u201d and \u201cpeace.\u201d We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
   scrollHint: "Scroll",
 };
 
@@ -454,8 +465,6 @@ export const weddingInfo = {
  */
 export const timeScene = {
   title: "Save the Date",
-  intro:
-    "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014 at a place whose name means \u201chome\u201d and \u201cpeace.\u201d We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
   calendarLabel: "Add calendar",
   /** Nhãn cho trình đọc màn hình: tranh là trang trí, aria-hidden hết. */
   sceneLabel: "Two cats napping on sun loungers in a tropical garden",

@@ -101,6 +101,8 @@ export const palette = {
    * mực trên nền này đạt 7.2:1.
    */
   sun: "#e5ba05",
+  /** Hồng phấn của viên "and" và gạch lượn ở trang bìa — wine trên nó 6.0:1. */
+  blush: "#f4b6c4",
   /**
    * Nền lá của khung "Our story" — màu trung bình của dải xanh ngoài cùng
    * trong chính file khung. Section tô đúng màu này để trang giấy đứng trên
@@ -345,7 +347,8 @@ export const tones = {
    */
   meadow: {
     bg: "#515903",
-    fg: palette.cream,
+    /* Đoạn dẫn dùng beige như ở trang Save the Date (5.7:1 trên màu trung bình). */
+    fg: palette.beige,
     title: palette.beige,
     muted: palette.cream,
     accent: palette.goldSoft,
@@ -461,6 +464,8 @@ export const typeScale = {
 
   /* ---- Ngoài hệ chữ: chỉ còn ở trang bìa và section đang tạm tắt ---------- */
   display: { size: "clamp(3rem, 12vw, 7rem)", line: "1.02", tracking: "-0.015em" },
+  /** Tên hai người cỡ lớn ở trang bìa, viết tay, mỗi tên một dòng. */
+  monogram: { size: "clamp(4.25rem, 22vw, 8.5rem)", line: "1.05", tracking: "0em" },
   h1: { size: "clamp(2.5rem, 8vw, 4.75rem)", line: "1.05", tracking: "-0.01em" },
   h2: { size: "clamp(1.875rem, 5.2vw, 3rem)", line: "1.14", tracking: "-0.005em" },
   /** Dòng chữ nhỏ in hoa trên tiêu đề section */
