@@ -38,6 +38,8 @@
   --color-tone-accent: var(--t-section-accent);
   --color-tone-line: var(--t-section-line);
   --color-tone-contrast: var(--t-section-contrast);
+  /* Màu nền nút của tông — cho điểm nhấn muốn đi cặp với nút (trái tim của WeekStrip). */
+  --color-tone-button: var(--t-section-button);
 
   /* ---- chữ ------------------------------------------------- */
   --font-display: var(--t-font-display);

@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { WeekStrip } from "@/components/ui/WeekStrip";
 import { ceremony, timeScene } from "@/content/client";
 import { googleCalendarUrl } from "@/lib/calendar";
 
@@ -157,7 +158,9 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
     frond.anchor === "top"
       ? { top: cq(top) }
       : frond.anchor === "bottom"
-        ? { bottom: `calc(${cq(100 - top - height)} + ${"lift" in frond ? frond.lift : 0}cqw)` }
+        ? {
+            bottom: `calc(${cq(100 - top - height)} + ${"lift" in frond ? frond.lift : 0}cqw)`,
+          }
         : { top: `calc(${cq(top)} + (100% - var(--art-h)) / 2)` };
   return {
     left: frond.at.left,
@@ -214,9 +217,19 @@ export function Time() {
             {timeScene.title}
           </h2>
 
-          <div className="flex flex-col items-center gap-tight">
-            <p data-reveal data-reveal-delay="180" className="type-subtitle text-tone-fg">
-              {ceremony.dateShort}
+          <div className="flex w-full flex-col items-center gap-block">
+            {/* Một tuần quanh ngày cưới, ngày cưới khoanh trái tim. Dải chỉ để
+                nhìn; trình đọc màn hình đọc câu ngày đầy đủ ngay bên dưới. */}
+            <div
+              data-reveal
+              data-reveal-delay="180"
+              aria-hidden
+              className="w-full"
+            >
+              <WeekStrip iso={ceremony.startISO} />
+            </div>
+            <p className="sr-only">
+              {ceremony.weekday}, {ceremony.dateShort}
             </p>
 
             {/* Viên thuốc vàng nghệ chữ rượu vang — cặp màu nút của tông
