@@ -303,9 +303,10 @@ export function Cover() {
               </g>
             </svg>
 
-            {/* Nằm trên vạt váy kem bên phải chiếc vòng — toạ độ % theo khung
-                tranh nên luôn bám đúng chỗ váy. Chữ mang màu nền rượu vang. */}
-            <p className="absolute left-[70%] top-[86.5%] -translate-x-1/2 -rotate-6 whitespace-pre text-center type-sub-body text-tone-bg">
+            {/* Một dòng cưỡi ngay trên đường viền váy, bên phải chiếc vòng —
+                nằm trên giấy rượu vang nên chữ lấy màu tiêu đề (beige). Toạ độ
+                % theo khung tranh nên luôn bám đúng đường váy. */}
+            <p className="absolute left-[64%] top-[80.5%] -rotate-3 whitespace-nowrap type-sub-body text-tone-title">
               {cover.yes}
             </p>
           </div>

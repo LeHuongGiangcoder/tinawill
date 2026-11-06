@@ -352,8 +352,8 @@ export const cover = {
   /** Chữ trong viên hồng giữa hai tên. */
   and: "and",
   invitation: "we joyfully invite you\nto our wedding",
-  /** Dòng chữ nằm trên vạt váy, góc phải dưới tranh. */
-  yes: "she said\n\u201cYES\u201d",
+  /** Một dòng nằm ngay trên đường viền váy, bên phải chiếc vòng tay. */
+  yes: "she said \u201cYES\u201d",
 };
 
 export const hero = {

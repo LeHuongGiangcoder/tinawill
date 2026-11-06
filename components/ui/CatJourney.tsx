@@ -34,6 +34,14 @@ const LANDING = { x: 0.363, y: 0.694 };
 /** Khung sprite 512² rộng chừng này phần bề rộng tranh; neo chân ở 50% 87.5%. */
 const SIZE = 0.2;
 const ANCHOR_Y = 0.875;
+/**
+ * Một khung chân ứng với chừng này phần bề rộng mèo trên đường chạy — bước
+ * chân đi theo QUÃNG ĐƯỜNG chứ không theo phần trăm cuộn, nên chạy đều nhịp
+ * dù đoạn cong hay đoạn thẳng. Số lớn = bước dài, chậm rãi hơn.
+ */
+const STRIDE = 0.42;
+/** Thời gian làm mượt (ms): cuộn giật thì mèo vẫn trôi êm theo sau. */
+const SMOOTH_MS = 150;
 
 type Point = { x: number; y: number };
 type Curve = [Point, Point, Point, Point];
@@ -65,7 +73,17 @@ export function CatJourney({ upper, lower }: { upper: string; lower: string }) {
     const frames = [...cat.querySelectorAll<HTMLImageElement>("img")];
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    type Geom = { w: number; run: Curve[]; jump: Curve[]; end: Point; start: number; finish: number };
+    type Geom = {
+      w: number;
+      run: Curve[];
+      jump: Curve[];
+      end: Point;
+      start: number;
+      finish: number;
+      /** Quãng đường cộng dồn dọc đường chạy, lấy mẫu đều theo tham số. */
+      runLength: number[];
+    };
+    const SAMPLES = 120;
     let geom: Geom | null = null;
     let target = 0;
     let current = 0;
@@ -102,12 +120,23 @@ export function CatJourney({ upper, lower }: { upper: string; lower: string }) {
         [P(0.055, lt + 0.5 * w), P(0.04, lt + 0.9 * w), P(0.08, end.y - 0.21 * w), end],
       ];
 
+      const runLength = [0];
+      let prev = cubic(run[0], 0);
+      for (let k = 1; k <= SAMPLES; k++) {
+        const q = (k / SAMPLES) * 3;
+        const i = Math.min(2, Math.floor(q));
+        const pt = cubic(run[i], q - i);
+        runLength.push(runLength[k - 1] + Math.hypot(pt.x - prev.x, pt.y - prev.y));
+        prev = pt;
+      }
+
       const pageTop = sr.top + window.scrollY;
       geom = {
         w,
         run,
         jump,
         end,
+        runLength,
         start: Math.max(pageTop + t0, pageTop + run[0][0].y - window.innerHeight * 0.7),
         finish: pageTop + end.y - window.innerHeight * 0.68,
       };
@@ -127,10 +156,16 @@ export function CatJourney({ upper, lower }: { upper: string; lower: string }) {
         const q = (p / 0.48) * 3;
         const i = Math.min(2, Math.floor(q));
         pos = cubic(g.run[i], q - i);
-        /* Khung chân tính từ progress: ngừng cuộn là chân ngừng. */
-        frame = Math.floor(p * 112) % 4;
-        a = 8 + Math.sin(p * 14) * 9;
-        pos = { x: pos.x, y: pos.y - Math.abs(Math.sin(p * 56 * Math.PI)) * g.w * 0.006 };
+        /* Khung chân tính từ quãng đường đã đi: ngừng cuộn là chân ngừng, và
+           bước đều nhịp chứ không dồn dập khi cuộn nhanh. */
+        const at = (p / 0.48) * SAMPLES;
+        const k = Math.min(SAMPLES - 1, Math.floor(at));
+        const dist = lerp(g.runLength[k], g.runLength[k + 1], at - k);
+        const step = dist / (g.w * SIZE * STRIDE);
+        frame = Math.floor(step) % 4;
+        /* Nảy nhẹ một lần mỗi hai khung, nghiêng nhẹ theo nhịp dài — không lắc. */
+        a = 6 + Math.sin(step * 0.35) * 3;
+        pos = { x: pos.x, y: pos.y - Math.abs(Math.sin((step * Math.PI) / 2)) * g.w * 0.0025 };
       } else if (p < 0.53) {
         pos = g.run[2][3];
         frame = CROUCH;
@@ -178,12 +213,12 @@ export function CatJourney({ upper, lower }: { upper: string; lower: string }) {
       });
     };
 
-    /* Làm mượt ~65ms để trackpad không rung, rồi đứng yên khi tới đích. */
+    /* Làm mượt ~150ms để trackpad không rung, rồi đứng yên khi tới đích. */
     const loop = (time: number) => {
       raf = 0;
       const dt = last ? Math.min(40, time - last) : 16.7;
       last = time;
-      current += (target - current) * (1 - Math.exp(-dt / 65));
+      current += (target - current) * (1 - Math.exp(-dt / SMOOTH_MS));
       if (Math.abs(current - target) < 0.00005) current = target;
       render(current);
       if (current !== target) raf = requestAnimationFrame(loop);
