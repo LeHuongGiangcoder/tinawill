@@ -940,7 +940,7 @@ export const rsvp = {
 
   eyebrow: "R.S.V.P",
   title: "Will you join us?",
-  subtitle: "We'd love to have you by the river with us.",
+  subtitle: "",
   note: "Please let us know so we can plan rooms, transport and catering.",
   deadline: "Kindly reply by November 30, 2026",
 
@@ -998,7 +998,7 @@ export const gifts = {
   },
   /** Cụm chữ trong `intro` được quét highlight nét cọ (không phân biệt hoa thường). */
   highlight: ["tap the jar"],
-  subtitle: "Your presence is already the greatest gift.",
+  subtitle: "",
   intro:
     "Having you travel all this way to celebrate with us is truly the greatest gift — please don't feel you need to bring anything more. If you'd still like to give something, tap the jar for options — whatever feels right for you.",
   options: [
@@ -1029,7 +1029,7 @@ export const gifts = {
 export const thankYou = {
   eyebrow: "Thank you",
   title: "See you by the river",
-  subtitle: "March 27, 2027 — Hoi An",
+  subtitle: "",
   /* Mỗi phần tử là một đoạn — chữ tự xuống dòng và cân hai bên theo bề rộng
      cột, đừng cắt dòng bằng tay. */
   paragraphs: [

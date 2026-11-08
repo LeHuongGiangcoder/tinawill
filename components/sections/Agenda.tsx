@@ -13,11 +13,11 @@ import { element } from "@/lib/assets";
  * ngày ấy, nên section cao bằng một ngày thay vì bằng cả ba.
  *
  * Trong mỗi ngày là trục thời gian — giờ bên trái, một viên thoi trên trục
- * dọc, nội dung bên phải. Trục kẻ bằng border của phần tử giữa nên nó tự dài
- * đúng bằng hàng, không cần đo bằng JS.
- *
- * Cột giờ rộng cố định và chữ nhỏ hơn tiêu đề, vì nhãn "Daytime" dài hơn một
- * mốc giờ và không được đẩy cả hàng lệch đi.
+ * dọc, nội dung bên phải. Cả khối `w-fit` rồi `mx-auto`: bề ngang bằng đúng
+ * nội dung của ngày ấy và nằm giữa section, nên ngày ít chữ không bị dồn về
+ * một bên. Ba cột dùng chung lưới (subgrid) để giờ và tiêu đề thẳng hàng
+ * giữa các mốc. Trục kẻ bằng chiều cao của hàng nên tự dài đúng bằng hàng,
+ * không cần đo bằng JS.
  *
  * Bên trong panel KHÔNG dùng <Reveal>: panel đang ẩn không có kích thước nên
  * GSAP không dựng nổi mốc cuộn cho nó — xem components/ui/TabSet.tsx. Cả bộ
@@ -58,8 +58,19 @@ export function Agenda() {
       <Reveal className="-mt-tight">
         <TabSet
           label={agenda.daysLabel}
-          items={agenda.days.map((day) => {
+          items={agenda.days.map((day, index) => {
             const stamp = STAMPS[day.stamp];
+            /* Hai con tem ngoài cùng bám sát mép hàng: tranh nằm sát mép hộp
+               (object-left / object-right) và lúc được chọn (scale 1.04) nó
+               nở vào trong chứ không tràn ra, nên khoảng trống từ mép tem tới
+               mép section hai bên luôn bằng nhau, chọn tem nào cũng vậy. Con
+               giữa nằm giữa hộp, nở đều hai phía. */
+            const edge =
+              index === 0
+                ? { box: "origin-left", pos: "object-left" }
+                : index === agenda.days.length - 1
+                  ? { box: "origin-right", pos: "object-right" }
+                  : { box: "", pos: "object-center" };
 
             return {
               id: day.stamp,
@@ -69,13 +80,13 @@ export function Agenda() {
                       cao), nên mỗi con nằm trong một khung cùng tỉ lệ và
                       `object-contain` — có vậy ba dòng chữ dưới tem mới thẳng
                       hàng thay vì so le theo chiều cao tranh. */}
-                  <span className="tab-stamp relative block aspect-[6/7] w-full">
+                  <span className={`tab-stamp relative block aspect-[6/7] w-full ${edge.box}`}>
                     <Image
                       src={stamp.frame}
                       alt=""
                       fill
                       sizes="(max-width: 40rem) 30vw, 11rem"
-                      className="object-contain"
+                      className={`object-contain ${edge.pos}`}
                     />
                     {/* Icon cùng khổ với khung nên chồng lên là khớp; chỉ
                         lớp này đung đưa khi tem được chọn. */}
@@ -84,7 +95,7 @@ export function Agenda() {
                       alt=""
                       fill
                       sizes="(max-width: 40rem) 30vw, 11rem"
-                      className="tab-wiggle object-contain"
+                      className={`tab-wiggle object-contain ${edge.pos}`}
                     />
                   </span>
                   {/* Ngày rồi tên chủ đề, nằm dưới con tem đúng như bản mẫu */}
@@ -100,11 +111,11 @@ export function Agenda() {
                 </>
               ),
               panel: (
-                <ol className="flex flex-col">
+                <ol className="mx-auto grid w-fit max-w-full grid-cols-[auto_1.5rem_minmax(0,13rem)]">
                   {day.items.map((item, i) => (
                     <li
                       key={`${item.time}-${item.title}`}
-                      className="grid grid-cols-[1fr_1.5rem_1fr] items-start gap-stack pb-block last:pb-0"
+                      className="grid col-span-3 grid grid-cols-subgrid items-start gap-x-stack pb-block last:pb-0"
                     >
                       {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
                           chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
@@ -131,7 +142,7 @@ export function Agenda() {
                       <div className="flex flex-col">
                         <Heading level="h4">{item.title}</Heading>
                         {item.note ? (
-                          <p className="type-note text-tone-muted">{item.note}</p>
+                          <p className="type-note text-balance text-tone-muted">{item.note}</p>
                         ) : null}
                       </div>
                     </li>

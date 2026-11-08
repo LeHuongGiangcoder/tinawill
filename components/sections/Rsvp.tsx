@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useGuest } from "@/components/experience/GuestProvider";
 import { Button } from "@/components/ui/Button";
-import { Caption, Heading, Script, SectionHead } from "@/components/ui/Heading";
+import { Heading, Script, SectionHead } from "@/components/ui/Heading";
 import { Choice, Field, FieldLabel } from "@/components/ui/Field";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -129,8 +129,8 @@ export function Rsvp() {
               : rsvp.title
           }
           titleId="rsvp-title"
-          subtitle={rsvp.subtitle}
           intro={rsvp.note}
+          introAlign="center"
         />
 
         <Reveal>
@@ -273,7 +273,8 @@ export function Rsvp() {
                 <Button type="submit" disabled={status === "sending"}>
                   {status === "sending" ? rsvp.sending : rsvp.submit}
                 </Button>
-                <Caption>{rsvp.deadline}</Caption>
+                {/* Cùng màu với đường sóng viền tờ giấy (`.frame-wave::before`). */}
+                <p className="type-note text-mango">{rsvp.deadline}</p>
                 {status === "error" ? (
                   <p role="alert" className="type-note text-tone-accent">
                     {rsvp.errorNote}

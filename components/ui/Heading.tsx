@@ -178,6 +178,7 @@ export function SectionHead({
   subtitle,
   subtitleVariant = "sentence",
   intro,
+  introAlign = "justify",
   tight = false,
   children,
 }: {
@@ -188,6 +189,8 @@ export function SectionHead({
   /** "motif" khi `subtitle` là tên của một thứ chứ không phải một câu — xem `Subhead`. */
   subtitleVariant?: SubheadVariant;
   intro?: ReactNode;
+  /** "center" cho đoạn dẫn ngắn (một–hai dòng) — căn đều hai mép thì dòng cuối cụt, lệch so với tiêu đề căn giữa. */
+  introAlign?: "justify" | "center";
   /** Đầu section đứng sát nội dung ngay dưới — `mb-stack` thay vì `mb-block`. */
   tight?: boolean;
   children?: ReactNode;
@@ -201,7 +204,11 @@ export function SectionHead({
           {subtitle}
         </Subhead>
       ) : null}
-      {intro ? <Lead className="max-w-prose text-justify">{intro}</Lead> : null}
+      {intro ? (
+        <Lead className={`max-w-prose ${introAlign === "center" ? "text-balance" : "text-justify"}`}>
+          {intro}
+        </Lead>
+      ) : null}
       {children}
     </Reveal>
   );
