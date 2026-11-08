@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 
 import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
 import { Highlighted } from "@/components/ui/Highlight";
@@ -12,12 +13,10 @@ import { element } from "@/lib/assets";
  * Chương trình cả cuối tuần. Ba ngày nằm sau ba con tem: bấm con nào mở lịch
  * ngày ấy, nên section cao bằng một ngày thay vì bằng cả ba.
  *
- * Trong mỗi ngày là trục thời gian — giờ bên trái, một viên thoi trên trục
- * dọc, nội dung bên phải. Cả khối `w-fit` rồi `mx-auto`: bề ngang bằng đúng
- * nội dung của ngày ấy và nằm giữa section, nên ngày ít chữ không bị dồn về
- * một bên. Ba cột dùng chung lưới (subgrid) để giờ và tiêu đề thẳng hàng
- * giữa các mốc. Trục kẻ bằng chiều cao của hàng nên tự dài đúng bằng hàng,
- * không cần đo bằng JS.
+ * Trong mỗi ngày, các mục xếp thành một cột căn giữa: giờ ở trên, tiêu đề rồi
+ * ghi chú ở dưới, và giữa hai mục là một mốc nối (đường kẻ – viên thoi –
+ * đường kẻ) nằm đúng trục giữa. Mọi thứ cùng một trục nên ngày ít chữ hay
+ * nhiều chữ đều cân hai bên, không phải tính cột.
  *
  * Bên trong panel KHÔNG dùng <Reveal>: panel đang ẩn không có kích thước nên
  * GSAP không dựng nổi mốc cuộn cho nó — xem components/ui/TabSet.tsx. Cả bộ
@@ -111,41 +110,35 @@ export function Agenda() {
                 </>
               ),
               panel: (
-                <ol className="mx-auto grid w-fit max-w-full grid-cols-[auto_1.5rem_minmax(0,15rem)] gap-x-tight">
+                <ol className="mx-auto flex max-w-prose flex-col items-center gap-tight text-center">
                   {day.items.map((item, i) => (
-                    <li
-                      key={`${item.time}-${item.title}`}
-                      className="col-span-3 grid grid-cols-subgrid items-start pb-block last:pb-0"
-                    >
-                      {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
-                          chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
-                      <p
-                        className={`${/\d/.test(item.time) ? "type-subtitle" : "type-body"} text-right text-tone-accent`}
-                      >
-                        {item.time}
-                      </p>
-
-                      {/* Trục dọc: đường kẻ nối mốc này tới mốc kế tiếp. Cột phải
-                          `self-stretch` — `h-full` trên ô lưới `items-start` không
-                          có chiều cao để ăn theo nên đường kẻ biến mất. `-mb-2`
-                          kéo đường xuống chạm đỉnh mốc dưới (cách `mt-2`); hàng
-                          cuối không kẻ tiếp để đường không thừa ra. */}
-                      <div aria-hidden className="flex flex-col items-center self-stretch">
-                        <span className="mt-2 size-2 shrink-0 rotate-45 bg-tone-accent" />
-                        {i === day.items.length - 1 ? null : (
-                          <span className="-mb-2 w-px flex-1 bg-tone-accent" />
-                        )}
-                      </div>
-
-                      {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`) và cách mốc kế
-                          tiếp bằng `pb-block` ở <li>, để mắt đọc ra "tiêu đề + ghi chú" là một cặp. */}
-                      <div className="flex flex-col">
+                    <Fragment key={`${item.time}-${item.title}`}>
+                      <li className="flex flex-col items-center">
+                        {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
+                            chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
+                        <p
+                          className={`${/\d/.test(item.time) ? "type-subtitle" : "type-body"} text-tone-accent`}
+                        >
+                          {item.time}
+                        </p>
+                        {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`), để mắt
+                            đọc ra "tiêu đề + ghi chú" là một cặp. */}
                         <Heading level="h4">{item.title}</Heading>
                         {item.note ? (
                           <p className="type-note text-balance text-tone-muted">{item.note}</p>
                         ) : null}
-                      </div>
-                    </li>
+                      </li>
+
+                      {/* Mốc nối giữa hai mục: đường kẻ – viên thoi – đường kẻ, nằm
+                          đúng trục giữa. Mục cuối không có mốc nối phía sau. */}
+                      {i === day.items.length - 1 ? null : (
+                        <li aria-hidden className="flex flex-col items-center">
+                          <span className="h-tight w-px bg-tone-accent" />
+                          <span className="size-2 rotate-45 bg-tone-accent" />
+                          <span className="h-tight w-px bg-tone-accent" />
+                        </li>
+                      )}
+                    </Fragment>
                   ))}
                 </ol>
               ),
