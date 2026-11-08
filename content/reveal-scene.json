@@ -1175,19 +1175,19 @@
         "bend": 0.525
       },
       "closed": {
-        "x": 945,
-        "y": 400,
+        "x": 928,
+        "y": 410,
         "width": 290,
-        "rotation": -24,
-        "flipX": true,
+        "rotation": 58,
+        "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1055,
-        "y": 370,
+        "x": 1038,
+        "y": 380,
         "width": 291.47791619479045,
-        "rotation": -24,
-        "flipX": true,
+        "rotation": 58,
+        "flipX": false,
         "opacity": 0
       }
     }

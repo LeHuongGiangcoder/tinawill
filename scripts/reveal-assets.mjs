@@ -127,8 +127,10 @@ const EXTRA = [
      ~28°; xoay +12° cho chùm rủ gần thẳng, nép mép trái. */
   { id: "bottom_left-07-grapes", asset: "/reveal/grapes.webp", rawSize: [536, 720], ref: "bottom_left-02-frond", z: 4401, closed: { x: 205, y: 1800, width: 300, rotation: 12 }, exit: [-90, 110] },
   /* Nửa quả đu đủ nép dưới bông dâm bụt góc phải trên, lấp mảng lá trống ở đó.
-     Lật ngang để cuống giấu dưới hoa và mặt bổ quay vào giữa, không bị mép màn cắt. */
-  { id: "top_right-04-papaya", asset: "/reveal/papaya.webp", rawSize: [675, 720], ref: "top_right-02-hibiscus", z: 4099, closed: { x: 945, y: 400, width: 290, rotation: -24, flipX: true }, exit: [110, -30] },
+     Xoay 58° cho cuống giấu dưới hoa, bầu quả chúc về tấm giấy và mặt bổ có hạt
+     quay vào tâm — cùng hướng với lê, lựu. Đừng lật ngang: lật thì vỏ dày quay
+     vào trong, quả trông như ngoảnh ra ngoài. */
+  { id: "top_right-04-papaya", asset: "/reveal/papaya.webp", rawSize: [675, 720], ref: "top_right-02-hibiscus", z: 4099, closed: { x: 928, y: 410, width: 290, rotation: 58 }, exit: [110, -30] },
 ];
 
 /* Xoài nằm lớp trên cùng của cảnh, không lá nào che. */
@@ -158,7 +160,7 @@ const withExtras = (list) => {
   const byId = new Map(list.map((e) => [e.id, e]));
   const extras = EXTRA.map(({ ref, closed, exit, id, asset, rawSize, z }) => {
     const r = byId.get(ref);
-    const c = { x: closed.x, y: closed.y, width: closed.width, rotation: closed.rotation, flipX: closed.flipX ?? false, opacity: 1 };
+    const c = { x: closed.x, y: closed.y, width: closed.width, rotation: closed.rotation, flipX: false, opacity: 1 };
     const dx = exit ? exit[0] : r.open.x - r.closed.x;
     const dy = exit ? exit[1] : r.open.y - r.closed.y;
     return {
