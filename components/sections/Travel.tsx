@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { GuideGroups } from "@/components/ui/GuideGroups";
-import { SectionHead } from "@/components/ui/Heading";
+import { Heading, SectionHead } from "@/components/ui/Heading";
 import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -131,15 +131,17 @@ export function Travel() {
           title={travel.title}
           titleId="travel-title"
           subtitle={travel.subtitle || undefined}
-          intro={
-            <>
-              <Highlighted text={travel.intro} words={travel.highlight} />
-              <br />
-              {travel.introAction}
-            </>
-          }
+          intro={<Highlighted text={travel.intro} words={travel.highlight} />}
         />
       </div>
+
+      {/* Lời mời bấm: đứng riêng, giữa, sát cửa — cùng bậc `subtitle` với
+          "Pick your passport" của trang Visa, để khách hiểu đây là thứ bấm được. */}
+      <Reveal className="container-prose">
+        <Heading level="h3" as="p" className="mt-block mb-stack text-center">
+          {travel.introAction}
+        </Heading>
+      </Reveal>
 
       <Reveal className="container-prose">
         <TabSet

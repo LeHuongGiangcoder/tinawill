@@ -713,8 +713,8 @@ export const travel = {
   intro: "Important information to know upon arriving!!!",
   /** Cụm chữ trong `intro` được quét highlight nét cọ — giống "tap the jar" của Gifts. */
   highlight: ["Important information"],
-  /** Dòng mời bấm, luôn đứng riêng một dòng dưới `intro` cho cân trên điện thoại. */
-  introAction: "Click on door to unlock!",
+  /** Dòng mời bấm: đứng riêng, giữa, sát cửa — tách khỏi `intro`, bậc chữ như "Pick your passport". */
+  introAction: "Click on the door to unlock",
   tabsLabel: "Choose a topic",
   /** Chữ trên nút mở cửa sổ — trước khi bấm, cả hàng thẻ lẫn nội dung còn khuất. */
   gateLabel: "Unlock",

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Caption, Heading, Lead, SectionHead } from "@/components/ui/Heading";
+import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
 import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -42,41 +42,22 @@ export function Agenda() {
   const dancers = element("dancers");
 
   return (
-    <SectionWrapper section="agenda" labelledBy="agenda-title">
+    <SectionWrapper section="agenda" width="prose" labelledBy="agenda-title">
       <SectionHead
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
         tight
       >
-        <Caption>{agenda.intro}</Caption>
+        <p className="type-sub-body text-tone-fg">{agenda.intro}</p>
         <Lead className="max-w-prose text-balance">
           <Highlighted text={agenda.hint} words={agenda.highlight} />
         </Lead>
       </SectionHead>
 
-      <Reveal className="mx-auto max-w-prose">
+      <Reveal className="-mt-tight">
         <TabSet
           label={agenda.daysLabel}
-          hint={
-            /* Mũi tên chỉ chéo xuống con tem đầu tiên (Friday) để khách biết
-               tem bấm được; TabSet gỡ nó đi khi khách bấm chọn một tem. Hàng
-               cao 0 nên mũi tên đè lên khe phía trên tem chứ không đẩy tem
-               xuống. Vẽ hướng phải rồi lật ngang, nên cú nhích của
-               `animate-nudge` (sang phải) thành nhích về phía tem; lớp ngoài
-               xoay cả cụm thành hướng chéo xuống trái. */
-            <div aria-hidden className="relative h-0 w-full">
-              <span className="absolute -top-3 left-[22%] block -rotate-45 text-tone-accent">
-                <span className="block -scale-x-100">
-                  <span className="block animate-nudge">
-                    <svg viewBox="0 0 36 18" className="h-4 w-8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 9h30M25 2l8 7-8 7" />
-                    </svg>
-                  </span>
-                </span>
-              </span>
-            </div>
-          }
           items={agenda.days.map((day) => {
             const stamp = STAMPS[day.stamp];
 
@@ -123,7 +104,7 @@ export function Agenda() {
                   {day.items.map((item, i) => (
                     <li
                       key={`${item.time}-${item.title}`}
-                      className="grid grid-cols-[4.5rem_1.5rem_1fr] items-start gap-stack pb-block last:pb-0 sm:grid-cols-[6rem_1.5rem_1fr]"
+                      className="grid grid-cols-[1fr_1.5rem_1fr] items-start gap-stack pb-block last:pb-0"
                     >
                       {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
                           chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
