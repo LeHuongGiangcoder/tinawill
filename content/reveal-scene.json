@@ -472,42 +472,6 @@
       }
     },
     {
-      "id": "bank_right-04-fan",
-      "asset": "/reveal/fan.webp",
-      "rawSize": [
-        680,
-        485
-      ],
-      "z": 2103,
-      "reveal": {
-        "delay": 3.125,
-        "duration": 1.4205,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.0525,
-        "arcX": 3.75,
-        "arcY": 0,
-        "bend": 0.525
-      },
-      "closed": {
-        "x": 1096.4239,
-        "y": 649.0602,
-        "width": 560,
-        "rotation": -65,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 1121.4239,
-        "y": 649.0602,
-        "width": 560,
-        "rotation": -65,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
       "id": "top_left-01-paired_leaves",
       "asset": "/reveal/paired_leaves.webp",
       "rawSize": [
@@ -832,42 +796,6 @@
       }
     },
     {
-      "id": "mid_right-01-frond",
-      "asset": "/reveal/frond.webp",
-      "rawSize": [
-        654,
-        893
-      ],
-      "z": 4300,
-      "reveal": {
-        "delay": 1.733,
-        "duration": 1.4773,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.06,
-        "arcX": 20.25,
-        "arcY": 0,
-        "bend": 1.2
-      },
-      "closed": {
-        "x": 966.3,
-        "y": 690,
-        "width": 520,
-        "rotation": -28,
-        "flipX": false,
-        "opacity": 1
-      },
-      "open": {
-        "x": 1101.2999999999997,
-        "y": 690,
-        "width": 520,
-        "rotation": -28,
-        "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
       "id": "mid_right-02-plumeria",
       "asset": "/reveal/plumeria.webp",
       "rawSize": [
@@ -936,42 +864,6 @@
         "width": 360,
         "rotation": 68,
         "flipX": false,
-        "opacity": 0
-      }
-    },
-    {
-      "id": "bottom_left-02-frond",
-      "asset": "/reveal/frond.webp",
-      "rawSize": [
-        654,
-        893
-      ],
-      "z": 4401,
-      "reveal": {
-        "delay": 0.3693,
-        "duration": 1.3352,
-        "ease": "smootherstep"
-      },
-      "motion": {
-        "liftScale": 0.09,
-        "arcX": -15.750000000000002,
-        "arcY": 16.5,
-        "bend": -1.875
-      },
-      "closed": {
-        "x": 230,
-        "y": 1960,
-        "width": 900,
-        "rotation": 12,
-        "flipX": true,
-        "opacity": 1
-      },
-      "open": {
-        "x": 124.99999999999997,
-        "y": 1990,
-        "width": 660,
-        "rotation": 12,
-        "flipX": true,
         "opacity": 0
       }
     },
@@ -1223,6 +1115,78 @@
         "y": 2050,
         "width": 308,
         "rotation": 0,
+        "flipX": false,
+        "opacity": 0
+      }
+    },
+    {
+      "id": "bottom_left-07-grapes",
+      "asset": "/reveal/grapes.webp",
+      "rawSize": [
+        536,
+        720
+      ],
+      "z": 4401,
+      "reveal": {
+        "delay": 0.3693,
+        "duration": 1.3352,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.09,
+        "arcX": -15.750000000000002,
+        "arcY": 16.5,
+        "bend": -1.875
+      },
+      "closed": {
+        "x": 175,
+        "y": 1830,
+        "width": 310,
+        "rotation": 11,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 85,
+        "y": 1940,
+        "width": 227.33333333333331,
+        "rotation": 11,
+        "flipX": false,
+        "opacity": 0
+      }
+    },
+    {
+      "id": "top_right-04-papaya",
+      "asset": "/reveal/papaya.webp",
+      "rawSize": [
+        675,
+        720
+      ],
+      "z": 4099,
+      "reveal": {
+        "delay": 2.642,
+        "duration": 1.4205,
+        "ease": "smootherstep"
+      },
+      "motion": {
+        "liftScale": 0.0525,
+        "arcX": 7.5,
+        "arcY": -13.5,
+        "bend": 0.525
+      },
+      "closed": {
+        "x": 965,
+        "y": 385,
+        "width": 300,
+        "rotation": 22,
+        "flipX": false,
+        "opacity": 1
+      },
+      "open": {
+        "x": 1075,
+        "y": 355,
+        "width": 301.52887882219704,
+        "rotation": 22,
         "flipX": false,
         "opacity": 0
       }

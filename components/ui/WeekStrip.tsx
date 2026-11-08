@@ -52,7 +52,10 @@ export function WeekStrip({
         {fmt({ month: "long", year: "numeric" }, target)}
       </Heading>
 
-      {/* Cột ngày cưới rộng hơn để trái tim có chỗ, không đè chữ hai ngày bên cạnh. */}
+      {/* Cột ngày cưới rộng hơn để trái tim có chỗ, không đè chữ hai ngày bên cạnh.
+          Khoảng giữa thứ và số (`gap-stack`, chung cho mọi cột để chữ vẫn
+          thẳng hàng) là chỗ của đỉnh trái tim: tim ôm riêng con số, nên nó
+          vươn lên trên số một đoạn — hẹp hơn thì đè lên chữ "sat". */}
       <ol
         className="grid w-full text-center"
         style={{
@@ -62,18 +65,19 @@ export function WeekStrip({
         {days.map(({ t, weekday, day, chosen }) => (
           <li
             key={t}
-            className={`relative flex flex-col items-center ${chosen ? "text-tone-button" : "text-tone-fg"}`}
+            className={`flex flex-col items-center gap-stack ${chosen ? "text-tone-button" : "text-tone-fg"}`}
           >
             <span
               className={`font-display text-note lowercase ${chosen ? "" : "text-tone-muted"}`}
             >
               {weekday}
             </span>
-            <span className="font-display text-h2 lining-nums tabular-nums">
+            {/* Trái tim neo vào con số chứ không vào cả ô: tâm tim trùng tâm
+                số, và cỡ tim đo bằng em của số nên đổi `text-h2` là tim co theo. */}
+            <span className="relative font-display text-h2 lining-nums tabular-nums">
               {day}
+              {chosen ? <Heart /> : null}
             </span>
-
-            {chosen ? <Heart /> : null}
           </li>
         ))}
       </ol>
@@ -91,7 +95,7 @@ function Heart() {
     <svg
       aria-hidden
       viewBox="0 0 100 120"
-      className="pointer-events-none absolute left-1/2 top-0 h-auto w-[92%] -translate-x-1/2 -translate-y-[9%] overflow-visible"
+      className="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[2.1em] -translate-x-1/2 -translate-y-[47%] overflow-visible"
       fill="none"
       stroke="currentColor"
       strokeWidth="3.2"

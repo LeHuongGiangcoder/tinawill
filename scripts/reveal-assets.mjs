@@ -45,7 +45,7 @@ const place = async (asset) => {
 };
 
 mkdirSync(OUT, { recursive: true });
-for (const name of ["agave", "leaf-sprigs"]) copyFileSync(`public/tropical/${name}.webp`, join(OUT, `${name}.webp`));
+for (const name of ["agave", "leaf-sprigs", "grapes", "papaya"]) copyFileSync(`public/tropical/${name}.webp`, join(OUT, `${name}.webp`));
 
 /** Tờ giấy do khách vẽ lại (public/hero paper.png, 9:16 như artboard), thay file trong package. */
 const PAPER_SOURCE = "public/hero paper.png";
@@ -117,13 +117,21 @@ const EXTRA = [
   { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
   { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 600, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
   { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
+  /* Chùm nho thế chỗ tàu dương xỉ góc trái dưới (bottom_left-02-frond). Mượn nhịp
+     của chính tàu đó, nên nho rẽ ra cùng lúc với tán lá bên cạnh. File gốc nghiêng
+     ~28°; xoay +11° cho chùm rủ gần thẳng, sát mép trái. */
+  { id: "bottom_left-07-grapes", asset: "/reveal/grapes.webp", rawSize: [536, 720], ref: "bottom_left-02-frond", z: 4401, closed: { x: 175, y: 1830, width: 310, rotation: 11 }, exit: [-90, 110] },
+  /* Nửa quả đu đủ nép dưới bông dâm bụt góc phải trên, lấp mảng lá trống ở đó. */
+  { id: "top_right-04-papaya", asset: "/reveal/papaya.webp", rawSize: [675, 720], ref: "top_right-02-hibiscus", z: 4099, closed: { x: 965, y: 385, width: 300, rotation: 22 }, exit: [110, -30] },
 ];
 
 /* Xoài nằm lớp trên cùng của cảnh, không lá nào che. */
 const Z_OVERRIDE = { "top_left-02-mango": 5000 };
 
-/* Bỏ bớt lá và bract ở đáy giữa cho đỡ rối. */
-const DROP = new Set(["top_right-03-bracts_pink", "bottom_left-03-hibiscus", "bottom_left-05-bracts_purple", "bottom_left-06-bracts_purple", "bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
+/* Bỏ bớt lá và bract ở đáy giữa cho đỡ rối. Hai tàu dương xỉ (góc trái dưới và
+   mép phải giữa) bị khách khoanh bỏ, kèm lá quạt thò ra mép phải nằm cùng chỗ. Chúng
+   vẫn nằm trong manifest để `ref` của các sprite thêm vào còn tra được nhịp mở. */
+const DROP = new Set(["bottom_left-02-frond", "mid_right-01-frond", "bank_right-04-fan", "top_right-03-bracts_pink", "bottom_left-03-hibiscus", "bottom_left-05-bracts_purple", "bottom_left-06-bracts_purple", "bottom_mid-01-leaf", "bottom_mid-03-sprigs", "lower_bract-01-bracts_pink", "bottom_left-04-bracts_pink", "top_left-03-bracts_purple", "top_left-04-bracts_pink", "bottom_right-03-bracts_purple", "bottom_right-01-fan", "deep_right-04-fan"]);
 
 const relayout = ({ closed, open, ...e }) => {
   const o = CANVA_CLOSED[e.id];

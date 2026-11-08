@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { Decor } from "@/components/ui/Decor";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalReveal } from "@/components/ui/TropicalReveal";
 import { couple, cover, design, hero } from "@/content/client";
@@ -46,12 +47,32 @@ export function Cover() {
         />
 
         <div className="relative z-20 flex min-h-[100svh] w-full flex-col items-center">
+          {/* Mặt trời màu nước ôm góc phải trên, tràn nhẹ ra mép. Gắn
+              `data-hero` để nó hiện cùng tên khi mở thiệp chứ không lộ
+              trước trên tán lá. */}
+          <div data-reveal data-hero aria-hidden className="pointer-events-none absolute inset-0">
+            <Decor
+              name="hero-sun"
+              at="-top-[3%] -right-[10%] w-[34%] max-w-[12rem]"
+              rotate={12}
+              sway
+            />
+          </div>
+
           {/* Tên xếp so le như bản khách duyệt: "Will" ôm lề trái, viên "and"
               nghiêng chen trước "Tina" ở dòng dưới lệch phải, rồi lời mời
               nghiêng kèm gạch lượn hồng. Khối nằm trong khoảng trống phía
               trên bàn tay. */}
           <div className="container-site flex flex-1 flex-col justify-center pt-section">
-            <div className="mx-auto flex w-full max-w-[22rem] flex-col gap-stack">
+            <div className="relative mx-auto flex w-full max-w-[24rem] flex-col gap-stack">
+              {/* Hoạ tiết nét kem rải quanh khối tên — đặt theo khối chữ chứ
+                  không theo màn, nên trên desktop vẫn bám sát tên. */}
+              <div data-reveal data-hero aria-hidden className="pointer-events-none absolute inset-0">
+                <Decor name="hero-sparkles" at="bottom-[2%] left-[50%] w-[11%]" />
+                <Decor name="hero-burst" at="top-[40%] -left-[3%] w-[9%]" rotate={-10} />
+                <Decor name="hero-dove" at="-bottom-[10%] right-[4%] w-[24%]" rotate={-6} sway />
+              </div>
+
               <h1
                 id="cover-title"
                 data-reveal
@@ -72,7 +93,7 @@ export function Cover() {
                 data-hero
                 className="flex flex-col items-start gap-tight"
               >
-                <p className="type-sub-body whitespace-pre-line text-tone-fg">
+                <p className="type-body whitespace-pre-line text-tone-fg">
                   {cover.invitation}
                 </p>
                 <svg
