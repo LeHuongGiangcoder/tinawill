@@ -779,16 +779,16 @@
         "bend": -1.2
       },
       "closed": {
-        "x": 75,
-        "y": 485,
-        "width": 100,
+        "x": 140,
+        "y": 468,
+        "width": 105,
         "rotation": 18,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": -60,
-        "y": 480,
+        "x": 5,
+        "y": 463,
         "width": 100,
         "rotation": 18,
         "flipX": false,
@@ -887,16 +887,16 @@
         "bend": 1.875
       },
       "closed": {
-        "x": 910,
-        "y": 1740,
-        "width": 440,
+        "x": 935,
+        "y": 1770,
+        "width": 410,
         "rotation": 30,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1015,
-        "y": 1760,
+        "x": 1040,
+        "y": 1790,
         "width": 430,
         "rotation": -13,
         "flipX": false,
@@ -1067,18 +1067,18 @@
         "bend": 1.2
       },
       "closed": {
-        "x": 915,
-        "y": 1285,
-        "width": 235,
-        "rotation": 5,
+        "x": 948,
+        "y": 1035,
+        "width": 228,
+        "rotation": -8,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 1050,
-        "y": 1285,
-        "width": 200.60975609756096,
-        "rotation": -12,
+        "x": 1083,
+        "y": 1035,
+        "width": 194.6341463414634,
+        "rotation": -25,
         "flipX": false,
         "opacity": 0
       }
@@ -1139,18 +1139,18 @@
         "bend": -1.875
       },
       "closed": {
-        "x": 175,
-        "y": 1830,
-        "width": 310,
-        "rotation": 11,
+        "x": 205,
+        "y": 1800,
+        "width": 300,
+        "rotation": 12,
         "flipX": false,
         "opacity": 1
       },
       "open": {
-        "x": 85,
-        "y": 1940,
-        "width": 227.33333333333331,
-        "rotation": 11,
+        "x": 115,
+        "y": 1910,
+        "width": 219.99999999999997,
+        "rotation": 12,
         "flipX": false,
         "opacity": 0
       }
@@ -1175,19 +1175,19 @@
         "bend": 0.525
       },
       "closed": {
-        "x": 965,
-        "y": 385,
-        "width": 300,
-        "rotation": 22,
-        "flipX": false,
+        "x": 945,
+        "y": 400,
+        "width": 290,
+        "rotation": -24,
+        "flipX": true,
         "opacity": 1
       },
       "open": {
-        "x": 1075,
-        "y": 355,
-        "width": 301.52887882219704,
-        "rotation": 22,
-        "flipX": false,
+        "x": 1055,
+        "y": 370,
+        "width": 291.47791619479045,
+        "rotation": -24,
+        "flipX": true,
         "opacity": 0
       }
     }

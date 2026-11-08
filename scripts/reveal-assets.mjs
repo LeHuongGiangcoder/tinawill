@@ -87,7 +87,10 @@ const CANVA_CLOSED = {
   "bottom_left-02-frond": { x: 230, y: 1960, width: 900 },
   "top_right-02-hibiscus": { x: 1042.3, y: 152.6, width: 353.2, flipX: true },
   "mid_right-02-plumeria": { x: 629.1, y: 679.4, width: 287.0, rotation: 0 },
-  "bottom_right-02-pomegranate": { x: 910, y: 1740, width: 440, rotation: 30 },
+  "bottom_right-02-pomegranate": { x: 935, y: 1770, width: 410, rotation: 30 },
+  /* Bông bract tím nhỏ dời vào trong, đọc ra thành một điểm tím hô ứng với chùm
+     nho góc dưới thay vì một vệt lẹm ở mép màn. */
+  "mid_left-05-bracts_purple": { x: 140, y: 468, width: 105 },
   "bottom_right-01-fan": { x: 990, y: 1790 },
   "bottom_right-03-bracts_purple": { x: 1000, y: 1330 },
   "mid_left-02-heliconia": { x: 133.8, y: 626.8, width: 527.6 },
@@ -113,16 +116,19 @@ const EXTRA = [
   { id: "bottom_left-06-bracts_purple", asset: "/reveal/bracts_purple.webp", rawSize: [276, 267], ref: "bottom_left-04-bracts_pink", z: 4411, closed: { x: 255, y: 1905, width: 95, rotation: 20 } },
   { id: "mid_right-04-heliconia", asset: "/reveal/heliconia.webp", rawSize: [553, 741], ref: "mid_right-01-frond", z: 4303, closed: { x: 1110, y: 1470, width: 340, rotation: -75 } },
   { id: "bottom_right-04-hibiscus", asset: "/reveal/hibiscus.webp", rawSize: [352, 344], ref: "top_right-02-hibiscus", z: 4499, closed: { x: 1090, y: 1990, width: 380, rotation: -20 }, exit: [60, 90] },
-  { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 915, y: 1285, width: 235, rotation: 5 } },
+  /* Lê đưa lên mép phải giữa — chỗ trống giữa đu đủ và lựu — để góc phải dưới
+     không dồn bốn món một chỗ. Nghiêng vào trong cho cuống không lọt khỏi màn. */
+  { id: "mid_right-03-pear", asset: "/reveal/pear-new.webp", rawSize: [700, 987], ref: "mid_right-02-plumeria", z: 4302, closed: { x: 948, y: 1035, width: 228, rotation: -8 } },
   { id: "bottom_mid-01-leaf", asset: "/reveal/leaf-new.webp", rawSize: [700, 1062], ref: "bottom_left-02-frond", z: 4410, closed: { x: 610, y: 1800, width: 260, rotation: 30 }, exit: [40, 90] },
   { id: "bottom_mid-02-agave", asset: "/reveal/agave.webp", rawSize: [1100, 772], ref: "bottom_left-02-frond", z: 4411, closed: { x: 600, y: 1960, width: 420, rotation: 0 }, exit: [-40, 90] },
   { id: "bottom_mid-03-sprigs", asset: "/reveal/leaf-sprigs.webp", rawSize: [408, 720], ref: "bottom_right-01-fan", z: 4412, closed: { x: 730, y: 1900, width: 200, rotation: 25 }, exit: [60, 80] },
   /* Chùm nho thế chỗ tàu dương xỉ góc trái dưới (bottom_left-02-frond). Mượn nhịp
      của chính tàu đó, nên nho rẽ ra cùng lúc với tán lá bên cạnh. File gốc nghiêng
-     ~28°; xoay +11° cho chùm rủ gần thẳng, sát mép trái. */
-  { id: "bottom_left-07-grapes", asset: "/reveal/grapes.webp", rawSize: [536, 720], ref: "bottom_left-02-frond", z: 4401, closed: { x: 175, y: 1830, width: 310, rotation: 11 }, exit: [-90, 110] },
-  /* Nửa quả đu đủ nép dưới bông dâm bụt góc phải trên, lấp mảng lá trống ở đó. */
-  { id: "top_right-04-papaya", asset: "/reveal/papaya.webp", rawSize: [675, 720], ref: "top_right-02-hibiscus", z: 4099, closed: { x: 965, y: 385, width: 300, rotation: 22 }, exit: [110, -30] },
+     ~28°; xoay +12° cho chùm rủ gần thẳng, nép mép trái. */
+  { id: "bottom_left-07-grapes", asset: "/reveal/grapes.webp", rawSize: [536, 720], ref: "bottom_left-02-frond", z: 4401, closed: { x: 205, y: 1800, width: 300, rotation: 12 }, exit: [-90, 110] },
+  /* Nửa quả đu đủ nép dưới bông dâm bụt góc phải trên, lấp mảng lá trống ở đó.
+     Lật ngang để cuống giấu dưới hoa và mặt bổ quay vào giữa, không bị mép màn cắt. */
+  { id: "top_right-04-papaya", asset: "/reveal/papaya.webp", rawSize: [675, 720], ref: "top_right-02-hibiscus", z: 4099, closed: { x: 945, y: 400, width: 290, rotation: -24, flipX: true }, exit: [110, -30] },
 ];
 
 /* Xoài nằm lớp trên cùng của cảnh, không lá nào che. */
@@ -152,7 +158,7 @@ const withExtras = (list) => {
   const byId = new Map(list.map((e) => [e.id, e]));
   const extras = EXTRA.map(({ ref, closed, exit, id, asset, rawSize, z }) => {
     const r = byId.get(ref);
-    const c = { x: closed.x, y: closed.y, width: closed.width, rotation: closed.rotation, flipX: false, opacity: 1 };
+    const c = { x: closed.x, y: closed.y, width: closed.width, rotation: closed.rotation, flipX: closed.flipX ?? false, opacity: 1 };
     const dx = exit ? exit[0] : r.open.x - r.closed.x;
     const dy = exit ? exit[1] : r.open.y - r.closed.y;
     return {
