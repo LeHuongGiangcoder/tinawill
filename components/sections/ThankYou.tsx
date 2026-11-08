@@ -16,7 +16,7 @@ export function ThankYou() {
         titleId="thank-you-title"
         subtitle={thankYou.subtitle}
       >
-        <div className="mt-tight flex flex-col items-center gap-stack">
+        <div className="flex flex-col items-center gap-stack">
           {thankYou.paragraphs.map((text) => (
             <Lead key={text} className="text-justify">
               {text}

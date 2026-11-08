@@ -111,11 +111,11 @@ export function Agenda() {
                 </>
               ),
               panel: (
-                <ol className="mx-auto grid w-fit max-w-full grid-cols-[auto_1.5rem_minmax(0,13rem)]">
+                <ol className="mx-auto grid w-fit max-w-full grid-cols-[auto_1.5rem_minmax(0,15rem)] gap-x-tight">
                   {day.items.map((item, i) => (
                     <li
                       key={`${item.time}-${item.title}`}
-                      className="grid col-span-3 grid grid-cols-subgrid items-start gap-x-stack pb-block last:pb-0"
+                      className="col-span-3 grid grid-cols-subgrid items-start pb-block last:pb-0"
                     >
                       {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
                           chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
