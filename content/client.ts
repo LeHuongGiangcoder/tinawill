@@ -350,7 +350,7 @@ export const intro = {
 
 export const cover = {
   /** Chữ trong viên hồng giữa hai tên. */
-  and: "and",
+  and: "&",
   invitation: "we joyfully invite you\nto our wedding",
   /** Một dòng nằm ngay trên đường viền váy, bên phải chiếc vòng tay. */
   yes: "she said \u201cYES\u201d",
