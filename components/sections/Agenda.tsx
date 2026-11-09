@@ -46,15 +46,19 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
-        tight
       >
         <p className="type-sub-body text-tone-fg">{agenda.intro}</p>
-        <Lead className="max-w-prose text-balance">
-          <Highlighted text={agenda.hint} words={agenda.highlight} />
-        </Lead>
       </SectionHead>
 
-      <Reveal className="-mt-tight">
+      {/* Lời mời bấm: cùng nhịp với "Click on the door" của Travel — cách
+          dòng trên một `block`, cách hàng tem một `stack`. */}
+      <Reveal>
+        <Lead className="mx-auto mt-block mb-stack max-w-prose text-balance text-center">
+          <Highlighted text={agenda.hint} words={agenda.highlight} />
+        </Lead>
+      </Reveal>
+
+      <Reveal>
         <TabSet
           label={agenda.daysLabel}
           items={agenda.days.map((day, index) => {

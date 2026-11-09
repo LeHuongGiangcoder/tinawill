@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { GuideGroups } from "@/components/ui/GuideGroups";
-import { Heading, SectionHead } from "@/components/ui/Heading";
+import { SectionHead } from "@/components/ui/Heading";
 import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -135,12 +135,12 @@ export function Travel() {
         />
       </div>
 
-      {/* Lời mời bấm: đứng riêng, giữa, sát cửa — cùng bậc `subtitle` với
-          "Pick your passport" của trang Visa, để khách hiểu đây là thứ bấm được. */}
+      {/* Lời mời bấm: đứng riêng, giữa, sát cửa — bậc chữ thân bài, cách đoạn
+          dẫn một `block` và cách cửa sổ một `stack`. Agenda dựng y nhịp này. */}
       <Reveal className="container-prose">
-        <Heading level="h3" as="p" className="mt-block mb-stack text-center">
+        <p className="type-body mt-block mb-stack text-center text-tone-fg">
           {travel.introAction}
-        </Heading>
+        </p>
       </Reveal>
 
       <Reveal className="container-prose">
