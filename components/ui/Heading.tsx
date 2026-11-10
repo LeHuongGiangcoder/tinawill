@@ -195,21 +195,32 @@ export function SectionHead({
   tight?: boolean;
   children?: ReactNode;
 }) {
+  const hasBody = Boolean(subtitle || intro || children);
+
+  /* Hai nhịp: eyebrow sát tiêu đề (`gap-tight`), còn từ tiêu đề xuống chữ bên
+     dưới là `gap-stack` — đúng khoảng "Save the Date" → đoạn dẫn của cảnh
+     Time, để mọi section nghỉ một nhịp giống nhau sau tiêu đề viết tay. */
   return (
-    <Reveal className={`${tight ? "mb-stack" : "mb-block"} flex flex-col items-center gap-tight text-center`}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <SectionTitle id={titleId}>{title}</SectionTitle>
-      {subtitle ? (
-        <Subhead variant={subtitleVariant} className="max-w-prose">
-          {subtitle}
-        </Subhead>
+    <Reveal className={`${tight ? "mb-stack" : "mb-block"} flex flex-col items-center gap-stack text-center`}>
+      <div className="flex flex-col items-center gap-tight">
+        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+        <SectionTitle id={titleId}>{title}</SectionTitle>
+      </div>
+      {hasBody ? (
+        <div className="flex w-full flex-col items-center gap-tight">
+          {subtitle ? (
+            <Subhead variant={subtitleVariant} className="max-w-prose">
+              {subtitle}
+            </Subhead>
+          ) : null}
+          {intro ? (
+            <Lead className={`max-w-prose ${introAlign === "center" ? "text-balance" : "text-justify"}`}>
+              {intro}
+            </Lead>
+          ) : null}
+          {children}
+        </div>
       ) : null}
-      {intro ? (
-        <Lead className={`max-w-prose ${introAlign === "center" ? "text-balance" : "text-justify"}`}>
-          {intro}
-        </Lead>
-      ) : null}
-      {children}
     </Reveal>
   );
 }
