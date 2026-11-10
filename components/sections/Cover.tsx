@@ -26,7 +26,7 @@ export function Cover() {
       width="bleed"
       labelledBy="cover-title"
     >
-      <div className="relative flex min-h-[100svh] flex-col items-center justify-end">
+      <div className="relative flex min-h-[100svh] flex-col items-center">
         {/* Thứ nằm dưới tán lá, lộ ra khi cảnh mở: giấy rượu vang của section. */}
         <TropicalReveal
           backdrop={
@@ -45,12 +45,12 @@ export function Cover() {
           }
         />
 
-        <div className="relative z-20 flex w-full flex-col items-center">
+        <div className="relative z-20 flex w-full flex-1 flex-col items-center">
           {/* Tên xếp so le như bản khách duyệt: "Will" ôm lề trái, viên "and"
               nghiêng chen trước "Tina" ở dòng dưới lệch phải, rồi lời mời
               nghiêng. Khối nằm trong khoảng trống phía
               trên bàn tay. */}
-          <div className="container-site pt-section">
+          <div className="container-site flex flex-1 flex-col justify-center pt-section">
             <div className="relative mx-auto flex w-full max-w-[24rem] flex-col gap-stack">
               <h1
                 id="cover-title"
@@ -60,7 +60,7 @@ export function Cover() {
               >
                 <span className="self-start">{couple.groom}</span>
                 <span className="flex items-center gap-stack self-end">
-                  <span className="tag-pill -rotate-6 font-display text-subtitle italic">
+                  <span className="tag-pill -rotate-6 font-script text-h1">
                     {cover.and}
                   </span>
                   <span>{couple.bride}</span>
