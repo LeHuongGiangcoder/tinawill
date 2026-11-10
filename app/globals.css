@@ -2053,8 +2053,49 @@ html {
     transform-origin: center;
   }
 
+  /* Lớp nền dưới tranh, tan đi để lộ backdrop khi mở. `data-ground` của stage
+     chọn chất liệu: xanh rừng, giấy ô liu của brand, hoặc nền kem. */
+  .scene-ground {
+    position: absolute;
+    inset: 0;
+  }
+
+  .scene-stage[data-ground="forest"],
+  .scene-stage[data-ground="forest"] .scene-veil,
+  .scene-stage[data-ground="forest"] .scene-ground {
+    background: var(--t-color-forest);
+  }
+
+  .scene-stage[data-ground="olive"] .scene-veil,
+  .scene-stage[data-ground="olive"] .scene-ground {
+    background: var(--t-color-forest-deep) url("/brand/backgrounds/paper-olive.webp") center / cover no-repeat;
+  }
+
+  .scene-stage[data-ground="light"] {
+    background: var(--t-color-cream);
+  }
+
+  .scene-stage[data-ground="light"] .scene-veil,
+  .scene-stage[data-ground="light"] .scene-ground {
+    background-color: var(--t-color-cream);
+  }
+
+  /* Một nhân vật ghép nhiều mảnh (thân, đầu, cánh) dùng chung hệ toạ độ ảnh gốc. */
+  .scene-rig {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .scene-rig-part {
+    position: absolute;
+  }
+
   .scene-plate img,
-  .scene-sprite img {
+  .scene-sprite img,
+  .scene-rig-part img {
     display: block;
     width: 100%;
     height: auto;

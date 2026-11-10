@@ -1,0 +1,1226 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tropical Reveal · Motion Preview</title>
+<style>
+:root{color-scheme:dark;font:15px/1.5 system-ui,sans-serif;background:#151914;color:#eeeadb;--muted:#b6b7a6}
+*{box-sizing:border-box}
+body{min-height:100vh;margin:0;display:grid;place-items:center;padding:18px}
+main{display:grid;justify-items:center;gap:9px;width:min(100%,510px)}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;width:100%}
+h1{font:600 18px/1.1 Georgia,serif;margin:0;letter-spacing:.02em}
+small,output{color:var(--muted);font-variant-numeric:tabular-nums}
+.stage{position:relative;width:min(100%,41.0625vh,416.25px);aspect-ratio:9/16;background:#20261b;overflow:hidden;border-radius:8px;outline:1px solid #41473a}
+.stage.checker{background:conic-gradient(#3b3c36 25%,#515249 0 50%,#3b3c36 0 75%,#515249 0) 0 0/20px 20px}
+canvas{width:100%;height:100%;display:block}
+#focus{position:absolute;left:18%;top:25%;width:64%;height:50%;border:1px dashed #dfcfac;display:grid;place-items:center;text-align:center;font-size:11px;color:#eee3c9;pointer-events:none}
+#focus[hidden]{display:none}
+.controls{display:flex;gap:8px;align-items:center;width:100%}
+button{padding:7px 10px;border-radius:6px;background:#2d3528;border:1px solid #495241;color:inherit;font:inherit;white-space:nowrap}
+button:enabled{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid #ebc77c;outline-offset:3px}
+input[type=range]{flex:1;min-width:35px;accent-color:#a0aa83}
+.options{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;width:100%;font-size:12px;color:var(--muted)}
+.options label{cursor:pointer}
+</style>
+<main>
+<header><h1>Tropical Reveal</h1><small>Motion Preview · 9:16</small></header>
+<div class="stage" id="stage">
+<canvas id="view" aria-label="Bản xem trước chuyển động của vườn nhiệt đới"></canvas>
+<div id="focus" hidden><span>Vùng dành cho điểm nhìn cuối</span></div>
+</div>
+<div class="controls">
+<button id="play" disabled>Phát</button>
+<button id="replay" disabled title="Phát lại từ đầu">Phát lại</button>
+<input id="scrub" aria-label="Tua thời gian" type="range" min="0" value="0" step="0.01" disabled>
+<output id="time">0.00 s</output>
+</div>
+<div class="options">
+<label><input id="alpha" type="checkbox"> Hiện lưới alpha</label>
+<label><input id="zone" type="checkbox"> Hiện vùng điểm nhìn</label>
+<small id="status" role="status">Đang tải asset…</small>
+</div>
+</main>
+<script id="config" type="application/json">{
+  "canvas": {
+    "width": 1152,
+    "height": 2048,
+    "aspectRatio": "9:16"
+  },
+  "assets": [
+    {
+      "id": "floor_leaves",
+      "file": "assets/layers/floor_leaves.png",
+      "rect": [
+        13,
+        1577,
+        784,
+        470
+      ],
+      "pivot": [
+        439,
+        271
+      ],
+      "group": "midLower",
+      "z": 0
+    },
+    {
+      "id": "branch_bottom_right",
+      "file": "assets/layers/branch_bottom_right.png",
+      "rect": [
+        619,
+        1301,
+        533,
+        746
+      ],
+      "pivot": [
+        485,
+        137
+      ],
+      "group": "frontRight",
+      "z": 10
+    },
+    {
+      "id": "leaves_right_mid",
+      "file": "assets/layers/leaves_right_mid.png",
+      "rect": [
+        643,
+        550,
+        509,
+        915
+      ],
+      "pivot": [
+        397,
+        520
+      ],
+      "group": "midRight",
+      "z": 20
+    },
+    {
+      "id": "leaves_left_tall",
+      "file": "assets/layers/leaves_left_tall.png",
+      "rect": [
+        0,
+        869,
+        446,
+        521
+      ],
+      "pivot": [
+        168,
+        423
+      ],
+      "group": "midLeft",
+      "z": 30
+    },
+    {
+      "id": "leaves_mid_left",
+      "file": "assets/layers/leaves_mid_left.png",
+      "rect": [
+        119,
+        364,
+        502,
+        597
+      ],
+      "pivot": [
+        191,
+        334
+      ],
+      "group": "midLeft",
+      "z": 40
+    },
+    {
+      "id": "branch_top_right",
+      "file": "assets/layers/branch_top_right.png",
+      "rect": [
+        507,
+        0,
+        645,
+        662
+      ],
+      "pivot": [
+        457,
+        336
+      ],
+      "group": "rightCanopy",
+      "z": 50
+    },
+    {
+      "id": "branch_top_left",
+      "file": "assets/layers/branch_top_left.png",
+      "rect": [
+        0,
+        0,
+        514,
+        427
+      ],
+      "pivot": [
+        110,
+        234
+      ],
+      "group": "leftCanopy",
+      "z": 60
+    },
+    {
+      "id": "accent_lower",
+      "file": "assets/layers/accent_lower.png",
+      "rect": [
+        442,
+        1469,
+        212,
+        256
+      ],
+      "pivot": [
+        198,
+        45
+      ],
+      "group": "midLower",
+      "z": 70
+    },
+    {
+      "id": "branch_perch",
+      "file": "assets/layers/branch_perch.png",
+      "rect": [
+        129,
+        1362,
+        371,
+        317
+      ],
+      "pivot": [
+        31,
+        260
+      ],
+      "group": "perch",
+      "z": 80
+    },
+    {
+      "id": "accent_upper_right",
+      "file": "assets/layers/accent_upper_right.png",
+      "rect": [
+        1077,
+        418,
+        75,
+        157
+      ],
+      "pivot": [
+        63,
+        130
+      ],
+      "group": "rightCanopy",
+      "z": 90
+    },
+    {
+      "id": "hibiscus_orange",
+      "file": "assets/layers/hibiscus_orange.png",
+      "rect": [
+        157,
+        159,
+        395,
+        364
+      ],
+      "pivot": [
+        141,
+        227
+      ],
+      "group": "leftCanopy",
+      "z": 100
+    },
+    {
+      "id": "fruit_left_green",
+      "file": "assets/layers/fruit_left_green.png",
+      "rect": [
+        0,
+        380,
+        223,
+        396
+      ],
+      "pivot": [
+        52,
+        20
+      ],
+      "group": "leftCanopy",
+      "z": 110
+    },
+    {
+      "id": "fruit_half",
+      "file": "assets/layers/fruit_half.png",
+      "rect": [
+        415,
+        427,
+        418,
+        532
+      ],
+      "pivot": [
+        357,
+        19
+      ],
+      "group": "frontUpper",
+      "z": 120
+    },
+    {
+      "id": "fruit_right_small",
+      "file": "assets/layers/fruit_right_small.png",
+      "rect": [
+        830,
+        323,
+        179,
+        245
+      ],
+      "pivot": [
+        114,
+        13
+      ],
+      "group": "rightCanopy",
+      "z": 130
+    },
+    {
+      "id": "fruit_right_red",
+      "file": "assets/layers/fruit_right_red.png",
+      "rect": [
+        883,
+        532,
+        269,
+        472
+      ],
+      "pivot": [
+        165,
+        20
+      ],
+      "group": "rightCanopy",
+      "z": 140
+    },
+    {
+      "id": "fruit_bottom_right",
+      "file": "assets/layers/fruit_bottom_right.png",
+      "rect": [
+        763,
+        1414,
+        341,
+        454
+      ],
+      "pivot": [
+        301,
+        20
+      ],
+      "group": "frontRight",
+      "z": 150
+    },
+    {
+      "id": "fruit_bottom_left",
+      "file": "assets/layers/fruit_bottom_left.png",
+      "rect": [
+        8,
+        1598,
+        201,
+        314
+      ],
+      "pivot": [
+        54,
+        12
+      ],
+      "group": "frontLeft",
+      "z": 160
+    },
+    {
+      "id": "parrot_body",
+      "file": "assets/layers/parrot_body.png",
+      "rect": [
+        0,
+        996,
+        653,
+        643
+      ],
+      "pivot": [
+        358,
+        450
+      ],
+      "group": "bird",
+      "z": 170
+    },
+    {
+      "id": "parrot_head",
+      "file": "assets/layers/parrot_head.png",
+      "rect": [
+        384,
+        980,
+        251,
+        187
+      ],
+      "pivot": [
+        110,
+        132
+      ],
+      "group": "bird",
+      "z": 180
+    },
+    {
+      "id": "hibiscus_red",
+      "file": "assets/layers/hibiscus_red.png",
+      "rect": [
+        480,
+        1132,
+        448,
+        454
+      ],
+      "pivot": [
+        420,
+        286
+      ],
+      "group": "frontLower",
+      "z": 190
+    },
+    {
+      "id": "accent_left",
+      "file": "assets/layers/accent_left.png",
+      "rect": [
+        1,
+        709,
+        274,
+        363
+      ],
+      "pivot": [
+        183,
+        323
+      ],
+      "group": "midLeft",
+      "z": 200
+    },
+    {
+      "id": "vine_front",
+      "file": "assets/layers/vine_front.png",
+      "rect": [
+        29,
+        1543,
+        353,
+        301
+      ],
+      "pivot": [
+        111,
+        35
+      ],
+      "group": "frontLeft",
+      "z": 210
+    },
+    {
+      "id": "parrot_body_motion",
+      "file": "assets/rig/parrot_body_motion.png",
+      "rect": [
+        0,
+        996,
+        653,
+        643
+      ],
+      "pivot": [
+        358,
+        450
+      ]
+    },
+    {
+      "id": "perch_under_foot",
+      "file": "assets/rig/perch_under_foot.png",
+      "rect": [
+        315,
+        1411,
+        174,
+        110
+      ],
+      "pivot": [
+        -155,
+        211
+      ]
+    },
+    {
+      "id": "parrot_tail_fill",
+      "file": "assets/rig/parrot_tail_fill.png",
+      "rect": [
+        67,
+        1515,
+        242,
+        154
+      ],
+      "pivot": [
+        441,
+        -69
+      ],
+      "sourceOffset": [
+        -150,
+        0
+      ]
+    },
+    {
+      "id": "leaf_olive",
+      "file": "assets/fx/leaf_olive.png",
+      "rect": [
+        317,
+        1641,
+        132,
+        106
+      ],
+      "pivot": [
+        1,
+        123
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "leaf_copper",
+      "file": "assets/fx/leaf_copper.png",
+      "rect": [
+        27,
+        771,
+        120,
+        136
+      ],
+      "pivot": [
+        115,
+        131
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "leaf_dark",
+      "file": "assets/fx/leaf_dark.png",
+      "rect": [
+        851,
+        575,
+        89,
+        116
+      ],
+      "pivot": [
+        83,
+        111
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "wing_near",
+      "file": "assets/rig/wing_near.png",
+      "rect": [
+        0,
+        0,
+        472,
+        317
+      ],
+      "pivot": [
+        424.8,
+        252.01
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "wing_far",
+      "file": "assets/rig/wing_far.png",
+      "rect": [
+        0,
+        1,
+        410,
+        264
+      ],
+      "pivot": [
+        369.0,
+        211.51
+      ],
+      "localSprite": true
+    }
+  ],
+  "version": 1,
+  "duration": 8.4,
+  "camera": {
+    "startAim": [
+      576,
+      1024
+    ],
+    "endAim": [
+      576,
+      934
+    ],
+    "startZoom": 1,
+    "endZoom": 1.48,
+    "linearWeight": 0.27
+  },
+  "finalFocus": {
+    "id": "final-focus",
+    "z": -10,
+    "asset": null,
+    "center": [
+      576,
+      934
+    ],
+    "depth": 0.24,
+    "space": "world",
+    "visibility": {
+      "start": 3.5,
+      "end": 5.35,
+      "easing": "smoothstep"
+    },
+    "safeAreaAtEnd": {
+      "units": "normalizedScreen",
+      "rect": [
+        0.18,
+        0.25,
+        0.64,
+        0.5
+      ]
+    },
+    "maxSize": [
+      650,
+      900
+    ]
+  },
+  "groups": {
+    "frontLower": {
+      "depth": 1.28,
+      "pivot": [
+        911,
+        1418
+      ],
+      "start": 2.69,
+      "end": 5.44,
+      "delta": [
+        790,
+        670
+      ],
+      "rotationDeg": 13,
+      "arcY": -44
+    },
+    "frontRight": {
+      "depth": 1.23,
+      "pivot": [
+        1104,
+        1438
+      ],
+      "start": 2.94,
+      "end": 5.58,
+      "delta": [
+        796,
+        205
+      ],
+      "rotationDeg": 9,
+      "arcY": -69
+    },
+    "frontLeft": {
+      "depth": 1.16,
+      "pivot": [
+        140,
+        1578
+      ],
+      "start": 3.0,
+      "end": 5.73,
+      "delta": [
+        -740,
+        504
+      ],
+      "rotationDeg": -12,
+      "arcY": -32
+    },
+    "frontUpper": {
+      "depth": 1.31,
+      "pivot": [
+        772,
+        446
+      ],
+      "start": 2.8,
+      "end": 5.92,
+      "delta": [
+        630,
+        -1120
+      ],
+      "rotationDeg": 14,
+      "arcY": 38
+    },
+    "perch": {
+      "depth": 1.04,
+      "pivot": [
+        160,
+        1622
+      ],
+      "start": 3.24,
+      "end": 5.98,
+      "delta": [
+        -850,
+        399
+      ],
+      "rotationDeg": -8,
+      "arcY": -37
+    },
+    "leftCanopy": {
+      "depth": 0.82,
+      "pivot": [
+        95,
+        170
+      ],
+      "start": 3.7,
+      "end": 6.58,
+      "delta": [
+        -715,
+        -438
+      ],
+      "rotationDeg": -12,
+      "arcY": -29
+    },
+    "rightCanopy": {
+      "depth": 0.82,
+      "pivot": [
+        1032,
+        308
+      ],
+      "start": 4.08,
+      "end": 6.8,
+      "delta": [
+        650,
+        -637
+      ],
+      "rotationDeg": 9,
+      "arcY": -34
+    },
+    "midLeft": {
+      "depth": 0.55,
+      "pivot": [
+        165,
+        1130
+      ],
+      "start": 4.48,
+      "end": 7.49,
+      "delta": [
+        -559,
+        40
+      ],
+      "rotationDeg": -9,
+      "arcY": -73,
+      "easePower": 1.45
+    },
+    "midRight": {
+      "depth": 0.48,
+      "pivot": [
+        1040,
+        1070
+      ],
+      "start": 4.69,
+      "end": 7.73,
+      "delta": [
+        501,
+        50
+      ],
+      "rotationDeg": 11,
+      "arcY": -65,
+      "easePower": 1.7
+    },
+    "midLower": {
+      "depth": 0.37,
+      "pivot": [
+        465,
+        1850
+      ],
+      "start": 5.02,
+      "end": 8.05,
+      "delta": [
+        -158,
+        515
+      ],
+      "rotationDeg": -5,
+      "arcY": 20,
+      "easePower": 1.7
+    },
+    "bird": {
+      "depth": 1.04
+    }
+  },
+  "bird": {
+    "headKeys": [
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0.25,
+        0,
+        1,
+        0
+      ],
+      [
+        0.73,
+        -11,
+        0.84,
+        -9
+      ],
+      [
+        1.02,
+        -10,
+        0.87,
+        -7
+      ],
+      [
+        1.4,
+        3,
+        1.01,
+        2
+      ],
+      [
+        1.77,
+        5,
+        1.01,
+        1
+      ],
+      [
+        2.18,
+        1,
+        1,
+        0
+      ],
+      [
+        3.24,
+        -2,
+        1,
+        0
+      ]
+    ],
+    "anticipation": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        1.29,
+        0,
+        0
+      ],
+      [
+        1.64,
+        13,
+        3.5
+      ],
+      [
+        1.76,
+        4,
+        -1.5
+      ]
+    ],
+    "launchAt": 1.76,
+    "flightEnd": 3.24,
+    "bodyPivot": [
+      358,
+      1446
+    ],
+    "flightKeys": [
+      [
+        1.76,
+        0,
+        0,
+        -1.5
+      ],
+      [
+        1.86,
+        16,
+        -36,
+        -7
+      ],
+      [
+        2.06,
+        111,
+        -160,
+        -14
+      ],
+      [
+        2.34,
+        330,
+        -341,
+        -8
+      ],
+      [
+        2.61,
+        635,
+        -522,
+        1
+      ],
+      [
+        2.9,
+        1010,
+        -765,
+        -4
+      ],
+      [
+        3.24,
+        1590,
+        -1160,
+        -11
+      ]
+    ],
+    "wingsStart": 1.6,
+    "wingsOpen": 1.9,
+    "shoulders": {
+      "wing_near": [
+        427,
+        1192
+      ],
+      "wing_far": [
+        457,
+        1171
+      ]
+    },
+    "wingCycle": [
+      [
+        0,
+        20,
+        0.8
+      ],
+      [
+        0.2,
+        43,
+        1.03
+      ],
+      [
+        0.4,
+        0,
+        0.93
+      ],
+      [
+        0.57,
+        -65,
+        1.0
+      ],
+      [
+        0.73,
+        -41,
+        0.76
+      ],
+      [
+        1,
+        20,
+        0.8
+      ]
+    ],
+    "wingPeriod": 0.4,
+    "perchPatchIn": [
+      1.76,
+      1.88
+    ]
+  },
+  "fruitDrop": {
+    "asset": "fruit_right_small",
+    "at": 4.32,
+    "duration": 1.63,
+    "gravity": 1450,
+    "releaseVelocity": [
+      -142,
+      105
+    ],
+    "dragX": -46,
+    "spinDegPerSecond": 82
+  },
+  "leafParticles": [
+    {
+      "asset": "leaf_olive",
+      "origin": [
+        249,
+        744
+      ],
+      "at": 3.84,
+      "duration": 2.08,
+      "scale": 0.56,
+      "drift": 181,
+      "fall": 880,
+      "flutter": 37,
+      "spin": 1.05,
+      "phase": 0.2,
+      "depth": 0.72
+    },
+    {
+      "asset": "leaf_dark",
+      "origin": [
+        841,
+        1005
+      ],
+      "at": 4.55,
+      "duration": 2.22,
+      "scale": 0.52,
+      "drift": -156,
+      "fall": 862,
+      "flutter": 43,
+      "spin": -1.25,
+      "phase": 1.7,
+      "depth": 0.53
+    },
+    {
+      "asset": "leaf_copper",
+      "origin": [
+        378,
+        1412
+      ],
+      "at": 5.13,
+      "duration": 1.73,
+      "scale": 0.53,
+      "drift": 210,
+      "fall": 780,
+      "flutter": 49,
+      "spin": 1.35,
+      "phase": 2.5,
+      "depth": 0.61
+    }
+  ]
+}
+</script>
+<script>
+const config = JSON.parse(document.getElementById('config').textContent);
+const {canvas, assets, groups, camera, bird, fruitDrop, leafParticles, finalFocus, duration} = config;
+const stage = document.getElementById('stage');
+const view = document.getElementById('view');
+const ctx = view.getContext('2d', {alpha:true});
+const play = document.getElementById('play');
+const replay = document.getElementById('replay');
+const scrub = document.getElementById('scrub');
+const time = document.getElementById('time');
+const status = document.getElementById('status');
+const rows = Object.fromEntries(assets.map(row => [row.id,row]));
+const stack = assets.filter(row => Number.isFinite(row.z)).sort((a,b) => a.z-b.z);
+const center = [canvas.width/2,canvas.height/2];
+const clamp = v => Math.max(0,Math.min(1,v));
+const lerp = (a,b,t) => a+(b-a)*t;
+const smooth = t => t*t*(3-2*t);
+const progress = (t,a,b) => clamp((t-a)/(b-a));
+const radians = a => a*Math.PI/180;
+const turn = (x,y,a) => [x*Math.cos(a)-y*Math.sin(a),x*Math.sin(a)+y*Math.cos(a)];
+view.width = canvas.width;
+view.height = canvas.height;
+scrub.max = duration;
+
+function interpolate(keys,t) {
+  if(t<=keys[0][0]) return keys[0].slice(1);
+  for(let i=1;i<keys.length;i++) {
+    if(t<=keys[i][0]) {
+      const a=keys[i-1],b=keys[i],u=smooth(progress(t,a[0],b[0]));
+      return b.slice(1).map((value,j)=>lerp(a[j+1],value,u));
+    }
+  }
+  return keys.at(-1).slice(1);
+}
+
+// Interpolate flight positions with a continuous velocity through the keys.
+function flightAt(t) {
+  const keys=bird.flightKeys;
+  let i=1;
+  while(i<keys.length-1 && t>keys[i][0]) i++;
+  const a=keys[i-1],b=keys[i],p=keys[Math.max(0,i-2)],n=keys[Math.min(keys.length-1,i+1)];
+  const d=b[0]-a[0],u=progress(t,a[0],b[0]),u2=u*u,u3=u2*u;
+  return a.slice(1).map((value,j)=>{
+    const k=j+1, m0=i===1?0:(b[k]-p[k])/(b[0]-p[0])*d;
+    const m1=(n[k]-a[k])/(n[0]-a[0])*d;
+    return (2*u3-3*u2+1)*value+(u3-2*u2+u)*m0+(-2*u3+3*u2)*b[k]+(u3-u2)*m1;
+  });
+}
+
+function worldCamera(t) {
+  const u=clamp(t/duration), ease=smooth(u);
+  const s=lerp(ease,u,camera.linearWeight);
+  return {
+    zoom:lerp(camera.startZoom,camera.endZoom,s),
+    aim:camera.startAim.map((v,i)=>lerp(v,camera.endAim[i],ease))
+  };
+}
+
+function useCamera(state,depth) {
+  const scale=1+(state.zoom-1)*depth;
+  ctx.translate(center[0],center[1]);
+  ctx.scale(scale,scale);
+  ctx.translate(-state.aim[0],-state.aim[1]);
+}
+
+function groupAt(group,t) {
+  const phase=progress(t,group.start,group.end);
+  const u=smooth(phase**(group.easePower??1));
+  return [group.delta[0]*u,group.delta[1]*u+group.arcY*Math.sin(Math.PI*u),radians(group.rotationDeg*u)];
+}
+
+function useGroup(group,t) {
+  const [x,y,a]=groupAt(group,t);
+  ctx.translate(group.pivot[0]+x,group.pivot[1]+y);
+  ctx.rotate(a);
+  ctx.translate(-group.pivot[0],-group.pivot[1]);
+}
+
+function origin(row) {
+  const offset=row.sourceOffset??[0,0];
+  return [row.rect[0]+offset[0],row.rect[1]+offset[1]];
+}
+
+function draw(row) {
+  ctx.drawImage(row.image,...origin(row));
+}
+
+function useSpritePivot(row) {
+  const [x,y]=origin(row);
+  ctx.translate(x+row.pivot[0],y+row.pivot[1]);
+}
+
+function drawWing(id,t) {
+  const open=smooth(progress(t,bird.wingsStart,bird.wingsOpen));
+  if(open<=0) return;
+  const phase=((t-bird.wingsStart)/bird.wingPeriod+(id==='wing_far'?0.15:0))%1;
+  const [angle,spread]=interpolate(bird.wingCycle,phase);
+  const row=rows[id], near=id==='wing_near';
+  ctx.save();
+  ctx.translate(...bird.shoulders[id]);
+  ctx.globalAlpha=(near?1:0.86)*smooth(progress(open,0.04,0.48));
+  ctx.rotate(radians(near?angle:-(angle*0.68)+11));
+  const width=lerp(0.19,spread*(near?0.97:0.75),open);
+  const height=lerp(0.18,spread*(near?0.92:0.67),open);
+  ctx.scale(near?width:-width,height);
+  ctx.drawImage(row.image,-row.pivot[0],-row.pivot[1]);
+  ctx.restore();
+}
+
+function drawBirdPart(row,t) {
+  const airborne=t>=bird.launchAt;
+  if(t>=bird.flightEnd) return;
+  const [crouch,preTilt]=interpolate(bird.anticipation,t);
+  const [x,y,tilt]=airborne?flightAt(t):[0,crouch,preTilt];
+  const [px,py]=bird.bodyPivot;
+  const release=1-smooth(progress(t,bird.launchAt,bird.launchAt+0.17));
+  ctx.translate(px+x,py+y+(airborne?crouch*release:0));
+  ctx.rotate(radians(tilt));
+  ctx.translate(-px,-py);
+  if(row.id==='parrot_body') {
+    drawWing('wing_far',t);
+    if(airborne) {
+      ctx.globalAlpha=smooth(progress(t,bird.launchAt,bird.launchAt+0.12));
+      draw(rows.parrot_tail_fill);
+      ctx.globalAlpha=1;
+    }
+    draw(t<=0.25?row:rows.parrot_body_motion);
+    drawWing('wing_near',t);
+  } else {
+    const [angle,width,slide]=interpolate(bird.headKeys,t);
+    useSpritePivot(row);
+    ctx.translate(slide,0);
+    ctx.rotate(radians(angle));
+    ctx.scale(width,1);
+    ctx.drawImage(row.image,-row.pivot[0],-row.pivot[1]);
+  }
+}
+
+function attachedPivot(row,group,t) {
+  const [x,y]=origin(row);
+  const [dx,dy,a]=groupAt(group,t);
+  const [gx,gy]=group.pivot;
+  const [rx,ry]=turn(x+row.pivot[0]-gx,y+row.pivot[1]-gy,a);
+  return [gx+dx+rx,gy+dy+ry,a];
+}
+
+function drawFruit(row,group,t) {
+  const dt=t-fruitDrop.at;
+  if(dt>fruitDrop.duration) return;
+  const [x,y,angle]=attachedPivot(row,group,fruitDrop.at);
+  const h=0.004;
+  const [ax,ay]=attachedPivot(row,group,fruitDrop.at-h);
+  // Ease in the extra pull over the first 90ms, retaining the inherited velocity.
+  const impulse=dt-0.09*(1-Math.exp(-dt/0.09));
+  const dx=((x-ax)/h)*dt+fruitDrop.releaseVelocity[0]*impulse+0.5*fruitDrop.dragX*dt*dt;
+  const dy=((y-ay)/h)*dt+fruitDrop.releaseVelocity[1]*impulse+0.5*fruitDrop.gravity*dt*dt;
+  ctx.translate(x+dx,y+dy);
+  ctx.rotate(angle+radians(fruitDrop.spinDegPerSecond*impulse));
+  ctx.drawImage(row.image,-row.pivot[0],-row.pivot[1]);
+}
+
+function drawLeaf(fx,t,cameraState) {
+  const dt=t-fx.at;
+  if(dt<0||dt>fx.duration) return;
+  const u=dt/fx.duration;
+  const wave=Math.sin(dt*6.5+fx.phase)-Math.sin(fx.phase);
+  const row=rows[fx.asset];
+  ctx.save();
+  useCamera(cameraState,fx.depth);
+  ctx.translate(fx.origin[0]+fx.drift*u+wave*fx.flutter,fx.origin[1]+fx.fall*(0.28*u+0.72*u*u));
+  ctx.rotate(fx.spin*dt+0.44*wave);
+  const roll=0.34+0.66*Math.abs(Math.cos(4.2*dt+fx.phase));
+  ctx.scale(fx.scale*roll,fx.scale);
+  ctx.globalAlpha=smooth(progress(dt,0,0.17))*(1-smooth(progress(u,0.85,1)));
+  ctx.drawImage(row.image,-row.pivot[0],-row.pivot[1]);
+  ctx.restore();
+}
+
+let focusImage=null;
+function drawFinalFocus(t,state) {
+  if(!focusImage||t<=finalFocus.visibility.start) return;
+  const {width,height}=focusImage;
+  const scale=Math.min(1,finalFocus.maxSize[0]/width,finalFocus.maxSize[1]/height);
+  const w=width*scale,h=height*scale;
+  ctx.save();
+  useCamera(state,finalFocus.depth);
+  ctx.globalAlpha=smooth(progress(t,finalFocus.visibility.start,finalFocus.visibility.end));
+  ctx.drawImage(focusImage,finalFocus.center[0]-w/2,finalFocus.center[1]-h/2,w,h);
+  ctx.restore();
+}
+
+function render(t) {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const state=worldCamera(t);
+  drawFinalFocus(t,state);
+  for(const row of stack) {
+    const group=groups[row.group];
+    ctx.save();
+    useCamera(state,group.depth);
+    if(row.group==='bird') {
+      drawBirdPart(row,t);
+    } else if(row.id===fruitDrop.asset && t>=fruitDrop.at) {
+      drawFruit(row,group,t);
+    } else {
+      useGroup(group,t);
+      if(row.id==='branch_perch'&&t>bird.perchPatchIn[0]) {
+        ctx.globalAlpha=smooth(progress(t,...bird.perchPatchIn));
+        draw(rows.perch_under_foot);
+        ctx.globalAlpha=1;
+      }
+      draw(row);
+    }
+    ctx.restore();
+  }
+  for(const fx of leafParticles) drawLeaf(fx,t,state);
+  scrub.value=t;
+  time.value=t.toFixed(2)+' s';
+}
+
+let position=0, start=0, frame=0, playing=false;
+function pause() {
+  cancelAnimationFrame(frame);
+  playing=false;
+  play.textContent='Phát';
+}
+function tick(now) {
+  position=Math.min(duration,(now-start)/1000);
+  render(position);
+  if(position<duration) frame=requestAnimationFrame(tick);
+  else pause();
+}
+function run() {
+  if(position>=duration) position=0;
+  start=performance.now()-position*1000;
+  playing=true;
+  play.textContent='Tạm dừng';
+  frame=requestAnimationFrame(tick);
+}
+play.addEventListener('click',()=>playing?pause():run());
+replay.addEventListener('click',()=>{pause();position=0;render(0);run();});
+scrub.addEventListener('input',()=>{pause();position=Number(scrub.value);render(position);});
+document.getElementById('alpha').addEventListener('change',e=>stage.classList.toggle('checker',e.target.checked));
+document.getElementById('zone').addEventListener('change',e=>document.getElementById('focus').hidden=!e.target.checked);
+
+async function loadSprite(path) {
+  const image=new Image();
+  image.src=path;
+  await image.decode();
+  return image;
+}
+const preload=assets.map(async row=>{row.image=await loadSprite(row.file);});
+if(finalFocus.asset) preload.push(loadSprite(finalFocus.asset).then(image=>{focusImage=image;}));
+Promise.all(preload).then(()=>{
+  render(0);
+  play.disabled=replay.disabled=scrub.disabled=false;
+  status.textContent='8.4 giây';
+}).catch(error=>{
+  console.error(error);
+  status.textContent='Hãy giải nén toàn bộ thư mục trước khi mở.';
+});
+</script>
+</html>

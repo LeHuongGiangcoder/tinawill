@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { TropicalReveal } from "@/components/ui/TropicalReveal";
+import { TropicalOpening } from "@/components/ui/TropicalOpening";
 import { couple, cover, design, hero } from "@/content/client";
 import { background } from "@/lib/assets";
 
@@ -11,7 +11,7 @@ import { background } from "@/lib/assets";
  * nằm ở `.ring-motion` trong globals.css; ảnh và SVG dùng chung hệ toạ độ
  * 1254 × 1254 nên luôn phải scale cùng nhau. Chỉ lớp SVG chuyển động.
  *
- * Đây cũng là chỗ của màn mở thiệp: <TropicalReveal> đóng thì tán lá che kín
+ * Đây cũng là chỗ của màn mở thiệp: <TropicalOpening> đóng thì tán lá che kín
  * và tờ giấy "Hi :)" nằm giữa; bấm "Spill the tea" thì lá mở ra để lộ trang
  * này. Vì vậy cặp đôi và tên gắn `data-hero` — chúng chờ cú mở thiệp chứ
  * không chờ cuộn. Nền giấy lấy từ `design.cover` (tông `wine` + paper-wine).
@@ -28,7 +28,7 @@ export function Cover() {
     >
       <div className="relative flex min-h-[100svh] flex-col items-center">
         {/* Thứ nằm dưới tán lá, lộ ra khi cảnh mở: giấy rượu vang của section. */}
-        <TropicalReveal
+        <TropicalOpening
           backdrop={
             <div aria-hidden className="absolute inset-0 bg-tone-bg">
               {paper ? (

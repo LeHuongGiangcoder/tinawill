@@ -1,0 +1,919 @@
+{
+  "canvas": {
+    "width": 1152,
+    "height": 2048,
+    "aspectRatio": "9:16"
+  },
+  "assets": [
+    {
+      "id": "floor_leaves",
+      "file": "assets/layers/floor_leaves.png",
+      "rect": [
+        13,
+        1577,
+        784,
+        470
+      ],
+      "pivot": [
+        439,
+        271
+      ],
+      "group": "midLower",
+      "z": 0
+    },
+    {
+      "id": "branch_bottom_right",
+      "file": "assets/layers/branch_bottom_right.png",
+      "rect": [
+        619,
+        1301,
+        533,
+        746
+      ],
+      "pivot": [
+        485,
+        137
+      ],
+      "group": "frontRight",
+      "z": 10
+    },
+    {
+      "id": "leaves_right_mid",
+      "file": "assets/layers/leaves_right_mid.png",
+      "rect": [
+        643,
+        550,
+        509,
+        915
+      ],
+      "pivot": [
+        397,
+        520
+      ],
+      "group": "midRight",
+      "z": 20
+    },
+    {
+      "id": "leaves_left_tall",
+      "file": "assets/layers/leaves_left_tall.png",
+      "rect": [
+        0,
+        869,
+        446,
+        521
+      ],
+      "pivot": [
+        168,
+        423
+      ],
+      "group": "midLeft",
+      "z": 30
+    },
+    {
+      "id": "leaves_mid_left",
+      "file": "assets/layers/leaves_mid_left.png",
+      "rect": [
+        119,
+        364,
+        502,
+        597
+      ],
+      "pivot": [
+        191,
+        334
+      ],
+      "group": "midLeft",
+      "z": 40
+    },
+    {
+      "id": "branch_top_right",
+      "file": "assets/layers/branch_top_right.png",
+      "rect": [
+        507,
+        0,
+        645,
+        662
+      ],
+      "pivot": [
+        457,
+        336
+      ],
+      "group": "rightCanopy",
+      "z": 50
+    },
+    {
+      "id": "branch_top_left",
+      "file": "assets/layers/branch_top_left.png",
+      "rect": [
+        0,
+        0,
+        514,
+        427
+      ],
+      "pivot": [
+        110,
+        234
+      ],
+      "group": "leftCanopy",
+      "z": 60
+    },
+    {
+      "id": "accent_lower",
+      "file": "assets/layers/accent_lower.png",
+      "rect": [
+        442,
+        1469,
+        212,
+        256
+      ],
+      "pivot": [
+        198,
+        45
+      ],
+      "group": "midLower",
+      "z": 70
+    },
+    {
+      "id": "branch_perch",
+      "file": "assets/layers/branch_perch.png",
+      "rect": [
+        129,
+        1362,
+        371,
+        317
+      ],
+      "pivot": [
+        31,
+        260
+      ],
+      "group": "perch",
+      "z": 80
+    },
+    {
+      "id": "accent_upper_right",
+      "file": "assets/layers/accent_upper_right.png",
+      "rect": [
+        1077,
+        418,
+        75,
+        157
+      ],
+      "pivot": [
+        63,
+        130
+      ],
+      "group": "rightCanopy",
+      "z": 90
+    },
+    {
+      "id": "hibiscus_orange",
+      "file": "assets/layers/hibiscus_orange.png",
+      "rect": [
+        157,
+        159,
+        395,
+        364
+      ],
+      "pivot": [
+        141,
+        227
+      ],
+      "group": "leftCanopy",
+      "z": 100
+    },
+    {
+      "id": "fruit_left_green",
+      "file": "assets/layers/fruit_left_green.png",
+      "rect": [
+        0,
+        380,
+        223,
+        396
+      ],
+      "pivot": [
+        52,
+        20
+      ],
+      "group": "leftCanopy",
+      "z": 110
+    },
+    {
+      "id": "fruit_half",
+      "file": "assets/layers/fruit_half.png",
+      "rect": [
+        415,
+        427,
+        418,
+        532
+      ],
+      "pivot": [
+        357,
+        19
+      ],
+      "group": "frontUpper",
+      "z": 120
+    },
+    {
+      "id": "fruit_right_small",
+      "file": "assets/layers/fruit_right_small.png",
+      "rect": [
+        830,
+        323,
+        179,
+        245
+      ],
+      "pivot": [
+        114,
+        13
+      ],
+      "group": "rightCanopy",
+      "z": 130
+    },
+    {
+      "id": "fruit_right_red",
+      "file": "assets/layers/fruit_right_red.png",
+      "rect": [
+        883,
+        532,
+        269,
+        472
+      ],
+      "pivot": [
+        165,
+        20
+      ],
+      "group": "rightCanopy",
+      "z": 140
+    },
+    {
+      "id": "fruit_bottom_right",
+      "file": "assets/layers/fruit_bottom_right.png",
+      "rect": [
+        763,
+        1414,
+        341,
+        454
+      ],
+      "pivot": [
+        301,
+        20
+      ],
+      "group": "frontRight",
+      "z": 150
+    },
+    {
+      "id": "fruit_bottom_left",
+      "file": "assets/layers/fruit_bottom_left.png",
+      "rect": [
+        8,
+        1598,
+        201,
+        314
+      ],
+      "pivot": [
+        54,
+        12
+      ],
+      "group": "frontLeft",
+      "z": 160
+    },
+    {
+      "id": "parrot_body",
+      "file": "assets/layers/parrot_body.png",
+      "rect": [
+        0,
+        996,
+        653,
+        643
+      ],
+      "pivot": [
+        358,
+        450
+      ],
+      "group": "bird",
+      "z": 170
+    },
+    {
+      "id": "parrot_head",
+      "file": "assets/layers/parrot_head.png",
+      "rect": [
+        384,
+        980,
+        251,
+        187
+      ],
+      "pivot": [
+        110,
+        132
+      ],
+      "group": "bird",
+      "z": 180
+    },
+    {
+      "id": "hibiscus_red",
+      "file": "assets/layers/hibiscus_red.png",
+      "rect": [
+        480,
+        1132,
+        448,
+        454
+      ],
+      "pivot": [
+        420,
+        286
+      ],
+      "group": "frontLower",
+      "z": 190
+    },
+    {
+      "id": "accent_left",
+      "file": "assets/layers/accent_left.png",
+      "rect": [
+        1,
+        709,
+        274,
+        363
+      ],
+      "pivot": [
+        183,
+        323
+      ],
+      "group": "midLeft",
+      "z": 200
+    },
+    {
+      "id": "vine_front",
+      "file": "assets/layers/vine_front.png",
+      "rect": [
+        29,
+        1543,
+        353,
+        301
+      ],
+      "pivot": [
+        111,
+        35
+      ],
+      "group": "frontLeft",
+      "z": 210
+    },
+    {
+      "id": "parrot_body_motion",
+      "file": "assets/rig/parrot_body_motion.png",
+      "rect": [
+        0,
+        996,
+        653,
+        643
+      ],
+      "pivot": [
+        358,
+        450
+      ]
+    },
+    {
+      "id": "perch_under_foot",
+      "file": "assets/rig/perch_under_foot.png",
+      "rect": [
+        315,
+        1411,
+        174,
+        110
+      ],
+      "pivot": [
+        -155,
+        211
+      ]
+    },
+    {
+      "id": "parrot_tail_fill",
+      "file": "assets/rig/parrot_tail_fill.png",
+      "rect": [
+        67,
+        1515,
+        242,
+        154
+      ],
+      "pivot": [
+        441,
+        -69
+      ],
+      "sourceOffset": [
+        -150,
+        0
+      ]
+    },
+    {
+      "id": "leaf_olive",
+      "file": "assets/fx/leaf_olive.png",
+      "rect": [
+        317,
+        1641,
+        132,
+        106
+      ],
+      "pivot": [
+        1,
+        123
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "leaf_copper",
+      "file": "assets/fx/leaf_copper.png",
+      "rect": [
+        27,
+        771,
+        120,
+        136
+      ],
+      "pivot": [
+        115,
+        131
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "leaf_dark",
+      "file": "assets/fx/leaf_dark.png",
+      "rect": [
+        851,
+        575,
+        89,
+        116
+      ],
+      "pivot": [
+        83,
+        111
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "wing_near",
+      "file": "assets/rig/wing_near.png",
+      "rect": [
+        0,
+        0,
+        472,
+        317
+      ],
+      "pivot": [
+        424.8,
+        252.01
+      ],
+      "localSprite": true
+    },
+    {
+      "id": "wing_far",
+      "file": "assets/rig/wing_far.png",
+      "rect": [
+        0,
+        1,
+        410,
+        264
+      ],
+      "pivot": [
+        369.0,
+        211.51
+      ],
+      "localSprite": true
+    }
+  ],
+  "version": 1,
+  "duration": 8.4,
+  "camera": {
+    "startAim": [
+      576,
+      1024
+    ],
+    "endAim": [
+      576,
+      934
+    ],
+    "startZoom": 1,
+    "endZoom": 1.48,
+    "linearWeight": 0.27
+  },
+  "finalFocus": {
+    "id": "final-focus",
+    "z": -10,
+    "asset": null,
+    "center": [
+      576,
+      934
+    ],
+    "depth": 0.24,
+    "space": "world",
+    "visibility": {
+      "start": 3.5,
+      "end": 5.35,
+      "easing": "smoothstep"
+    },
+    "safeAreaAtEnd": {
+      "units": "normalizedScreen",
+      "rect": [
+        0.18,
+        0.25,
+        0.64,
+        0.5
+      ]
+    },
+    "maxSize": [
+      650,
+      900
+    ]
+  },
+  "groups": {
+    "frontLower": {
+      "depth": 1.28,
+      "pivot": [
+        911,
+        1418
+      ],
+      "start": 2.69,
+      "end": 5.44,
+      "delta": [
+        790,
+        670
+      ],
+      "rotationDeg": 13,
+      "arcY": -44
+    },
+    "frontRight": {
+      "depth": 1.23,
+      "pivot": [
+        1104,
+        1438
+      ],
+      "start": 2.94,
+      "end": 5.58,
+      "delta": [
+        796,
+        205
+      ],
+      "rotationDeg": 9,
+      "arcY": -69
+    },
+    "frontLeft": {
+      "depth": 1.16,
+      "pivot": [
+        140,
+        1578
+      ],
+      "start": 3.0,
+      "end": 5.73,
+      "delta": [
+        -740,
+        504
+      ],
+      "rotationDeg": -12,
+      "arcY": -32
+    },
+    "frontUpper": {
+      "depth": 1.31,
+      "pivot": [
+        772,
+        446
+      ],
+      "start": 2.8,
+      "end": 5.92,
+      "delta": [
+        630,
+        -1120
+      ],
+      "rotationDeg": 14,
+      "arcY": 38
+    },
+    "perch": {
+      "depth": 1.04,
+      "pivot": [
+        160,
+        1622
+      ],
+      "start": 3.24,
+      "end": 5.98,
+      "delta": [
+        -850,
+        399
+      ],
+      "rotationDeg": -8,
+      "arcY": -37
+    },
+    "leftCanopy": {
+      "depth": 0.82,
+      "pivot": [
+        95,
+        170
+      ],
+      "start": 3.7,
+      "end": 6.58,
+      "delta": [
+        -715,
+        -438
+      ],
+      "rotationDeg": -12,
+      "arcY": -29
+    },
+    "rightCanopy": {
+      "depth": 0.82,
+      "pivot": [
+        1032,
+        308
+      ],
+      "start": 4.08,
+      "end": 6.8,
+      "delta": [
+        650,
+        -637
+      ],
+      "rotationDeg": 9,
+      "arcY": -34
+    },
+    "midLeft": {
+      "depth": 0.55,
+      "pivot": [
+        165,
+        1130
+      ],
+      "start": 4.48,
+      "end": 7.49,
+      "delta": [
+        -559,
+        40
+      ],
+      "rotationDeg": -9,
+      "arcY": -73,
+      "easePower": 1.45
+    },
+    "midRight": {
+      "depth": 0.48,
+      "pivot": [
+        1040,
+        1070
+      ],
+      "start": 4.69,
+      "end": 7.73,
+      "delta": [
+        501,
+        50
+      ],
+      "rotationDeg": 11,
+      "arcY": -65,
+      "easePower": 1.7
+    },
+    "midLower": {
+      "depth": 0.37,
+      "pivot": [
+        465,
+        1850
+      ],
+      "start": 5.02,
+      "end": 8.05,
+      "delta": [
+        -158,
+        515
+      ],
+      "rotationDeg": -5,
+      "arcY": 20,
+      "easePower": 1.7
+    },
+    "bird": {
+      "depth": 1.04
+    }
+  },
+  "bird": {
+    "headKeys": [
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0.25,
+        0,
+        1,
+        0
+      ],
+      [
+        0.73,
+        -11,
+        0.84,
+        -9
+      ],
+      [
+        1.02,
+        -10,
+        0.87,
+        -7
+      ],
+      [
+        1.4,
+        3,
+        1.01,
+        2
+      ],
+      [
+        1.77,
+        5,
+        1.01,
+        1
+      ],
+      [
+        2.18,
+        1,
+        1,
+        0
+      ],
+      [
+        3.24,
+        -2,
+        1,
+        0
+      ]
+    ],
+    "anticipation": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        1.29,
+        0,
+        0
+      ],
+      [
+        1.64,
+        13,
+        3.5
+      ],
+      [
+        1.76,
+        4,
+        -1.5
+      ]
+    ],
+    "launchAt": 1.76,
+    "flightEnd": 3.24,
+    "bodyPivot": [
+      358,
+      1446
+    ],
+    "flightKeys": [
+      [
+        1.76,
+        0,
+        0,
+        -1.5
+      ],
+      [
+        1.86,
+        16,
+        -36,
+        -7
+      ],
+      [
+        2.06,
+        111,
+        -160,
+        -14
+      ],
+      [
+        2.34,
+        330,
+        -341,
+        -8
+      ],
+      [
+        2.61,
+        635,
+        -522,
+        1
+      ],
+      [
+        2.9,
+        1010,
+        -765,
+        -4
+      ],
+      [
+        3.24,
+        1590,
+        -1160,
+        -11
+      ]
+    ],
+    "wingsStart": 1.6,
+    "wingsOpen": 1.9,
+    "shoulders": {
+      "wing_near": [
+        427,
+        1192
+      ],
+      "wing_far": [
+        457,
+        1171
+      ]
+    },
+    "wingCycle": [
+      [
+        0,
+        20,
+        0.8
+      ],
+      [
+        0.2,
+        43,
+        1.03
+      ],
+      [
+        0.4,
+        0,
+        0.93
+      ],
+      [
+        0.57,
+        -65,
+        1.0
+      ],
+      [
+        0.73,
+        -41,
+        0.76
+      ],
+      [
+        1,
+        20,
+        0.8
+      ]
+    ],
+    "wingPeriod": 0.4,
+    "perchPatchIn": [
+      1.76,
+      1.88
+    ]
+  },
+  "fruitDrop": {
+    "asset": "fruit_right_small",
+    "at": 4.32,
+    "duration": 1.63,
+    "gravity": 1450,
+    "releaseVelocity": [
+      -142,
+      105
+    ],
+    "dragX": -46,
+    "spinDegPerSecond": 82
+  },
+  "leafParticles": [
+    {
+      "asset": "leaf_olive",
+      "origin": [
+        249,
+        744
+      ],
+      "at": 3.84,
+      "duration": 2.08,
+      "scale": 0.56,
+      "drift": 181,
+      "fall": 880,
+      "flutter": 37,
+      "spin": 1.05,
+      "phase": 0.2,
+      "depth": 0.72
+    },
+    {
+      "asset": "leaf_dark",
+      "origin": [
+        841,
+        1005
+      ],
+      "at": 4.55,
+      "duration": 2.22,
+      "scale": 0.52,
+      "drift": -156,
+      "fall": 862,
+      "flutter": 43,
+      "spin": -1.25,
+      "phase": 1.7,
+      "depth": 0.53
+    },
+    {
+      "asset": "leaf_copper",
+      "origin": [
+        378,
+        1412
+      ],
+      "at": 5.13,
+      "duration": 1.73,
+      "scale": 0.53,
+      "drift": 210,
+      "fall": 780,
+      "flutter": 49,
+      "spin": 1.35,
+      "phase": 2.5,
+      "depth": 0.61
+    }
+  ]
+}

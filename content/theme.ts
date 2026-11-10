@@ -546,8 +546,9 @@ export const motion = {
   /** GSAP đọc hai số này trong components/ui/Motion.tsx */
   revealDistance: 28,
   revealStagger: 0.12,
-  /** Giây từ cú mở thiệp tới lúc chữ hero hiện — cảnh mở trong 5 giây. */
-  heroDelay: 2.8,
+  /** Giây từ cú mở thiệp tới lúc chữ hero hiện — khi tán lá của
+   *  TropicalOpening (content/opening-scene.json) đã dạt gần hết. */
+  heroDelay: 3.5,
 } as const;
 
 /* -------------------------------------------------- CSS VARIABLE EXPORTER */
