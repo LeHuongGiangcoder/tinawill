@@ -1066,7 +1066,7 @@ export const meta = {
   description:
     "Join Tina & Will for a weekend of love, food and celebration by the river in Hoi An, Vietnam — Saturday, March 27, 2027.",
   /** Ảnh hiện khi dán link lên WhatsApp / Facebook. */
-  ogImage: "/images/hero.jpg",
+  ogImage: "/wiltina-og.jpg",
   locale: "en_US",
   lang: "en",
 };
