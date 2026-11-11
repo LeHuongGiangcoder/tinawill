@@ -28,10 +28,10 @@ SCENE = ROOT / "content/opening-scene.json"
 # Bản thiết kế Canva 1080×1920, file xuất 3375×6000.
 DESIGN_W = 1080
 EXPORT_W = 3375
-# Artboard của cảnh rộng 1536; khung 9:16 của thiết kế nằm cách đỉnh 10.7
-# (artboard cao 2752, khung 9:16 rộng 1536 cao 2730.7).
+# Artboard của cảnh rộng 1536 và cao đúng khung 9:16 của thiết kế (2731), để
+# tranh phủ kín màn — artboard cao hơn tranh là lộ một dải nền trơn ở mép.
 WORLD_W = 1536
-WORLD_Y = 10.7
+WORLD_Y = 0
 K = WORLD_W / EXPORT_W
 
 # Thứ tự từ dưới lên đúng như Canva. Tờ giấy (z 300) nằm giữa: các layer dưới
@@ -59,6 +59,15 @@ def world(v, offset=0.0):
 
 def main():
     scene = json.loads(SCENE.read_text())
+    shift_y = WORLD_Y - scene.get("_worldY", 10.7)
+    scene["canvas"] = {"width": WORLD_W, "height": round(WORLD_W * 16 / 9)}
+    scene["_worldY"] = WORLD_Y
+    # Những toạ độ chỉnh tay theo artboard cũng dời theo.
+    scene["bird"]["origin"][1] = round(scene["bird"]["origin"][1] + shift_y, 1)
+    for leaf in scene["leaves"]:
+        leaf["from"][1] = round(leaf["from"][1] + shift_y, 1)
+    for g in scene["groups"].values():
+        g["pivot"][1] = round(g["pivot"][1] + shift_y, 1)
     items = []
     for src, name, group, z in LAYERS:
         im = Image.open(SRC / f"{src}.png").convert("RGBA")
