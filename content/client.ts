@@ -203,10 +203,10 @@ export const design: Record<SectionId, SectionDesign> = {
      tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
      Venue.tsx). `overlay: 0` vì nền này đã là màu phẳng, không cần lớp phủ cho
      chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
-  /* Save the date là cảnh ghép hai lớp như Venue: giấy rượu vang phủ kín
-     section, còn lá cây và hai ghế tắm nắng nằm trong khung 9/16 của chính
-     section (components/sections/Time.tsx). */
-  time: { anchor: "time", tone: "wineBeige", background: "paper-wine", overlay: 0 },
+  /* Save the date là cảnh ghép hai lớp như Venue: giấy đỏ son (cùng tờ với
+     Honeymoon Fund) phủ kín section, còn lá cây và hai ghế tắm nắng nằm trong
+     khung 9/16 của chính section (components/sections/Time.tsx). */
+  time: { anchor: "time", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
   venue: {
     anchor: "venue",
     tone: "olive",

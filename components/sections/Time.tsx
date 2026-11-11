@@ -232,9 +232,8 @@ export function Time() {
               {ceremony.weekday}, {ceremony.dateShort}
             </p>
 
-            {/* Viên thuốc vàng nghệ chữ rượu vang — cặp màu nút của tông
-                `wine`, nên trùng mảng vàng vẽ sẵn trong bản Canva mà không cần
-                biến thể riêng. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
+            {/* Màu nút lấy từ tông của section (`vermilion`: giấy kem chữ đỏ
+                son), không cần biến thể riêng. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
                 tuỳ chữ nên ép theo % sẽ có ngày tràn. */}
             <ButtonLink
               data-reveal
