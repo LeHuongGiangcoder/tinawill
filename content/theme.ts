@@ -339,14 +339,14 @@ export const tones = {
    * xanh lá và nút hồng dâm bụt, theo đúng bản khách duyệt.
    */
   /**
-   * Hero: đồng cỏ nhìn từ trên cao (public/hero/meadow-ver2.webp). `bg` là màu trung
+   * Hero: giấy xanh cỏ (brand/backgrounds/paper-grass.webp). `bg` là màu trung
    * bình đo từ chính file, để lúc ảnh chưa về section không loé màu khác.
    * Cỏ xanh rêu đậm nên chữ sáng: kem đạt 6.8:1 trên màu trung bình (4.8:1 ở
    * vệt cỏ sáng nhất), be 5.7:1. Dấu "&" dùng cam nhạt (4.1:1) — nó nằm trong
    * dòng tên cỡ tiêu đề nên chỉ cần mức chữ lớn.
    */
   meadow: {
-    bg: "#515903",
+    bg: "#516403",
     /* Đoạn dẫn dùng beige như ở trang Save the Date (5.7:1 trên màu trung bình). */
     fg: palette.beige,
     title: palette.beige,

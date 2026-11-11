@@ -2,12 +2,11 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { WindMeadow } from "@/components/ui/WindMeadow";
 import { hero } from "@/content/client";
 
 /**
- * Đồng cỏ nhìn từ trên cao — cỏ lay theo gió (WindMeadow), cô dâu chú rể nằm
- * giữa cỏ, cô dâu vẫy tay không ngừng.
+ * Giấy xanh cỏ (nền `paper-grass` ở `design.hero` trong content/client.ts),
+ * cô dâu chú rể nằm giữa trang, cô dâu vẫy tay không ngừng.
  *
  * Hero đứng ngay sau Cover; màn mở thiệp và cảnh tán lá giờ nằm ở Cover, nên
  * chữ ở đây chỉ `data-reveal` — hiện khi cuộn tới như mọi section khác.
@@ -16,8 +15,6 @@ export function Hero() {
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
-        <WindMeadow src="/hero/meadow-ver2.webp" />
-
         <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
           {/* Đôi chim ngậm ruy băng — mở đầu trang, ngay trên lời mời. */}
           <div

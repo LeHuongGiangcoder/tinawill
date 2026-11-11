@@ -186,9 +186,8 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Intro là trạng thái đóng của cảnh tán lá trong Cover
      (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
-  /* Hero mở ra một đồng cỏ nhìn từ trên cao (WindMeadow trong
-     components/ui/WindMeadow.tsx) — cỏ rêu đậm nên chữ dùng tông `meadow` sáng. */
-  hero: { anchor: "hero", tone: "meadow" },
+  /* Hero nằm trên giấy xanh cỏ — nền rêu đậm nên chữ dùng tông `meadow` sáng. */
+  hero: { anchor: "hero", tone: "meadow", background: "paper-grass", overlay: 0 },
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
      được — xem ghi chú ở `palette.wine` trong content/theme.ts. */

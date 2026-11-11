@@ -16,6 +16,7 @@ export const assets = {
   /** Ảnh nền full-bleed của một section */
   backgrounds: {
     "paper-beige": { src: "/brand/backgrounds/paper-beige.webp", width: 1200, height: 2133 },
+    "paper-grass": { src: "/brand/backgrounds/paper-grass.webp", width: 1125, height: 2000 },
     "paper-mango": { src: "/brand/backgrounds/paper-mango.webp", width: 1200, height: 2132 },
     "paper-olive": { src: "/brand/backgrounds/paper-olive.webp", width: 1200, height: 2133 },
     "paper-vermilion": { src: "/brand/backgrounds/paper-vermilion.webp", width: 1200, height: 2132 },
