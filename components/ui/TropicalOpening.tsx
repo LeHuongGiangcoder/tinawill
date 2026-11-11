@@ -138,10 +138,16 @@ function fruitWorld(item: Item, index: number, t: number | null, idle: number) {
   const hang = (time: number | null) => {
     const base = itemWorld(item, index, time, idle);
     if (time === null || time < fruitDrop.swing) return base;
-    /* Cuống ở đỉnh quả: lắc như con lắc quanh điểm đó. */
+    /* Lắc như con lắc quanh cuống (`fruitDrop.stem`, pixel trong ảnh quả), để
+       cuống không rời khỏi cành trong lúc lắc. */
     const tau = time - fruitDrop.swing;
-    const swing = 14 * Math.sin((2 * Math.PI * tau) / 0.52) * Math.min(1, tau * 4);
-    const stem = rotateAround([base.center[0], base.center[1] - (item.width * item.size[1]) / item.size[0] / 2], base.center, base.rotation);
+    const swing = fruitDrop.swingAngle * Math.sin((2 * Math.PI * tau) / 0.52) * Math.min(1, tau * 4);
+    const k = item.width / item.size[0];
+    const stem = rotateAround(
+      [base.center[0] + (fruitDrop.stem[0] - item.size[0] / 2) * k, base.center[1] + (fruitDrop.stem[1] - item.size[1] / 2) * k],
+      base.center,
+      base.rotation,
+    );
     return { ...base, center: rotateAround(base.center, stem, swing), rotation: base.rotation + swing };
   };
   if (t === null || t < fruitDrop.release) return hang(t);

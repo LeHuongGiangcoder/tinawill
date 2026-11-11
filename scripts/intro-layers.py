@@ -48,7 +48,7 @@ LAYERS = [
     ("6", "papaya-br", "br", 250),
     ("5", "hibiscus-pink", "pink", 400),
     ("8", "heliconia", "perch", 410),
-    ("2", "papaya-half", "half", 415),
+    ("2", "papaya-half", "tr", 415),  # treo trên cành tr, rơi xuống — xem fruitDrop
 ]
 
 COVER_Z = 420
