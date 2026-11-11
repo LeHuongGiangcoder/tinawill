@@ -297,12 +297,12 @@
    "width": 516,
    "rotation": 0,
    "flipX": false,
-   "z": 430,
+   "z": 415,
    "flutter": 0
   }
  ],
  "bird": {
-  "z": 400,
+  "z": 430,
   "depth": 1.15,
   "group": "perch",
   "origin": [
@@ -479,5 +479,8 @@
    "rotation": 60
   }
  ],
- "_worldY": 0
+ "_worldY": 0,
+ "cover": {
+  "z": 420
+ }
 }

@@ -35,8 +35,10 @@ WORLD_Y = 0
 K = WORLD_W / EXPORT_W
 
 # Thứ tự từ dưới lên đúng như Canva. Tờ giấy (z 300) nằm giữa: các layer dưới
-# nó bị giấy đè, các layer trên nó (hibiscus hồng, thiên điểu, vẹt, đu đủ bổ)
-# đè lên mép giấy.
+# nó bị giấy đè, các layer trên nó (hibiscus hồng, thiên điểu, đu đủ bổ) đè lên
+# mép giấy. Chữ + nút (COVER_Z) nằm trên các layer đó — màn nhỏ chữ to ra so với
+# tranh, đừng để hoa lá che chữ — và con vẹt (BIRD_Z) nằm trên cùng, đầu chim
+# luôn đè lên nút.
 LAYERS = [
     # file, tên, nhóm chuyển động, z
     ("4", "palm-leaf", "palm", 210),
@@ -46,8 +48,11 @@ LAYERS = [
     ("6", "papaya-br", "br", 250),
     ("5", "hibiscus-pink", "pink", 400),
     ("8", "heliconia", "perch", 410),
-    ("2", "papaya-half", "half", 430),
+    ("2", "papaya-half", "half", 415),
 ]
+
+COVER_Z = 420
+BIRD_Z = 430
 
 # Oval giấy trong Canva (đơn vị thiết kế 1080).
 OVAL = {"left": 191.28, "top": 615.15, "width": 733.01, "height": 820.15}
@@ -111,6 +116,8 @@ def main():
     box["width"] = world(OVAL["width"])
     box["height"] = world(OVAL["height"])
     paper["scale"] = 1
+    scene["cover"] = {"z": COVER_Z}
+    scene["bird"]["z"] = BIRD_Z
     paper["z"] = 300
 
     scene["camera"]["origin"] = [round(target_x + box["width"] / 2), round(target_y + box["height"] / 2)]

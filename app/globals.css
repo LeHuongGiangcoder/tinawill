@@ -2112,11 +2112,22 @@ html {
     height: auto;
   }
 
+  /* Khung chứa lớp chữ khi nó nằm TRONG artboard (để chen giữa các lớp tranh).
+     JS đặt cỡ bằng artboard × hệ số phóng rồi scale ngược lại, nên bên trong
+     là pixel CSS thật — chữ giữ đúng cỡ theme. */
+  .scene-cover-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+  }
+
   /* Lớp chữ trên vùng giấy của cảnh. Bốn số do JS đo theo hệ số phóng, nên chữ
-     bám tờ giấy ở mọi khổ màn. */
+     bám tờ giấy ở mọi khổ màn. Artboard không bắt chạm, riêng hộp chữ thì có. */
   .scene-cover {
     position: absolute;
     z-index: 30;
+    pointer-events: auto;
     left: var(--cover-x);
     top: var(--cover-y);
     width: var(--cover-w);

@@ -198,6 +198,7 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
   const headRef = useRef<HTMLDivElement>(null);
   const wingNearRef = useRef<HTMLDivElement>(null);
   const wingFarRef = useRef<HTMLDivElement>(null);
+  const coverLayerRef = useRef<HTMLDivElement>(null);
   const openedRef = useRef(opened);
 
   useEffect(() => {
@@ -365,9 +366,17 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
       const scale = Math.min(cover, (PAPER_FILL * h) / paper.box.height);
       artboard.style.transform = `scale(${scale}) translate(-50%, -50%)`;
 
+      /* Lớp chữ nằm trong artboard (để chen giữa các lớp tranh) nhưng trả lại
+         hệ số phóng, nên chữ vẫn đúng cỡ theme ở mọi màn. */
+      const coverLayer = coverLayerRef.current;
+      if (coverLayer) {
+        coverLayer.style.width = `${canvas.width * scale}px`;
+        coverLayer.style.height = `${canvas.height * scale}px`;
+        coverLayer.style.transform = `scale(${1 / scale})`;
+      }
       const { box } = paper;
-      stage.style.setProperty("--cover-x", `${w / 2 + (box.x + box.width / 2 - canvas.width / 2) * scale}px`);
-      stage.style.setProperty("--cover-y", `${h / 2 + (box.y + box.height / 2 - canvas.height / 2) * scale}px`);
+      stage.style.setProperty("--cover-x", `${(box.x + box.width / 2) * scale}px`);
+      stage.style.setProperty("--cover-y", `${(box.y + box.height / 2) * scale}px`);
       stage.style.setProperty("--cover-w", `${box.width * scale}px`);
       stage.style.setProperty("--cover-h", `${box.height * scale}px`);
     };
@@ -469,11 +478,15 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
   return (
     <div ref={stageRef} data-ready={ready} data-ground={ground.tone} className="scene-stage">
       {backdrop}
+      {/*
+        Artboard đứng trên cột chữ của Cover (z-20) vì lớp chữ mở thiệp nằm
+        trong nó; bản thân artboard không bắt chạm. Tranh đều là ảnh `alt=""`
+        nên trình đọc màn hình chỉ thấy hộp thoại mở thiệp.
+      */}
       <div
         ref={artboardRef}
-        aria-hidden
-        className="scene-artboard"
-        style={{ width: canvas.width, height: canvas.height }}
+        className="scene-artboard pointer-events-none"
+        style={{ width: canvas.width, height: canvas.height, zIndex: 25 }}
       >
         <div className="scene-world">
           <div ref={veilRef} className="scene-veil" style={{ zIndex: 0 }} />
@@ -542,6 +555,18 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
             </div>
           </div>
 
+          {/*
+            Chữ + nút "Spill the tea" chen giữa chồng lớp như trong Canva: trên
+            tờ giấy và các cành, nhưng dưới con vẹt — màn nhỏ (iPhone SE) chữ
+            không co theo tranh nên nút có thể chạm đầu chim, và đầu chim phải
+            nằm trên.
+          */}
+          {sections.includes("intro") ? (
+            <div ref={coverLayerRef} className="scene-cover-layer" style={{ zIndex: scene.cover.z }}>
+              <Intro ready={ready} />
+            </div>
+          ) : null}
+
           {leaves.map((leaf, i) => (
             <div key={i} data-leaf className="scene-sprite" style={{ zIndex: 3200, width: leaf.width, visibility: "hidden" }}>
               <Image src={leaf.asset} unoptimized alt="" width={leaf.size[0]} height={leaf.size[1]} loading="eager" />
@@ -549,8 +574,6 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
           ))}
         </div>
       </div>
-
-      {sections.includes("intro") ? <Intro ready={ready} /> : null}
     </div>
   );
 }
