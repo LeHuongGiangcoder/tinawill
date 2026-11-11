@@ -2071,6 +2071,17 @@ html {
     background: var(--t-color-forest-deep) url("/brand/backgrounds/paper-olive.webp") center / cover no-repeat;
   }
 
+  /* Giấy sọc ô liu của màn mở thiệp. Sọc dọc nên lặp theo chiều ngang được:
+     ảnh luôn cao đúng artboard, dải nền rộng của màn ngang chỉ nối thêm sọc. */
+  .scene-stage[data-ground="stripes"] {
+    background: var(--t-color-forest-deep) url("/brand/backgrounds/stripes-olive.webp") center / cover no-repeat;
+  }
+
+  .scene-stage[data-ground="stripes"] .scene-veil,
+  .scene-stage[data-ground="stripes"] .scene-ground {
+    background: var(--t-color-forest-deep) url("/brand/backgrounds/stripes-olive.webp") center / auto 100% repeat-x;
+  }
+
   .scene-stage[data-ground="light"] {
     background: var(--t-color-cream);
   }

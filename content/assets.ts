@@ -20,6 +20,7 @@ export const assets = {
     "paper-olive": { src: "/brand/backgrounds/paper-olive.webp", width: 1200, height: 2133 },
     "paper-vermilion": { src: "/brand/backgrounds/paper-vermilion.webp", width: 1200, height: 2132 },
     "paper-wine": { src: "/brand/backgrounds/paper-wine.webp", width: 1200, height: 2132 },
+    "stripes-olive": { src: "/brand/backgrounds/stripes-olive.webp", width: 941, height: 1672 },
   },
 
   /** Hoạ tiết rời (hoa, ruy băng, con dấu) — nền trong suốt */

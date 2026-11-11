@@ -9,11 +9,12 @@ import { sections } from "@/content/client";
 import scene from "@/content/opening-scene.json";
 
 /**
- * Màn mở thiệp nhiệt đới, tách lớp từ một bức tranh nền đen
- * (public/intro updated.png) rồi đặt lên nền xanh rừng. Các lớp chia nhau từng
- * pixel của tranh, nên lúc đứng yên chúng ghép lại đúng bức gốc. Tờ giấy bầu
- * dục và chữ "Hi :)" nằm trên cùng; bấm mở thì giấy tan để lộ cả bức tranh,
- * rồi chim cất cánh và tán lá dạt ra.
+ * Màn mở thiệp nhiệt đới, dựng từ các layer xuất ra từ Canva
+ * (scripts/intro-src, sinh sprite bằng scripts/intro-layers.py) trên nền giấy
+ * sọc ô liu. Lúc đứng yên các lớp ghép lại đúng bản thiết kế
+ * (scripts/intro-src/reference.png). Tờ giấy bầu dục nằm giữa chồng lớp như
+ * trong Canva — hibiscus hồng, thiên điểu, vẹt và đu đủ bổ đè lên mép giấy;
+ * bấm mở thì giấy tan, rồi chim cất cánh và từng cành dạt ra.
  *
  * Toạ độ, thứ tự lớp, cụm và nhịp đọc từ content/opening-scene.json. Mọi thứ
  * là hàm thuần của thời gian `t` (giây kể từ cú chạm), nên `?scene-t=1.4` ở
@@ -241,7 +242,7 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
       const lift = t === null ? 0 : smoother((t - paper.lift[0]) / (paper.lift[1] - paper.lift[0]));
       if (paperRef.current) {
         paperRef.current.style.opacity = String(1 - lift);
-        paperRef.current.style.transform = `translateY(${-18 * lift}px) scale(${1 + 0.04 * lift})`;
+        paperRef.current.style.transform = `translateY(${-18 * lift}px) scale(${paper.scale * (1 + 0.04 * lift)})`;
         paperRef.current.style.visibility = lift === 1 ? "hidden" : "";
       }
       const groundOpacity = t === null ? 1 : 1 - smoother((t - ground.fade[0]) / (ground.fade[1] - ground.fade[0]));
@@ -317,6 +318,9 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
         }
       }
 
+      /* `bird.scale` thu cả con vẹt quanh chân, nên nó vẫn đứng đúng trên cành đậu. */
+      sx *= bird.scale;
+      sy *= bird.scale;
       const [x, y, k] = project(pos, bird.depth, t ?? 0);
       node.style.transform = `translate(${x - bird.feet[0]}px, ${y - bird.feet[1]}px) rotate(${rotation}deg) scale(${sx * k}, ${sy * k})`;
 
@@ -475,11 +479,22 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
           <div ref={veilRef} className="scene-veil" style={{ zIndex: 0 }} />
           <div ref={groundRef} className="scene-ground" style={{ zIndex: 1 }} />
 
-          {/* Tờ giấy giữ đúng tỉ lệ của file, căn giữa theo chiều dọc artboard. */}
+          {/*
+            Tờ giấy giữ đúng tỉ lệ của file, căn giữa theo chiều dọc artboard.
+            `paper.scale` thu riêng tấm giấy quanh tâm bầu dục — vùng chữ
+            (`--cover-*`, tính theo `paper.box`) giữ nguyên cỡ.
+          */}
           <div
             ref={paperRef}
             className="scene-sprite"
-            style={{ zIndex: paper.z, left: paper.rect[0], top: paper.rect[1], width: paper.rect[2] }}
+            style={{
+              zIndex: paper.z,
+              left: paper.rect[0],
+              top: paper.rect[1],
+              width: paper.rect[2],
+              transform: `scale(${paper.scale})`,
+              transformOrigin: `${paper.box.x + paper.box.width / 2 - paper.rect[0]}px ${paper.box.y + paper.box.height / 2 - paper.rect[1]}px`,
+            }}
           >
             <Image src={paper.asset} unoptimized alt="" width={paper.rect[2]} height={paper.rect[3]} loading="eager" />
           </div>
