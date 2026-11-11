@@ -14,7 +14,7 @@ import { background } from "@/lib/assets";
  * Đây cũng là chỗ của màn mở thiệp: <TropicalOpening> đóng thì tán lá che kín
  * và tờ giấy "Hi :)" nằm giữa; bấm "Spill the tea" thì lá mở ra để lộ trang
  * này. Vì vậy cặp đôi và tên gắn `data-hero` — chúng chờ cú mở thiệp chứ
- * không chờ cuộn. Nền giấy lấy từ `design.cover` (tông `wine` + paper-wine).
+ * không chờ cuộn. Nền giấy lấy từ `design.cover` (tông `olive` + paper-olive).
  */
 export function Cover() {
   const paper = background(design.cover.background);
@@ -27,7 +27,7 @@ export function Cover() {
       labelledBy="cover-title"
     >
       <div className="relative flex min-h-[100svh] flex-col items-center">
-        {/* Thứ nằm dưới tán lá, lộ ra khi cảnh mở: giấy rượu vang của section. */}
+        {/* Thứ nằm dưới tán lá, lộ ra khi cảnh mở: giấy ô liu của section. */}
         <TropicalOpening
           backdrop={
             <div aria-hidden className="absolute inset-0 bg-tone-bg">

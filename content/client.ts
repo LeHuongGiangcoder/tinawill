@@ -181,13 +181,14 @@ export type SectionDesign = {
  * không nằm liền nhau cùng một màu nền.
  */
 export const design: Record<SectionId, SectionDesign> = {
-  /* Trang bìa đầu tiên: cặp đôi trong suốt đặt trên giấy rượu vang. */
-  cover: { anchor: "cover", tone: "wine", background: "paper-wine", overlay: 0 },
+  /* Trang bìa đầu tiên: cặp đôi trong suốt đặt trên giấy ô liu. */
+  cover: { anchor: "cover", tone: "olive", background: "paper-olive", overlay: 0 },
   /* Intro là trạng thái đóng của cảnh tán lá trong Cover
      (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
-  /* Hero nằm trên giấy xanh cỏ — nền rêu đậm nên chữ dùng tông `meadow` sáng. */
-  hero: { anchor: "hero", tone: "meadow", background: "paper-grass", overlay: 0 },
+  /* Hero mở ra một đồng cỏ nhìn từ trên cao (WindMeadow trong
+     components/ui/WindMeadow.tsx) — cỏ rêu đậm nên chữ dùng tông `meadow` sáng. */
+  hero: { anchor: "hero", tone: "meadow" },
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
      được — xem ghi chú ở `palette.wine` trong content/theme.ts. */
