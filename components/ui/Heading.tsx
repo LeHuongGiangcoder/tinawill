@@ -180,6 +180,7 @@ export function SectionHead({
   intro,
   introAlign = "justify",
   tight = false,
+  snug = false,
   children,
 }: {
   eyebrow?: string;
@@ -193,8 +194,32 @@ export function SectionHead({
   introAlign?: "justify" | "center";
   /** Đầu section đứng sát nội dung ngay dưới — `mb-stack` thay vì `mb-block`. */
   tight?: boolean;
+  /** Một nhịp `gap-tight` cho cả bốn bậc — tiêu đề sát dòng phụ, như bản trước
+   *  khi tách hai nhịp. Dùng cho section mà subtitle là một phần của tiêu đề
+   *  (tên bảng màu của Dresscode, dòng chú của Visa). */
+  snug?: boolean;
   children?: ReactNode;
 }) {
+  if (snug) {
+    return (
+      <Reveal className={`${tight ? "mb-stack" : "mb-block"} flex flex-col items-center gap-tight text-center`}>
+        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+        <SectionTitle id={titleId}>{title}</SectionTitle>
+        {subtitle ? (
+          <Subhead variant={subtitleVariant} className="max-w-prose">
+            {subtitle}
+          </Subhead>
+        ) : null}
+        {intro ? (
+          <Lead className={`max-w-prose ${introAlign === "center" ? "text-balance" : "text-justify"}`}>
+            {intro}
+          </Lead>
+        ) : null}
+        {children}
+      </Reveal>
+    );
+  }
+
   const hasBody = Boolean(subtitle || intro || children);
 
   /* Hai nhịp: eyebrow sát tiêu đề (`gap-tight`), còn từ tiêu đề xuống chữ bên

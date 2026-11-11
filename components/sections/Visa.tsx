@@ -50,6 +50,7 @@ export function Visa() {
           titleId="visa-title"
           subtitle={visa.subtitle}
           subtitleVariant="note"
+          snug
         />
 
         {/* Lời mời bấm: to, thẳng, sát hàng cờ — khác dòng nghiêng nhỏ phía

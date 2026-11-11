@@ -41,6 +41,7 @@ export function Dresscode() {
           subtitle={dresscode.subtitle}
           subtitleVariant="motif"
           intro={dresscode.note}
+          snug
         />
 
         {dresscode.swatches.length > 0 ? (
