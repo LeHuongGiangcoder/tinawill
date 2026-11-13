@@ -402,6 +402,34 @@ html {
   font-style: normal;
 }
 
+/*
+  Chữ đặt LÊN một bức tranh có chỗ trống cố định (trang bìa: khoảng khuyết bên
+  trái bàn tay). Chữ ở đây không theo màn mà theo bề ngang bức tranh, khai báo
+  ở phần tử cha bằng `--art-w` — tranh co thì chữ co theo, nên luôn lọt chỗ
+  trống dù máy nào. Cùng họ chữ với bậc tương ứng ở trên:
+    type-art-name   tên viết tay (như `monogram`/`display`)
+    type-art-body   chữ thân bài (như `type-body`)
+    type-art-note   câu in nghiêng (như `type-sub-body`)
+*/
+@utility type-art-name {
+  font-size: calc(var(--art-w) * 0.09);
+  line-height: 1.02;
+}
+
+@utility type-art-body {
+  font-family: var(--t-font-body);
+  font-size: calc(var(--art-w) * 0.034);
+  line-height: 1.5;
+  font-style: normal;
+}
+
+@utility type-art-note {
+  font-family: var(--t-font-display);
+  font-size: calc(var(--art-w) * 0.03);
+  line-height: 1.2;
+  font-style: italic;
+}
+
 @layer base {
   h1,
   h2,
