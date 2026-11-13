@@ -75,7 +75,7 @@ export function Hero() {
 
         {/* Phần giấy nối dài dưới ảnh: cao ít nhất đủ để cả hero phủ một màn,
             và đặt cụm chữ cuối giữa khoảng còn lại. */}
-        <div className="-mt-block flex flex-1 items-center justify-center px-gutter pb-section">
+        <div className="flex flex-1 items-center justify-center px-gutter py-block">
           <p data-reveal data-reveal-delay="120" className="type-body text-balance text-center text-tone-fg">
             {hero.closing}
           </p>
