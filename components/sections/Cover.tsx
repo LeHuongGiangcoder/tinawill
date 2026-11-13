@@ -46,25 +46,22 @@ export function Cover() {
         />
 
         <div className="relative z-20 flex w-full flex-1 flex-col items-center">
-          {/* Tên xếp so le như bản khách duyệt: "Will" ôm lề trái, viên "and"
-              nghiêng chen trước "Tina" ở dòng dưới lệch phải, rồi lời mời
-              nghiêng. Khối nằm trong khoảng trống phía
-              trên bàn tay. */}
-          <div className="container-site flex flex-1 flex-col justify-center pt-section">
+          {/* Tên một dòng "Will & Tina" ôm góc trái trên, hai dòng lời mời nằm
+              ngay dưới, cùng lề trái — khối nằm trong khoảng đỏ trống phía
+              trên bàn tay, như bản phác của khách. */}
+          <div className="container-site flex flex-1 flex-col justify-start pt-section">
             <div className="relative mx-auto flex w-full max-w-[24rem] flex-col gap-stack">
               <h1
                 id="cover-title"
                 data-reveal
                 data-hero
-                className="flex flex-col font-script text-monogram text-tone-title"
+                className="flex items-center gap-stack font-script text-display text-tone-title"
               >
-                <span className="self-start">{couple.groom}</span>
-                <span className="flex items-center gap-stack self-end">
-                  <span className="tag-pill -rotate-6 font-script text-h1">
-                    {cover.and}
-                  </span>
-                  <span>{couple.bride}</span>
+                <span>{couple.groom}</span>
+                <span className="tag-pill -rotate-6 font-script text-h2">
+                  {cover.and}
                 </span>
+                <span>{couple.bride}</span>
               </h1>
 
               <p
@@ -294,14 +291,11 @@ export function Cover() {
             <p className="absolute left-[64%] top-[80.5%] -rotate-3 whitespace-nowrap type-sub-body text-tone-title">
               {cover.yes}
             </p>
-          </div>
 
-          {/* Dòng mời cuộn nằm trên vạt váy kem — chữ mang màu nền rượu vang. */}
-          <div className="absolute inset-x-0 bottom-0 flex justify-center pb-section">
+            {/* Dòng mời cuộn nằm trên vạt váy kem, ngay dưới cánh tay — chữ
+                mang màu nền section. Toạ độ % theo khung tranh như "YES". */}
             <p
-              data-reveal
-              data-hero
-              className="text-eyebrow uppercase text-tone-bg"
+              className="absolute left-[48.4%] top-[92%] -translate-x-1/2 whitespace-nowrap text-eyebrow uppercase text-tone-bg"
             >
               {hero.scrollHint} ↓
             </p>

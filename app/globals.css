@@ -449,6 +449,24 @@ html {
 
 @layer components {
   /*
+    Ảnh dạng tấm áp phích đứng trong một cột hẹp: mép dưới luôn tan vào nền
+    section; hai bên chỉ tan khi màn rộng hơn cột (34rem) — trên điện thoại ảnh
+    chạm hai mép màn nên không được làm tối. Dùng cho mọi ảnh nền section tự
+    quản khổ, không riêng một section.
+  */
+  .poster-fade {
+    mask-image: linear-gradient(to bottom, #000 91%, transparent);
+  }
+  @media (min-width: 34rem) {
+    .poster-fade {
+      mask-image:
+        linear-gradient(to bottom, #000 91%, transparent),
+        linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+      mask-composite: intersect;
+    }
+  }
+
+  /*
     Viên nhãn nhỏ chen giữa hai chữ lớn (chữ "and" giữa hai tên ở trang bìa):
     hồng phấn, chữ mang màu đậm của section. Đệm theo em để viên nở cùng chữ.
   */

@@ -2,74 +2,83 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { WindMeadow } from "@/components/ui/WindMeadow";
 import { hero } from "@/content/client";
 
 /**
- * Đồng cỏ nhìn từ trên cao — cỏ lay theo gió (WindMeadow), cô dâu chú rể nằm
- * giữa cỏ, cô dâu vẫy tay không ngừng.
+ * Thuyền thả đèn hoa đăng trên mặt nước tím chạng vạng.
  *
- * Hero đứng ngay sau Cover; màn mở thiệp và cảnh tán lá giờ nằm ở Cover, nên
- * chữ ở đây chỉ `data-reveal` — hiện khi cuộn tới như mọi section khác.
+ * Hero đứng ngay sau Cover. Ảnh là bản đã cắt bỏ viền (1145×1465,
+ * public/hero/lantern-boat.webp) và đặt NGUYÊN KHUNG, không `object-cover`:
+ * chữ xếp theo toạ độ của ảnh, nên ảnh mà bị cắt theo khổ màn thì chữ lệch
+ * khỏi chỗ trống nó được dành cho.
+ *
+ * Ba cụm chữ đi theo đường đèn trôi — từ thuyền ở góc phải trên, xuống dần
+ * về trái — mỗi cụm nằm ở khoảng nước/trời trống:
+ *
+ *   1. `lead`     trời trống phía trên-trái, trước khi tới thuyền
+ *   2. `leadIn · home · and · peace`   bên phải vệt đèn, chỗ nước tối trống
+ *   3. `closing`  dưới đáy ảnh, trên phần giấy nối dài cùng màu nước
+ *
+ * Toạ độ là `cqw` (phần trăm bề rộng khung ảnh) nên chữ giữ đúng chỗ trên mọi
+ * khổ màn; cỡ chữ vẫn là hệ chữ chung (`type-*`), không co theo ảnh.
  */
+
+/** Khung gốc của ảnh đã cắt — tỉ lệ này giữ cho toạ độ cqw luôn khớp. */
+const ART = { w: 1145, h: 1465 };
+
+/** Chỗ đặt của hai cụm nằm trên ảnh (cqw đo từ góc trái-trên của ảnh). */
+const LEAD: CSSProperties = { left: "6cqw", top: "5cqw", width: "50cqw" };
+const FLOW: CSSProperties = { left: "52cqw", top: "74cqw", width: "42cqw" };
+
 export function Hero() {
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
-      <div className="relative flex min-h-[100svh] flex-col items-center justify-center">
-        <WindMeadow src="/hero/meadow-ver2.webp" />
-
-        <div className="container-site relative z-20 flex flex-col items-center gap-stack py-section text-center">
-          {/* Đôi chim ngậm ruy băng — mở đầu trang, ngay trên lời mời. */}
-          <div
-            data-reveal
-            aria-hidden
-            className="w-full max-w-[min(18rem,64vw)]"
-          >
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-[34rem] flex-col">
+        <div
+          className="@container relative w-full"
+          style={{ aspectRatio: `${ART.w} / ${ART.h}` }}
+        >
+          {/* Chỉ lớp ảnh bị mask (mép dưới tan vào nền, và hai bên khi khung
+              hẹp hơn màn): chữ nằm ngoài lớp này nên không bị mờ theo. */}
+          <div aria-hidden className="poster-fade pointer-events-none absolute inset-0">
             <Image
-              src="/hero/birds-ribbon.webp"
+              src="/hero/lantern-boat.webp"
               alt=""
-              width={1997}
-              height={787}
-              sizes="(max-width: 40rem) 64vw, 18rem"
+              fill
               priority
-              className="h-auto w-full"
+              sizes="(max-width: 34rem) 100vw, 34rem"
+              className="select-none object-cover"
             />
           </div>
+
           <p
             id="hero-title"
             data-reveal
-            className="type-body w-[87%] text-justify text-tone-fg"
+            className="type-body absolute z-10 text-balance text-tone-fg"
+            style={LEAD}
           >
-            {hero.intro}
+            {hero.lead}
           </p>
 
-          {/* Cặp đôi nằm trên cỏ, nhìn từ trên cao. Tranh là bản "sạch" đã
-              xoá tay vẫy của cô dâu; cánh tay là một lớp riêng chồng lên đúng
-              chỗ cũ và quay quanh vai. Toạ độ là % của khung tranh, đo từ
-              public/hero couple updated.png — giữ nguyên tỉ lệ khung là tay luôn khớp. */}
           <div
             data-reveal
-            aria-hidden
-            className="relative mt-block w-full max-w-[min(34rem,36svh)]"
+            data-reveal-delay="180"
+            className="absolute z-10 flex flex-col items-start gap-tight text-tone-fg"
+            style={FLOW}
           >
-            <Image
-              src="/hero/couple-plate-poppies.webp"
-              alt=""
-              width={1272}
-              height={1070}
-              sizes="(max-width: 40rem) 92vw, 34rem"
-              className="h-auto w-full"
-            />
-            <Image
-              src="/hero/bride-arm-poppies.webp"
-              alt=""
-              width={147}
-              height={286}
-              sizes="(max-width: 40rem) 11vw, 4rem"
-              className="wave-limb absolute left-[27.83%] top-[17.85%] w-[11.56%]"
-              style={{ "--pivot": "82% 94%" } as CSSProperties}
-            />
+            <p className="type-body">{hero.leadIn}</p>
+            <p className="type-title text-tone-title">{hero.home}</p>
+            <p className="type-body">{hero.and}</p>
+            <p className="type-title text-tone-title">{hero.peace}</p>
           </div>
+        </div>
+
+        {/* Phần giấy nối dài dưới ảnh: cao ít nhất đủ để cả hero phủ một màn,
+            và đặt cụm chữ cuối giữa khoảng còn lại. */}
+        <div className="-mt-block flex flex-1 items-center justify-center px-gutter pb-section">
+          <p data-reveal data-reveal-delay="120" className="type-body text-balance text-center text-tone-fg">
+            {hero.closing}
+          </p>
         </div>
       </div>
     </SectionWrapper>

@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 
-import { Heading, Lead, SectionHead } from "@/components/ui/Heading";
-import { Highlighted } from "@/components/ui/Highlight";
+import { Caption, Heading, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -46,16 +45,17 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
-      >
-        <p className="type-sub-body text-tone-fg">{agenda.intro}</p>
-      </SectionHead>
+        subtitle={agenda.subtitle}
+        subtitleVariant="note"
+        snug
+      />
 
-      {/* Lời mời bấm: cùng nhịp với "Click on the door" của Travel — cách
-          dòng trên một `block`, cách hàng tem một `stack`. */}
-      <Reveal>
-        <Lead className="mx-auto mt-block mb-stack max-w-prose text-balance text-center">
-          <Highlighted text={agenda.hint} words={agenda.highlight} />
-        </Lead>
+      {/* Lời mời bấm: cùng ba bậc với Visa Guide — dòng dẫn nghiêng ở
+          SectionHead, rồi h3 "Click on the pictures" và caption nhỏ, sát hàng
+          tem một `stack`. */}
+      <Reveal className="mb-stack flex flex-col items-center gap-tight text-center">
+        <Heading level="h3">{agenda.pickPrompt}</Heading>
+        <Caption>{agenda.pickNote}</Caption>
       </Reveal>
 
       <Reveal>
@@ -101,14 +101,9 @@ export function Agenda() {
                       className={`tab-wiggle object-contain ${edge.pos}`}
                     />
                   </span>
-                  {/* Ngày rồi tên chủ đề, nằm dưới con tem đúng như bản mẫu */}
-                  {/* Thứ và ngày luôn hai dòng riêng ("Friday" / "March 26"),
-                      để ba con tem xuống dòng giống hệt nhau thay vì mỗi cái
-                      gãy một chỗ tuỳ độ dài tên thứ. */}
-                  <span className="type-sub-body flex flex-col">
-                    <span>{day.weekday}</span>
-                    <span className="whitespace-nowrap">{day.date}</span>
-                  </span>
+                  {/* Ngày rồi tên chủ đề, nằm dưới con tem. Không in thứ: ngày
+                      đã đủ, và mỗi tem một dòng ngày thì ba tem luôn thẳng hàng. */}
+                  <span className="type-sub-body whitespace-nowrap">{day.date}</span>
                   <span className="type-body">{day.title}</span>
                   <span aria-hidden className="tab-mark" />
                 </>

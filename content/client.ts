@@ -186,9 +186,10 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Intro là trạng thái đóng của cảnh tán lá trong Cover
      (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
-  /* Hero mở ra một đồng cỏ nhìn từ trên cao (WindMeadow trong
-     components/ui/WindMeadow.tsx) — cỏ rêu đậm nên chữ dùng tông `meadow` sáng. */
-  hero: { anchor: "hero", tone: "meadow" },
+  /* Hero là một tấm ảnh thuyền thả đèn trên nước tím (public/hero/lantern-boat.webp),
+     tự đặt trong Hero.tsx chứ không đi qua `background` vì chữ xếp theo toạ độ của
+     ảnh. Tông `dusk` lấy màu đáy ảnh để phần kéo dài bên dưới liền một mạch. */
+  hero: { anchor: "hero", tone: "dusk" },
   /* Mọi section giấy màu bên dưới đều `overlay: 0`: màu trong `tones` đã lấy
      đúng màu trung bình của file giấy, nên không cần lớp phủ nào cho chữ đọc
      được — xem ghi chú ở `palette.wine` trong content/theme.ts. */
@@ -357,9 +358,19 @@ export const cover = {
 };
 
 export const hero = {
-  /** Đoạn dẫn nằm giữa đôi chim và cặp đôi trên cỏ. */
-  intro:
-    "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014 at a place whose name means \u201chome\u201d and \u201cpeace.\u201d We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
+  /**
+   * Đoạn mời được cắt thành ba cụm để xếp theo đường đèn trôi trên ảnh
+   * (components/sections/Hero.tsx): `lead` ở trời trống phía trên thuyền,
+   * `leadIn` + `home` + `and` + `peace` cạnh vệt đèn, `closing` dưới mặt nước.
+   * Đọc liền ba cụm là đúng nguyên đoạn cũ.
+   */
+  lead: "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014",
+  leadIn: "at a place whose name means",
+  home: "\u201chome\u201d",
+  and: "and",
+  peace: "\u201cpeace.\u201d",
+  closing:
+    "We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
   scrollHint: "Scroll",
 };
 
@@ -791,16 +802,15 @@ export type AgendaStamp = "cocktail" | "sun" | "monstera";
 export const agenda = {
   eyebrow: "The weekend",
   title: "Agenda",
-  intro: "Exact times will be confirmed closer to the date.",
-  /** Dòng mời bấm ngay dưới `intro` — để khách biết con tem bấm được. */
-  hint: "Click on the pictures for the detailed agenda of each day.",
-  /** Cụm trong `hint` được quét highlight nét cọ — giống "tap the jar" của Gifts. */
-  highlight: ["Click on the pictures"],
+  /** Ba bậc chữ đầu section, y như Visa Guide: dòng dẫn nghiêng (`subtitle`),
+   *  tiêu đề mời bấm (`pickPrompt`, h3) rồi ghi chú nhỏ (`pickNote`). */
+  subtitle: "Exact times will be confirmed closer to the date.",
+  pickPrompt: "Click on the pictures",
+  pickNote: "for the detailed agenda of each day",
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [
     {
-      weekday: "Friday",
       date: "March 26",
       stamp: "cocktail",
       title: "Welcome Evening",
@@ -818,7 +828,6 @@ export const agenda = {
       ],
     },
     {
-      weekday: "Saturday",
       date: "March 27",
       stamp: "sun",
       title: "Wedding Day",
@@ -848,7 +857,6 @@ export const agenda = {
       ],
     },
     {
-      weekday: "Sunday",
       date: "March 28",
       stamp: "monstera",
       title: "Farewell Brunch",
@@ -862,8 +870,7 @@ export const agenda = {
       ],
     },
   ] satisfies {
-    /** Thứ và ngày in hai dòng dưới con tem. */
-    weekday: string;
+    /** Ngày in dưới con tem. */
     date: string;
     stamp: AgendaStamp;
     title: string;

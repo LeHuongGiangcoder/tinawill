@@ -358,6 +358,25 @@ export const tones = {
     buttonText: palette.forestDeep,
     brand: palette.forestDeep,
   },
+  /**
+   * Hero: thuyền thả đèn hoa đăng trên mặt nước tím chạng vạng
+   * (public/hero/lantern-boat.webp). `bg` là màu đáy của chính ảnh (#1d0f2c) để
+   * phần giấy kéo dài dưới ảnh liền một mạch. Chữ kem trên tím đậm đạt >10:1;
+   * trên vùng trời sáng nhất của ảnh (#755abe) vẫn được 4.6:1. Chữ nhấn là ánh
+   * đèn — cam nhạt (goldSoft), cùng màu với ngọn đèn trên mặt nước.
+   */
+  dusk: {
+    bg: "#1d0f2c",
+    fg: palette.cream,
+    title: palette.goldSoft,
+    muted: palette.cream,
+    accent: palette.goldSoft,
+    line: "rgba(251, 247, 240, 0.28)",
+    contrast: palette.cream,
+    button: palette.parchment,
+    buttonText: palette.forestDeep,
+    brand: palette.forestDeep,
+  },
   clearing: {
     bg: palette.parchment,
     fg: palette.jungle,
