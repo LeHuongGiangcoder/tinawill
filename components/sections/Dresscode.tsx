@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Disclosure } from "@/components/ui/Disclosure";
+import { DressDance } from "@/components/ui/DressDance";
 import { SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -14,8 +15,11 @@ import { dresscode } from "@/content/client";
  * theme của site. Mỗi ô là một vệt sơn có nét cọ: CHỈ một file ảnh cho cả sáu
  * ô, màu do CSS tô lên (xem `.swatch` trong app/globals.css), nên đổi một mã
  * màu là ô đổi theo chứ không phải xuất lại ảnh. Dưới mỗi ô in luôn mã hex để
- * khách cầm đi may áo dài hay đưa cho thợ. Bảng màu xếp ba cột trên điện
- * thoại, sáu cột từ sm trở lên.
+ * khách cầm đi may áo dài hay đưa cho thợ.
+ *
+ * Trên bảng màu là cặp đôi khiêu vũ: váy và vest đổi lần lượt qua đúng các
+ * màu của bảng (ảnh đã nhuộm sẵn — `look` của từng ô trong client.ts nối ô
+ * với bản nhuộm), ô đang mặc phóng to theo.
  *
  * Các khối gợi ý là khối gập (components/ui/Disclosure.tsx): mở hết ra thì
  * section dài hơn hai màn điện thoại và khách phải cuộn qua một bức tường
@@ -44,29 +48,11 @@ export function Dresscode() {
           snug
         />
 
-        {dresscode.swatches.length > 0 ? (
-          <Reveal delay={90} className="mt-block flex flex-col items-center gap-stack">
-            <ul className="grid w-full grid-cols-3 gap-stack">
-              {dresscode.swatches.map((swatch) => (
-                <li key={swatch.hex} className="flex flex-col items-center gap-tight text-center">
-                  {/* Vệt sơn khách gửi, tô bằng mã màu của chính ô — hình
-                      dáng và nét cọ nằm ở `.swatch` trong app/globals.css. */}
-                  <span
-                    aria-hidden
-                    className="swatch w-full"
-                    style={{ backgroundColor: swatch.hex }}
-                  />
-                  <span className="type-note">{swatch.name}</span>
-                  {/* Mã màu viết hoa cho dễ đọc; `tabular-nums` để sáu mã
-                      xếp thành cột thẳng hàng thay vì so le. */}
-                  <span className="type-note tabular-nums uppercase text-tone-muted">
-                    {swatch.hex}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        ) : null}
+        {/* Cặp đôi khiêu vũ, trang phục đổi lần lượt qua từng màu bên dưới
+            — ô màu đang mặc phóng to theo. Xem components/ui/DressDance.tsx. */}
+        <Reveal delay={90} className="mt-block">
+          <DressDance swatches={dresscode.swatches} />
+        </Reveal>
 
         {dresscode.notes.length > 0 ? (
           <div className="mt-block flex flex-col">

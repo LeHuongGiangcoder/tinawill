@@ -938,6 +938,54 @@ html {
   }
 
   /*
+    Ô màu đang được mặc trên người cặp đôi khiêu vũ (DressDance): phóng lên
+    một nhịp. Chữ dưới ô giữ nguyên chỗ — chỉ vệt sơn nở ra.
+  */
+  .swatch-item .swatch {
+    transition: transform var(--t-duration-base) var(--t-ease);
+  }
+
+  .swatch-item[data-active] .swatch {
+    transform: scale(1.14);
+  }
+
+  /*
+    Sân khấu của cặp đôi khiêu vũ: canvas WebGL đè lên ảnh tĩnh.
+
+    Tỉ lệ 980/1060 là sân khấu của bộ dựng (lib/dance.ts) — tranh 900×985 nằm
+    giữa, chừa viền cho tay vươn và tà váy hất ra. Ảnh tĩnh chừa đúng viền đó
+    (40/980 ngang, 37.5/1060 dọc) nên trùng pixel với khung đầu của canvas.
+    Ảnh tĩnh chỉ ẩn khi canvas đã vẽ được (`data-live`).
+  */
+  .dance-stage {
+    position: relative;
+    width: min(100%, 26rem);
+    aspect-ratio: 980 / 1060;
+  }
+
+  .dance-stage__poster {
+    position: absolute;
+    inset: 3.54% 4.08%;
+    width: 91.84%;
+    height: 92.92%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .dance-stage__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .dance-stage[data-live] .dance-stage__poster {
+    visibility: hidden;
+  }
+
+  /*
     Khung sóng: một đường lượn chạy vòng quanh mép trong của `.sheet`.
 
     Vẽ bằng mask chứ không phải background, đúng cách dải ngăn (Divider) làm:

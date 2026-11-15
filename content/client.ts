@@ -4,6 +4,7 @@ import type {
   ElementName,
   TextureName,
 } from "@/content/assets";
+import type { DanceSwatch } from "@/components/ui/DressDance";
 import type { Tone } from "@/content/theme";
 
 /**
@@ -888,13 +889,16 @@ export const dresscode = {
   note: "Our celebration is set among coconut groves and riverside greenery — so we're bringing the jungle to the dance floor. Think lush, bold and warm, but still elegant. Mix the colours, match them, or go all in on one. Tropical prints, leafy patterns and earthy textures are very welcome.",
   /** Để mảng rỗng thì phần bảng màu tự ẩn. */
   swatches: [
-    { name: "Burnt orange", hex: "#c2622e" },
-    { name: "Papaya", hex: "#e08a3c" },
-    { name: "Olive", hex: "#6f7a43" },
-    { name: "Jungle green", hex: "#2b4030" },
-    { name: "Red wine", hex: "#6e2639" },
-    { name: "Deep plum", hex: "#4a2238" },
-  ],
+    /* Mã màu chuẩn từ moodboard của khách. `look` là bản nhuộm tương ứng của
+       cặp đôi khiêu vũ (public/dresscode/dance/couple-<look>.webp) — ô có
+       `look` sẽ phóng to khi cặp đôi đang mặc màu đó. Đổi mã màu ở đây mà
+       không xuất lại ảnh thì ô và trang phục sẽ lệch màu nhau. */
+    { name: "Ruby", hex: "#970031", look: "ruby" },
+    { name: "Vermilion", hex: "#d42500", look: "vermilion" },
+    { name: "Tangerine", hex: "#f95800", look: "tangerine" },
+    { name: "Olive", hex: "#8a8a34", look: "olive" },
+    { name: "Dark olive", hex: "#33330a", look: "dark-olive" },
+  ] satisfies DanceSwatch[],
   /** Gợi ý cụ thể cho từng nhóm khách. */
   notes: [
     {
