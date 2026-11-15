@@ -52,15 +52,16 @@ export function Cover() {
               rộng bằng hoặc hơn màn, bám lề trái (lùi 3.5% để cặp đôi xích sang
               trái, chỉ nhích vào móng tay ở mép). `--art-w` là bề ngang tranh,
               dùng chung cho khung và cho cỡ chữ đặt trên tranh (type-art-*).
-              Điện thoại: tranh rộng tới 140vw (vẫn đủ nhẫn và chữ "YES") và
-              neo sát mép trên — không chừa khoảng trống trên đầu, chữ nằm hẳn
-              trong khoảng khuyết bên trái ngón tay. Màn ngắn thì margin đáy âm
-              cắt chân tranh ở đúng 100svh; màn cao thì giấy lộ ra dưới gót giày.
+              Điện thoại: tranh rộng tới 140vw (vẫn đủ nhẫn và chữ "YES"), neo
+              đáy và luôn tràn khỏi đáy ít nhất 0.16 × bề ngang để giấu chân và
+              giày (không để cặp đôi lơ lửng); màn ngắn thì tràn thêm sao cho
+              đầu tranh vẫn cách mép trên một `stack`. Chữ nằm hẳn trong khoảng
+              khuyết bên trái ngón tay.
               Từ `md` trở lên tranh co lại và đứng giữa như một tấm thiệp. */}
           <div
             data-reveal
             data-hero
-            className="ring-motion mt-stack mb-[min(0px,calc(100svh-var(--art-w)*1.423-var(--spacing-stack)))] aspect-[941/1339] w-[var(--art-w)] shrink-0 self-start max-md:ml-[calc(var(--art-w)*-0.035)] [--art-w:max(104vw,min(140vw,calc((100svh-1rem)*0.818)))] md:mt-auto md:mb-[calc(var(--art-w)*-0.2)] md:self-center md:[--art-w:min(100vw,58svh)]"
+            className="ring-motion mt-auto mb-[min(calc(var(--art-w)*-0.16),calc(100svh-var(--art-w)*1.423-var(--spacing-stack)))] aspect-[941/1339] w-[var(--art-w)] shrink-0 self-start max-md:ml-[calc(var(--art-w)*-0.035)] [--art-w:max(104vw,min(140vw,calc((100svh-1rem)*0.818)))] md:mt-auto md:mb-[calc(var(--art-w)*-0.2)] md:self-center md:[--art-w:min(100vw,58svh)]"
           >
             <Image
               src="/couple-cover.png"
