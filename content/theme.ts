@@ -480,6 +480,12 @@ export const typeScale = {
   body: { size: "1.125rem", line: "1.55", tracking: "0em" },
   subBody: { size: "1rem", line: "1.5", tracking: "0em" },
   note: { size: "1rem", line: "1.5", tracking: "0em" },
+  /**
+   * Nhãn chật: chữ dưới một hàng ô dày, như năm ô màu Dresscode một hàng —
+   * mỗi cột chỉ ~66px trên iPhone 375px, `note` 16px thì "Tangerine" tràn
+   * sang cột bên. Cùng font và kiểu với `note`, chỉ nhỏ hơn một bậc.
+   */
+  fine: { size: "0.8125rem", line: "1.35", tracking: "0em" },
 
   /* ---- Ngoài hệ chữ: chỉ còn ở trang bìa và section đang tạm tắt ---------- */
   display: { size: "clamp(3rem, 12vw, 7rem)", line: "1.02", tracking: "-0.015em" },

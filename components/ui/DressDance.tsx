@@ -128,19 +128,22 @@ export function DressDance({ swatches }: { swatches: DanceSwatch[] }) {
       </div>
 
       {swatches.length > 0 ? (
-        <ul className="flex w-full flex-wrap justify-center gap-y-stack">
+        /* Cả năm ô một hàng: trên điện thoại cột chỉ còn ~60px, nên hàng ô
+           tràn ra lề của tờ giấy thêm một `gutter` mỗi bên để tên màu dài
+           nhất ("Tangerine") và mã hex vẫn nằm gọn trong cột; chữ dùng bậc `type-fine`. */
+        <ul className="-mx-gutter grid grid-cols-5 self-stretch">
           {swatches.map((swatch) => (
             <li
               key={swatch.hex}
               data-active={(swatch.look && swatch.look === active) || undefined}
-              className="swatch-item flex w-1/3 flex-col items-center gap-tight px-tight text-center"
+              className="swatch-item flex min-w-0 flex-col items-center gap-tight text-center"
             >
               {/* Vệt sơn khách gửi, tô bằng mã màu của chính ô — hình dáng và
                   nét cọ nằm ở `.swatch` trong app/globals.css. */}
               <span aria-hidden className="swatch w-full" style={{ backgroundColor: swatch.hex }} />
-              <span className="type-note">{swatch.name}</span>
+              <span className="type-fine">{swatch.name}</span>
               {/* `tabular-nums` để các mã xếp thẳng cột thay vì so le. */}
-              <span className="type-note tabular-nums uppercase text-tone-muted">{swatch.hex}</span>
+              <span className="type-fine tabular-nums uppercase text-tone-muted">{swatch.hex}</span>
             </li>
           ))}
         </ul>

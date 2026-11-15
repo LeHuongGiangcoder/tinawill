@@ -402,6 +402,14 @@ html {
   font-style: normal;
 }
 
+/* `note` cỡ nhỏ cho nhãn dưới một hàng ô chật — xem `fine` trong theme.ts. */
+@utility type-fine {
+  font-family: var(--t-font-display);
+  font-size: var(--t-text-fine);
+  line-height: var(--t-leading-fine);
+  font-style: normal;
+}
+
 /*
   Chữ đặt LÊN một bức tranh có chỗ trống cố định (trang bìa: khoảng khuyết bên
   trái bàn tay). Chữ ở đây không theo màn mà theo bề ngang bức tranh, khai báo
