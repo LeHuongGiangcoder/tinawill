@@ -50,18 +50,17 @@ export function Cover() {
         <div className="relative z-20 flex w-full flex-1 flex-col items-center">
           {/* Tranh (941 × 1339) bị cắt phẳng ở mép trái, phải — nên nó luôn phải
               rộng bằng hoặc hơn màn, bám lề trái (lùi 3.5% để cặp đôi xích sang
-              trái, chỉ nhích vào móng tay ở mép; mặt chú rể không bị cắt). `--art-w` là bề ngang tranh, dùng chung cho khung và cho cỡ
-              chữ đặt trên tranh (type-art-*). 130vw: bên phải cắt ~23% (ngón út
-              và vạt váy, vốn đã cắt phẳng) nhưng vẫn đủ nhẫn và chữ "YES".
-              Tranh được đẩy xuống `-0.2 × bề ngang` (≈ 14% chiều cao: chân và
-              gấu váy tràn khỏi đáy, section clip) để đầu tranh và khoảng khuyết
-              bên trái bàn tay rộng ra cho chữ. Trần theo chiều cao giữ ≥ 1rem
-              phía trên ngón tay; sàn 104vw (= 100vw cộng phần lùi trái) để không lộ mép tranh. Từ `md` trở
-              lên tranh co lại và đứng giữa như một tấm thiệp. */}
+              trái, chỉ nhích vào móng tay ở mép). `--art-w` là bề ngang tranh,
+              dùng chung cho khung và cho cỡ chữ đặt trên tranh (type-art-*).
+              Điện thoại: tranh rộng tới 140vw (vẫn đủ nhẫn và chữ "YES") và
+              neo sát mép trên — không chừa khoảng trống trên đầu, chữ nằm hẳn
+              trong khoảng khuyết bên trái ngón tay. Màn ngắn thì margin đáy âm
+              cắt chân tranh ở đúng 100svh; màn cao thì giấy lộ ra dưới gót giày.
+              Từ `md` trở lên tranh co lại và đứng giữa như một tấm thiệp. */}
           <div
             data-reveal
             data-hero
-            className="ring-motion mt-auto mb-[calc(var(--art-w)*-0.2)] aspect-[941/1339] w-[var(--art-w)] shrink-0 self-start max-md:ml-[calc(var(--art-w)*-0.035)] [--art-w:max(104vw,min(130vw,calc((100svh-1rem)*0.818)))] md:self-center md:[--art-w:min(100vw,58svh)]"
+            className="ring-motion mt-stack mb-[min(0px,calc(100svh-var(--art-w)*1.423-var(--spacing-stack)))] aspect-[941/1339] w-[var(--art-w)] shrink-0 self-start max-md:ml-[calc(var(--art-w)*-0.035)] [--art-w:max(104vw,min(140vw,calc((100svh-1rem)*0.818)))] md:mt-auto md:mb-[calc(var(--art-w)*-0.2)] md:self-center md:[--art-w:min(100vw,58svh)]"
           >
             <Image
               src="/couple-cover.png"
@@ -271,11 +270,11 @@ export function Cover() {
 
             {/* Tên và lời mời nằm trọn trong khoảng khuyết bên trái bàn tay
                 (≈ 4%–40% bề ngang, từ mép trên tranh xuống vòm tay ≈ 34%).
-                Chữ co theo `--art-w` nên luôn lọt. Khối được canh giữa dải
-                trống phía trên tranh cộng khoảng khuyết (`--copy-top`), và
-                không bao giờ tụt thấp hơn vòm tay. */}
+                Chữ co theo `--art-w` nên luôn lọt. Điện thoại: canh giữa
+                khoảng khuyết (17%). `md`: canh giữa dải trống phía trên tranh
+                cộng khoảng khuyết, không tụt thấp hơn vòm tay. */}
             <div
-              className="absolute left-[7.5%] top-[var(--copy-top)] md:left-[4%] flex -translate-y-1/2 flex-col gap-stack [--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
+              className="absolute left-[7.5%] top-[var(--copy-top)] md:left-[4%] flex -translate-y-1/2 flex-col gap-stack [--copy-top:calc(0.17*var(--art-w))] md:[--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
             >
               <h1
                 id="cover-title"
