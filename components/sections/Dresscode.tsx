@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { Disclosure } from "@/components/ui/Disclosure";
 import { DressDance } from "@/components/ui/DressDance";
 import { SectionHead } from "@/components/ui/Heading";
@@ -25,17 +23,11 @@ import { dresscode } from "@/content/client";
  * section dài hơn hai màn điện thoại và khách phải cuộn qua một bức tường
  * chữ mới tới phần tiếp theo. Khối đầu mở sẵn để thấy ngay đây là thứ bấm
  * vào được.
- *
- * Dải dù sọc ở chân section là tranh khách gửi, cắt từ bản Canva
- * (`node scripts/dresscode-assets.mjs`). Nền cam của bản gốc chính là giấy
- * `paper-mango` của site nên không phải cắt theo; tiêu đề cũng là chữ thật.
  */
 export function Dresscode() {
   return (
-    <SectionWrapper section="dresscode" width="bleed" flush labelledBy="dresscode-title">
-      {/* `flush` + tự đặt lề trên: dải dù phải chạm đúng mép dưới section như
-          bản Canva, nên section không được có khoảng đệm dưới. */}
-      <div className="container-card pt-section">
+    <SectionWrapper section="dresscode" width="bleed" labelledBy="dresscode-title">
+      <div className="container-card">
         <SectionHead
           eyebrow={dresscode.eyebrow}
           title={dresscode.title}
@@ -65,29 +57,6 @@ export function Dresscode() {
             ))}
           </div>
         ) : null}
-      </div>
-
-      {/*
-        Dải dù sọc, tràn hết bề ngang và chạm mép dưới section.
-
-        Tỉ lệ đổi theo bề rộng màn: trên điện thoại giữ nguyên tỉ lệ thật của
-        file (1600×782) nên không dù nào bị cắt; từ md trở lên khung dẹt dần
-        và `object-top` giữ hàng dù lại, phần bị cắt chỉ là bãi cát phía dưới
-        — nếu không, trên màn 1440px dải này cao tới 700px toàn cát.
-      */}
-      <div
-        aria-hidden
-        className="relative mt-section aspect-[1600/782] w-full md:aspect-[4/1] lg:aspect-[5/1]"
-      >
-        <Image
-          src="/dresscode/umbrellas.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          /* Dải đã đúng cỡ hiển thị — xem components/sections/Venue.tsx */
-          unoptimized
-          className="pointer-events-none select-none object-cover object-top"
-        />
       </div>
     </SectionWrapper>
   );
