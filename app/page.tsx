@@ -17,7 +17,7 @@ import { WeddingInfo } from "@/components/sections/WeddingInfo";
 import { CatJourney } from "@/components/ui/CatJourney";
 import { Motion } from "@/components/ui/Motion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
-import { sections, type SectionId } from "@/content/client";
+import { design, sections, type SectionId } from "@/content/client";
 
 /**
  * Mỗi section một entry. Thêm section mới thì khai tên trong `SectionId`
@@ -60,8 +60,11 @@ export default function Page() {
             return <Section key={id} />;
           })}
 
-          {/* Bé mèo chạy từ Hero, nhảy xuống ghế trái của Save the Date */}
-          {flow.includes("hero") && flow.includes("time") ? <CatJourney upper="hero" lower="time" /> : null}
+          {/* Bé mèo chạy qua section ngay trên Save the Date (Hero nếu có, không
+              thì trang bìa), rồi nhảy xuống ghế trái của Save the Date. */}
+          {flow.includes("time") && flow.indexOf("time") > 0 ? (
+            <CatJourney upper={design[flow[flow.indexOf("time") - 1]].anchor} lower="time" />
+          ) : null}
         </main>
 
         <MusicToggle />

@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { WeekStrip } from "@/components/ui/WeekStrip";
 import { ceremony, timeScene } from "@/content/client";
 import { googleCalendarUrl } from "@/lib/calendar";
 
@@ -180,7 +179,7 @@ export function Time() {
     <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
       <div className="stage-9x16 stage-tall stage-roomy">
         {/* Hai ghế tắm nắng: lớp duy nhất nằm dưới chữ. Ghế trái để trống —
-            bé mèo của CatJourney chạy từ Hero xuống ngồi vào đó, toạ độ đáp
+            bé mèo của CatJourney chạy từ trang bìa xuống ngồi vào đó, toạ độ đáp
             đo theo khung này (`data-cat-seat`). */}
         <div
           data-cat-seat
@@ -217,23 +216,21 @@ export function Time() {
             {timeScene.title}
           </h2>
 
-          <div className="flex w-full flex-col items-center gap-block">
-            {/* Một tuần quanh ngày cưới, ngày cưới khoanh trái tim. Dải chỉ để
-                nhìn; trình đọc màn hình đọc câu ngày đầy đủ ngay bên dưới. */}
-            <div
-              data-reveal
-              data-reveal-delay="180"
-              aria-hidden
-              className="w-full"
-            >
-              <WeekStrip iso={ceremony.startISO} />
-            </div>
-            <p className="sr-only">
-              {ceremony.weekday}, {ceremony.dateShort}
+          <p
+            data-reveal
+            data-reveal-delay="90"
+            className="type-body w-[92%] text-justify text-tone-fg"
+          >
+            {timeScene.intro}
+          </p>
+
+          <div className="flex flex-col items-center gap-tight">
+            <p data-reveal data-reveal-delay="180" className="type-subtitle text-tone-fg">
+              {ceremony.dateShort}
             </p>
 
-            {/* Màu nút lấy từ tông của section (`vermilion`: giấy kem chữ đỏ
-                son), không cần biến thể riêng. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
+            {/* Viên thuốc vàng nghệ chữ rượu vang — cặp màu nút của tông
+                `wineBeige`, không cần biến thể riêng. Bề rộng để nút tự ôm lấy chữ: nhãn dài ngắn
                 tuỳ chữ nên ép theo % sẽ có ngày tràn. */}
             <ButtonLink
               data-reveal

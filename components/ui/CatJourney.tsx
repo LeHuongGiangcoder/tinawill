@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Bé mèo tuxedo đi tìm ghế — chạy qua Hero (đồng cỏ), nhảy xuyên ranh giới
+ * Bé mèo tuxedo đi tìm ghế — chạy qua section phía trên (trang bìa, hoặc Hero), nhảy xuyên ranh giới
  * xuống Save the Date rồi ngồi vào ghế trái.
  *
  * Port từ public/cat-scroll-kit/integration/cat-scroll.js (đọc

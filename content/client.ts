@@ -53,10 +53,10 @@ export type SectionId =
  */
 export const sections: SectionId[] = [
   /* `intro` là màn mở thiệp nằm trong cảnh tán lá của Cover (không phải một
-     trang riêng): bấm mở thì lá dạt ra lộ Cover, cuộn tiếp là Hero. */
+     trang riêng): bấm mở thì lá dạt ra lộ Cover, cuộn tiếp là Save the date.
+     `hero` (thuyền thả đèn) tạm để ngoài — thêm lại một dòng là nó hiện. */
   "intro",
   "cover",
-  "hero",
   "time",
   "venue",
   "visa",
@@ -205,10 +205,10 @@ export const design: Record<SectionId, SectionDesign> = {
      tranh còn lại nằm trong khung 9/16 của chính section (components/sections/
      Venue.tsx). `overlay: 0` vì nền này đã là màu phẳng, không cần lớp phủ cho
      chữ đọc được — chữ kem trên ô liu đạt 6.1:1. */
-  /* Save the date là cảnh ghép hai lớp như Venue: giấy đỏ son (cùng tờ với
-     Honeymoon Fund) phủ kín section, còn lá cây và hai ghế tắm nắng nằm trong
-     khung 9/16 của chính section (components/sections/Time.tsx). */
-  time: { anchor: "time", tone: "vermilion", background: "paper-vermilion", overlay: 0 },
+  /* Save the date là cảnh ghép hai lớp như Venue: giấy rượu vang phủ kín
+     section, còn lá cây và hai ghế tắm nắng nằm trong khung 9/16 của chính
+     section (components/sections/Time.tsx). */
+  time: { anchor: "time", tone: "wineBeige", background: "paper-wine", overlay: 0 },
   venue: {
     anchor: "venue",
     tone: "olive",
@@ -472,6 +472,9 @@ export const weddingInfo = {
  */
 export const timeScene = {
   title: "Save the Date",
+  /** Đoạn mời canh đều ngay dưới tiêu đề. */
+  intro:
+    "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014 at a place whose name means \u201chome\u201d and \u201cpeace.\u201d We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
   calendarLabel: "Add calendar",
   /** Nhãn cho trình đọc màn hình: tranh là trang trí, aria-hidden hết. */
   sceneLabel: "Two cats napping on sun loungers in a tropical garden",
