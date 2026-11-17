@@ -804,11 +804,10 @@ export type AgendaStamp = "cocktail" | "sun" | "monstera";
 export const agenda = {
   eyebrow: "The weekend",
   title: "Agenda",
-  /** Ba bậc chữ đầu section, y như Visa Guide: dòng dẫn nghiêng (`subtitle`),
-   *  tiêu đề mời bấm (`pickPrompt`, h3) rồi ghi chú nhỏ (`pickNote`). */
-  subtitle: "Exact times will be confirmed closer to the date.",
-  pickPrompt: "Click on the pictures",
-  pickNote: "for the detailed agenda of each day",
+  /** Hai dòng dưới tiêu đề: lời mời bấm (chữ đứng, màu chữ chính) rồi ghi
+   *  chú nghiêng nhỏ về giờ giấc. */
+  pickPrompt: "Click on the pictures for the detailed agenda",
+  pickNote: "Exact times will be confirmed closer to the date",
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [

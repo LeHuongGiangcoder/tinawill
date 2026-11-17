@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 
-import { Caption, Heading, SectionHead } from "@/components/ui/Heading";
+import { Heading, SectionHead, Subhead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
@@ -45,17 +45,14 @@ export function Agenda() {
         eyebrow={agenda.eyebrow}
         title={agenda.title}
         titleId="agenda-title"
-        subtitle={agenda.subtitle}
-        subtitleVariant="note"
         snug
       />
 
-      {/* Lời mời bấm: cùng ba bậc với Visa Guide — dòng dẫn nghiêng ở
-          SectionHead, rồi h3 "Click on the pictures" và caption nhỏ, sát hàng
-          tem một `stack`. */}
+      {/* Lời mời bấm (chữ đứng, màu chữ chính) rồi ghi chú nghiêng nhỏ về giờ
+          giấc, sát hàng tem một `stack`. */}
       <Reveal className="mb-stack flex flex-col items-center gap-tight text-center">
-        <Heading level="h3">{agenda.pickPrompt}</Heading>
-        <Caption>{agenda.pickNote}</Caption>
+        <p className="type-body text-balance text-tone-fg">{agenda.pickPrompt}</p>
+        <Subhead>{agenda.pickNote}</Subhead>
       </Reveal>
 
       <Reveal>
