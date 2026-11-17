@@ -2,8 +2,8 @@
  * Cặp đôi khiêu vũ của trang Dresscode — bộ dựng WebGL, chuyển từ bản bàn
  * giao (assets-source/dresscode-dance/animate.js + timeline.js).
  *
- * Sáu ảnh cùng một dáng, cùng toạ độ (public/dresscode/dance/couple-*.webp):
- * bản gốc và năm bản đã nhuộm. Mỗi khung hình vẽ MỘT lưới tam giác dùng chung
+ * Năm ảnh cùng một dáng, cùng toạ độ (public/dresscode/dance/couple-*.webp),
+ * mỗi ảnh một màu của bảng — váy satin trơn, vest cùng tông. Mỗi khung hình vẽ MỘT lưới tam giác dùng chung
  * cho hai bản kề nhau, uốn theo 12 "tay nắm" (tay, đầu, eo, tà váy, gối…) để
  * thành điệu nhảy; màu mới quét từ tà váy dưới trái lên trên phải. Vì chung
  * lưới nên giữa lúc đổi màu chỉ có một đường viền người, không bị bóng đôi.
@@ -13,33 +13,26 @@
  */
 
 /** Tên bản nhuộm — trùng hậu tố file `couple-<id>.webp`. */
-export type DanceLook = "original" | "ruby" | "vermilion" | "tangerine" | "olive" | "dark-olive";
+export type DanceLook = "ruby" | "vermilion" | "tangerine" | "olive" | "dark-olive";
 
-export const DANCE_LOOKS: DanceLook[] = [
-  "original",
-  "ruby",
-  "vermilion",
-  "tangerine",
-  "olive",
-  "dark-olive",
-];
+export const DANCE_LOOKS: DanceLook[] = ["ruby", "vermilion", "tangerine", "olive", "dark-olive"];
 
 export const DANCE_BASE = "/dresscode/dance/";
 export const DANCE_DURATION = 9.2;
 
 /** Ảnh tĩnh: poster lúc chưa tải, chế độ giảm chuyển động, máy không có WebGL. */
-export const DANCE_POSTER = `${DANCE_BASE}couple-original.webp`;
+export const DANCE_POSTER = `${DANCE_BASE}couple-ruby.webp`;
 /** Tỉ lệ khung của ảnh (1199 × 1312). */
 export const DANCE_RATIO = 1199 / 1312;
 
 /** `time` là giữa đoạn quét màu; `look` là chỉ số trong DANCE_LOOKS. */
 const MOVES = [
   { time: 0, look: 0, transition: 0 },
-  { time: 0.74, look: 1, transition: 0.48 },
-  { time: 2.28, look: 2, transition: 0.46 },
-  { time: 3.84, look: 3, transition: 0.5 },
-  { time: 5.4, look: 4, transition: 0.46 },
-  { time: 6.96, look: 5, transition: 0.48 },
+  { time: 0.74, look: 0, transition: 0.48 },
+  { time: 2.28, look: 1, transition: 0.46 },
+  { time: 3.84, look: 2, transition: 0.5 },
+  { time: 5.4, look: 3, transition: 0.46 },
+  { time: 6.96, look: 4, transition: 0.48 },
   { time: 8.58, look: 0, transition: 0.52 },
 ];
 

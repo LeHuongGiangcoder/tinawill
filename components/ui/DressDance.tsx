@@ -14,9 +14,9 @@ export type DanceSwatch = { name: string; hex: string; look?: DanceLook };
  * thứ nằm chung một component vì chúng phải biết nhau.
  *
  * Canvas WebGL ở lib/dance.ts. Component chỉ lo vòng đời:
- *   - chỉ tải sáu ảnh khi section sắp cuộn tới (không tốn băng thông lúc mở thiệp);
+ *   - chỉ tải năm ảnh khi section sắp cuộn tới (không tốn băng thông lúc mở thiệp);
  *   - dừng vẽ khi ra khỏi màn, quay lại thì nhảy tiếp từ chỗ đã dừng;
- *   - `prefers-reduced-motion` hoặc máy không có WebGL → giữ ảnh tĩnh gốc.
+ *   - `prefers-reduced-motion` hoặc máy không có WebGL → giữ ảnh tĩnh đỏ ruby.
  *
  * Ảnh tĩnh nằm dưới canvas suốt, cùng khung với sân khấu của canvas (tranh
  * 900×985 giữa sân 980×1060 — `.dance-stage` trong globals.css), nên lúc
@@ -56,7 +56,7 @@ export function DressDance({ swatches }: { swatches: DanceSwatch[] }) {
       const look = dance.render(elapsed);
       if (look !== shown) {
         shown = look;
-        setActive(look === "original" ? null : look);
+        setActive(look);
       }
       frame = requestAnimationFrame(tick);
     };
