@@ -1919,13 +1919,6 @@ html {
     margin-top: -9cqw;
   }
 
-  /* Thân bài lùi xuống dưới chóp tua của đèn treo thấp nhất (`hang` lớn nhất
-     trong `loveStory.lanterns`) — đo bằng cqw như chính đèn, nên ở bề rộng
-     nào chữ cũng không chui vào dưới tua. */
-  .page-frame-text {
-    margin-top: 3cqw;
-  }
-
   /*
     Vùng đất trống dưới chân trang giấy, nằm trong nắp dưới và sau chữ — chỗ
     cho hoạ tiết rời (đèn hoa đăng trôi trên nước). Cao 20cqw, rộng đúng bằng

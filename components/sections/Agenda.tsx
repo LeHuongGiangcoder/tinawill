@@ -41,19 +41,13 @@ export function Agenda() {
 
   return (
     <SectionWrapper section="agenda" width="prose" labelledBy="agenda-title">
-      <SectionHead
-        eyebrow={agenda.eyebrow}
-        title={agenda.title}
-        titleId="agenda-title"
-        snug
-      />
-
       {/* Lời mời bấm (chữ đứng, màu chữ chính) rồi ghi chú nghiêng nhỏ về giờ
-          giấc, sát hàng tem một `stack`. */}
-      <Reveal className="mb-stack flex flex-col items-center gap-tight text-center">
+          giấc, nằm trong SectionHead để cách tiêu đề đúng `gap-stack` như mọi
+          section; `tight` cho cả khối sát hàng tem một `stack`. */}
+      <SectionHead eyebrow={agenda.eyebrow} title={agenda.title} titleId="agenda-title" tight>
         <p className="type-body text-balance text-tone-fg">{agenda.pickPrompt}</p>
         <Subhead>{agenda.pickNote}</Subhead>
-      </Reveal>
+      </SectionHead>
 
       <Reveal>
         <TabSet

@@ -79,12 +79,12 @@ export function LoveStory() {
             ))}
           </div>
 
-          <div className="relative z-10 flex flex-col gap-block">
+          <div className="relative z-10 flex flex-col gap-stack">
             {/*
               Đúng ba bậc của SectionHead — eyebrow, tiêu đề viết tay, dòng dẫn
               in nghiêng — nhưng dựng tay chứ không gọi SectionHead: khối ở đây
-              nằm trong trang giấy, và `gap-block` của khung giấy đã là đúng
-              khoảng cách giữa đầu trang và đoạn đầu tiên.
+              nằm trong trang giấy. Từ tiêu đề xuống đoạn đầu là `gap-stack`,
+              đúng nhịp "Save the Date" → đoạn dẫn như mọi section khác.
             */}
             <div className="page-frame-lead flex flex-col items-center gap-tight text-center">
               <Eyebrow data-reveal>{eyebrow}</Eyebrow>
@@ -98,7 +98,7 @@ export function LoveStory() {
               ) : null}
             </div>
 
-            <div className="page-frame-text flex flex-col gap-stack">
+            <div className="flex flex-col gap-stack">
               {paragraphs.map((text, i) => (
                 /* <p> trần: chữ thân bài của site là font body ở bậc `base`,
                    căn trái — giống Travel, Gifts, Dresscode. */

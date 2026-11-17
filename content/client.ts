@@ -401,7 +401,7 @@ export const loveStory = {
   lanterns: [
     { name: "lantern-03", left: 10, hang: 30, width: 12, layer: "front", swing: 13, delay: 2 },
     { name: "lantern-01", left: 16, hang: 52, width: 18, layer: "front", swing: 12, delay: 5 },
-    { name: "lantern-05", left: 8, hang: 62, width: 16, layer: "front", swing: 14, delay: 8 },
+    { name: "lantern-05", left: 8, hang: 55, width: 16, layer: "front", swing: 14, delay: 8 },
     { name: "lantern-06", left: 82, hang: 28, width: 12, layer: "front", swing: 13, delay: 6 },
     { name: "lantern-09", left: 89, hang: 33, width: 13, layer: "front", swing: 12, delay: 1 },
     { name: "lantern-02", left: 92, hang: 56, width: 16, layer: "front", swing: 14, delay: 4 },
