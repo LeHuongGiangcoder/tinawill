@@ -424,6 +424,12 @@ html {
   line-height: 1.02;
 }
 
+/* Dòng mời viết tay của trang bìa: nhỏ hơn `type-art-name` vì dài hai dòng. */
+@utility type-art-invite {
+  font-size: calc(var(--art-w) * 0.047);
+  line-height: 1.25;
+}
+
 @utility type-art-body {
   font-family: var(--t-font-body);
   font-size: calc(var(--art-w) * 0.034);

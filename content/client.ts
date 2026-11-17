@@ -351,9 +351,10 @@ export const intro = {
 /* ------------------------------------------------------------------ COVER */
 
 export const cover = {
-  /** Chữ trong viên hồng giữa hai tên. */
-  and: "&",
-  invitation: "we joyfully invite you\nto our wedding",
+  /** Dòng mời viết tay ở khoảng trống bên trái bàn tay — là tiêu đề của trang bìa. */
+  invitation: "We joyfully invite you\nto our wedding!!!",
+  /** Nhãn đọc cho monogram trong ô đỏ rượu ngay dưới dòng mời. */
+  logoLabel: "Will and Tina monogram",
   /** Một dòng nằm ngay trên đường viền váy, bên phải chiếc vòng tay. */
   yes: "she said \u201cYES\u201d",
 };

@@ -275,23 +275,20 @@ export function Cover() {
                 khoảng khuyết (17%). `md`: canh giữa dải trống phía trên tranh
                 cộng khoảng khuyết, không tụt thấp hơn vòm tay. */}
             <div
-              className="absolute left-[7.5%] top-[var(--copy-top)] md:left-[4%] flex -translate-y-1/2 flex-col gap-stack [--copy-top:calc(0.17*var(--art-w))] md:[--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
+              className="absolute left-[4%] top-[var(--copy-top)] md:left-[4%] flex -translate-y-1/2 flex-col gap-stack [--copy-top:calc(0.17*var(--art-w))] md:[--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
             >
               <h1
                 id="cover-title"
-                className="flex flex-col font-script type-art-name text-tone-title"
+                className="whitespace-pre font-script type-art-invite text-tone-title"
               >
-                <span>{couple.groom}</span>
-                <span className="flex items-center gap-[0.2em]">
-                  <span className="tag-pill -rotate-6 font-script text-[0.65em]">
-                    {cover.and}
-                  </span>
-                  <span>{couple.bride}</span>
-                </span>
-              </h1>
-              <p className="type-art-body whitespace-pre text-tone-fg">
                 {cover.invitation}
-              </p>
+              </h1>
+              {/* Monogram tô màu chữ tiêu đề của tông qua mặt nạ `.logo-mark`. */}
+              <span
+                role="img"
+                aria-label={cover.logoLabel}
+                className="logo-mark ml-[calc(var(--art-w)*0.16)] w-[calc(var(--art-w)*0.11)] [--t-section-fg:var(--t-section-title)]"
+              />
             </div>
 
             {/* "she said YES" xếp hai dòng, cưỡi trên đường viền váy bên phải
