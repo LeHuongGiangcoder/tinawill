@@ -7,13 +7,13 @@ import { hero } from "@/content/client";
 /**
  * Thuyền thả đèn hoa đăng trên mặt nước đỏ rượu.
  *
- * Hero đứng ngay sau Cover. Ảnh (1109×1419, public/hero/home.webp) đặt NGUYÊN
+ * Hero đứng ngay sau Cover. Ảnh (941×1522, public/hero/river-lanterns.webp) đặt NGUYÊN
  * KHUNG, không `object-cover`: chữ xếp theo toạ độ của ảnh, nên ảnh mà bị cắt
  * theo khổ màn thì chữ lệch khỏi chỗ trống nó được dành cho.
  *
  * Hai đoạn chữ canh giữa, mỗi đoạn nằm ở một khoảng nước trống:
  *
- *   1. `lead`     bên trái mui thuyền, ngang với mép trên mui
+ *   1. `lead`     mặt nước trống bên trái, ngang người chèo đò
  *   2. `closing`  bên phải vệt đèn trôi, nửa dưới ảnh
  *
  * Toạ độ là `cqw` (phần trăm bề rộng khung ảnh), và cỡ chữ cũng co theo ảnh
@@ -22,11 +22,11 @@ import { hero } from "@/content/client";
  */
 
 /** Khung gốc của ảnh — tỉ lệ này giữ cho toạ độ cqw luôn khớp. */
-const ART = { w: 1109, h: 1419 };
+const ART = { w: 941, h: 1522 };
 
 /** Chỗ đặt của hai đoạn (cqw đo từ góc trái-trên của ảnh). */
-const LEAD: CSSProperties = { left: "8cqw", top: "16cqw", width: "40cqw" };
-const CLOSING: CSSProperties = { left: "52cqw", top: "78cqw", width: "40cqw" };
+const LEAD: CSSProperties = { left: "8cqw", top: "18cqw", width: "40cqw" };
+const CLOSING: CSSProperties = { left: "52cqw", top: "96cqw", width: "40cqw" };
 
 export function Hero() {
   return (
@@ -40,7 +40,7 @@ export function Hero() {
               hẹp hơn màn): chữ nằm ngoài lớp này nên không bị mờ theo. */}
           <div aria-hidden className="poster-fade pointer-events-none absolute inset-0">
             <Image
-              src="/hero/home.webp"
+              src="/hero/river-lanterns.webp"
               alt=""
               fill
               priority

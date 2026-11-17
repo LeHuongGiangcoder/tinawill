@@ -360,13 +360,13 @@ export const tones = {
   },
   /**
    * Hero: thuyền thả đèn hoa đăng trên mặt nước đỏ rượu
-   * (public/hero/home.webp). `bg` là màu đáy của chính ảnh (#25010b) để
+   * (public/hero/river-lanterns.webp). `bg` là màu đáy của chính ảnh (#1d000a) để
    * phần kéo dài dưới ảnh liền một mạch. Chữ kem trên vùng sáng nhất của ảnh
    * (đỏ #8e0334, mép trên) vẫn được ~9:1. Chữ nhấn là ánh đèn — cam nhạt
    * (goldSoft), cùng màu với ngọn đèn trên mặt nước.
    */
   dusk: {
-    bg: "#25010b",
+    bg: "#1d000a",
     fg: palette.cream,
     title: palette.goldSoft,
     muted: palette.cream,

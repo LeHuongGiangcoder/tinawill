@@ -187,7 +187,7 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Intro là trạng thái đóng của cảnh tán lá trong Cover
      (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
-  /* Hero là một tấm ảnh thuyền thả đèn trên nước đỏ rượu (public/hero/home.webp),
+  /* Hero là một tấm ảnh thuyền thả đèn trên nước đỏ rượu (public/hero/river-lanterns.webp),
      tự đặt trong Hero.tsx chứ không đi qua `background` vì chữ xếp theo toạ độ của
      ảnh. Tông `dusk` lấy màu đáy ảnh để phần kéo dài bên dưới liền một mạch. */
   hero: { anchor: "hero", tone: "dusk" },
