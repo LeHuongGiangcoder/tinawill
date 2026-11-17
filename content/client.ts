@@ -187,7 +187,7 @@ export const design: Record<SectionId, SectionDesign> = {
   /* Intro là trạng thái đóng của cảnh tán lá trong Cover
      (components/ui/TropicalReveal.tsx), nên không có `background` riêng. */
   intro: { anchor: "intro", tone: "clearing" },
-  /* Hero là một tấm ảnh thuyền thả đèn trên nước tím (public/hero/lantern-boat.webp),
+  /* Hero là một tấm ảnh thuyền thả đèn trên nước đỏ rượu (public/hero/home.webp),
      tự đặt trong Hero.tsx chứ không đi qua `background` vì chữ xếp theo toạ độ của
      ảnh. Tông `dusk` lấy màu đáy ảnh để phần kéo dài bên dưới liền một mạch. */
   hero: { anchor: "hero", tone: "dusk" },
@@ -361,18 +361,12 @@ export const cover = {
 
 export const hero = {
   /**
-   * Đoạn mời được cắt thành ba cụm để xếp theo đường đèn trôi trên ảnh
-   * (components/sections/Hero.tsx): `lead` ở trời trống phía trên thuyền,
-   * `leadIn` + `home` + `and` + `peace` cạnh vệt đèn, `closing` dưới mặt nước.
-   * Đọc liền ba cụm là đúng nguyên đoạn cũ.
+   * Hai đoạn đặt lên ảnh (components/sections/Hero.tsx): `lead` ở mặt nước
+   * trống bên trái mui thuyền, `closing` bên phải vệt đèn phía dưới.
    */
-  lead: "Join us for a weekend of love, food and celebration by the river in Hoi An \u2014",
-  leadIn: "at a place whose name means",
-  home: "\u201chome\u201d",
-  and: "and",
-  peace: "\u201cpeace.\u201d",
+  lead: "Join us for a weekend of love, food, and celebration by the river in Hoi An — at a place whose name means “home” and “peace”.",
   closing:
-    "We can\u2019t think of a better way to begin our life together than surrounded by the people we love most.",
+    "We can’t think of a better way to begin our life together than surrounded by the people we love most in this magical place.",
   scrollHint: "Scroll",
 };
 

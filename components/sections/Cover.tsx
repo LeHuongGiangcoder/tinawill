@@ -64,7 +64,7 @@ export function Cover() {
             className="ring-motion mt-auto mb-[min(calc(var(--art-w)*-0.16),calc(100svh-var(--art-w)*1.423-var(--spacing-stack)))] aspect-[941/1339] w-[var(--art-w)] shrink-0 self-start max-md:ml-[calc(var(--art-w)*-0.035)] [--art-w:max(104vw,min(140vw,calc((100svh-1rem)*0.818)))] md:mt-auto md:mb-[calc(var(--art-w)*-0.2)] md:self-center md:[--art-w:min(100vw,58svh)]"
           >
             <Image
-              src="/couple-cover.png"
+              src="/couple-cover-final.png"
               alt={`${couple.groom} và ${couple.bride} hôn nhau qua khung bàn tay đeo nhẫn`}
               width={941}
               height={1339}
@@ -271,23 +271,29 @@ export function Cover() {
 
             {/* Tên và lời mời nằm trọn trong khoảng khuyết bên trái bàn tay
                 (≈ 4%–40% bề ngang, từ mép trên tranh xuống vòm tay ≈ 34%).
-                Chữ co theo `--art-w` nên luôn lọt. Điện thoại: canh giữa
-                khoảng khuyết (17%). `md`: canh giữa dải trống phía trên tranh
+                Chữ co theo `--art-w` nên luôn lọt. Điện thoại: neo đỉnh ở 5%,
+                lời mời hai dòng, cỡ chữ vừa để không chạm ngón trỏ (mép ngón ≈ 45%),
+                monogram nằm ngay dưới lời mời, lệch trái (≈ 12%–23%). `md`: canh giữa dải trống phía trên tranh
                 cộng khoảng khuyết, không tụt thấp hơn vòm tay. */}
             <div
-              className="absolute left-[4%] top-[var(--copy-top)] md:left-[4%] flex -translate-y-1/2 flex-col gap-stack [--copy-top:calc(0.17*var(--art-w))] md:[--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
+              className="absolute left-[7%] top-[var(--copy-top)] md:left-[4%] flex md:-translate-y-1/2 flex-col gap-stack [--copy-top:calc(0.05*var(--art-w))] md:[--copy-top:min(calc((0.34*var(--art-w)_-_(100svh_-_1.223*var(--art-w)))/2),calc(0.185*var(--art-w)))]"
             >
               <h1
                 id="cover-title"
                 className="whitespace-pre font-script type-art-invite text-tone-title"
               >
-                {cover.invitation}
+                {/* Mỗi dòng một khối; từ dòng hai thụt vào như chữ viết tay. */}
+                {cover.invitation.split("\n").map((line, i) => (
+                  <span key={i} className={i > 0 ? "block ps-[1em]" : "block"}>
+                    {line}
+                  </span>
+                ))}
               </h1>
               {/* Monogram tô màu chữ tiêu đề của tông qua mặt nạ `.logo-mark`. */}
               <span
                 role="img"
                 aria-label={cover.logoLabel}
-                className="logo-mark ml-[calc(var(--art-w)*0.16)] w-[calc(var(--art-w)*0.11)] [--t-section-fg:var(--t-section-title)]"
+                className="logo-mark ml-[calc(var(--art-w)*0.16)] max-md:ml-[calc(var(--art-w)*0.12)] w-[calc(var(--art-w)*0.11)] [--t-section-fg:var(--t-section-title)]"
               />
             </div>
 

@@ -424,9 +424,9 @@ html {
   line-height: 1.02;
 }
 
-/* Dòng mời viết tay của trang bìa: nhỏ hơn `type-art-name` vì dài hai dòng. */
+/* Dòng mời viết tay của trang bìa: hai dòng, dòng đầu phải lọt trước ngón trỏ (≈ 45% bề ngang tranh). */
 @utility type-art-invite {
-  font-size: calc(var(--art-w) * 0.047);
+  font-size: calc(var(--art-w) * 0.036);
   line-height: 1.25;
 }
 
