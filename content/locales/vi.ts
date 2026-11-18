@@ -28,7 +28,7 @@ export const vi: Translation = {
   },
 
   cover: {
-    invitation: "Chúng mình hân hoan mời bạn\nđến dự đám cưới!!!",
+    invitation: "Chúng mình mong có bạn\nở đám cưới!!!",
     logoLabel: "Monogram của Will và Tina",
     yes: "cô ấy đã nói “YES”",
   },
