@@ -370,7 +370,14 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
       const { clientWidth: w, clientHeight: h } = stage;
       const cover = Math.max(w / canvas.width, h / canvas.height);
       const scale = Math.min(cover, (PAPER_FILL * h) / paper.box.height);
-      artboard.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+      /* `zoom` chứ không `transform: scale`: artboard rộng 1536px pixel gốc,
+         và Safari vẽ lớp GPU của mỗi sprite theo cỡ TRƯỚC khi scale — ở @3x
+         một lớp phủ cả artboard là 4608×8193 (~144MB), vài lớp như thế là
+         iPhone 13 đóng tab thành trang trắng. Với `zoom`, layout thu nhỏ thật
+         nên lớp được vẽ đúng cỡ trên màn. Toạ độ bên trong vẫn là pixel gốc:
+         `zoom` nhân cả px của transform mà JS đặt cho từng lớp. */
+      artboard.style.zoom = String(scale);
+      artboard.style.transform = "translate(-50%, -50%)";
 
       /* Lớp chữ nằm trong artboard (để chen giữa các lớp tranh) nhưng trả lại
          hệ số phóng, nên chữ vẫn đúng cỡ theme ở mọi màn. */
@@ -378,7 +385,7 @@ export function TropicalOpening({ backdrop }: { backdrop?: ReactNode }) {
       if (coverLayer) {
         coverLayer.style.width = `${canvas.width * scale}px`;
         coverLayer.style.height = `${canvas.height * scale}px`;
-        coverLayer.style.transform = `scale(${1 / scale})`;
+        coverLayer.style.zoom = String(1 / scale);
       }
       const { box } = paper;
       stage.style.setProperty("--cover-x", `${(box.x + box.width / 2) * scale}px`);

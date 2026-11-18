@@ -2280,7 +2280,7 @@ html {
   }
 
   /* Khung chứa lớp chữ khi nó nằm TRONG artboard (để chen giữa các lớp tranh).
-     JS đặt cỡ bằng artboard × hệ số phóng rồi scale ngược lại, nên bên trong
+     JS đặt cỡ bằng artboard × hệ số phóng rồi `zoom` ngược lại, nên bên trong
      là pixel CSS thật — chữ giữ đúng cỡ theme. */
   .scene-cover-layer {
     position: absolute;
