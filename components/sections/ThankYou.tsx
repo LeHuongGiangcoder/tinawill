@@ -4,10 +4,11 @@ import { Divider } from "@/components/ui/Divider";
 import { Eyebrow, Lead, Script, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { couple, thankYou } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /** Màn cuối: lời cảm ơn, ảnh hai người và hashtag. */
-export function ThankYou() {
+export function ThankYou({ lang }: { lang: Lang }) {
+  const { couple, thankYou } = content(lang);
   return (
     <SectionWrapper section="thankYou" width="card" labelledBy="thank-you-title">
       <SectionHead

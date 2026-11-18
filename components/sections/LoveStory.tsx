@@ -1,7 +1,7 @@
 import { Drifter, Hung, Sprig } from "@/components/ui/Float";
 import { Eyebrow, SectionTitle, Subhead } from "@/components/ui/Heading";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { loveStory } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /**
  * "Our story" — một tờ giấy lượn sóng đặt trên nền lá, dưới một dải đèn lồng.
@@ -35,7 +35,8 @@ const PAPER = "/love-story";
  */
 const CURTAIN = 15;
 
-export function LoveStory() {
+export function LoveStory({ lang }: { lang: Lang }) {
+  const { loveStory } = content(lang);
   const { eyebrow, title, subtitle, paragraphs, closing, lanterns, lotuses, vines } = loveStory;
 
   return (

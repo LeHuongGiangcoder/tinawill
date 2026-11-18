@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { venue, venueScene } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /**
  * "Our wedding venue" — bản Canva khách vẽ, dựng lại thành cảnh ghép.
@@ -77,7 +77,8 @@ const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2 + ${TITLE_DROP}
 const TABLE_TOP = `calc(100% - var(--art-h) - ${TABLE_LIFT}cqw)`;
 const COLUMN_TOP = `calc(${cq(1083.1)} + ${TABLE_TOP})`;
 
-export function Venue() {
+export function Venue({ lang }: { lang: Lang }) {
+  const { venue, venueScene } = content(lang);
   return (
     <SectionWrapper section="venue" width="bleed" flush labelledBy="venue-title">
       <div className="stage-9x16 stage-tall stage-snug">

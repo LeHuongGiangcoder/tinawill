@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { ceremony, timeScene } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { googleCalendarUrl } from "@/lib/calendar";
 
 /**
@@ -174,7 +174,8 @@ function frondStyle(frond: (typeof FRONDS)[number]): CSSProperties {
   } as CSSProperties;
 }
 
-export function Time() {
+export function Time({ lang }: { lang: Lang }) {
+  const { ceremony, timeScene } = content(lang);
   return (
     <SectionWrapper section="time" width="bleed" flush labelledBy="time-title">
       <div className="stage-9x16 stage-tall stage-roomy">
@@ -235,7 +236,7 @@ export function Time() {
             <ButtonLink
               data-reveal
               data-reveal-delay="300"
-              href={googleCalendarUrl()}
+              href={googleCalendarUrl(lang)}
               target="_blank"
               rel="noreferrer noopener"
               className="mt-stack text-stage-action"

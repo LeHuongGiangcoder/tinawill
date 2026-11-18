@@ -5,7 +5,7 @@ import { Caption, Heading, Lead, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
-import { visa } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { background as resolveBackground, element as resolveElement } from "@/lib/assets";
 
 /**
@@ -23,7 +23,8 @@ import { background as resolveBackground, element as resolveElement } from "@/li
  * Giống Agenda, bên trong thẻ KHÔNG dùng <Reveal> — xem
  * components/ui/TabSet.tsx.
  */
-export function Visa() {
+export function Visa({ lang }: { lang: Lang }) {
+  const { visa } = content(lang);
   const sheet = resolveBackground("paper-beige");
 
   return (
@@ -149,6 +150,8 @@ export function Visa() {
                         <li key={item} className="text-justify">{item}</li>
                       ))}
                     </ul>
+                    {/* Lời gợi ý chung cho mọi hộ chiếu, sau đường bay riêng. */}
+                    {visa.flightNote ? <p className="text-justify">{visa.flightNote}</p> : null}
                   </div>
                 </div>
               ),

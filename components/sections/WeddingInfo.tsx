@@ -4,7 +4,7 @@ import { Caption, Eyebrow, Heading, Script, SectionHead } from "@/components/ui/
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { ceremony, families, venue, weddingInfo } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { googleCalendarUrl } from "@/lib/calendar";
 
 /**
@@ -13,7 +13,8 @@ import { googleCalendarUrl } from "@/lib/calendar";
  * Trên điện thoại ba khối xếp dọc; từ md trở lên ảnh nằm cạnh khối chữ. Mọi
  * khoảng cách đi qua gap-block / gap-stack nên nhịp giống hệt các section khác.
  */
-export function WeddingInfo() {
+export function WeddingInfo({ lang }: { lang: Lang }) {
+  const { ceremony, families, venue, weddingInfo } = content(lang);
   return (
     <SectionWrapper section="weddingInfo" labelledBy="wedding-info-title">
       <SectionHead
@@ -88,7 +89,7 @@ export function WeddingInfo() {
             </ButtonLink>
             <ButtonLink
               variant="ghost"
-              href={googleCalendarUrl()}
+              href={googleCalendarUrl(lang)}
               target="_blank"
               rel="noreferrer noopener"
             >

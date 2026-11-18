@@ -334,6 +334,34 @@ export const venue = {
   note: "A place whose name means home and peace.",
 };
 
+/* -------------------------------------------------------------- NGÔN NGỮ */
+
+/**
+ * Ba bản ngôn ngữ của site. Tiếng Anh là bản gốc (chính file này); bản dịch
+ * nằm ở content/locales/<id>.ts và chỉ cần khai những chữ khác bản gốc.
+ *
+ * Mỗi bản một đường dẫn tĩnh: `path` "/" là trang chủ, "/vi", "/de" là trang
+ * dịch (app/[lang]/page.tsx). Popup chọn tiếng hiện đè lên màn mở thiệp ở lần
+ * đầu khách vào — xem components/experience/LanguagePicker.tsx.
+ */
+export const languages = {
+  /** Thứ tự nút trong popup. */
+  list: [
+    { id: "en", label: "English", path: "/" },
+    { id: "vi", label: "Tiếng Việt", path: "/vi" },
+    { id: "de", label: "Deutsch", path: "/de" },
+  ],
+  /**
+   * Popup hiện khi khách chưa chọn tiếng nào, nên lời mời chọn viết đủ ba thứ
+   * tiếng một lượt — mỗi phần tử một dòng.
+   */
+  prompt: ["Choose your language", "Chọn ngôn ngữ", "Sprache wählen"],
+  /** Nhãn cho trình đọc màn hình. */
+  label: "Choose your language",
+} as const;
+
+export type Lang = (typeof languages.list)[number]["id"];
+
 /* ------------------------------------------------------------------ INTRO */
 
 export const intro = {
@@ -478,6 +506,11 @@ export const timeScene = {
   calendarLabel: "Add calendar",
   /** Nhãn cho trình đọc màn hình: tranh là trang trí, aria-hidden hết. */
   sceneLabel: "Two cats napping on sun loungers in a tropical garden",
+};
+
+/** Sự kiện "Add calendar" mở ra trong Google Calendar — xem lib/calendar.ts. */
+export const calendar = {
+  title: "Will & Tina’s Wedding",
 };
 
 /* ------------------------------------------------------------------ VENUE */
@@ -635,6 +668,9 @@ export const visa = {
   regionsLabel: "Choose your passport",
   visaHeading: "Your visa",
   flightHeading: "Flying in",
+  /** Đoạn chung cho mọi hộ chiếu, in sau đường bay riêng của nhóm. */
+  flightNote:
+    "Since it’s an international trip, we recommend planning a bigger trip around it to see more of Vietnam. If that is the case, you can fly into Ho Chi Minh City or Hanoi, then make your way to Hoi An (Da Nang) from there.",
 
   routes: flightRoutes,
 
@@ -796,6 +832,8 @@ export const travel = {
  * từ bản khách gửi bằng `node scripts/agenda-assets.mjs`. Gõ sai tên là build
  * đỏ chứ không âm thầm mất ảnh.
  */
+/* Welcome Dinner chỉ mời một nhóm khách nên không nằm trên site — tem
+   "cocktail" vẫn còn trong public/agenda nếu sau này cần. */
 export type AgendaStamp = "cocktail" | "sun" | "monstera";
 
 export const agenda = {
@@ -808,23 +846,6 @@ export const agenda = {
   /** Nhãn hàng nút chọn ngày, chỉ trình đọc màn hình nghe thấy. */
   daysLabel: "Choose a day",
   days: [
-    {
-      date: "March 26",
-      stamp: "cocktail",
-      title: "Welcome Evening",
-      items: [
-        {
-          time: "Daytime",
-          title: "Arrive & settle in",
-          note: "Explore Hoi An at your own pace",
-        },
-        {
-          time: "18:30",
-          title: "Welcome Dinner",
-          note: "A relaxed evening of drinks, Vietnamese food and catching up before the big day",
-        },
-      ],
-    },
     {
       date: "March 27",
       stamp: "sun",
@@ -919,7 +940,7 @@ export const dresscode = {
       body: "An áo dài in olive, orange or wine red would be stunning. Hoi An is famous for its tailors — ask us for recommendations.",
     },
     {
-      label: "Welcome Dinner & Farewell Brunch",
+      label: "Farewell Brunch",
       body: "Smart casual, palette optional.",
     },
     {
@@ -950,7 +971,7 @@ export const rsvp = {
   title: "Will you join us?",
   subtitle: "",
   note: "Please let us know so we can plan rooms, transport and catering.",
-  deadline: "Kindly reply by November 30, 2026",
+  deadline: "Kindly RSVP by December 6, 2026",
 
   fields: {
     name: { label: "Full name", placeholder: "Your full name" },
@@ -963,7 +984,7 @@ export const rsvp = {
     },
     roomSharing: {
       label: "Do you have any room-sharing preferences?",
-      hint: "We wanted our wedding to be as intimate as possible, so unfortunately we cannot accommodate plus-ones.",
+      hint: "We wanted our wedding to be as intimate as possible, so unfortunately we cannot accommodate plus-ones. We will organize your accommodation in double and twin rooms, so let us know if you have any preferences on who to share a room with.",
       placeholder: "Who you'd like to share with",
     },
     extendStay: {
@@ -972,7 +993,7 @@ export const rsvp = {
     },
     dietary: {
       label: "Food allergies or dietary needs?",
-      none: "No allergies",
+      none: "No special needs",
       yes: "Yes, please specify",
       placeholder: "Tell us what to avoid",
     },
@@ -980,6 +1001,7 @@ export const rsvp = {
 
   submit: "Send RSVP",
   sending: "Sending…",
+  changeAnswer: "Change my answer",
   successTitle: "Thank you!",
   successNote: "We've got your answer — see you in Hoi An.",
   errorNote: "That didn't go through. Please try once more.",
@@ -1012,7 +1034,7 @@ export const gifts = {
   options: [
     {
       title: "Honeymoon fund",
-      body: "A contribution towards our honeymoon would help us create memories we'll treasure for the rest of our lives.",
+      body: "A contribution towards our honeymoon would help us create memories we'll treasure for the rest of our lives. If you want to contribute, there will be a PayPal or QR code at the reception table. If you bring cash, there will also be a box to put your envelope in.",
       /** TODO: thay bằng chi tiết chuyển khoản / PayPal / Wise khi khách gửi. */
       note: "",
       actions: [] as { label: string; href: string }[],

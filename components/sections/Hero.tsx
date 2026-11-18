@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { hero } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /**
  * Thuyền thả đèn hoa đăng trên mặt nước đỏ rượu.
@@ -28,7 +28,8 @@ const ART = { w: 941, h: 1522 };
 const LEAD: CSSProperties = { left: "8cqw", top: "18cqw", width: "40cqw" };
 const CLOSING: CSSProperties = { left: "52cqw", top: "96cqw", width: "40cqw" };
 
-export function Hero() {
+export function Hero({ lang }: { lang: Lang }) {
+  const { hero } = content(lang);
   return (
     <SectionWrapper section="hero" flush width="bleed" labelledBy="hero-title">
       <div className="mx-auto w-full max-w-[34rem]">

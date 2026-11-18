@@ -95,6 +95,7 @@
   --radius-paper: var(--t-radius-paper);
   --radius-card: var(--t-radius-card);
   --radius-btn: var(--t-radius-btn);
+  --radius-device: var(--t-radius-device);
   --shadow-paper: var(--t-shadow-paper);
   --shadow-lift: var(--t-shadow-lift);
   --ease-glow: var(--t-ease);
@@ -312,6 +313,18 @@ body[data-locked="true"] {
   overscroll-behavior: none;
 }
 
+/*
+  Desktop: script trong <head> (app/layout.tsx) đặt data-device="frame" trước
+  khi vẽ, nên bản site to không kịp loé lên trước khi khung điện thoại thay chỗ.
+*/
+html[data-device="frame"] body > :not(.device-stage) {
+  display: none;
+}
+html[data-device="frame"],
+html[data-device="frame"] body {
+  overflow: hidden;
+}
+
 /* ------------------------------------------------------------------ CHỮ
 
    Ba luật cho hai bộ chữ khách gửi (IM Fell English, Leckerli One). Cả hai
@@ -453,6 +466,23 @@ html {
     font-weight: var(--t-weight-display);
     text-wrap: balance;
   }
+  /*
+    Chữ tiếng Việt: đổi cả ba stack sang bộ có dấu (`fontsVi` trong
+    content/theme.ts). Chỉ đổi biến, không đặt font-family lên từng phần tử —
+    mọi bậc chữ đọc biến ngay tại chỗ nên tự theo, còn chữ thừa kế bên trong
+    một tiêu đề viết tay vẫn giữ nét viết tay của cha nó.
+
+    `[data-lang]` là vỏ của cả trang (app/page.tsx): chữ trần thừa kế font từ
+    <body>, mà <body> đã tính font theo biến của :root từ trước.
+  */
+  :lang(vi) {
+    --t-font-display: var(--t-font-display-vi);
+    --t-font-body: var(--t-font-body-vi);
+    --t-font-script: var(--t-font-script-vi);
+  }
+  [data-lang] {
+    font-family: var(--t-font-body);
+  }
 }
 
 /*
@@ -490,6 +520,29 @@ html {
 /* ---------------------------------------------------- COMPONENTS */
 
 @layer components {
+  /*
+    Khung điện thoại trên desktop — xem components/experience/DeviceFrame.tsx.
+    Site chạy trong iframe 430px nên mọi `vw`, `svh`, `md:` bên trong tính
+    theo bề ngang điện thoại, không phải màn hình lớn.
+  */
+  .device-stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--t-space-stack);
+    background-color: var(--t-color-cream-deep);
+  }
+  .device-screen {
+    width: var(--t-size-device);
+    height: min(var(--t-size-device-height), 100%);
+    border: 0;
+    border-radius: var(--radius-device);
+    background-color: var(--t-color-cream);
+    box-shadow: var(--t-shadow-lift);
+  }
+
   /*
     Ảnh dạng tấm áp phích đứng trong một cột hẹp: mép dưới luôn tan vào nền
     section; hai bên chỉ tan khi màn rộng hơn cột (34rem) — trên điện thoại ảnh

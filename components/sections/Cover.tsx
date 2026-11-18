@@ -2,7 +2,8 @@ import Image from "next/image";
 
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TropicalOpening } from "@/components/ui/TropicalOpening";
-import { couple, cover, design, hero } from "@/content/client";
+import { design } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { background } from "@/lib/assets";
 
 /**
@@ -18,7 +19,8 @@ import { background } from "@/lib/assets";
  * này. Vì vậy cặp đôi và tên gắn `data-hero` — chúng chờ cú mở thiệp chứ
  * không chờ cuộn. Nền giấy lấy từ `design.cover` (tông `olive` + paper-olive).
  */
-export function Cover() {
+export function Cover({ lang }: { lang: Lang }) {
+  const { couple, cover, hero } = content(lang);
   const paper = background(design.cover.background);
 
   return (

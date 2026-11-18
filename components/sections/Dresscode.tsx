@@ -3,7 +3,7 @@ import { DressDance } from "@/components/ui/DressDance";
 import { SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { dresscode } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /**
  * Trang phục: câu dẫn, bảng màu, rồi gợi ý cho từng nhóm khách.
@@ -24,7 +24,8 @@ import { dresscode } from "@/content/client";
  * chữ mới tới phần tiếp theo. Khối đầu mở sẵn để thấy ngay đây là thứ bấm
  * vào được.
  */
-export function Dresscode() {
+export function Dresscode({ lang }: { lang: Lang }) {
+  const { dresscode } = content(lang);
   return (
     <SectionWrapper section="dresscode" width="bleed" labelledBy="dresscode-title">
       <div className="container-card">

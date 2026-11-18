@@ -10,7 +10,8 @@ import { Heading, Script, SectionHead } from "@/components/ui/Heading";
 import { Choice, Field, FieldLabel } from "@/components/ui/Field";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { rsvp } from "@/content/client";
+import { rsvp as base } from "@/content/client";
+import type { Content } from "@/lib/content";
 import { background as resolveBackground } from "@/lib/assets";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -31,14 +32,14 @@ type Status = "idle" | "sending" | "sent" | "error";
  * Khách bấm "Regretfully declines" thì mấy câu hỏi phòng ốc, ngày ở thêm và ăn
  * uống tự ẩn — hỏi tiếp người không đến là vô nghĩa.
  */
-export function Rsvp() {
+export function Rsvp({ rsvp }: { rsvp: Content["rsvp"] }) {
   const sheet = resolveBackground("paper-beige");
   const { guest } = useGuest();
   const [status, setStatus] = useState<Status>("idle");
   const [attending, setAttending] = useState<"yes" | "no">("yes");
   const [hasDietary, setHasDietary] = useState(false);
 
-  const personalized = rsvp.mode === "personalized";
+  const personalized = base.mode === "personalized";
   const fields = rsvp.fields;
   const going = attending === "yes";
 
@@ -54,10 +55,12 @@ export function Rsvp() {
       attending,
       roomSharing: going ? String(data.get("roomSharing") ?? "").trim() : "",
       extendStay: going ? String(data.get("extendStay") ?? "").trim() : "",
+      // Ghi nhãn tiếng Anh vào Sheet dù khách xem bản nào, để cột này chỉ
+      // có hai giá trị chứ không lẫn ba thứ tiếng.
       dietary: going
         ? hasDietary
-          ? fields.dietary.yes
-          : fields.dietary.none
+          ? base.fields.dietary.yes
+          : base.fields.dietary.none
         : "",
       dietaryDetails:
         going && hasDietary
@@ -75,7 +78,7 @@ export function Rsvp() {
 
     setStatus("sending");
 
-    if (!rsvp.endpoint || !rsvp.client) {
+    if (!base.endpoint || !base.client) {
       // Chưa chạy skill glow-rsvp. Vẫn cho khách thấy màn cảm ơn khi dựng thử.
       console.info("[rsvp] chưa nối hub, dữ liệu sẽ gửi:", values);
       setStatus("sent");
@@ -83,10 +86,10 @@ export function Rsvp() {
     }
 
     try {
-      const res = await fetch(rsvp.endpoint, {
+      const res = await fetch(base.endpoint, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ client: rsvp.client, ...values }),
+        body: JSON.stringify({ client: base.client, ...values }),
       });
       const payload = (await res.json()) as { ok?: boolean };
       setStatus(payload?.ok ? "sent" : "error");
@@ -142,7 +145,7 @@ export function Rsvp() {
               <Heading level="h3">{rsvp.successTitle}</Heading>
               <Script>{rsvp.successNote}</Script>
               <Button variant="ghost" onClick={() => setStatus("idle")}>
-                Change my answer
+                {rsvp.changeAnswer}
               </Button>
             </div>
           ) : (

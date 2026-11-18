@@ -7,7 +7,7 @@ import { Highlighted } from "@/components/ui/Highlight";
 import { Caption, SectionHead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { gifts } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { element } from "@/lib/assets";
 
 /**
@@ -78,7 +78,8 @@ function pieceVars(piece: FallingPiece): CSSProperties {
  * Thẻ nào chưa có link (ví dụ chưa có thông tin chuyển khoản) thì phần nút tự
  * ẩn — thêm link vào `actions` trong content/client.ts là nút hiện ra.
  */
-export function Gifts() {
+export function Gifts({ lang }: { lang: Lang }) {
+  const { gifts } = content(lang);
   const jar = element(gifts.jar);
 
   return (

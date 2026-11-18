@@ -6,7 +6,7 @@ import { Highlighted } from "@/components/ui/Highlight";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
-import { travel } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 
 /**
  * Hướng dẫn tại chỗ: ở đâu, thời tiết thế nào, quanh đó có gì.
@@ -122,7 +122,8 @@ function WindowFrame() {
   );
 }
 
-export function Travel() {
+export function Travel({ lang }: { lang: Lang }) {
+  const { travel } = content(lang);
   return (
     <SectionWrapper section="travel" width="bleed" labelledBy="travel-title" className="pb-0">
       <div className="container-prose">

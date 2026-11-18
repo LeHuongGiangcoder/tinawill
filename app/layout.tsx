@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Pacifico } from "next/font/google";
 import localFont from "next/font/local";
 
+import { DeviceFrame, deviceFrameScript } from "@/components/experience/DeviceFrame";
 import { meta } from "@/content/client";
 import { palette, themeCssVars } from "@/content/theme";
 import "./globals.css";
@@ -37,8 +38,9 @@ const script = localFont({
   chúng trong stack ở content/theme.ts: trình duyệt chỉ dùng tới ở đúng ký tự
   còn thiếu. Khách không tải thêm byte nào nếu trang toàn chữ tiếng Anh.
 
-  Site chỉ có ba họ chữ: Leckerli One (tiêu đề), IM Fell English (chữ chạy +
-  nghiêng) và Cormorant (chỉ dấu tiếng Việt). Đừng thêm họ thứ tư.
+  Site có ba họ chữ: Leckerli One (tiêu đề), IM Fell English (chữ chạy +
+  nghiêng) và Cormorant (dấu tiếng Việt). Họ thứ tư, Pacifico, chỉ dành cho
+  trang /vi và không tải ở hai trang kia. Đừng thêm họ nào nữa.
 */
 const displayVn = Cormorant_Garamond({
   variable: "--ff-display-vn",
@@ -46,6 +48,19 @@ const displayVn = Cormorant_Garamond({
   weight: ["400"],
   style: ["normal", "italic"],
   display: "swap",
+});
+
+/*
+  Chữ viết tay của trang tiếng Việt (/vi) — Leckerli One không có dấu. Họ chữ
+  này chỉ dùng ở đó, nên `preload: false`: trang tiếng Anh và tiếng Đức không
+  tải nó, trình duyệt chỉ kéo về khi gặp chữ thật sự cần.
+*/
+const scriptVn = Pacifico({
+  variable: "--ff-script-vn",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -73,18 +88,23 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
+      suppressHydrationWarning
       lang={meta.lang}
-      className={`${display.variable} ${script.variable} ${displayVn.variable}`}
+      className={`${display.variable} ${script.variable} ${displayVn.variable} ${scriptVn.variable}`}
     >
       <head>
         {/* Token của content/theme.ts, in ra dưới dạng CSS variable */}
         <style>{themeCssVars()}</style>
+        {/* Desktop: đánh dấu trước khi vẽ để khung điện thoại không bị loé */}
+        <script dangerouslySetInnerHTML={{ __html: deviceFrameScript }} />
         {/* JS tắt thì không ai làm chúng hiện — trả lại opacity ngay */}
         <noscript>
           <style>{`[data-reveal]{opacity:1 !important}`}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        <DeviceFrame>{children}</DeviceFrame>
+      </body>
     </html>
   );
 }

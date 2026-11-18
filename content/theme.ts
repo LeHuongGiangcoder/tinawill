@@ -442,6 +442,20 @@ export const fonts = {
 } as const;
 
 /**
+ * Stack chữ cho trang tiếng Việt (/vi). Ở đó gần như chữ nào cũng có dấu, nên
+ * để trình duyệt vá từng ký tự như stack trên thì một từ lẫn hai bộ chữ. Trang
+ * tiếng Việt đổi hẳn: Cormorant cho chữ chạy và tiêu đề, Pacifico cho chữ viết
+ * tay (gần nét Leckerli One nhất trong các font viết tay có subset vietnamese).
+ *
+ * Áp vào mọi phần tử `:lang(vi)` — xem `@layer base` trong app/globals.css.
+ */
+export const fontsVi = {
+  display: 'var(--ff-display-vn), Georgia, "Times New Roman", serif',
+  body: 'var(--ff-display-vn), Georgia, "Times New Roman", serif',
+  script: 'var(--ff-script-vn), var(--ff-display-vn), cursive',
+} as const;
+
+/**
  * Thang chữ. Không được dùng size nào ngoài danh sách này.
  *
  * Nhịp dòng của bốn bậc tiêu đề đo theo hộp dòng của font tiêu đề. IM Fell
@@ -548,12 +562,17 @@ export const sizes = {
   btn: "14rem",
   containerSite: "72rem",
   containerProse: "40rem",
+  /** Khung điện thoại khi xem trên desktop (iPhone Pro Max: 430 × 932) */
+  device: "26.875rem",
+  deviceHeight: "58.25rem",
 } as const;
 
 export const radius = {
   paper: "2px",
   card: "8px",
   btn: "999px",
+  /** Bo góc khung điện thoại trên desktop */
+  device: "2.75rem",
 } as const;
 
 export const shadow = {
@@ -593,6 +612,9 @@ export function themeCssVars(): string {
   push("font-display", fonts.display);
   push("font-body", fonts.body);
   push("font-script", fonts.script);
+  push("font-display-vi", fontsVi.display);
+  push("font-body-vi", fontsVi.body);
+  push("font-script-vi", fontsVi.script);
 
   for (const [key, step] of Object.entries(typeScale)) {
     push(`text-${kebab(key)}`, step.size);

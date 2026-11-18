@@ -6,7 +6,7 @@ import { Caption, SectionHead } from "@/components/ui/Heading";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { gallery } from "@/content/client";
+import type { Content } from "@/lib/content";
 
 /** Cuộn quá bấy nhiêu px thì coi như khách đã hiểu là kéo ngang được. */
 const SEEN = 24;
@@ -20,7 +20,8 @@ const NUDGE = 56;
  * "kéo ngang được" bằng chuyển động nhanh hơn mọi dòng chữ. Ai tắt hiệu ứng
  * thì bỏ qua cú đẩy này, chỉ còn dòng gợi ý.
  */
-export function Gallery() {
+/** Component client: nhận chữ đã dịch từ server thay vì tự nạp cả ba bản dịch. */
+export function Gallery({ gallery }: { gallery: Content["gallery"] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [moved, setMoved] = useState(false);
 

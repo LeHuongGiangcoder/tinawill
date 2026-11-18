@@ -5,7 +5,8 @@ import { Heading, SectionHead, Subhead } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { TabSet } from "@/components/ui/TabSet";
-import { agenda, type AgendaStamp } from "@/content/client";
+import { type AgendaStamp } from "@/content/client";
+import { content, type Lang } from "@/lib/content";
 import { element } from "@/lib/assets";
 
 /**
@@ -36,7 +37,8 @@ const STAMPS: Record<AgendaStamp, { frame: string; icon: string }> = {
   monstera: { frame: "/agenda/monstera-frame.webp", icon: "/agenda/monstera-icon.webp" },
 };
 
-export function Agenda() {
+export function Agenda({ lang }: { lang: Lang }) {
+  const { agenda } = content(lang);
   const dancers = element("dancers");
 
   return (

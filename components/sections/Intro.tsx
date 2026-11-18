@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import { useExperience } from "@/components/experience/ExperienceProvider";
 import { Button } from "@/components/ui/Button";
-import { design, intro } from "@/content/client";
+import { useLang } from "@/components/experience/LangProvider";
+import { design } from "@/content/client";
 
 /**
  * Màn mở thiệp: chữ và nút nằm trên tờ giấy của <TropicalReveal>.
@@ -22,6 +23,7 @@ const FADE_MS = 650;
 
 export function Intro({ ready }: { ready: boolean }) {
   const { opened, open } = useExperience();
+  const { intro } = useLang();
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
