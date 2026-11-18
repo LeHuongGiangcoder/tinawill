@@ -82,6 +82,7 @@ export function Agenda({ lang }: { lang: Lang }) {
                       alt=""
                       fill
                       sizes="(max-width: 40rem) 30vw, 11rem"
+                      loading="eager"
                       className={`object-contain ${edge.pos}`}
                     />
                     {/* Icon cùng khổ với khung nên chồng lên là khớp; chỉ
@@ -91,6 +92,7 @@ export function Agenda({ lang }: { lang: Lang }) {
                       alt=""
                       fill
                       sizes="(max-width: 40rem) 30vw, 11rem"
+                      loading="eager"
                       className={`tab-wiggle object-contain ${edge.pos}`}
                     />
                   </span>
@@ -151,6 +153,7 @@ export function Agenda({ lang }: { lang: Lang }) {
             width={dancers.width ?? 1672}
             height={dancers.height ?? 589}
             sizes="(max-width: 40rem) 100vw, 40rem"
+            loading="eager"
             className="h-auto w-full"
           />
         </Reveal>

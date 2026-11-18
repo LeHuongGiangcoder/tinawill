@@ -121,7 +121,7 @@ export function DressDance({ swatches }: { swatches: DanceSwatch[] }) {
           src={DANCE_POSTER}
           alt="Tina and Will dancing, their outfits changing through the dresscode colours"
           decoding="async"
-          loading="lazy"
+          loading="eager"
           className="dance-stage__poster"
         />
         <canvas ref={canvasRef} aria-hidden className="dance-stage__canvas" />

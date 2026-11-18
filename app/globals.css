@@ -906,12 +906,13 @@ html {
   }
 
   /*
-    Phần tử chờ GSAP làm hiện (components/ui/Motion.tsx).
-
-    Ẩn sẵn bằng CSS để không nháy một nhịp trước khi GSAP kịp chạy. JS tắt thì
-    thẻ <noscript> trong layout.tsx trả lại opacity, nên khách vẫn đọc đủ thiệp.
+    Chỉ chữ trang bìa (`data-hero`) ẩn sẵn: nó chờ cú chạm mở thiệp
+    (components/ui/Motion.tsx), vì lúc chưa mở nó nằm đè chỗ chữ của màn mở
+    thiệp. Các khối `data-reveal` khác hiện ngay — chờ cuộn tới mới mờ dần lên
+    thì trên điện thoại chữ Agenda, Dresscode… hiện chậm như trang tải lỗi.
+    JS tắt thì thẻ <noscript> trong layout.tsx trả lại opacity.
   */
-  [data-reveal] {
+  [data-reveal][data-hero] {
     opacity: 0;
   }
 

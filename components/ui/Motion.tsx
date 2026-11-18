@@ -23,7 +23,8 @@ export const OPEN_EVENT = "glow:open";
 /**
  * Toàn bộ chuyển động của trang, gom vào một chỗ:
  *
- *   [data-reveal]        hiện dần khi cuộn tới (một batch cho cả trang)
+ *   [data-reveal]        hiện sẵn, không chờ cuộn (xem globals.css); chỉ đi kèm
+ *                        [data-hero] mới chờ cú mở thiệp
  *   [data-parallax="N"]  trôi chậm hơn trang N% khi cuộn
  *   [data-hero]          hiện khi thiệp được mở, không chờ cuộn
  *   [data-clink]         hai cánh tay trang Venue vươn vào cụng ly rồi thu về
@@ -49,28 +50,6 @@ export function Motion() {
     }
 
     const ctx = gsap.context(() => {
-      ScrollTrigger.batch("[data-reveal]:not([data-hero])", {
-        start: "top 88%",
-        once: true,
-        onEnter: (batch) => {
-          for (const node of batch as HTMLElement[]) {
-            const delay = Number(node.dataset.revealDelay ?? 0) / 1000;
-            gsap.fromTo(
-              node,
-              { opacity: 0, y: motion.revealDistance },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out",
-                delay,
-                overwrite: "auto",
-              },
-            );
-          }
-        },
-      });
-
       const arms = {
         left: document.querySelector<HTMLElement>('[data-clink="left"]'),
         right: document.querySelector<HTMLElement>('[data-clink="right"]'),
