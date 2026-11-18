@@ -41,21 +41,21 @@ export const vi: Translation = {
   },
 
   loveStory: {
-    eyebrow: "Mọi chuyện bắt đầu thế nào",
+    eyebrow: "Sự khởi đầu",
     title: "Chuyện của tụi mình",
     paragraphs: [
-      "Lần đầu tiên tụi mình nói chuyện là ở một sự kiện networking. Sự kiện kết thúc và mọi người đều ra về rồi nhưng câu chuyện của tụi mình vẫn chưa xong. Thế là cả hai kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và nói tiếp tới 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Rồi tụi mình mới phát hiện ra hai đứa sống chung một toà nhà. Đêm đó, tụi mình đi chung một chuyến Grab về nhà.",
-      "Rồi tuần sau đó là liên tiếp những chuỗi tình cờ như được sắp đặt. Ngày nào tụi mình cũng chạm mặt nhau — ở phòng gym, ở quán cà phê, mỗi ngày một giờ khác nhau, chẳng hề hẹn trước. Tới ngày thứ bảy, khó mà gọi đó là trùng hợp được nữa.",
-      "Và phần còn lại, như người ta vẫn nói, đã thành lịch sử.",
-      "Không phải lúc nào cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hoá Đức — thẳng thắn, ngăn nắp, và có vẻ là hơi khô khan:). Còn Tina mang văn hoá Mỹ — cởi mở, ngẫu hứng, lúc nào cũng muốn làm thêm điều gì đó. Tụi mình đã có không ít lần “va chạm văn hoá” (và vài cuộc nói chuyện rất, rất dài về chủ đề này). Nhưng mỗi khác biệt vượt qua được lại dạy tụi mình thêm một điều mới về nhau, và kéo hai đứa lại gần nhau hơn.",
+      "Lần đầu tiên chúng mình nói chuyện với nhau là ở một sự kiện. Sự kiện kết thúc, mọi người ra về hết, vậy mà câu chuyện của hai đứa vẫn chưa xong. Thế là chúng mình kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và ngồi nói chuyện tới tận 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Đến lúc đó cả hai mới ngã ngửa: hóa ra chúng mình ở cùng một tòa nhà. Đêm đó, hai đứa đi chung một chuyến Grab về nhà.",
+      "Rồi vũ trụ bắt đầu “nhúng tay”. Suốt một tuần sau đó, ngày nào chúng mình cũng tình cờ chạm mặt nhau, lúc ở phòng gym, lúc ở quán cà phê, mỗi ngày một giờ khác nhau mà chẳng hề hẹn trước. Đến ngày thứ bảy thì khó mà gọi đó là trùng hợp được nữa.",
+      "Và phần còn lại, như người ta vẫn nói, đã là lịch sử.",
+      "Không phải lúc nào mọi chuyện cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hóa Đức: thẳng thắn, ngăn nắp và (nghe đồn là) hơi khô khan. Còn Tina thì mang màu sắc văn hóa Mỹ: cởi mở, ngẫu hứng, lúc nào cũng sẵn sàng “chơi thêm chút nữa”. Chúng mình đã có không ít lần va chạm văn hóa (và vài cuộc nói chuyện rất, rất dài về chuyện đó). Nhưng mỗi khác biệt cùng nhau vượt qua lại giúp chúng mình hiểu thêm về nhau và gần nhau hơn.",
     ],
     closing:
-      "Hai con người, hai nền văn hoá, hai cách nhìn thế giới — và giờ đây, cùng xây dựng một ngôi nhà chung.",
+      "Hai con người, hai nền văn hóa, hai cách nhìn thế giới, và giờ đây là một cuộc đời chung.",
   },
 
   timeScene: {
     intro:
-      "Cùng chúng mình tận hưởng một cuối tuần của tình yêu, món ngon và tiệc vui bên dòng sông Hội An, ở một nơi mà cái tên mang nghĩa “nhà” và “an”. Chúng mình không nghĩ ra cách nào đẹp hơn để bắt đầu hành trình mới, hơn là được ở giữa những người mình thương nhất.",
+      "Hãy đến chung vui cùng chúng mình vào một cuối tuần ngập tràn yêu thương, món ngon và tiếng cười bên dòng sông Hội An, tại một nơi có cái tên mang nghĩa “nhà” và “bình yên”. Với chúng mình, không có cách nào đẹp hơn để bắt đầu hành trình chung ngoài việc được ở bên những người mình thương nhất.",
     calendarLabel: "Thêm vào lịch",
     sceneLabel: "Hai chú mèo ngủ trưa trên ghế tắm nắng giữa khu vườn nhiệt đới",
   },
@@ -209,7 +209,7 @@ export const vi: Translation = {
       },
       {
         date: "28 tháng 3",
-        title: "Farewell Brunch",
+        title: "Brunch chia tay",
         items: [
           { title: "Bữa brunch chia tay", note: "Một lời tạm biệt chậm rãi, đầy nắng (và để hồi sức)" },
           { title: "Trả phòng" },
@@ -221,7 +221,7 @@ export const vi: Translation = {
   dresscode: {
     eyebrow: "Mặc gì đây",
     subtitle: "Jungle Glam 🌿",
-    note: "Tiệc cưới diễn ra giữa rặng dừa và cây xanh bên sông — nên chúng mình mang cả khu rừng lên sàn nhảy. Hãy nghĩ tới sự tươi mới, rực rỡ và ấm áp, nhưng vẫn thanh lịch. Phối các màu với nhau, chọn tông xuyệt tông, hoặc dồn hết vào một màu đều được. Hoạ tiết nhiệt đới, hình lá cây và chất liệu mang màu đất đều rất được chào đón.",
+    note: "Tiệc cưới của chúng mình diễn ra giữa rặng dừa và cây xanh ven sông, nên chúng mình muốn mang cả khu rừng lên sàn nhảy. Hãy nghĩ đến phong cách rực rỡ, phóng khoáng, ấm áp nhưng vẫn thanh lịch. Phối các màu với nhau, chọn tông xuyệt tông, hoặc dồn hết vào một màu đều được. Hoạ tiết nhiệt đới, hình lá cây và chất liệu mang màu đất đều rất được chào đón.",
     swatches: [
       { name: "Đỏ ruby" },
       { name: "Đỏ son" },
@@ -307,19 +307,20 @@ export const vi: Translation = {
     jarPrompt: { open: "Chạm để đóng" },
     highlight: ["chạm vào chiếc bình"],
     intro:
-      "Việc bạn vượt cả chặng đường xa để chung vui với chúng mình đã là món quà lớn nhất — đừng nghĩ mình cần mang thêm gì nữa nhé. Nếu bạn vẫn muốn gửi chút gì đó, hãy chạm vào chiếc bình để xem các lựa chọn — tuỳ bạn thấy thế nào là hợp nhất.",
+      "Việc bạn vượt cả chặng đường xa để đến chung vui đã là món quà lớn nhất với chúng mình rồi, bạn đừng bận tâm phải mang thêm gì nhé. Nếu bạn vẫn muốn gửi chút gì đó, hãy chạm vào chiếc bình để xem vài gợi ý - tuỳ xem thế nào thoải mái nhất cho bạn.",
     options: [
       {
         title: "Quỹ trăng mật",
-        body: "Một chút góp vào chuyến trăng mật sẽ giúp chúng mình có thêm những kỷ niệm để trân trọng suốt đời. Nếu bạn muốn góp, sẽ có PayPal hoặc mã QR ở bàn đón khách. Nếu bạn mang tiền mặt, cũng sẽ có một chiếc hộp để bạn bỏ phong bì vào.",
+        body: "Một chút đóng góp vào chuyến trăng mật sẽ giúp chúng mình có thêm những kỷ niệm để trân trọng suốt đời. Nếu bạn muốn đóng góp, sẽ có thông tin PayPal hoặc mã QR ở bàn đón khách. Nếu bạn mang tiền mặt, cũng sẽ có một chiếc hộp để bạn bỏ phong bì vào.",
       },
       {
-        title: "Một món quà cưới",
-        body: "Nếu bạn muốn tặng quà, sẽ có bàn nhận quà tại tiệc. Vì nhiều bạn phải bay xa, quà nhỏ và nhẹ là tuyệt nhất — không cần nhét gì to vào vali đâu! Bạn cũng có thể gửi quà cho chúng mình sau đám cưới; chỉ cần nhắn WhatsApp để lấy địa chỉ nhé.",
+        title: "Quà cưới",
+        body: "Nếu bạn muốn tặng quà, sẽ có bàn nhận quà tại tiệc. Vì nhiều người bay từ xa đến, quà nhỏ gọn là tuyệt nhất, không cần nhét gì cồng kềnh vào vali đâu! Bạn cũng có thể gửi quà sau đám cưới, chỉ cần nhắn WhatsApp để chúng mình gửi địa chỉ nhé.",
       },
       {
-        title: "Một lời chúc",
-        body: "Thật lòng mà nói, một tấm thiệp viết tay với lời chúc của bạn cũng ý nghĩa với chúng mình lắm rồiiii.",
+        title: "Một tấm thiệp",
+        body: "Thật lòng mà nói, một tấm thiệp viết tay kèm lời chúc của bạn cũng ý nghĩa với chúng mình không kém.",
+        note: "Cảm ơn bạn từ tận đáy lòng. 💛",
       },
     ],
   },
