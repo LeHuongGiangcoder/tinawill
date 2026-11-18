@@ -314,6 +314,19 @@ body[data-locked="true"] {
 }
 
 /*
+  Thiệp chưa mở thì cả trang bên dưới bị màn mở thiệp che kín, nên dừng mọi
+  animation CSS của nó (lá đung đưa, đèn lồng, nhẫn lấp lánh…). Cho chạy ngầm
+  thì Safari iOS phải vẽ lại vài chục lớp mỗi khung hình mà không ai thấy, và
+  trên nhiều máy tab bị đóng thành trang trắng ngay ở màn "Hi :)". Màn mở thiệp
+  (`.scene-stage`) chuyển động bằng JS, không bị ảnh hưởng.
+*/
+body[data-locked="true"] main :not(.scene-stage, .scene-stage *),
+body[data-locked="true"] main :not(.scene-stage, .scene-stage *)::before,
+body[data-locked="true"] main :not(.scene-stage, .scene-stage *)::after {
+  animation-play-state: paused !important;
+}
+
+/*
   Desktop: script trong <head> (app/layout.tsx) đặt data-device="frame" trước
   khi vẽ, nên bản site to không kịp loé lên trước khi khung điện thoại thay chỗ.
 */
@@ -580,7 +593,7 @@ html {
     .ring-motion>img{display:block;width:100%;height:100%;object-fit:contain}
     .ring-motion>.ring-effects{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
     .ring-motion .fx{opacity:0;mix-blend-mode:screen;animation-duration:var(--cycle);animation-iteration-count:infinite;animation-fill-mode:both}
-    .ring-motion .light-sweep{animation-name:ring-sweep;animation-timing-function:cubic-bezier(.35,0,.35,1);will-change:transform,opacity}
+    .ring-motion .light-sweep{animation-name:ring-sweep;animation-timing-function:cubic-bezier(.35,0,.35,1)}
     .ring-motion .facet{animation-name:facet-flash;animation-timing-function:ease-in-out}
     .ring-motion .facet-b{animation-delay:calc(var(--cycle) * .045)}
     .ring-motion .facet-c{animation-delay:calc(var(--cycle) * .085)}

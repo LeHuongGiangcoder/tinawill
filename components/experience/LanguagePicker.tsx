@@ -64,7 +64,10 @@ export function LanguagePicker() {
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/55 px-gutter backdrop-blur-sm">
+    /* Không dùng backdrop-blur: nó bắt Safari chụp lại cả cảnh mở thiệp (mười
+       mấy lớp ảnh đang ở GPU) để làm mờ, và trên iPhone ít RAM / WebView của
+       Zalo, Messenger thì tab bị đóng thành trang trắng. Phủ đậm hơn thay vào. */
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/70 px-gutter">
       <div
         role="dialog"
         aria-modal="true"

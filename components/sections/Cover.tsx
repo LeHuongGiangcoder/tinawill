@@ -129,15 +129,6 @@ export function Cover({ lang }: { lang: Lang }) {
                   <stop offset=".45" stopColor="#ffecc6" stopOpacity=".26" />
                   <stop offset="1" stopColor="#fff4d7" stopOpacity="0" />
                 </radialGradient>
-                <filter
-                  id="weddingRingSoftTrail"
-                  x="-100%"
-                  y="-100%"
-                  width="300%"
-                  height="300%"
-                >
-                  <feGaussianBlur stdDeviation="5" />
-                </filter>
                 <g id="weddingRingMegaStar">
                   <path
                     d="M0-102 8-13 87 0 8 13 0 102-8 13-87 0-8-13Z"
@@ -200,8 +191,11 @@ export function Cover({ lang }: { lang: Lang }) {
                   strokeLinecap="round"
                   strokeDasharray="155 845"
                   pathLength="1000"
-                  filter="url(#weddingRingSoftTrail)"
-                  opacity=".7"
+                  /* Vệt quầng mềm: trước đây là feGaussianBlur, nhưng filter SVG
+                     trên một nét đang chạy animation (cộng mix-blend-mode) bắt
+                     Safari iOS vẽ lại bằng CPU mỗi khung hình và làm sập tab.
+                     Nét dày, nhạt hơn thay cho độ nhoè. */
+                  opacity=".35"
                 />
                 <circle
                   className="orbit-trail"
