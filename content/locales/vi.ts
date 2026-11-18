@@ -22,13 +22,13 @@ export const vi: Translation = {
 
   intro: {
     label: "Thiệp cưới của Tina và Will",
-    title: "Hi :)",
-    note: "Chúng mình có một tin đặc biệt muốn kể bạn.",
+    title: "Hế lô:)",
+    note: "Bọn mình có một tin chấn động muốn kể nè.",
     cta: "Kể nghe coi",
   },
 
   cover: {
-    invitation: "Chúng mình mong có bạn\nở đám cưới!!!",
+    invitation: "Chúng tui muốn bạn có\nmặt ở đám cưới!!!",
     logoLabel: "Monogram của Will và Tina",
     yes: "cô ấy đã nói “YES”",
   },

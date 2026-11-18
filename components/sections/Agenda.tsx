@@ -32,9 +32,15 @@ import { element } from "@/lib/assets";
  * mà quên khai ở đây là build đỏ.
  */
 const STAMPS: Record<AgendaStamp, { frame: string; icon: string }> = {
-  cocktail: { frame: "/agenda/cocktail-frame.webp", icon: "/agenda/cocktail-icon.webp" },
+  cocktail: {
+    frame: "/agenda/cocktail-frame.webp",
+    icon: "/agenda/cocktail-icon.webp",
+  },
   sun: { frame: "/agenda/sun-frame.webp", icon: "/agenda/sun-icon.webp" },
-  monstera: { frame: "/agenda/monstera-frame.webp", icon: "/agenda/monstera-icon.webp" },
+  monstera: {
+    frame: "/agenda/monstera-frame.webp",
+    icon: "/agenda/monstera-icon.webp",
+  },
 };
 
 export function Agenda({ lang }: { lang: Lang }) {
@@ -46,100 +52,128 @@ export function Agenda({ lang }: { lang: Lang }) {
       {/* Lời mời bấm (chữ đứng, màu chữ chính) rồi ghi chú nghiêng nhỏ về giờ
           giấc, nằm trong SectionHead để cách tiêu đề đúng `gap-stack` như mọi
           section; `tight` cho cả khối sát hàng tem một `stack`. */}
-      <SectionHead eyebrow={agenda.eyebrow} title={agenda.title} titleId="agenda-title" tight>
-        <p className="type-body text-balance text-tone-fg">{agenda.pickPrompt}</p>
-        <Subhead>{agenda.pickNote}</Subhead>
-      </SectionHead>
+      {/* Dòng lời mời đặt bề ngang cho cả khối: hàng tem nằm trong cùng một
+          khung `w-fit`, nhưng `w-0 min-w-full` khiến nó không tự nới khung ra
+          mà chỉ trải đúng bằng dòng chữ — mép ngoài hai con tem thẳng với hai
+          đầu câu "Click on the pictures…". Câu xuống dòng trên máy hẹp thì
+          khung về đủ bề ngang, tem vẫn vừa. */}
+      <div className="mx-auto w-fit max-w-full">
+        <SectionHead
+          eyebrow={agenda.eyebrow}
+          title={agenda.title}
+          titleId="agenda-title"
+          tight
+        >
+          <p className="type-body text-balance text-tone-fg">
+            {agenda.pickPrompt}
+          </p>
+          <Subhead>{agenda.pickNote}</Subhead>
+        </SectionHead>
 
-      <Reveal>
-        <TabSet
-          label={agenda.daysLabel}
-          items={agenda.days.map((day, index) => {
-            const stamp = STAMPS[day.stamp];
-            /* Hai con tem ngoài cùng bám sát mép hàng: tranh nằm sát mép hộp
+        <Reveal className="w-0 min-w-full">
+          <TabSet
+            label={agenda.daysLabel}
+            /* Khe giữa hai tem rộng một `block` thay vì `stack` để mỗi tem nhỏ
+             lại, đứng thoáng hơn dưới dòng chữ. `-mx-tight` bù lề trong
+             của nút `.tab`, để mép tranh — chứ không phải mép nút — thẳng
+             với hai đầu câu. */
+            listClassName="-mx-tight grid grid-flow-col auto-cols-fr gap-block"
+            items={agenda.days.map((day, index) => {
+              const stamp = STAMPS[day.stamp];
+              /* Hai con tem ngoài cùng bám sát mép hàng: tranh nằm sát mép hộp
                (object-left / object-right) và lúc được chọn (scale 1.04) nó
                nở vào trong chứ không tràn ra, nên khoảng trống từ mép tem tới
                mép section hai bên luôn bằng nhau, chọn tem nào cũng vậy. Con
                giữa nằm giữa hộp, nở đều hai phía. */
-            const edge =
-              index === 0
-                ? { box: "origin-left", pos: "object-left" }
-                : index === agenda.days.length - 1
-                  ? { box: "origin-right", pos: "object-right" }
-                  : { box: "", pos: "object-center" };
+              const edge =
+                index === 0
+                  ? { box: "origin-left", pos: "object-left" }
+                  : index === agenda.days.length - 1
+                    ? { box: "origin-right", pos: "object-right" }
+                    : { box: "", pos: "object-center" };
 
-            return {
-              id: day.stamp,
-              tab: (
-                <>
-                  {/* Ba con tem cao thấp khác nhau (ly martini thấp, mặt trời
+              return {
+                id: day.stamp,
+                tab: (
+                  <>
+                    {/* Ba con tem cao thấp khác nhau (ly martini thấp, mặt trời
                       cao), nên mỗi con nằm trong một khung cùng tỉ lệ và
                       `object-contain` — có vậy ba dòng chữ dưới tem mới thẳng
                       hàng thay vì so le theo chiều cao tranh. */}
-                  <span className={`tab-stamp relative block aspect-[6/7] w-full ${edge.box}`}>
-                    <Image
-                      src={stamp.frame}
-                      alt=""
-                      fill
-                      sizes="(max-width: 40rem) 30vw, 11rem"
-                      loading="eager"
-                      className={`object-contain ${edge.pos}`}
-                    />
-                    {/* Icon cùng khổ với khung nên chồng lên là khớp; chỉ
+                    <span
+                      className={`tab-stamp relative block aspect-[6/7] w-full ${edge.box}`}
+                    >
+                      <Image
+                        src={stamp.frame}
+                        alt=""
+                        fill
+                        sizes="(max-width: 40rem) 30vw, 11rem"
+                        loading="eager"
+                        className={`object-contain ${edge.pos}`}
+                      />
+                      {/* Icon cùng khổ với khung nên chồng lên là khớp; chỉ
                         lớp này đung đưa khi tem được chọn. */}
-                    <Image
-                      src={stamp.icon}
-                      alt=""
-                      fill
-                      sizes="(max-width: 40rem) 30vw, 11rem"
-                      loading="eager"
-                      className={`tab-wiggle object-contain ${edge.pos}`}
-                    />
-                  </span>
-                  {/* Ngày rồi tên chủ đề, nằm dưới con tem. Không in thứ: ngày
+                      <Image
+                        src={stamp.icon}
+                        alt=""
+                        fill
+                        sizes="(max-width: 40rem) 30vw, 11rem"
+                        loading="eager"
+                        className={`tab-wiggle object-contain ${edge.pos}`}
+                      />
+                    </span>
+                    {/* Ngày rồi tên chủ đề, nằm dưới con tem. Không in thứ: ngày
                       đã đủ, và mỗi tem một dòng ngày thì ba tem luôn thẳng hàng. */}
-                  <span className="type-sub-body whitespace-nowrap">{day.date}</span>
-                  <span className="type-body">{day.title}</span>
-                  <span aria-hidden className="tab-mark" />
-                </>
-              ),
-              panel: (
-                <ol className="mx-auto flex max-w-prose flex-col items-center gap-tight text-center">
-                  {day.items.map((item, i) => (
-                    <Fragment key={`${item.time}-${item.title}`}>
-                      <li className="flex flex-col items-center">
-                        {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
+                    <span className="type-sub-body whitespace-nowrap">
+                      {day.date}
+                    </span>
+                    <span className="type-body">{day.title}</span>
+                    <span aria-hidden className="tab-mark" />
+                  </>
+                ),
+                panel: (
+                  <ol className="mx-auto flex max-w-prose flex-col items-center gap-tight text-center">
+                    {day.items.map((item, i) => (
+                      <Fragment key={`${item.time}-${item.title}`}>
+                        <li className="flex flex-col items-center">
+                          {/* Nhãn chữ ("Daytime") thấp xuống bậc body: chữ cái cao hơn
                             chữ số kiểu cũ nên cùng bậc subtitle nhìn to hơn giờ. */}
-                        <p
-                          className={`${/\d/.test(item.time) ? "type-subtitle" : "type-body"} text-tone-accent`}
-                        >
-                          {item.time}
-                        </p>
-                        {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`), để mắt
+                          <p
+                            className={`${/\d/.test(item.time) ? "type-subtitle" : "type-body"} text-tone-accent`}
+                          >
+                            {item.time}
+                          </p>
+                          {/* Ghi chú đứng sát tiêu đề của chính nó (không `gap`), để mắt
                             đọc ra "tiêu đề + ghi chú" là một cặp. */}
-                        <Heading level="h4">{item.title}</Heading>
-                        {item.note ? (
-                          <p className="type-note text-balance text-tone-muted">{item.note}</p>
-                        ) : null}
-                      </li>
-
-                      {/* Mốc nối giữa hai mục: đường kẻ – viên thoi – đường kẻ, nằm
-                          đúng trục giữa. Mục cuối không có mốc nối phía sau. */}
-                      {i === day.items.length - 1 ? null : (
-                        <li aria-hidden className="flex flex-col items-center">
-                          <span className="h-tight w-px bg-tone-accent" />
-                          <span className="size-2 rotate-45 bg-tone-accent" />
-                          <span className="h-tight w-px bg-tone-accent" />
+                          <Heading level="h4">{item.title}</Heading>
+                          {item.note ? (
+                            <p className="type-note text-balance text-tone-muted">
+                              {item.note}
+                            </p>
+                          ) : null}
                         </li>
-                      )}
-                    </Fragment>
-                  ))}
-                </ol>
-              ),
-            };
-          })}
-        />
-      </Reveal>
+
+                        {/* Mốc nối giữa hai mục: đường kẻ – viên thoi – đường kẻ, nằm
+                          đúng trục giữa. Mục cuối không có mốc nối phía sau. */}
+                        {i === day.items.length - 1 ? null : (
+                          <li
+                            aria-hidden
+                            className="flex flex-col items-center"
+                          >
+                            <span className="h-tight w-px bg-tone-accent" />
+                            <span className="size-2 rotate-45 bg-tone-accent" />
+                            <span className="h-tight w-px bg-tone-accent" />
+                          </li>
+                        )}
+                      </Fragment>
+                    ))}
+                  </ol>
+                ),
+              };
+            })}
+          />
+        </Reveal>
+      </div>
 
       {/* Đoàn người nhảy múa khép section lại. Nằm trong dòng chảy chứ không
           phải `decor` tuyệt đối, vì section cao thấp theo ngày đang mở — hoạ
