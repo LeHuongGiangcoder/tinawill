@@ -426,7 +426,7 @@ export type Tone = keyof typeof tones;
  * One cho chữ viết tay. Cả hai KHÔNG có dấu tiếng Việt.
  *
  * Vì thế mỗi stack có thêm một font đỡ ngay phía sau: --ff-display-vn
- * (Cormorant Garamond) cho cả hai stack, có subset
+ * (EB Garamond) cho cả hai stack, có subset
  * "vietnamese". Trình duyệt chỉ rơi sang chúng ở đúng những ký tự font trước
  * không có, nên site tiếng Anh vẫn đọc nguyên nét Canva, còn một chữ "Cảm ơn"
  * lọt vào thì ra dấu đúng thay vì vỡ thành ô vuông.
@@ -444,7 +444,8 @@ export const fonts = {
 /**
  * Stack chữ cho trang tiếng Việt (/vi). Ở đó gần như chữ nào cũng có dấu, nên
  * để trình duyệt vá từng ký tự như stack trên thì một từ lẫn hai bộ chữ. Trang
- * tiếng Việt đổi hẳn: Cormorant cho chữ chạy và tiêu đề, Pacifico cho chữ viết
+ * tiếng Việt đổi hẳn: EB Garamond cho chữ chạy và tiêu đề con (gần IM Fell nhất
+ * trong các font có dấu: cùng dòng chữ cổ, cùng độ đậm, italic thật), Pacifico cho chữ viết
  * tay (gần nét Leckerli One nhất trong các font viết tay có subset vietnamese).
  *
  * Áp vào mọi phần tử `:lang(vi)` — xem `@layer base` trong app/globals.css.

@@ -34,7 +34,7 @@ export const vi: Translation = {
   },
 
   hero: {
-    lead: "Cùng chúng mình tận hưởng một cuối tuần của tình yêu, món ngon và tiệc vui bên dòng sông Hội An — ở một nơi mà cái tên mang nghĩa “nhà” và “an”.",
+    lead: "Cùng chúng mình tận hưởng một cuối tuần của tình yêu, món ngon và tiệc vui bên dòng sông Hội An, ở một nơi mà cái tên mang nghĩa “nhà” và “an”.",
     closing:
       "Chúng mình không nghĩ ra cách nào đẹp hơn để bắt đầu cuộc sống chung, hơn là được ở giữa những người mình thương nhất, tại nơi kỳ diệu này.",
     scrollHint: "Cuộn xuống",
@@ -44,18 +44,18 @@ export const vi: Translation = {
     eyebrow: "Mọi chuyện bắt đầu thế nào",
     title: "Chuyện của tụi mình",
     paragraphs: [
-      "Lần đầu tiên tụi mình nói chuyện là ở một sự kiện. Sự kiện kết thúc, mọi người ra về — mà câu chuyện của tụi mình vẫn chưa xong. Thế là cả hai kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và nói tiếp tới 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Rồi tụi mình mới phát hiện ra hai đứa sống chung một toà nhà. Đêm đó, tụi mình đi chung một chuyến Grab về nhà.",
-      "Rồi vũ trụ bắt đầu nhúng tay vào. Suốt một tuần sau đó, ngày nào tụi mình cũng tình cờ chạm mặt nhau — ở phòng gym, ở quán cà phê, mỗi ngày một giờ khác nhau, chẳng hề hẹn trước. Tới ngày thứ bảy, khó mà gọi đó là trùng hợp được nữa.",
+      "Lần đầu tiên tụi mình nói chuyện là ở một sự kiện networking. Sự kiện kết thúc và mọi người đều ra về rồi nhưng câu chuyện của tụi mình vẫn chưa xong. Thế là cả hai kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và nói tiếp tới 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Rồi tụi mình mới phát hiện ra hai đứa sống chung một toà nhà. Đêm đó, tụi mình đi chung một chuyến Grab về nhà.",
+      "Rồi tuần sau đó là liên tiếp những chuỗi tình cờ như được sắp đặt. Ngày nào tụi mình cũng chạm mặt nhau — ở phòng gym, ở quán cà phê, mỗi ngày một giờ khác nhau, chẳng hề hẹn trước. Tới ngày thứ bảy, khó mà gọi đó là trùng hợp được nữa.",
       "Và phần còn lại, như người ta vẫn nói, đã thành lịch sử.",
-      "Không phải lúc nào cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hoá Đức — thẳng thắn, ngăn nắp, và nghe đồn là hơi khô khan. Còn Tina mang văn hoá Mỹ — cởi mở, ngẫu hứng, lúc nào cũng muốn làm thêm điều gì đó. Tụi mình đã có không ít lần “va chạm văn hoá” (và vài cuộc nói chuyện rất, rất dài về chúng). Nhưng mỗi khác biệt vượt qua được lại dạy tụi mình thêm một điều mới về nhau, và kéo hai đứa lại gần nhau hơn.",
+      "Không phải lúc nào cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hoá Đức — thẳng thắn, ngăn nắp, và có vẻ là hơi khô khan:). Còn Tina mang văn hoá Mỹ — cởi mở, ngẫu hứng, lúc nào cũng muốn làm thêm điều gì đó. Tụi mình đã có không ít lần “va chạm văn hoá” (và vài cuộc nói chuyện rất, rất dài về chủ đề này). Nhưng mỗi khác biệt vượt qua được lại dạy tụi mình thêm một điều mới về nhau, và kéo hai đứa lại gần nhau hơn.",
     ],
     closing:
-      "Hai con người, hai nền văn hoá, hai cách nhìn thế giới — và giờ đây, một cuộc đời chung.",
+      "Hai con người, hai nền văn hoá, hai cách nhìn thế giới — và giờ đây, cùng xây dựng một ngôi nhà chung.",
   },
 
   timeScene: {
     intro:
-      "Cùng chúng mình tận hưởng một cuối tuần của tình yêu, món ngon và tiệc vui bên dòng sông Hội An — ở một nơi mà cái tên mang nghĩa “nhà” và “an”. Chúng mình không nghĩ ra cách nào đẹp hơn để bắt đầu cuộc sống chung, hơn là được ở giữa những người mình thương nhất.",
+      "Cùng chúng mình tận hưởng một cuối tuần của tình yêu, món ngon và tiệc vui bên dòng sông Hội An, ở một nơi mà cái tên mang nghĩa “nhà” và “an”. Chúng mình không nghĩ ra cách nào đẹp hơn để bắt đầu hành trình mới, hơn là được ở giữa những người mình thương nhất.",
     calendarLabel: "Thêm vào lịch",
     sceneLabel: "Hai chú mèo ngủ trưa trên ghế tắm nắng giữa khu vườn nhiệt đới",
   },
@@ -70,14 +70,14 @@ export const vi: Translation = {
   visa: {
     eyebrow: "Trước khi bay",
     title: "Thị thực",
-    subtitle: "Dù bạn mang hộ chiếu nước nào, hộ chiếu phải còn hạn ít nhất 6 tháng tính từ ngày nhập cảnh.",
+    subtitle: "Dù hộ chiếu nước nào, hạn đều phải còn ít nhất 6 tháng tính từ ngày nhập cảnh nhé.",
     pickPrompt: "Chọn hộ chiếu của bạn",
-    pickNote: "Chúng mình sẽ chỉ hiện phần dành cho bạn.",
+    pickNote: "Chúng mình sẽ chỉ hiện thông tin dành cho bạn.",
     regionsLabel: "Chọn hộ chiếu",
     visaHeading: "Thị thực của bạn",
     flightHeading: "Đường bay",
     flightNote:
-      "Vì đây là một chuyến đi quốc tế, chúng mình gợi ý bạn lên kế hoạch cho một chuyến du lịch dài hơn để khám phá thêm Việt Nam. Nếu vậy, bạn có thể bay tới TP. Hồ Chí Minh hoặc Hà Nội, rồi từ đó di chuyển tới Hội An (Đà Nẵng).",
+      "Vì đây là một chặng đường dài, chúng mình gợi ý bạn lên kế hoạch cho một chuyến du lịch dài hơi để khám phá thêm về Việt Nam. Bạn có thể bay tới TP. Hồ Chí Minh hoặc Hà Nội, rồi từ đó di chuyển tới Hội An (Đà Nẵng).",
     routes: {
       direct: {
         lead: "Bay thẳng tới Đà Nẵng (DAD) — khoảng 2–3 tiếng.",
@@ -219,7 +219,7 @@ export const vi: Translation = {
   dresscode: {
     eyebrow: "Mặc gì đây",
     subtitle: "Jungle Glam 🌿",
-    note: "Tiệc cưới diễn ra giữa rặng dừa và cây xanh bên sông — nên chúng mình mang cả khu rừng lên sàn nhảy. Hãy nghĩ tới sự tươi tốt, rực rỡ và ấm áp, nhưng vẫn thanh lịch. Phối các màu với nhau, chọn tông xuyệt tông, hoặc dồn hết vào một màu đều được. Hoạ tiết nhiệt đới, hình lá cây và chất liệu mang màu đất đều rất được chào đón.",
+    note: "Tiệc cưới diễn ra giữa rặng dừa và cây xanh bên sông — nên chúng mình mang cả khu rừng lên sàn nhảy. Hãy nghĩ tới sự tươi mới, rực rỡ và ấm áp, nhưng vẫn thanh lịch. Phối các màu với nhau, chọn tông xuyệt tông, hoặc dồn hết vào một màu đều được. Hoạ tiết nhiệt đới, hình lá cây và chất liệu mang màu đất đều rất được chào đón.",
     swatches: [
       { name: "Đỏ ruby" },
       { name: "Đỏ son" },
@@ -317,7 +317,7 @@ export const vi: Translation = {
       },
       {
         title: "Một lời chúc",
-        body: "Thật lòng mà nói, một tấm thiệp viết tay với lời chúc của bạn cũng ý nghĩa với chúng mình không kém.",
+        body: "Thật lòng mà nói, một tấm thiệp viết tay với lời chúc của bạn cũng ý nghĩa với chúng mình lắm rồiiii.",
       },
     ],
   },
@@ -326,9 +326,9 @@ export const vi: Translation = {
     eyebrow: "Cảm ơn",
     title: "Hẹn gặp bên bờ sông",
     paragraphs: [
-      "Từ tận đáy lòng, cảm ơn bạn đã vượt cả chặng đường dài để chung vui ngày bắt đầu cuộc sống chung của chúng mình.",
+      "Từ tận đáy lòng, cảm ơn bạn đã vượt cả chặng đường dài để chung vui trong ngày đặc biệt của tụi mình.",
       "Bạn là những người thân thiết nhất với chúng mình, và chúng mình sẽ vô cùng biết ơn khi được thấy bạn trong ngày cưới.",
-      "Thương bạn nhiều!",
+      "Thương nhiều!",
     ],
     logoLabel: "Monogram của Will và Tina",
     imageAlt: "Hai chú mèo rót rượu, lúc đầu điềm tĩnh rồi giật mình",

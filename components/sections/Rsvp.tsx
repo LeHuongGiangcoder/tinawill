@@ -277,7 +277,7 @@ export function Rsvp({ rsvp }: { rsvp: Content["rsvp"] }) {
                   {status === "sending" ? rsvp.sending : rsvp.submit}
                 </Button>
                 {/* Cùng màu với đường sóng viền tờ giấy (`.frame-wave::before`). */}
-                <p className="type-note text-mango">{rsvp.deadline}</p>
+                <p className="type-note text-balance text-center text-mango">{rsvp.deadline}</p>
                 {status === "error" ? (
                   <p role="alert" className="type-note text-tone-accent">
                     {rsvp.errorNote}

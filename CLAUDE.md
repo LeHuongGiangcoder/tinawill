@@ -287,7 +287,7 @@ và **không bao giờ** được vào repo.
 
 Chỉ dùng font có subset `vietnamese` trên Google Fonts. Font script mua ngoài
 thường thiếu `ơ ư đ` và dấu chồng — đặt tên có dấu vào đó là chữ vỡ thành hai
-kiểu chữ khác nhau. Cormorant khai cả `italic` thật vì italic giả do trình duyệt
+kiểu chữ khác nhau. EB Garamond (font đỡ tiếng Việt) khai cả `italic` thật vì italic giả do trình duyệt
 kéo nghiêng làm méo dấu.
 
 <!-- BEGIN:nextjs-agent-rules -->

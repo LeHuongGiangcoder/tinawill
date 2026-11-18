@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Pacifico } from "next/font/google";
+import { EB_Garamond, Pacifico } from "next/font/google";
 import localFont from "next/font/local";
 
 import { DeviceFrame, deviceFrameScript } from "@/components/experience/DeviceFrame";
@@ -34,15 +34,16 @@ const script = localFont({
 
 /*
   Font đỡ cho tiếng Việt — họ thứ ba và cuối cùng của site. IM Fell và Leckerli
-  One không có `ơ ư đ` hay dấu chồng, nên Cormorant Garamond đứng ngay sau
+  One không có `ơ ư đ` hay dấu chồng, nên EB Garamond đứng ngay sau
   chúng trong stack ở content/theme.ts: trình duyệt chỉ dùng tới ở đúng ký tự
   còn thiếu. Khách không tải thêm byte nào nếu trang toàn chữ tiếng Anh.
 
   Site có ba họ chữ: Leckerli One (tiêu đề), IM Fell English (chữ chạy +
-  nghiêng) và Cormorant (dấu tiếng Việt). Họ thứ tư, Pacifico, chỉ dành cho
+  nghiêng) và EB Garamond (dấu tiếng Việt — cùng dòng chữ cổ, cùng độ
+  đậm với IM Fell nên trang /vi đọc ra gần như bản tiếng Anh). Họ thứ tư, Pacifico, chỉ dành cho
   trang /vi và không tải ở hai trang kia. Đừng thêm họ nào nữa.
 */
-const displayVn = Cormorant_Garamond({
+const displayVn = EB_Garamond({
   variable: "--ff-display-vn",
   subsets: ["latin", "vietnamese"],
   weight: ["400"],
