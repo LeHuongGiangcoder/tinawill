@@ -52,7 +52,7 @@ export function DeviceFrame({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("wheel", onWheel);
   }, [src]);
 
-  /* Giữ thanh địa chỉ theo trang trong khung (đổi tiếng /vi, /de, neo #…) để
+  /* Giữ thanh địa chỉ theo trang trong khung (đổi tiếng /vi, neo #…) để
      copy link ra là đúng trang khách đang xem. */
   const onLoad = () => {
     try {

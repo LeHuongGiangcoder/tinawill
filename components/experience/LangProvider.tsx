@@ -8,6 +8,11 @@ type LangValue = {
   lang: Lang;
   /** Chữ của màn mở thiệp — nằm sâu trong cảnh client nên đi qua context. */
   intro: Content["intro"];
+  /**
+   * Lời chào của mọi thứ tiếng (vài dòng chữ), để chọn tiếng trên màn mở thiệp
+   * là đổi lời chào ngay, không chờ trang mới tải xong.
+   */
+  intros: Record<Lang, Content["intro"]>;
 };
 
 const LangContext = createContext<LangValue | null>(null);
@@ -21,7 +26,7 @@ export function useLang() {
 /**
  * Ngôn ngữ của trang đang xem, cho các component client.
  *
- * Server truyền xuống đúng phần chữ client cần (không phải cả ba bản dịch),
+ * Server truyền xuống đúng phần chữ client cần (không phải cả bản dịch kia),
  * để bundle JS không phải chở chữ của những thứ tiếng khách không xem.
  *
  * `<html lang>` nằm ở root layout và không biết trang con là tiếng gì, nên
@@ -31,11 +36,12 @@ export function LangProvider({
   lang,
   htmlLang,
   intro,
+  intros,
   children,
 }: LangValue & { htmlLang: string; children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = htmlLang;
   }, [htmlLang]);
 
-  return <LangContext.Provider value={{ lang, intro }}>{children}</LangContext.Provider>;
+  return <LangContext.Provider value={{ lang, intro, intros }}>{children}</LangContext.Provider>;
 }

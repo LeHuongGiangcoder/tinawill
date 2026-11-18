@@ -87,6 +87,7 @@
   --spacing-stack: var(--t-space-stack);
   --spacing-tight: var(--t-space-tight);
   --spacing-tap: var(--t-size-tap);
+  --spacing-stamp: var(--t-size-stamp);
 
   --container-site: var(--t-size-container-site);
   --container-prose: var(--t-size-container-prose);

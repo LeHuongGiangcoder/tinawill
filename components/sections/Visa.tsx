@@ -150,8 +150,6 @@ export function Visa({ lang }: { lang: Lang }) {
                         <li key={item} className="text-justify">{item}</li>
                       ))}
                     </ul>
-                    {/* Lời gợi ý chung cho mọi hộ chiếu, sau đường bay riêng. */}
-                    {visa.flightNote ? <p className="text-justify">{visa.flightNote}</p> : null}
                   </div>
                 </div>
               ),
@@ -180,6 +178,11 @@ export function Visa({ lang }: { lang: Lang }) {
             <Heading level="h3">{visa.airport.title}</Heading>
             <Lead className="text-justify">{visa.airport.lead}</Lead>
             <p className="text-justify">{visa.airport.body}</p>
+          </div>
+
+          <div className="flex flex-col gap-stack">
+            <Heading level="h3">{visa.recommendation.title}</Heading>
+            <p className="text-justify">{visa.recommendation.body}</p>
           </div>
         </div>
         </div>

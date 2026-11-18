@@ -18,8 +18,7 @@ import { CatJourney } from "@/components/ui/CatJourney";
 import { Motion } from "@/components/ui/Motion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 import { LangProvider } from "@/components/experience/LangProvider";
-import { LanguagePicker } from "@/components/experience/LanguagePicker";
-import { design, sections, type SectionId } from "@/content/client";
+import { design, languages, sections, type SectionId } from "@/content/client";
 import { content, type Lang } from "@/lib/content";
 
 /**
@@ -47,7 +46,7 @@ const SECTIONS: Record<Exclude<SectionId, "intro">, (props: SectionProps) => Rea
 };
 
 /**
- * Cả trang thiệp ở một thứ tiếng. Trang chủ ("/") là tiếng Anh; "/vi", "/de"
+ * Cả trang thiệp ở một thứ tiếng. Trang chủ ("/") là tiếng Anh; "/vi"
  * dựng từ app/[lang]/page.tsx bằng chính component này.
  */
 export function Site({ lang }: SectionProps) {
@@ -57,16 +56,16 @@ export function Site({ lang }: SectionProps) {
      không có nút để mở, phải bỏ cổng đi kẻo khoá cuộn mãi. */
   const gated = sections.includes("intro") && sections.includes("cover");
   const flow = sections.filter((id) => id !== "intro");
+  const intros = Object.fromEntries(
+    languages.list.map((item) => [item.id, content(item.id).intro]),
+  ) as Record<Lang, typeof intro>;
 
   return (
-    <LangProvider lang={lang} htmlLang={meta.lang} intro={intro}>
+    <LangProvider lang={lang} htmlLang={meta.lang} intro={intro} intros={intros}>
     <GuestProvider>
       <ExperienceProvider gated={gated}>
         {/* Toàn bộ chuyển động của trang nằm ở đây, section không tự gọi GSAP */}
         <Motion />
-
-        {/* Popup chọn tiếng, đè lên màn mở thiệp ở lần đầu khách vào */}
-        {gated ? <LanguagePicker /> : null}
 
         {/* `lang` + `data-lang`: trang tiếng Việt đổi bộ chữ có dấu — xem
             `:lang(vi)` trong app/globals.css. */}

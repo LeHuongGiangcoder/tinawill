@@ -1,6 +1,5 @@
 import * as base from "@/content/client";
 import type { Lang } from "@/content/client";
-import { de } from "@/content/locales/de";
 import { vi } from "@/content/locales/vi";
 
 export type { Lang } from "@/content/client";
@@ -52,7 +51,7 @@ type DeepPartial<T> = T extends string | number | boolean | null | undefined
 /** Kiểu của một bản dịch: cùng hình với bản gốc, mọi chỗ đều tuỳ chọn. */
 export type Translation = DeepPartial<Content>;
 
-const translations: Record<Exclude<Lang, "en">, Translation> = { vi, de };
+const translations: Record<Exclude<Lang, "en">, Translation> = { vi };
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);

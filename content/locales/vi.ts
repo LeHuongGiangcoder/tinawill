@@ -76,8 +76,6 @@ export const vi: Translation = {
     regionsLabel: "Chọn hộ chiếu",
     visaHeading: "Thị thực của bạn",
     flightHeading: "Đường bay",
-    flightNote:
-      "Vì đây là một chặng đường dài, chúng mình gợi ý bạn lên kế hoạch cho một chuyến du lịch dài hơi để khám phá thêm về Việt Nam. Bạn có thể bay tới TP. Hồ Chí Minh hoặc Hà Nội, rồi từ đó di chuyển tới Hội An (Đà Nẵng).",
     routes: {
       direct: {
         lead: "Bay thẳng tới Đà Nẵng (DAD) — khoảng 2–3 tiếng.",
@@ -117,6 +115,10 @@ export const vi: Translation = {
       title: "Từ sân bay",
       lead: "Resort cách sân bay khoảng 40–45 phút đi ô tô.",
       body: "Đặt Grab rất dễ và rẻ — khi đặt xe, bạn chỉ cần gõ tên resort là nó hiện ra ngay.",
+    },
+    recommendation: {
+      title: "Gợi ý của chúng mình",
+      body: "Vì đây là một chặng đường dài, chúng mình gợi ý bạn lên kế hoạch cho một chuyến du lịch dài hơi để khám phá thêm về Việt Nam. Bạn có thể bay tới TP. Hồ Chí Minh hoặc Hà Nội, rồi từ đó di chuyển tới Hội An (Đà Nẵng).",
     },
     regions: [
       { label: "Châu Âu", verdict: "Miễn thị thực, tối đa 45 ngày." },

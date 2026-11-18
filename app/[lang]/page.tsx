@@ -6,7 +6,7 @@ import { languages } from "@/content/client";
 import { content, type Lang } from "@/lib/content";
 
 /**
- * Bản dịch của thiệp: "/vi", "/de". Tiếng Anh là trang chủ ("/"), nên không
+ * Bản dịch của thiệp: "/vi". Tiếng Anh là trang chủ ("/"), nên không
  * dựng "/en". Dựng tĩnh lúc build; đường dẫn lạ ngoài danh sách là 404.
  */
 const TRANSLATED = languages.list.filter((item) => item.id !== "en").map((item) => item.id);

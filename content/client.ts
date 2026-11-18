@@ -337,25 +337,20 @@ export const venue = {
 /* -------------------------------------------------------------- NGÔN NGỮ */
 
 /**
- * Ba bản ngôn ngữ của site. Tiếng Anh là bản gốc (chính file này); bản dịch
+ * Hai bản ngôn ngữ của site. Tiếng Anh là bản gốc (chính file này); bản dịch
  * nằm ở content/locales/<id>.ts và chỉ cần khai những chữ khác bản gốc.
  *
- * Mỗi bản một đường dẫn tĩnh: `path` "/" là trang chủ, "/vi", "/de" là trang
- * dịch (app/[lang]/page.tsx). Popup chọn tiếng hiện đè lên màn mở thiệp ở lần
- * đầu khách vào — xem components/experience/LanguagePicker.tsx.
+ * Mỗi bản một đường dẫn tĩnh: `path` "/" là trang chủ, "/vi" là trang dịch
+ * (app/[lang]/page.tsx). Màn mở thiệp hiện các nút chọn tiếng trước;
+ * chọn xong thì nút biến mất và lời chào của tiếng đó hiện ra — xem
+ * components/sections/Intro.tsx.
  */
 export const languages = {
-  /** Thứ tự nút trong popup. */
+  /** Thứ tự lựa chọn trên màn mở thiệp. */
   list: [
     { id: "en", label: "English", path: "/" },
     { id: "vi", label: "Tiếng Việt", path: "/vi" },
-    { id: "de", label: "Deutsch", path: "/de" },
   ],
-  /**
-   * Popup hiện khi khách chưa chọn tiếng nào, nên lời mời chọn viết đủ ba thứ
-   * tiếng một lượt — mỗi phần tử một dòng.
-   */
-  prompt: ["Choose your language", "Chọn ngôn ngữ", "Sprache wählen"],
   /** Nhãn cho trình đọc màn hình. */
   label: "Choose your language",
 } as const;
@@ -668,9 +663,6 @@ export const visa = {
   regionsLabel: "Choose your passport",
   visaHeading: "Your visa",
   flightHeading: "Flying in",
-  /** Đoạn chung cho mọi hộ chiếu, in sau đường bay riêng của nhóm. */
-  flightNote:
-    "Since it’s an international trip, we recommend planning a bigger trip around it to see more of Vietnam. If that is the case, you can fly into Ho Chi Minh City or Hanoi, then make your way to Hoi An (Da Nang) from there.",
 
   routes: flightRoutes,
 
@@ -696,6 +688,12 @@ export const visa = {
     title: "From the airport",
     lead: "The resort is about 40–45 minutes by car.",
     body: "Grab is easy and affordable — when booking a ride, just type in the name of the resort and it will show right up.",
+  },
+
+  /** Lời gợi ý chung cho mọi hộ chiếu, đứng ngay sau "From the airport". */
+  recommendation: {
+    title: "Our recommendation",
+    body: "Since it’s an international trip, we recommend planning a bigger trip around it to see more of Vietnam. If that is the case, you can fly into Ho Chi Minh City or Hanoi, then make your way to Hoi An (Da Nang) from there.",
   },
 
   regions: [

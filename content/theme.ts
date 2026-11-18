@@ -561,6 +561,8 @@ export const sizes = {
   tap: "2.75rem",
   /** Nút dùng chung một bề rộng để không so le khi đứng cạnh nhau */
   btn: "14rem",
+  /** Con tem chọn ngày của Agenda — mọi tem cùng một bề rộng */
+  stamp: "7.5rem",
   containerSite: "72rem",
   containerProse: "40rem",
   /** Khung điện thoại khi xem trên desktop (iPhone Pro Max: 430 × 932) */
