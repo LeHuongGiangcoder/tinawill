@@ -22,7 +22,7 @@ export const vi: Translation = {
 
   intro: {
     label: "Thiệp cưới của Tina và Will",
-    title: "Hế lô:)",
+    title: "Hế lô :)",
     note: "Bọn mình có một tin chấn động muốn kể nè.",
     cta: "Kể nghe coi",
   },
