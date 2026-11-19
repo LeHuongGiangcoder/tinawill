@@ -445,8 +445,8 @@ export const fonts = {
  * Stack chữ cho trang tiếng Việt (/vi). Ở đó gần như chữ nào cũng có dấu, nên
  * để trình duyệt vá từng ký tự như stack trên thì một từ lẫn hai bộ chữ. Trang
  * tiếng Việt đổi hẳn: EB Garamond cho chữ chạy và tiêu đề con (gần IM Fell nhất
- * trong các font có dấu: cùng dòng chữ cổ, cùng độ đậm, italic thật), Pacifico cho chữ viết
- * tay (gần nét Leckerli One nhất trong các font viết tay có subset vietnamese).
+ * trong các font có dấu: cùng dòng chữ cổ, cùng độ đậm, italic thật), UVN Bánh Mì cho chữ viết
+ * tay — mọi tiêu đề `type-title` (font khách chọn, đủ dấu tiếng Việt).
  *
  * Áp vào mọi phần tử `:lang(vi)` — xem `@layer base` trong app/globals.css.
  */

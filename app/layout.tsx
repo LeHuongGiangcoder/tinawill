@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { EB_Garamond, Pacifico } from "next/font/google";
+import { EB_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 
 import { DeviceFrame, deviceFrameScript } from "@/components/experience/DeviceFrame";
@@ -40,7 +40,7 @@ const script = localFont({
 
   Site có ba họ chữ: Leckerli One (tiêu đề), IM Fell English (chữ chạy +
   nghiêng) và EB Garamond (dấu tiếng Việt — cùng dòng chữ cổ, cùng độ
-  đậm với IM Fell nên trang /vi đọc ra gần như bản tiếng Anh). Họ thứ tư, Pacifico, chỉ dành cho
+  đậm với IM Fell nên trang /vi đọc ra gần như bản tiếng Anh). Họ thứ tư, UVN Bánh Mì, chỉ dành cho
   trang /vi và không tải ở hai trang kia. Đừng thêm họ nào nữa.
 */
 const displayVn = EB_Garamond({
@@ -52,16 +52,16 @@ const displayVn = EB_Garamond({
 });
 
 /*
-  Chữ viết tay của trang tiếng Việt (/vi) — Leckerli One không có dấu. Họ chữ
-  này chỉ dùng ở đó, nên `preload: false`: trang tiếng Anh và tiếng Đức không
-  tải nó, trình duyệt chỉ kéo về khi gặp chữ thật sự cần.
+  Chữ viết tay của trang tiếng Việt (/vi) — Leckerli One không có dấu, nên mọi
+  tiêu đề (`type-title`) ở /vi dùng UVN Bánh Mì, font khách chọn, đủ `ơ ư đ` và
+  dấu chồng. Họ chữ này chỉ dùng ở đó, nên `preload: false`: trang tiếng Anh
+  không tải nó, trình duyệt chỉ kéo về khi gặp chữ thật sự cần.
 */
-const scriptVn = Pacifico({
+const scriptVn = localFont({
   variable: "--ff-script-vn",
-  subsets: ["latin", "vietnamese"],
-  weight: ["400"],
   display: "swap",
   preload: false,
+  src: [{ path: "./fonts/UVN-BanhMi.ttf", weight: "400", style: "normal" }],
 });
 
 export const metadata: Metadata = {
