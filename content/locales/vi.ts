@@ -42,7 +42,7 @@ export const vi: Translation = {
 
   loveStory: {
     eyebrow: "Sự khởi đầu",
-    title: "Chuyện của tụi mình",
+    title: "Câu chuyện tình yêu",
     paragraphs: [
       "Lần đầu tiên chúng mình nói chuyện với nhau là ở một sự kiện. Sự kiện kết thúc, mọi người ra về hết, vậy mà câu chuyện của hai đứa vẫn chưa xong. Thế là chúng mình kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và ngồi nói chuyện tới tận 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Đến lúc đó cả hai mới ngã ngửa: hóa ra chúng mình ở cùng một tòa nhà. Đêm đó, hai đứa đi chung một chuyến Grab về nhà.",
       "Rồi vũ trụ bắt đầu “nhúng tay”. Suốt một tuần sau đó, ngày nào chúng mình cũng tình cờ chạm mặt nhau, lúc ở phòng gym, lúc ở quán cà phê, mỗi ngày một giờ khác nhau mà chẳng hề hẹn trước. Đến ngày thứ bảy thì khó mà gọi đó là trùng hợp được nữa.",
@@ -54,6 +54,7 @@ export const vi: Translation = {
   },
 
   timeScene: {
+    title: "Lưu ngày này",
     intro:
       "Hãy đến chung vui cùng chúng mình vào một cuối tuần ngập tràn yêu thương, đồ ăn ngon và tiếng cười bên dòng sông Hội An — một nơi có cái tên mang ý nghĩa là “nhà” và “bình yên”. Với chúng mình, cách đẹp nhất để bắt đầu “hành trình chung” là được ở bên những người chúng mình thương nhất.",
     calendarLabel: "Thêm vào lịch",
