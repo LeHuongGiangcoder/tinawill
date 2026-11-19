@@ -276,8 +276,10 @@ export function Cover({ lang }: { lang: Lang }) {
             >
               <h1
                 id="cover-title"
-                className="whitespace-pre font-script type-art-invite text-tone-title"
+                className="whitespace-pre font-script type-art-invite text-tone-title [&:lang(vi)]:ms-[0.5em]"
               >
+                {/* /vi: lời mời ngắn hơn bản tiếng Anh nên tâm lệch trái so với
+                    monogram — đẩy nửa em cho hai khối cùng một trục. */}
                 {/* Mỗi dòng một khối; từ dòng hai thụt vào như chữ viết tay. */}
                 {cover.invitation.split("\n").map((line, i) => (
                   <span key={i} className={i > 0 ? "block ps-[1em]" : "block"}>
