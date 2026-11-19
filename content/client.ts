@@ -881,7 +881,7 @@ export const agenda = {
         {
           time: "10:00",
           title: "Farewell breakfast",
-          note: "A slow, sunny goodbye enjoying the breakfast at the resort",
+          note: "Enjoy breakfast at the resort",
         },
         { time: "12:00", title: "Check-out", note: "" },
         {
