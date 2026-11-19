@@ -451,9 +451,11 @@ html {
   line-height: 1.02;
 }
 
-/* Dòng mời viết tay của trang bìa: hai dòng, dòng đầu phải lọt trước ngón trỏ (≈ 45% bề ngang tranh). */
+/* Dòng mời viết tay của trang bìa: hai dòng, dòng đầu phải lọt trước ngón trỏ (≈ 45% bề ngang tranh).
+   Hệ số nằm ở biến `--t-art-invite-scale` để trang /vi hạ riêng (xem `:lang(vi)` dưới) —
+   Agbalumo trông to hơn Leckerli One ở cùng cỡ chữ. */
 @utility type-art-invite {
-  font-size: calc(var(--art-w) * 0.036);
+  font-size: calc(var(--art-w) * var(--t-art-invite-scale, 0.036));
   line-height: 1.25;
 }
 
@@ -493,6 +495,9 @@ html {
     --t-font-display: var(--t-font-display-vi);
     --t-font-body: var(--t-font-body-vi);
     --t-font-script: var(--t-font-script-vi);
+    /* Agbalumo to hơn Leckerli One ở cùng cỡ — /vi hạ một bậc tiêu đề và dòng mời bìa. */
+    --t-text-title: clamp(2rem, 9.5vw, 2.5rem);
+    --t-art-invite-scale: 0.032;
   }
   [data-lang] {
     font-family: var(--t-font-body);
