@@ -5,7 +5,7 @@ import type { Translation } from "@/lib/content";
  * Mảng phải giữ đúng thứ tự và số phần tử của bản gốc: trộn theo vị trí.
  *
  * Giữ nguyên tiếng Anh những chữ người Việt vẫn quen dùng trên thiệp cưới:
- * "Save the Date", "R.S.V.P", "Dresscode".
+ * "Save the Date", "R.S.V.P".
  */
 export const vi: Translation = {
   ceremony: {
@@ -28,7 +28,7 @@ export const vi: Translation = {
   },
 
   cover: {
-    invitation: "Chúng tui muốn bạn có\nmặt ở đám cưới!!!",
+    invitation: "Chúng mình muốn mời\nbạn tới đám cưới!!!",
     logoLabel: "Monogram của Will và Tina",
     yes: "cô ấy đã nói “YES”",
   },
@@ -214,7 +214,7 @@ export const vi: Translation = {
         items: [
           {
             title: "Bữa sáng chia tay",
-            note: "Một lời tạm biệt chậm rãi, đầy nắng, cùng bữa sáng tại resort",
+            note: "Thưởng thức bữa sáng tại resort",
           },
           { title: "Trả phòng" },
           { title: "Trà chiều", note: "Dành cho những vị khách ở lại lâu hơn" },
@@ -225,6 +225,7 @@ export const vi: Translation = {
 
   dresscode: {
     eyebrow: "Mặc gì đây",
+    title: "Trang phục",
     subtitle: "Jungle Glam 🌿",
     note: "Tiệc cưới của chúng mình diễn ra giữa rặng dừa và cây xanh ven sông, nên chúng mình muốn mang cả khu rừng lên sàn nhảy. Hãy nghĩ đến phong cách rực rỡ, phóng khoáng, ấm áp nhưng vẫn thanh lịch. Phối các màu với nhau, chọn tông xuyệt tông, hoặc dồn hết vào một màu đều được. Hoạ tiết nhiệt đới, hình lá cây và chất liệu mang màu đất đều rất được chào đón.",
     swatches: [

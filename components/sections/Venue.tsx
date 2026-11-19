@@ -77,6 +77,26 @@ const TITLE_TOP = `calc(${cq(443.9)} + (100% - var(--art-h)) / 2 + ${TITLE_DROP}
 const TABLE_TOP = `calc(100% - var(--art-h) - ${TABLE_LIFT}cqw)`;
 const COLUMN_TOP = `calc(${cq(1083.1)} + ${TABLE_TOP})`;
 
+/**
+ * Chặn riêng bề rộng dòng tên nơi tổ chức (`venue.name`) — dòng dài nhất
+ * trong cột chữ 62% khung. Chai rượu vẽ trong table.webp có mép phải ở
+ * ~21.1% bề ngang khung (đo bằng cách quét alpha/luminance của chính file),
+ * trong khi cột chữ (62%, canh giữa) có mép trái ở 19% — hễ dòng tên đủ dài
+ * để lấp gần hết cột là đè lên chai.
+ *
+ * Ở khổ điện thoại thường (≤430px) dòng tên đã tự xuống hai dòng ("NHAAN
+ * Resort & Spa" / "Hoi An"), không chạm chai. Nhưng khi `.stage-9x16` giãn
+ * gần tới trần 30rem (trình duyệt nhúng trong app coi trang như màn hình
+ * rộng, hoặc xem trên máy tính), cả bản Anh lẫn Việt vừa đủ gọn một dòng và
+ * đè lên chai — đúng lỗi khách báo.
+ *
+ * 14.5rem là số đo thật (không phải % khung): rộng hơn nửa đầu "NHAAN Resort
+ * & Spa" ở cả hai bản (~13.3rem Anh, ~12.5rem Việt) nên không đổi chỗ xuống
+ * dòng sẵn có, nhưng hẹp hơn cả câu đầy đủ ở cả hai bản (~16.8–17.8rem) nên
+ * luôn ép xuống đúng hai dòng đó — kể cả lúc khung giãn rộng tới trần.
+ */
+const VENUE_NAME_MAX_WIDTH = "14.5rem";
+
 export function Venue({ lang }: { lang: Lang }) {
   const { venue, venueScene } = content(lang);
   return (
@@ -133,7 +153,12 @@ export function Venue({ lang }: { lang: Lang }) {
             {venue.hall}
           </p>
 
-          <p data-reveal data-reveal-delay="90" className="type-subtitle-venue text-tone-fg">
+          <p
+            data-reveal
+            data-reveal-delay="90"
+            className="type-subtitle text-tone-fg"
+            style={{ maxWidth: VENUE_NAME_MAX_WIDTH }}
+          >
             {venue.name}
           </p>
 

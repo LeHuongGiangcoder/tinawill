@@ -527,22 +527,13 @@ export const weights = {
 
 /**
  * Bậc chữ riêng của cảnh dựng sẵn (`.stage-9x16`). Chữ trong cảnh giờ đi
- * theo đúng hệ chữ ở trên như mọi trang khác — chỉ còn nhãn nút và tên nơi
- * tổ chức ở đây.
+ * theo đúng hệ chữ ở trên như mọi trang khác — chỉ còn nhãn nút ở đây.
  *
  * Nút trong cảnh nhỏ hơn `action` một chút: ở cỡ chung, ly rượu vẽ sẵn của
  * Venue che mất chữ đầu của "Check map" trên điện thoại.
- *
- * `venueName` nhỏ hơn `subtitle` chung một bậc: "NHAAN Resort & Spa Hoi An"
- * là dòng dài nhất trong cột chữ hẹp (62% khung) của cảnh. Ở cỡ `subtitle`
- * thường, bản tiếng Việt (EB Garamond, hẹp hơn IM Fell English) vừa đủ gọn
- * một dòng và đè lên chai rượu vẽ sẵn bên trái cột — bản tiếng Anh thì xuống
- * hai dòng nên không chạm. Hạ cỡ chữ cho cả hai bản để không phải rẽ nhánh
- * theo ngôn ngữ; tên vẫn đọc rõ, chỉ nhỏ hơn một bậc.
  */
 export const stageScale = {
   action: { size: "1.0625rem", line: "1.2" },
-  venueName: { size: "1.25rem", line: "1.3" },
 } as const;
 
 /* ---------------------------------------------------------------- SPACING */

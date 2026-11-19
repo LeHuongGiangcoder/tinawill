@@ -408,15 +408,6 @@ html {
   font-style: normal;
 }
 
-/* Biến thể của type-subtitle cho tên nơi tổ chức trong cảnh Venue — xem
-   `stageScale.venueName` trong content/theme.ts. */
-@utility type-subtitle-venue {
-  font-family: var(--t-font-display);
-  font-size: var(--t-text-stage-venue-name);
-  line-height: var(--t-leading-stage-venue-name);
-  font-style: normal;
-}
-
 @utility type-body {
   font-family: var(--t-font-body);
   font-size: var(--t-text-body);
