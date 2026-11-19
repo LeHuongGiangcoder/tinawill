@@ -133,7 +133,7 @@ export function Venue({ lang }: { lang: Lang }) {
             {venue.hall}
           </p>
 
-          <p data-reveal data-reveal-delay="90" className="type-subtitle text-tone-fg">
+          <p data-reveal data-reveal-delay="90" className="type-subtitle-venue text-tone-fg">
             {venue.name}
           </p>
 
