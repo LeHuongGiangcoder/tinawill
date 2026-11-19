@@ -47,7 +47,7 @@ export const vi: Translation = {
       "Lần đầu tiên chúng mình nói chuyện với nhau là ở một sự kiện. Sự kiện kết thúc, mọi người ra về hết, vậy mà câu chuyện của hai đứa vẫn chưa xong. Thế là chúng mình kéo nhau ra một quán ăn Trung Hoa nhỏ gần đó và ngồi nói chuyện tới tận 3 giờ sáng. Lúc chuẩn bị về, Tina hỏi Will sống ở đâu. Đến lúc đó cả hai mới ngã ngửa: hóa ra chúng mình ở cùng một tòa nhà. Đêm đó, hai đứa đi chung một chuyến Grab về nhà.",
       "Rồi vũ trụ bắt đầu “nhúng tay”. Suốt một tuần sau đó, ngày nào chúng mình cũng tình cờ chạm mặt nhau, lúc ở phòng gym, lúc ở quán cà phê, mỗi ngày một giờ khác nhau mà chẳng hề hẹn trước. Đến ngày thứ bảy thì khó mà gọi đó là trùng hợp được nữa.",
       "Và phần còn lại, như người ta vẫn nói, đã là lịch sử.",
-      "Không phải lúc nào mọi chuyện cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hóa Đức: thẳng thắn, ngăn nắp và (nghe đồn là) hơi khô khan. Còn Tina thì mang màu sắc văn hóa Mỹ: cởi mở, ngẫu hứng, lúc nào cũng sẵn sàng “chơi thêm chút nữa”. Chúng mình đã có không ít lần va chạm văn hóa (và vài cuộc nói chuyện rất, rất dài về chuyện đó). Nhưng mỗi khác biệt cùng nhau vượt qua lại giúp chúng mình hiểu thêm về nhau và gần nhau hơn.",
+      "Không phải lúc nào mọi chuyện cũng dễ dàng. Cách Will nhìn thế giới mang đậm văn hóa Đức: thẳng thắn, ngăn nắp và (nghe đồn là) hơi khô khan. Còn Tina thì mang màu sắc văn hóa Mỹ: cởi mở, ngẫu hứng, lúc nào cũng sẵn sàng “chơi thêm chút nữa”. Chúng mình đã có không ít lần “va chạm văn hóa” (và vài cuộc nói chuyện rất, rất dài về chuyện đó đã diễn ra). Nhưng những lần ấy đều là cơ hội để giúp chúng mình hiểu thêm về nhau và gần nhau hơn.",
     ],
     closing:
       "Hai con người, hai nền văn hóa, hai cách nhìn thế giới, và giờ đây là một cuộc đời chung.",
@@ -55,7 +55,7 @@ export const vi: Translation = {
 
   timeScene: {
     intro:
-      "Hãy đến chung vui cùng chúng mình vào một cuối tuần ngập tràn yêu thương, món ngon và tiếng cười bên dòng sông Hội An, tại một nơi có cái tên mang nghĩa “nhà” và “bình yên”. Với chúng mình, không có cách nào đẹp hơn để bắt đầu hành trình chung ngoài việc được ở bên những người mình thương nhất.",
+      "Hãy đến chung vui cùng chúng mình vào một cuối tuần ngập tràn yêu thương, đồ ăn ngon và tiếng cười bên dòng sông Hội An — một nơi có cái tên mang ý nghĩa là “nhà” và “bình yên”. Với chúng mình, cách đẹp nhất để bắt đầu “hành trình chung” là được ở bên những người chúng mình thương nhất.",
     calendarLabel: "Thêm vào lịch",
     sceneLabel: "Hai chú mèo ngủ trưa trên ghế tắm nắng giữa khu vườn nhiệt đới",
   },
@@ -154,7 +154,7 @@ export const vi: Translation = {
               },
               {
                 label: "Ở lại lâu hơn?",
-                body: "Chúng mình rất mong bạn ở lại dự Farewell Brunch vào Chủ Nhật, và Hội An rất đáng để nán lại thêm vài ngày. Để đặt thêm đêm tại resort, bạn hãy liên hệ wedding planner của chúng mình qua WhatsApp: +84 363 059 436 hoặc email: teamhandsheart.planner@gmail.com — đội ngũ sẽ lo mọi thứ cho bạn.",
+                body: "Hội An rất đáng để nán lại thêm vài ngày. Để đặt thêm đêm tại resort, bạn hãy liên hệ wedding planner của chúng mình qua WhatsApp: +84 363 059 436 hoặc email: teamhandsheart.planner@gmail.com — đội ngũ sẽ lo mọi thứ cho bạn.",
               },
             ],
           },
@@ -209,10 +209,14 @@ export const vi: Translation = {
       },
       {
         date: "28 tháng 3",
-        title: "Brunch chia tay",
+        title: "Ngày chia tay",
         items: [
-          { title: "Bữa brunch chia tay", note: "Một lời tạm biệt chậm rãi, đầy nắng (và để hồi sức)" },
+          {
+            title: "Bữa sáng chia tay",
+            note: "Một lời tạm biệt chậm rãi, đầy nắng, cùng bữa sáng tại resort",
+          },
           { title: "Trả phòng" },
+          { title: "Trà chiều", note: "Dành cho những vị khách ở lại lâu hơn" },
         ],
       },
     ],
@@ -249,10 +253,6 @@ export const vi: Translation = {
       {
         label: "Rất hoan nghênh áo dài!",
         body: "Một tà áo dài màu ô liu, cam hay đỏ rượu sẽ rất tuyệt. Hội An nổi tiếng với các tiệm may — cứ hỏi chúng mình để được giới thiệu nhé.",
-      },
-      {
-        label: "Farewell Brunch",
-        body: "Smart casual, không bắt buộc theo bảng màu.",
       },
       {
         label: "Nên tránh",

@@ -778,7 +778,7 @@ export const travel = {
             },
             {
               label: "Staying longer?",
-              body: "We’d love for you to join the Farewell Brunch on Sunday, and Hoi An is well worth a few extra days. To book additional nights at the resort, please contact our wedding planner on WhatsApp: +84 363 059 436 or email: teamhandsheart.planner@gmail.com and the team will take care of everything for you.",
+              body: "Hoi An is well worth a few extra days. To book additional nights at the resort, please contact our wedding planner on WhatsApp: +84 363 059 436 or email: teamhandsheart.planner@gmail.com and the team will take care of everything for you.",
               actions: [
                 { label: "WhatsApp", href: "https://wa.me/84363059436" },
                 { label: "Email", href: "mailto:teamhandsheart.planner@gmail.com" },
@@ -876,14 +876,19 @@ export const agenda = {
     {
       date: "March 28",
       stamp: "monstera",
-      title: "Farewell Brunch",
+      title: "Farewell Day",
       items: [
         {
           time: "10:00",
-          title: "Farewell brunch",
-          note: "A slow, sunny goodbye (and recovery)",
+          title: "Farewell breakfast",
+          note: "A slow, sunny goodbye enjoying the breakfast at the resort",
         },
         { time: "12:00", title: "Check-out", note: "" },
+        {
+          time: "16:00",
+          title: "Afternoon tea",
+          note: "For the guests who stay longer",
+        },
       ],
     },
   ] satisfies {
@@ -936,10 +941,6 @@ export const dresscode = {
     {
       label: "Áo dài welcome!",
       body: "An áo dài in olive, orange or wine red would be stunning. Hoi An is famous for its tailors — ask us for recommendations.",
-    },
-    {
-      label: "Farewell Brunch",
-      body: "Smart casual, palette optional.",
     },
     {
       label: "What to avoid",
